@@ -1,4 +1,103 @@
+/**
+ * Object Connect to DOM
+ * _______/\\\\\_____________/\\\\\\\\\__/\\\\\\\\\\\\____        
+ *  _____/\\\///\\\________/\\\////////__\/\\\////////\\\__       
+ *   ___/\\\/__\///\\\____/\\\/___________\/\\\______\//\\\_      
+ *    __/\\\______\//\\\__/\\\_____________\/\\\_______\/\\\_     
+ *     _\/\\\_______\/\\\_\/\\\_____________\/\\\_______\/\\\_    
+ *      _\//\\\______/\\\__\//\\\____________\/\\\_______\/\\\_   
+ *       __\///\\\__/\\\_____\///\\\__________\/\\\_______/\\\__  
+ *        ____\///\\\\\/________\////\\\\\\\\\_\/\\\\\\\\\\\\/___ 
+ *         ______\/////_____________\/////////__\////////////_____
+ */
 (function () {
+	//#region HTML Element Prototypes
+	Object.defineProperty(Element.prototype, 'ocd', {
+		get: function () {
+			var self = this;
+
+			var result = {
+				get $parentOcd () {
+					var el = self.parentNode;
+
+					while (el.$ocdItem === null || el.$ocdItem === undefined) {
+						el = el.parentNode;
+					}
+
+					return el.$ocdItem;
+				},
+				addClass: function (value) {
+					self.classList.add(value);
+				},
+				removeClass: function (value) {
+					self.classList.remove(value);
+				},
+				containsClass: function (value) {
+					return self.classList.contains(value);
+				},
+				attr: function () {
+					if (arguments.length === 1) {
+						return self.getAttribute(arguments[0]);
+					} else if (arguments.length === 2) {
+						self.setAttribute(arguments[0], arguments[1]);
+					}
+				},
+				html: function () {
+					if (arguments.length === 0) {
+						return self.innerHTML;
+					} else if (arguments.length === 1) {
+						self.innerHTML = arguments[0];
+					}
+				},
+				text: function () {
+					if (arguments.length === 0) {
+						return self.innerText;
+					} else if (arguments.length === 1) {
+						self.innerText = arguments[0];
+					}
+				},
+				on: function (name, fnc) {
+					self.addEventListener(name, fnc);
+				},
+				removeEvent: function (name, fnc) {
+					self.removeEventListener(name, fnc);
+				},
+				find: function (query) {
+					return self.querySelectorAll(':scope ' + query);
+				},
+				findFirst: function (query) {
+					return self.querySelector(':scope ' + query);
+				},
+				append: function (el) {
+					self.appendChild(el);
+				},
+				appendBegin: function (el) {
+					el.insertAdjacentElement('afterbegin', self);
+				},
+				append: function (el) {
+					self.appendChild(el);
+				},
+				insertBefore: function (el) {
+					el.insertAdjacentElement('beforebegin', self);
+				},
+				insertAfter: function (el) {
+					el.insertAdjacentElement('afterend', self);
+				}
+			};
+
+			return result;
+		}
+	});
+
+	window['$ocdq'] = document.body.ocd;
+	//#endregion
+
+	//#region Check Variable by ?
+	/**
+	 * Is variable's type function?
+	 * @param {any} value 
+	 * @param {string} errorVariableName 
+	 */
 	function checkVariableIsFunction (value, errorVariableName) {
 		if (checkVariableIsNullOrUndefined(value) === true) {
 			return false;
@@ -12,7 +111,12 @@
 		}
 		return true;
 	}
-	
+
+	/**
+	 * Is variable's type array/node list?
+	 * @param {any} value 
+	 * @param {string} errorVariableName 
+	 */
 	function checkVariableIsArray (value, errorVariableName) {
 		if (checkVariableIsNullOrUndefined(value) === true) {
 			return false;
@@ -27,6 +131,11 @@
 		return true;
 	}
 
+	/**
+	 * Is variable's type string?
+	 * @param {any} value 
+	 * @param {string} errorVariableName 
+	 */
 	function checkVariableIsString (value, errorVariableName) {
 		if (checkVariableIsNullOrUndefined(value) === true) {
 			return false;
@@ -41,6 +150,11 @@
 		return true;
 	}
 
+	/**
+	 * Is variable's type null/undefined?
+	 * @param {any} value 
+	 * @param {string} errorVariableName 
+	 */
 	function checkVariableIsNullOrUndefined (value, errorVariableName) {
 		if (value === null || value === undefined) {
 			if (errorVariableName !== null && errorVariableName !== undefined) {
@@ -51,6 +165,11 @@
 		return false;
 	}
 
+	/**
+	 * Is variable's type html element?
+	 * @param {any} value 
+	 * @param {string} errorVariableName 
+	 */
 	function checkVariableIsHTML (value, errorVariableName) {
 		if (checkVariableIsNullOrUndefined(value) === true) {
 			return false;
@@ -65,7 +184,17 @@
 		}
 		return true;
 	}
+	//#endregion
 
+	/**
+	 * Create a ocd item. It maybe an array or object.
+	 * This function also is recursive function with 'commitSchema'
+	 * @param {HTMLElement} queryResultItemEl 
+	 * @param {any} sub 
+	 * @param {function} get 
+	 * @param {function} set 
+	 * @param {any} data 
+	 */
 	function createOcdItem (queryResultItemEl, sub, get, set, data) {
 		var ocdItem = null;
 		if (checkVariableIsNullOrUndefined(sub) === false) {
@@ -201,7 +330,7 @@
 			});
 		}
 
-		Object.defineProperty(queryResultItemEl, '$ocd', {
+		Object.defineProperty(queryResultItemEl, '$ocdItem', {
 			get: function () {
 				return ocdItem;
 			}
@@ -220,6 +349,10 @@
 		return ocdItem;
 	}
 
+	/**
+	 * Object/Array to Json Object.
+	 * @param {any} v 
+	 */
 	function toJObject (v) {
 		if (checkVariableIsNullOrUndefined(v) === true) {
 			return v;
@@ -264,6 +397,12 @@
 		}
 	};
 
+	/**
+	 * Create a ocd item by schema.
+	 * @param {HTMLElement} parentEl 
+	 * @param {any} schema 
+	 * @param {any} parentObj 
+	 */
 	function commitSchema (parentEl, schema, parentObj) {
 		/*
 		{
@@ -398,7 +537,7 @@
 
 			var ocdItem = createOcdItem(queryResultItemEl, sub, get, set, data);
 			Array.prototype.push.call(resultOcd, ocdItem);
-			
+
 			ocdItem.remove = function () {
 				removeOcdItemMethod(ocdItem);
 			};
