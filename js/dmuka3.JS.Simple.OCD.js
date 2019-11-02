@@ -17,7 +17,7 @@
 			var self = this;
 
 			var result = {
-				get $parentOcd () {
+				get $parentOcdItem () {
 					var el = self.parentNode;
 
 					while (el.$ocdItem === null || el.$ocdItem === undefined) {

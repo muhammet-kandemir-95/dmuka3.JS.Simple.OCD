@@ -2,6 +2,8 @@
 
 <head>
 	<title>dmuka3.JS.Simple.OCD</title>
+
+	<link rel="stylesheet" href="css/main.css">
 </head>
 
 <body>
@@ -22,13 +24,13 @@
 				</div>
 				<div>
 					<span>Addresses</span>
-					<button onclick="addAddress(this.ocd.$parentOcd)">Add Address</button>
+					<button onclick="addAddress(this.ocd.$parentOcdItem)">Add an Address</button>
 				</div>
 				<div class="addresses">
 					<input ocd-clone name="Description" placeholder="Student Address" type="text">
 				</div>
 				<div class="remove-student">
-					<button onclick="removeStudent(this.ocd.$parentOcd);">Remove</button>
+					<button onclick="removeStudent(this.ocd.$parentOcdItem);">Remove Student</button>
 				</div>
 			</div>
 		</div>
