@@ -18,13 +18,17 @@
 
 			var result = {
 				get $parentOcdItem () {
-					var el = self.parentNode;
+					if (self.$ocdItem !== null && self.$ocdItem !== undefined) {
+						return self.$ocdItem.$parent;
+					} else {
+						var el = self.parentNode;
 
-					while (el.$ocdItem === null || el.$ocdItem === undefined) {
-						el = el.parentNode;
+						while (el.$ocdItem === null || el.$ocdItem === undefined) {
+							el = el.parentNode;
+						}
+
+						return el.$ocdItem;
 					}
-
-					return el.$ocdItem;
 				},
 				addClass: function (value) {
 					self.classList.add(value);
@@ -55,6 +59,9 @@
 					} else if (arguments.length === 1) {
 						self.innerText = arguments[0];
 					}
+				},
+				is: function (query) {
+					return self.matches(query);
 				},
 				on: function (name, fnc) {
 					self.addEventListener(name, fnc);
@@ -194,8 +201,10 @@
 	 * @param {function} get 
 	 * @param {function} set 
 	 * @param {any} data 
+	 * @param {boolean} jobject 
+	 * @param {any} parentOcdItem 
 	 */
-	function createOcdItem (queryResultItemEl, sub, get, set, data) {
+	function createOcdItem (queryResultItemEl, sub, get, set, data, jobject, parentOcdItem) {
 		var ocdItem = null;
 		if (checkVariableIsNullOrUndefined(sub) === false) {
 			ocdItem = {};
@@ -293,7 +302,7 @@
 
 			ocdItem = {
 				get __ocd () {
-					return true;
+					return jobject !== false;
 				},
 				get value () {
 					return ocdGet(queryResultItemEl);
@@ -305,36 +314,27 @@
 					return queryResultItemEl;
 				}
 			};
-
-			var dataProps = [];
-			for (var key in data) {
-				if (data[key].jobject === true) {
-					dataProps.push(key);
-				}
-
-				Object.defineProperty(ocdItem, key, {
-					get: function () {
-						return data[key].get(queryResultItemEl);
-					},
-					set: function (value) {
-						data[key].set(queryResultItemEl, value);
-					}
-				});
-				data[key].set(queryResultItemEl, data[key].get(queryResultItemEl));
-			}
-
-			Object.defineProperty(ocdItem, '__ocdData', {
-				get: function () {
-					return dataProps;
-				}
-			});
 		}
+
+		Object.defineProperty(ocdItem, '__ocdData', {
+			get: function () {
+				return dataProps;
+			}
+		});
 
 		Object.defineProperty(queryResultItemEl, '$ocdItem', {
 			get: function () {
 				return ocdItem;
 			}
 		});
+
+		if (checkVariableIsNullOrUndefined(parentOcdItem) === false) {
+			Object.defineProperty(ocdItem, '$parent', {
+				get: function () {
+					return parentOcdItem;
+				}
+			});
+		}
 
 		Object.defineProperty(ocdItem, 'jobject', {
 			get: function () {
@@ -345,6 +345,27 @@
 		ocdItem.__proto__.toString = function () {
 			return ocdItem.value;
 		};
+
+		var dataProps = [];
+		for (var key in data) {
+			if (data[key].jobject === true) {
+				dataProps.push(key);
+			}
+
+			Object.defineProperty(ocdItem, key, {
+				get: function () {
+					return data[key].get(queryResultItemEl);
+				},
+				set: function (value) {
+					data[key].set(queryResultItemEl, value);
+				}
+			});
+			if (checkVariableIsNullOrUndefined(data[key].get) === false) {
+				setTimeout(() => {
+					data[key].set(queryResultItemEl, data[key].get(queryResultItemEl));
+				});
+			}
+		}
 
 		return ocdItem;
 	}
@@ -389,11 +410,46 @@
 				if (checkVariableIsFunction(v[key]) === true) {
 					continue;
 				}
+				if (v[key].__ocd === false) {
+					continue;
+				}
 
 				o[key] = toJObject(v[key]);
 			}
+			if (checkVariableIsNullOrUndefined(v.__ocdData) === false) {
+				for (let i = 0; i < v.__ocdData.length; i++) {
+					o[v.__ocdData[i]] = toJObject(v[v.__ocdData[i]]);
+				}
+			}
 
 			return o;
+		}
+	};
+	
+	function recursiveFill (v, ocdP) {
+		if (
+			checkVariableIsNullOrUndefined(v) === true ||
+			(
+				v.constructor.name !== 'Object' &&
+				v.constructor.name !== 'Array'
+			)
+		) {
+			ocdP.value = v;
+		} else if (checkVariableIsArray(v)) {
+			ocdP.clear();
+			for (let ai = 0; ai < v.length; ai++) {
+				const vItem = v[ai];
+				var ocdPItem = ocdP.add();
+				recursiveFill(vItem, ocdPItem);
+			}
+		} else {
+			for (var key in v) {
+				if (checkVariableIsNullOrUndefined(ocdP.__ocdData) === false && ocdP.__ocdData.indexOf(key) >= 0) {
+					ocdP[key] = v[key];
+				} else {
+					recursiveFill(v[key], ocdP[key]);
+				}
+			}
 		}
 	};
 
@@ -401,9 +457,9 @@
 	 * Create a ocd item by schema.
 	 * @param {HTMLElement} parentEl 
 	 * @param {any} schema 
-	 * @param {any} parentObj 
+	 * @param {any} parentOcdItem 
 	 */
-	function commitSchema (parentEl, schema, parentObj) {
+	function commitSchema (parentEl, schema, parentOcdItem) {
 		/*
 		{
 			query: <string|array|HTMLElement>,
@@ -473,6 +529,7 @@
 
 		var parentQuery = schema.parentQuery;
 
+		var jobject = schema.jobject;
 		var get = schema.get;
 		var set = schema.set;
 		var data = schema.data;
@@ -535,7 +592,7 @@
 		for (let i = 0; i < queryResults.length; i++) {
 			const queryResultItemEl = queryResults[i];
 
-			var ocdItem = createOcdItem(queryResultItemEl, sub, get, set, data);
+			var ocdItem = createOcdItem(queryResultItemEl, sub, get, set, data, jobject, parentOcdItem);
 			Array.prototype.push.call(resultOcd, ocdItem);
 
 			ocdItem.remove = function () {
@@ -546,33 +603,10 @@
 		}
 
 		if (checkVariableIsNullOrUndefined(parentEl) === false) {
-			var recursiveFill = function (v, ocdP) {
-				if (
-					checkVariableIsNullOrUndefined(v) === true ||
-					(
-						v.constructor.name !== 'Object' &&
-						v.constructor.name !== 'Array'
-					)
-				) {
-					ocdP.value = v;
-				} else if (checkVariableIsArray(v)) {
-					ocdP.clear();
-					for (let ai = 0; ai < v.length; ai++) {
-						const vItem = v[ai];
-						var ocdPItem = ocdP.add();
-						recursiveFill(vItem, ocdPItem);
-					}
-				} else {
-					for (var key in v) {
-						recursiveFill(v[key], ocdP[key]);
-					}
-				}
-			};
-
 			var createACloneOcd = function (value) {
 				var cloneEl = clone();
 
-				var ocdItem = createOcdItem(cloneEl, sub, get, set, data);
+				var ocdItem = createOcdItem(cloneEl, sub, get, set, data, jobject, parentOcdItem);
 				if (checkVariableIsNullOrUndefined(value) === false) {
 					recursiveFill(value, ocdItem);
 				}
@@ -704,7 +738,7 @@
 				resultOcd = resultOcd[0];
 			}
 
-			var result = parentObj;
+			var result = parentOcdItem;
 			result[alias] = resultOcd;
 			return result;
 		}

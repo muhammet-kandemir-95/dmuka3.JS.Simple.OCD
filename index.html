@@ -12,7 +12,7 @@
 			<input name="Name" placeholder="Class Name" type="text" value="">
 		</div>
 		<div class="add-student">
-			<button onclick="addStudent();">Add a Student</button>
+			<button onclick="$student.students.add();">Add a Student</button>
 		</div>
 		<div class="students">
 			<div ocd-clone class="student">
@@ -23,14 +23,18 @@
 					<span>Student Surname : </span> <input name="Surname" placeholder="Student Surname" type="text">
 				</div>
 				<div>
+					<button class="student-opacity">Add Opacity</button>
+				</div>
+				<div>
 					<span>Addresses</span>
-					<button onclick="addAddress(this.ocd.$parentOcdItem)">Add an Address</button>
+					<button onclick="this.ocd.$parentOcdItem.addresses.add();">Add an Address</button>
 				</div>
 				<div class="addresses">
-					<input ocd-clone name="Description" placeholder="Student Address" type="text">
+					<input ocd-clone name="Description"
+						placeholder="Student Address (Press backspace to delete while is empty)" type="text">
 				</div>
 				<div class="remove-student">
-					<button onclick="removeStudent(this.ocd.$parentOcdItem);">Remove Student</button>
+					<button onclick="this.ocd.$parentOcdItem.remove();">Remove Student</button>
 				</div>
 			</div>
 		</div>
@@ -58,6 +62,23 @@
 				parentQuery: '>.students',
 				query: '>.student',
 				alias: 'students',
+				data: {
+					enableOpacity: {
+						jobject: true,
+						get: function (el) {
+							return el.ocd.is('.active-opacity');
+						},
+						set: function (el, value) {
+							if (value === true) {
+								el.ocd.addClass('active-opacity');
+								el.$ocdItem.opacityButton.el.ocd.text('Remove Opacity');
+							} else {
+								el.ocd.removeClass('active-opacity');
+								el.$ocdItem.opacityButton.el.ocd.text('Add Opacity');
+							}
+						}
+					}
+				},
 				sub: [{
 					query: '>div>*[name="Name"]',
 					alias: 'name',
@@ -66,6 +87,16 @@
 					query: '>div>*[name="Surname"]',
 					alias: 'surname',
 					obj: true
+				}, {
+					jobject: false,
+					query: '>div>.student-opacity',
+					alias: 'opacityButton',
+					obj: true,
+					oninit: function ($ocdItem) {
+						$ocdItem.el.ocd.on('click', function (e) {
+							$ocdItem.$parent.enableOpacity = $ocdItem.$parent.enableOpacity === false;
+						});
+					}
 				}, {
 					parentQuery: '>.addresses',
 					query: '>input[name="Description"]',
@@ -81,21 +112,14 @@
 			}]
 		});
 
-		function addStudent() {
-			$student.students.add();
-		}
-
-		function removeStudent($ocdItem) {
-			$ocdItem.remove();
-		}
-
-		function addAddress($ocdItem) {
-			$ocdItem.addresses.add();
+		if (localStorage.getItem('students') !== null && localStorage.getItem('students') !== undefined) {
+			$student.set(JSON.parse(localStorage.getItem('students')));
 		}
 
 		setInterval(() => {
 			if (JSON.stringify($student.jobject, null, 4) !== $ocdq.findFirst('pre').ocd.html()) {
 				$ocdq.findFirst('pre').ocd.html(JSON.stringify($student.jobject, null, 4));
+				localStorage.setItem('students', JSON.stringify($student.jobject, null, 4));
 			}
 		}, 1);
 	</script>
