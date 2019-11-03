@@ -12,22 +12,25 @@
  */
 (function () {
 	//#region HTML Element Prototypes
-	Object.defineProperty(Element.prototype, 'ocd', {
+	Object.defineProperty(Element.prototype, '$', {
 		get: function () {
 			var self = this;
+			if (self.__ocdElementData === null || self.__ocdElementData === undefined) {
+				self.__ocdElementData = {};
+			}
 
 			var result = {
-				get $parentOcdItem () {
-					if (self.$ocdItem !== null && self.$ocdItem !== undefined) {
-						return self.$ocdItem.$parent;
+				get $parentOcd () {
+					if (self.$ocd !== null && self.$ocd !== undefined) {
+						return self.$ocd.$parent;
 					} else {
 						var el = self.parentNode;
 
-						while (el.$ocdItem === null || el.$ocdItem === undefined) {
+						while (el.$ocd === null || el.$ocd === undefined) {
 							el = el.parentNode;
 						}
 
-						return el.$ocdItem;
+						return el.$ocd;
 					}
 				},
 				addClass: function (value) {
@@ -44,6 +47,13 @@
 						return self.getAttribute(arguments[0]);
 					} else if (arguments.length === 2) {
 						self.setAttribute(arguments[0], arguments[1]);
+					}
+				},
+				data: function () {
+					if (arguments.length === 1) {
+						return self.__ocdElementData[arguments[0]];
+					} else if (arguments.length === 2) {
+						self.__ocdElementData[arguments[0]] = arguments[1];
 					}
 				},
 				html: function () {
@@ -96,7 +106,7 @@
 		}
 	});
 
-	window['$ocdq'] = document.body.ocd;
+	window['$ocdQuery'] = document.body.$;
 	//#endregion
 
 	//#region Check Variable by ?
@@ -202,16 +212,156 @@
 	 * @param {function} set 
 	 * @param {any} data 
 	 * @param {boolean} jobject 
-	 * @param {any} parentOcdItem 
+	 * @param {any} parentOcd 
+	 * @param {Array} queues 
+	 * @param {any} on 
+	 * @param {any} subOn 
+	 * @param {any} rootOcd 
+	 * @param {any} methods 
 	 */
-	function createOcdItem (queryResultItemEl, sub, get, set, data, jobject, parentOcdItem) {
+	function createOcdItem (queryResultItemEl, sub, get, set, data, jobject, parentOcd, queues, on, subOn, rootOcd, methods) {
 		var ocdItem = null;
+
+		var declareStd = function () {
+			Object.defineProperty(ocdItem, '__ocdData', {
+				get: function () {
+					return dataProps;
+				}
+			});
+
+			Object.defineProperty(queryResultItemEl, '$ocd', {
+				get: function () {
+					return ocdItem;
+				}
+			});
+
+			Object.defineProperty(ocdItem, '$root', {
+				get: function () {
+					return rootOcd;
+				}
+			});
+
+			if (checkVariableIsNullOrUndefined(parentOcd) === false) {
+				Object.defineProperty(ocdItem, '$parent', {
+					get: function () {
+						return parentOcd;
+					}
+				});
+			}
+
+			Object.defineProperty(ocdItem, 'jobject', {
+				get: function () {
+					return toJObject(ocdItem);
+				}
+			});
+
+			ocdItem.__proto__.toString = function () {
+				return ocdItem.value;
+			};
+
+
+			var methodsOcd = {};
+			for(var key in methods) {
+				(function (key) {
+					methodsOcd[key] = function () {
+						var args = [];
+						args.push(ocdItem);
+						for (let ai = 0; ai < arguments.length; ai++) {
+							const arg = arguments[ai];
+							args.push(arg);
+						}
+						methods[key].apply(null, args);
+					};
+				})(key);
+			}
+
+			Object.defineProperty(ocdItem, 'm', {
+				get: function () {
+					return methodsOcd;
+				}
+			});
+
+			var dataProps = [];
+			for (var key in data) {
+				(function (key) {
+					if (data[key].jobject === true) {
+						dataProps.push(key);
+					}
+
+					var dataGet = data[key].get;
+					if (checkVariableIsNullOrUndefined(dataGet) === true) {
+						dataGet = function (el, key) {
+							return el.$.data(key);
+						};
+					} else {
+						dataGet = function (el, key) {
+							return data[key].get(ocdItem, el, key, el.$.data(key));
+						};
+					}
+
+					var dataSet = data[key].set;
+					if (checkVariableIsNullOrUndefined(dataSet) === true) {
+						dataSet = function (el, value, key) {
+							el.$.data(key, value);
+						};
+					} else {
+						dataSet = function (el, value, key) {
+							el.$.data(key, value);
+							data[key].set(ocdItem, el, value, key);
+						};
+					}
+
+					Object.defineProperty(ocdItem, key, {
+						get: function () {
+							return dataGet(queryResultItemEl, key);
+						},
+						set: function (value) {
+							dataSet(queryResultItemEl, value, key);
+						}
+					});
+
+					queues.push(function () {
+						if (checkVariableIsNullOrUndefined(data[key].default) === false) {
+							if (checkVariableIsFunction(data[key].default) === true) {
+								dataSet(queryResultItemEl, data[key].default(ocdItem), key);
+							} else {
+								dataSet(queryResultItemEl, data[key].default, key);
+							}
+						} else if (checkVariableIsNullOrUndefined(dataGet) === false) {
+							dataSet(queryResultItemEl, dataGet(queryResultItemEl, key), key);
+						}
+					});
+				})(key);
+			}
+
+			if (checkVariableIsNullOrUndefined(on) === false) {
+				for (var key in on) {
+					(function (key) {
+						queryResultItemEl.addEventListener(key, function (e) {
+							return on[key](ocdItem, e);
+						});
+					})(key);
+				}
+			}
+		};
+
 		if (checkVariableIsNullOrUndefined(sub) === false) {
 			ocdItem = {};
-			for (let si = 0; si < sub.length; si++) {
-				const subItem = sub[si];
 
-				commitSchema(queryResultItemEl, subItem, ocdItem);
+			if (checkVariableIsNullOrUndefined(rootOcd) === true) {
+				rootOcd = ocdItem;
+
+				var runOnceCheck = false;
+				ocdItem.runOnce = function (fnc) {
+					if (runOnceCheck === false) {
+						runOnceCheck = true;
+
+						setTimeout(() => {
+							fnc();
+							runOnceCheck = false;
+						});
+					}
+				};
 			}
 
 			Object.defineProperty(ocdItem, 'el', {
@@ -219,6 +369,14 @@
 					return queryResultItemEl;
 				}
 			});
+
+			declareStd();
+
+			for (let si = 0; si < sub.length; si++) {
+				const subItem = sub[si];
+
+				commitSchema(queryResultItemEl, subItem, ocdItem, queues, subOn, rootOcd);
+			}
 		} else {
 			var ocdGet = get;
 			if (checkVariableIsNullOrUndefined(ocdGet) === true) {
@@ -233,27 +391,27 @@
 						switch (type) {
 							case 'checkbox':
 							case 'radio':
-								ocdGet = function (el) {
-									return el.checked;
+								ocdGet = function ($ocd) {
+									return $ocd.el.checked;
 								};
 								break;
 							default:
-								ocdGet = function (el) {
-									return el.value;
+								ocdGet = function ($ocd) {
+									return $ocd.el.value;
 								};
 								break;
 						}
 					}
 						break;
 					case 'SELECT': {
-						ocdGet = function (el) {
-							return el.value;
+						ocdGet = function ($ocd) {
+							return $ocd.el.value;
 						};
 					}
 						break;
 					default: {
-						ocdGet = function (el) {
-							return el.innerHTML;
+						ocdGet = function ($ocd) {
+							return $ocd.el.innerHTML;
 						};
 					}
 						break;
@@ -273,27 +431,27 @@
 						switch (type) {
 							case 'checkbox':
 							case 'radio':
-								ocdSet = function (el, value) {
-									el.checked = value == true;
+								ocdSet = function ($ocd, value) {
+									$ocd.el.checked = value == true;
 								};
 								break;
 							default:
-								ocdSet = function (el, value) {
-									el.value = value;
+								ocdSet = function ($ocd, value) {
+									$ocd.el.value = value;
 								};
 								break;
 						}
 					}
 						break;
 					case 'SELECT': {
-						ocdSet = function (el, value) {
-							el.value = value;
+						ocdSet = function ($ocd, value) {
+							$ocd.el.value = value;
 						};
 					}
 						break;
 					default: {
-						ocdSet = function (el, value) {
-							el.innerHTML = value;
+						ocdSet = function ($ocd, value) {
+							$ocd.el.innerHTML = value;
 						};
 					}
 						break;
@@ -305,67 +463,19 @@
 					return jobject !== false;
 				},
 				get value () {
-					return ocdGet(queryResultItemEl);
+					return ocdGet(ocdItem);
 				},
 				set value (value) {
-					ocdSet(queryResultItemEl, value);
+					ocdSet(ocdItem, value);
 				},
 				get el () {
 					return queryResultItemEl;
 				}
 			};
+
+			declareStd();
 		}
 
-		Object.defineProperty(ocdItem, '__ocdData', {
-			get: function () {
-				return dataProps;
-			}
-		});
-
-		Object.defineProperty(queryResultItemEl, '$ocdItem', {
-			get: function () {
-				return ocdItem;
-			}
-		});
-
-		if (checkVariableIsNullOrUndefined(parentOcdItem) === false) {
-			Object.defineProperty(ocdItem, '$parent', {
-				get: function () {
-					return parentOcdItem;
-				}
-			});
-		}
-
-		Object.defineProperty(ocdItem, 'jobject', {
-			get: function () {
-				return toJObject(ocdItem);
-			}
-		});
-
-		ocdItem.__proto__.toString = function () {
-			return ocdItem.value;
-		};
-
-		var dataProps = [];
-		for (var key in data) {
-			if (data[key].jobject === true) {
-				dataProps.push(key);
-			}
-
-			Object.defineProperty(ocdItem, key, {
-				get: function () {
-					return data[key].get(queryResultItemEl);
-				},
-				set: function (value) {
-					data[key].set(queryResultItemEl, value);
-				}
-			});
-			if (checkVariableIsNullOrUndefined(data[key].get) === false) {
-				setTimeout(() => {
-					data[key].set(queryResultItemEl, data[key].get(queryResultItemEl));
-				});
-			}
-		}
 
 		return ocdItem;
 	}
@@ -425,7 +535,12 @@
 			return o;
 		}
 	};
-	
+
+	/**
+	 * Fill the ocd item by a object value.
+	 * @param {any} v 
+	 * @param {any} ocdP 
+	 */
 	function recursiveFill (v, ocdP) {
 		if (
 			checkVariableIsNullOrUndefined(v) === true ||
@@ -457,62 +572,112 @@
 	 * Create a ocd item by schema.
 	 * @param {HTMLElement} parentEl 
 	 * @param {any} schema 
-	 * @param {any} parentOcdItem 
+	 * @param {any} parentOcd 
+	 * @param {Array} queues 
+	 * @param {any} subOn 
+	 * @param {any} rootOcd 
 	 */
-	function commitSchema (parentEl, schema, parentOcdItem) {
+	function commitSchema (parentEl, schema, parentOcd, queues, subOn, rootOcd) {
 		/*
 		{
+			parentQuery?: <string|array|HTMLElement>,
 			query: <string|array|HTMLElement>,
-			get?: <function(el):any>,
-			set?: <function(el, value)>,
+			get?: <function($ocd):any>,
+			set?: <function($ocd, value)>,
 			data?: {
 				prop1: {
 					jobject: <bool>,
-					get: <function(el):any>,
-					set: <function(el, value)>
+					default: <bool|function($ocd):any>,
+					get: <function($ocd, key, currentValue):any>,
+					set: <function($ocd, value, key)>
 				},
 				prop2: ...,
 				...
 			},
-			oninit?: <function(ocdItem)>,
-			onremove?: <function(ocdItem)>,
-			sub: [{
+			methods?: {
+				method1: <function($ocd, ...):any>,
+				method2: ...,
+				...
+			},
+			on?: {
+				init?: <function($ocd)>,
+				remove?: <function($ocd)>,
+				eventName1: <function($ocd, e):any>,
+				eventName2: ...,
+				...
+			},
+			subOn?: {
+				init?: <function($ocd)>,
+				remove?: <function($ocd)>,
+				eventName1: <function($ocd, e):any>,
+				eventName2: ...,
+				...
+			},
+			sub?: [{
 				parentQuery?: <string|array|HTMLElement>,
 				query: <string|array|HTMLElement>,
+				single: <bool>,
 				alias: <string>,
-				get?: <function(el):any>,
-				set?: <function(el, value)>,
+				get?: <function($ocd):any>,
+				set?: <function($ocd, value)>,
 				data?: {
 					prop1: {
 						jobject: <bool>,
-						get: <function(el):any>,
-						set: <function(el, value)>
+						default: <bool|function($ocd):any>,
+						get: <function($ocd, key, currentValue):any>,
+						set: <function($ocd, value, key)>
 					},
 					prop2: ...,
 					...
 				},
 				clone: <function(value):el>,
-				oninit?: <function(ocdItem)>,
-				onremove?: <function(ocdItem)>,
-				sub: [{
+				on?: {
+					init?: <function($ocd)>,
+					remove?: <function($ocd)>,
+					eventName1: <function($ocd, e):any>,
+					eventName2: ...,
+					...
+				},
+				subOn?: {
+					init?: <function($ocd)>,
+					remove?: <function($ocd)>,
+					eventName1: <function($ocd, e):any>,
+					eventName2: ...,
+					...
+				},
+				sub?: [{
 					parentQuery?: <string|array|HTMLElement>,
 					query: <string|array|HTMLElement>,
+					single: <bool>,
 					alias: <string>,
-					get?: <function(el):any>,
-					set?: <function(el, value)>,
+					get?: <function($ocd):any>,
+					set?: <function($ocd, value)>,
 					data?: {
 						prop1: {
 							jobject: <bool>,
-							get: <function(el):any>,
-							set: <function(el, value)>
+							default: <bool|function($ocd):any>,
+							get: <function($ocd, key, currentValue):any>,
+							set: <function($ocd, value, key)>
 						},
 						prop2: ...,
 						...
 					},
 					clone: <function():el>,
-					oninit?: <function(ocdItem)>,
-					onremove?: <function(ocdItem)>,
-					sub: ...
+					on?: {
+						init?: <function($ocd)>,
+						remove?: <function($ocd)>,
+						eventName1: <function($ocd, e):any>,
+						eventName2: ...,
+						...
+					},
+					subOn?: {
+						init?: <function($ocd)>,
+						remove?: <function($ocd)>,
+						eventName1: <function($ocd, e):any>,
+						eventName2: ...,
+						...
+					},
+					sub?: ...
 				}, ...]
 			}, ...]
 		}
@@ -522,7 +687,33 @@
 			checkVariableIsNullOrUndefined(alias, 'Alias');
 		}
 
-		var obj = schema.obj;
+		var single = schema.single;
+		if (checkVariableIsNullOrUndefined(parentEl) === true) {
+			single = true;
+		}
+
+		var on = {};
+		var subOnCurrent = {};
+		if (checkVariableIsNullOrUndefined(subOn) === false) {
+			for (var key in subOn) {
+				subOnCurrent[key] = subOn[key];
+				on[key] = subOn[key];
+			}
+		}
+
+		if (checkVariableIsNullOrUndefined(schema.subOn) === false) {
+			for (var key in schema.subOn) {
+				subOnCurrent[key] = schema.subOn[key];
+				on[key] = schema.subOn[key];
+			}
+		}
+
+		if (checkVariableIsNullOrUndefined(schema.on) === false) {
+			for (var key in schema.on) {
+				on[key] = schema.on[key];
+			}
+		}
+
 		var sub = schema.sub;
 		var query = schema.query;
 		checkVariableIsNullOrUndefined(query, 'Query');
@@ -536,11 +727,15 @@
 		if (checkVariableIsNullOrUndefined(data) === true) {
 			data = {};
 		}
-		var oninit = schema.oninit;
+		var methods = schema.methods;
+		if (checkVariableIsNullOrUndefined(methods) === true) {
+			methods = {};
+		}
+		var oninit = on.init;
 		if (checkVariableIsNullOrUndefined(oninit) === true) {
 			oninit = function (ocdItem) { };
 		}
-		var onremove = schema.onremove;
+		var onremove = on.remove;
 		if (checkVariableIsNullOrUndefined(onremove) === true) {
 			onremove = function (ocdItem) { };
 		}
@@ -555,7 +750,7 @@
 		}
 
 		var clone = schema.clone;
-		if (checkVariableIsNullOrUndefined(parentEl) === false && checkVariableIsNullOrUndefined(clone) === true && obj !== true) {
+		if (checkVariableIsNullOrUndefined(parentEl) === false && checkVariableIsNullOrUndefined(clone) === true && single !== true) {
 			var cloneEl = queryParentEl.querySelector(':scope>*[ocd-clone]');
 			var cloneElClone = cloneEl.cloneNode(true);
 			cloneElClone.removeAttribute('ocd-clone');
@@ -567,7 +762,11 @@
 
 		var queryResults = null;
 		if (checkVariableIsString(query) === true) {
-			queryResults = (queryParentEl || document).querySelectorAll(':scope ' + query);
+			if (single === true) {
+				queryResults = [(queryParentEl || document).querySelector(':scope ' + query)];
+			} else {
+				queryResults = (queryParentEl || document).querySelectorAll(':scope ' + query);
+			}
 		} else if (checkVariableIsArray(query) === true) {
 			for (let i = 0; i < query.length; i++) {
 				const element = query[i];
@@ -577,6 +776,10 @@
 			queryResults = [query];
 		} else {
 			throw 'Query must be String, Array, NodeList or HTMLElement';
+		}
+
+		if (single === true && queryResults.length > 1) {
+			queryResults.length = 1;
 		}
 
 		var resultOcd = [];
@@ -592,21 +795,25 @@
 		for (let i = 0; i < queryResults.length; i++) {
 			const queryResultItemEl = queryResults[i];
 
-			var ocdItem = createOcdItem(queryResultItemEl, sub, get, set, data, jobject, parentOcdItem);
+			var ocdItem = createOcdItem(queryResultItemEl, sub, get, set, data, jobject, parentOcd, queues, on, subOnCurrent, rootOcd, methods);
 			Array.prototype.push.call(resultOcd, ocdItem);
 
-			ocdItem.remove = function () {
-				removeOcdItemMethod(ocdItem);
-			};
-
-			oninit(ocdItem);
+			(function (ocdItem) {
+				ocdItem.remove = function () {
+					removeOcdItemMethod(ocdItem);
+				};
+	
+				queues.push(function () {
+					oninit(ocdItem);
+				});
+			})(ocdItem);
 		}
 
 		if (checkVariableIsNullOrUndefined(parentEl) === false) {
 			var createACloneOcd = function (value) {
 				var cloneEl = clone();
 
-				var ocdItem = createOcdItem(cloneEl, sub, get, set, data, jobject, parentOcdItem);
+				var ocdItem = createOcdItem(cloneEl, sub, get, set, data, jobject, parentOcd, queues, on, subOnCurrent, rootOcd, methods);
 				if (checkVariableIsNullOrUndefined(value) === false) {
 					recursiveFill(value, ocdItem);
 				}
@@ -636,6 +843,8 @@
 				ocdNewItem.ocd.remove = function () {
 					removeOcdItemMethod(ocdNewItem.ocd);
 				};
+
+				consumeQueues(queues);
 
 				oninit(ocdNewItem.ocd);
 
@@ -678,6 +887,8 @@
 				ocdNewItem.ocd.remove = function () {
 					removeOcdItemMethod(ocdNewItem.ocd);
 				};
+
+				consumeQueues(queues);
 
 				oninit(ocdNewItem.ocd);
 			};
@@ -722,26 +933,44 @@
 		for (let i = 0; i < resultOcd.length; i++) {
 			const resultOcdItem = resultOcd[i];
 
-			resultOcdItem.set = function (value) {
-				recursiveFill(value, resultOcdItem);
-			};
+			(function (resultOcdItem) {
+				resultOcdItem.set = function (value) {
+					recursiveFill(value, resultOcdItem);
+				};
+			})(resultOcdItem);
 		}
 
 		if (checkVariableIsNullOrUndefined(parentEl) === true) {
-			if (obj === true) {
+			if (single === true) {
 				resultOcd = resultOcd[0];
+
+				delete resultOcd.remove;
 			}
 
 			return resultOcd;
 		} else {
-			if (obj === true) {
+			if (single === true) {
 				resultOcd = resultOcd[0];
+
+				delete resultOcd.remove;
 			}
 
-			var result = parentOcdItem;
+			var result = parentOcd;
 			result[alias] = resultOcd;
 			return result;
 		}
+	}
+
+	/**
+	 * Consume queues from array.
+	 * @param {*} queues 
+	 */
+	function consumeQueues (queues) {
+		for (let i = 0; i < queues.length; i++) {
+			queues[i]();
+		}
+
+		queues.length = 0;
 	}
 
 	if (window['$d'] === null || window['$d'] === undefined) {
@@ -749,6 +978,11 @@
 	}
 
 	window['$d']['ocd'] = function (schema) {
-		return commitSchema(undefined, schema);
+		var queues = [];
+
+		var $ocd = commitSchema(undefined, schema, undefined, queues);
+		consumeQueues(queues);
+
+		return $ocd;
 	};
 })();

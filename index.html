@@ -10,6 +10,7 @@
 	<div id="students-parent">
 		<div class="class-name">
 			<input name="Name" placeholder="Class Name" type="text" value="">
+			<button onclick="localStorage.clear();location.reload();">Clear Local Storage</button>
 		</div>
 		<div class="add-student">
 			<button onclick="$student.students.add();">Add a Student</button>
@@ -27,14 +28,100 @@
 				</div>
 				<div>
 					<span>Addresses</span>
-					<button onclick="this.ocd.$parentOcdItem.addresses.add();">Add an Address</button>
+					<button onclick="this.$.$parentOcd.addresses.add();">Add an Address</button>
 				</div>
 				<div class="addresses">
 					<input ocd-clone name="Description"
 						placeholder="Student Address (Press backspace to delete while is empty)" type="text">
 				</div>
 				<div class="remove-student">
-					<button onclick="this.ocd.$parentOcdItem.remove();">Remove Student</button>
+					<button onclick="this.$.$parentOcd.remove();">Remove Student</button>
+				</div>
+			</div>
+			<div class="student">
+				<div>
+					<span>Student Name : </span> <input name="Name" placeholder="Student Name" type="text" value="MUHAMMET">
+				</div>
+				<div>
+					<span>Student Surname : </span> <input name="Surname" placeholder="Student Surname" type="text" value="KANDEMIR">
+				</div>
+				<div>
+					<button class="student-opacity">Add Opacity</button>
+				</div>
+				<div>
+					<span>Addresses</span>
+					<button onclick="this.$.$parentOcd.addresses.add();">Add an Address</button>
+				</div>
+				<div class="addresses">
+					<input ocd-clone name="Description"
+						placeholder="Student Address (Press backspace to delete while is empty)" type="text">
+					<input name="Description"
+						placeholder="Student Address (Press backspace to delete while is empty)" type="text" value="MUHAMMET Address 1">
+					<input name="Description"
+						placeholder="Student Address (Press backspace to delete while is empty)" type="text" value="MUHAMMET Address 2">
+					<input name="Description"
+						placeholder="Student Address (Press backspace to delete while is empty)" type="text" value="MUHAMMET Address 3">
+				</div>
+				<div class="remove-student">
+					<button onclick="this.$.$parentOcd.remove();">Remove Student</button>
+				</div>
+			</div>
+			<div class="student active-opacity">
+				<div>
+					<span>Student Name : </span> <input name="Name" placeholder="Student Name" type="text" value="MEDINE">
+				</div>
+				<div>
+					<span>Student Surname : </span> <input name="Surname" placeholder="Student Surname" type="text" value="KANDEMIR">
+				</div>
+				<div>
+					<button class="student-opacity">Add Opacity</button>
+				</div>
+				<div>
+					<span>Addresses</span>
+					<button onclick="this.$.$parentOcd.addresses.add();">Add an Address</button>
+				</div>
+				<div class="addresses">
+					<input ocd-clone name="Description"
+						placeholder="Student Address (Press backspace to delete while is empty)" type="text">
+					<input name="Description"
+						placeholder="Student Address (Press backspace to delete while is empty)" type="text" value="MEDINE Address 1">
+					<input name="Description"
+						placeholder="Student Address (Press backspace to delete while is empty)" type="text" value="MEDINE Address 2">
+				</div>
+				<div class="remove-student">
+					<button onclick="this.$.$parentOcd.remove();">Remove Student</button>
+				</div>
+			</div>
+			<div class="student">
+				<div>
+					<span>Student Name : </span> <input name="Name" placeholder="Student Name" type="text" value="NESIBE">
+				</div>
+				<div>
+					<span>Student Surname : </span> <input name="Surname" placeholder="Student Surname" type="text" value="KANDEMIR">
+				</div>
+				<div>
+					<button class="student-opacity">Add Opacity</button>
+				</div>
+				<div>
+					<span>Addresses</span>
+					<button onclick="this.$.$parentOcd.addresses.add();">Add an Address</button>
+				</div>
+				<div class="addresses">
+					<input ocd-clone name="Description"
+						placeholder="Student Address (Press backspace to delete while is empty)" type="text">
+					<input name="Description"
+						placeholder="Student Address (Press backspace to delete while is empty)" type="text" value="NESIBE Address 1">
+					<input name="Description"
+						placeholder="Student Address (Press backspace to delete while is empty)" type="text" value="NESIBE Address 2">
+					<input name="Description"
+						placeholder="Student Address (Press backspace to delete while is empty)" type="text" value="NESIBE Address 3">
+					<input name="Description"
+						placeholder="Student Address (Press backspace to delete while is empty)" type="text" value="NESIBE Address 4">
+					<input name="Description"
+						placeholder="Student Address (Press backspace to delete while is empty)" type="text" value="NESIBE Address 5">
+				</div>
+				<div class="remove-student">
+					<button onclick="this.$.$parentOcd.remove();">Remove Student</button>
 				</div>
 			</div>
 		</div>
@@ -46,17 +133,53 @@
 
 	<script src="js/dmuka3.JS.Simple.OCD.js"></script>
 	<script>
+		var lastJObject = null;
+		if (localStorage.getItem('students') !== null && localStorage.getItem('students') !== undefined) {
+			lastJObject = JSON.parse(localStorage.getItem('students'));
+		}
+
 		var $student = $d.ocd({
 			query: '#students-parent',
-			obj: true,
+			methods: {
+				refreshJson: function ($ocd, eventName) {
+					$ocd.$root.runOnce(function () {
+						console.log('EVENT = ' + eventName);
+
+						var json = JSON.stringify($ocd.$root.jobject, null, 4);
+						if (json !== $ocdQuery.findFirst('pre').$.html()) {
+							$ocdQuery.findFirst('pre').$.html(json);
+							localStorage.setItem('students', json);
+						}
+					});
+				}
+			},
+			subOn: {
+				init: function ($ocd) {
+					$ocd.$root.m.refreshJson('INIT Parent');
+				},
+				remove: function ($ocd) {
+					$ocd.$root.m.refreshJson('REMOVE Parent');
+				},
+				input: function ($ocd, e) {
+					$ocd.$root.m.refreshJson('INPUT Parent');
+				},
+				click: function ($ocd, e) {
+					$ocd.$root.m.refreshJson('CLICK Parent');
+				}
+			},
 			sub: [{
+				single: true,
 				query: '>.class-name',
 				alias: 'class',
-				obj: true,
 				sub: [{
+					single: true,
 					query: '>input[name="Name"]',
 					alias: 'name',
-					obj: true
+					on: {
+						input: function ($ocd, e) {
+							refreshJson();
+						}
+					}
 				}]
 			}, {
 				parentQuery: '>.students',
@@ -65,63 +188,58 @@
 				data: {
 					enableOpacity: {
 						jobject: true,
-						get: function (el) {
-							return el.ocd.is('.active-opacity');
+						get: function ($ocd, el, key, currentValue) {
+							return el.$.is('.active-opacity');
 						},
-						set: function (el, value) {
+						set: function ($ocd, el, value, key) {
 							if (value === true) {
-								el.ocd.addClass('active-opacity');
-								el.$ocdItem.opacityButton.el.ocd.text('Remove Opacity');
+								el.$.addClass('active-opacity');
+								$ocd.opacityButton.el.$.text('Remove Opacity');
 							} else {
-								el.ocd.removeClass('active-opacity');
-								el.$ocdItem.opacityButton.el.ocd.text('Add Opacity');
+								el.$.removeClass('active-opacity');
+								$ocd.opacityButton.el.$.text('Add Opacity');
 							}
+
+							$ocd.$root.m.refreshJson('SET enableOpacity');
 						}
 					}
 				},
 				sub: [{
+					single: true,
 					query: '>div>*[name="Name"]',
-					alias: 'name',
-					obj: true
+					alias: 'name'
 				}, {
+					single: true,
 					query: '>div>*[name="Surname"]',
-					alias: 'surname',
-					obj: true
+					alias: 'surname'
 				}, {
 					jobject: false,
+					single: true,
 					query: '>div>.student-opacity',
 					alias: 'opacityButton',
-					obj: true,
-					oninit: function ($ocdItem) {
-						$ocdItem.el.ocd.on('click', function (e) {
-							$ocdItem.$parent.enableOpacity = $ocdItem.$parent.enableOpacity === false;
-						});
+					on: {
+						click: function ($ocd, e) {
+							$ocd.$parent.enableOpacity = $ocd.$parent.enableOpacity === false;
+						}
 					}
 				}, {
 					parentQuery: '>.addresses',
 					query: '>input[name="Description"]',
 					alias: 'addresses',
-					oninit: function ($ocdItem) {
-						$ocdItem.el.ocd.on('keydown', function (e) {
-							if (e.keyCode === 8 && this.value === '') {
-								$ocdItem.remove();
+					on: {
+						keydown: function ($ocd, e) {
+							if (e.keyCode === 8 && $ocd.value === '') {
+								$ocd.remove();
 							}
-						});
+						}
 					}
 				}]
 			}]
 		});
 
-		if (localStorage.getItem('students') !== null && localStorage.getItem('students') !== undefined) {
-			$student.set(JSON.parse(localStorage.getItem('students')));
+		if (lastJObject !== null) {
+			$student.set(lastJObject);
 		}
-
-		setInterval(() => {
-			if (JSON.stringify($student.jobject, null, 4) !== $ocdq.findFirst('pre').ocd.html()) {
-				$ocdq.findFirst('pre').ocd.html(JSON.stringify($student.jobject, null, 4));
-				localStorage.setItem('students', JSON.stringify($student.jobject, null, 4));
-			}
-		}, 1);
 	</script>
 </body>
 
