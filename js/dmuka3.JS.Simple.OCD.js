@@ -264,13 +264,7 @@
 			for(var key in methods) {
 				(function (key) {
 					methodsOcd[key] = function () {
-						var args = [];
-						args.push(ocdItem);
-						for (let ai = 0; ai < arguments.length; ai++) {
-							const arg = arguments[ai];
-							args.push(arg);
-						}
-						methods[key].apply(null, args);
+						methods[key].apply(ocdItem, arguments);
 					};
 				})(key);
 			}
@@ -295,7 +289,7 @@
 						};
 					} else {
 						dataGet = function (el, key) {
-							return data[key].get(ocdItem, el, key, el.$.data(key));
+							return data[key].get.call(ocdItem, key, el.$.data(key));
 						};
 					}
 
@@ -307,7 +301,7 @@
 					} else {
 						dataSet = function (el, value, key) {
 							el.$.data(key, value);
-							data[key].set(ocdItem, el, value, key);
+							data[key].set.call(ocdItem, value, key);
 						};
 					}
 
@@ -338,7 +332,7 @@
 				for (var key in on) {
 					(function (key) {
 						queryResultItemEl.addEventListener(key, function (e) {
-							return on[key](ocdItem, e);
+							return on[key].call(ocdItem, e);
 						});
 					})(key);
 				}
@@ -357,7 +351,7 @@
 						runOnceCheck = true;
 
 						setTimeout(() => {
-							fnc();
+							fnc.call(ocdItem);
 							runOnceCheck = false;
 						});
 					}
@@ -391,27 +385,27 @@
 						switch (type) {
 							case 'checkbox':
 							case 'radio':
-								ocdGet = function ($ocd) {
-									return $ocd.el.checked;
+								ocdGet = function () {
+									return this.el.checked;
 								};
 								break;
 							default:
-								ocdGet = function ($ocd) {
-									return $ocd.el.value;
+								ocdGet = function () {
+									return this.el.value;
 								};
 								break;
 						}
 					}
 						break;
 					case 'SELECT': {
-						ocdGet = function ($ocd) {
-							return $ocd.el.value;
+						ocdGet = function () {
+							return this.el.value;
 						};
 					}
 						break;
 					default: {
-						ocdGet = function ($ocd) {
-							return $ocd.el.innerHTML;
+						ocdGet = function () {
+							return this.el.innerHTML;
 						};
 					}
 						break;
@@ -431,27 +425,27 @@
 						switch (type) {
 							case 'checkbox':
 							case 'radio':
-								ocdSet = function ($ocd, value) {
-									$ocd.el.checked = value == true;
+								ocdSet = function (value) {
+									this.el.checked = value == true;
 								};
 								break;
 							default:
-								ocdSet = function ($ocd, value) {
-									$ocd.el.value = value;
+								ocdSet = function (value) {
+									this.el.value = value;
 								};
 								break;
 						}
 					}
 						break;
 					case 'SELECT': {
-						ocdSet = function ($ocd, value) {
-							$ocd.el.value = value;
+						ocdSet = function (value) {
+							this.el.value = value;
 						};
 					}
 						break;
 					default: {
-						ocdSet = function ($ocd, value) {
-							$ocd.el.innerHTML = value;
+						ocdSet = function (value) {
+							this.el.innerHTML = value;
 						};
 					}
 						break;
@@ -463,10 +457,10 @@
 					return jobject !== false;
 				},
 				get value () {
-					return ocdGet(ocdItem);
+					return ocdGet.call(ocdItem);
 				},
 				set value (value) {
-					ocdSet(ocdItem, value);
+					ocdSet.call(ocdItem, value);
 				},
 				get el () {
 					return queryResultItemEl;
@@ -587,29 +581,29 @@
 			data?: {
 				prop1: {
 					jobject: <bool>,
-					default: <bool|function($ocd):any>,
-					get: <function($ocd, key, currentValue):any>,
-					set: <function($ocd, value, key)>
+					default: <any|function([this]$ocd):any>,
+					get: <function([this]$ocd, key, currentValue):any>,
+					set: <function([this]$ocd, value, key)>
 				},
 				prop2: ...,
 				...
 			},
 			methods?: {
-				method1: <function($ocd, ...):any>,
+				method1: <function([this]$ocd, ...):any>,
 				method2: ...,
 				...
 			},
 			on?: {
-				init?: <function($ocd)>,
-				remove?: <function($ocd)>,
-				eventName1: <function($ocd, e):any>,
+				init?: <function([this]$ocd)>,
+				remove?: <function([this]$ocd)>,
+				eventName1: <function([this]$ocd, e):any>,
 				eventName2: ...,
 				...
 			},
 			subOn?: {
-				init?: <function($ocd)>,
-				remove?: <function($ocd)>,
-				eventName1: <function($ocd, e):any>,
+				init?: <function([this]$ocd)>,
+				remove?: <function([this]$ocd)>,
+				eventName1: <function([this]$ocd, e):any>,
 				eventName2: ...,
 				...
 			},
@@ -618,30 +612,30 @@
 				query: <string|array|HTMLElement>,
 				single: <bool>,
 				alias: <string>,
-				get?: <function($ocd):any>,
-				set?: <function($ocd, value)>,
+				get?: <function([this]$ocd):any>,
+				set?: <function([this]$ocd, value)>,
 				data?: {
 					prop1: {
 						jobject: <bool>,
-						default: <bool|function($ocd):any>,
-						get: <function($ocd, key, currentValue):any>,
-						set: <function($ocd, value, key)>
+						default: <any|function([this]$ocd):any>,
+						get: <function([this]$ocd, key, currentValue):any>,
+						set: <function([this]$ocd, value, key)>
 					},
 					prop2: ...,
 					...
 				},
-				clone: <function(value):el>,
+				clone?: <function([this]$parentOcd, value):el>,
 				on?: {
-					init?: <function($ocd)>,
-					remove?: <function($ocd)>,
-					eventName1: <function($ocd, e):any>,
+					init?: <function([this]$ocd)>,
+					remove?: <function([this]$ocd)>,
+					eventName1: <function([this]$ocd, e):any>,
 					eventName2: ...,
 					...
 				},
 				subOn?: {
-					init?: <function($ocd)>,
-					remove?: <function($ocd)>,
-					eventName1: <function($ocd, e):any>,
+					init?: <function([this]$ocd)>,
+					remove?: <function([this]$ocd)>,
+					eventName1: <function([this]$ocd, e):any>,
 					eventName2: ...,
 					...
 				},
@@ -655,25 +649,25 @@
 					data?: {
 						prop1: {
 							jobject: <bool>,
-							default: <bool|function($ocd):any>,
-							get: <function($ocd, key, currentValue):any>,
-							set: <function($ocd, value, key)>
+							default: <any|function([this]$ocd):any>,
+							get: <function([this]$ocd, key, currentValue):any>,
+							set: <function([this]$ocd, value, key)>
 						},
 						prop2: ...,
 						...
 					},
-					clone: <function():el>,
+					clone?: <function([this]$parentOcd, value):el>,
 					on?: {
-						init?: <function($ocd)>,
-						remove?: <function($ocd)>,
-						eventName1: <function($ocd, e):any>,
+						init?: <function([this]$ocd)>,
+						remove?: <function([this]$ocd)>,
+						eventName1: <function([this]$ocd, e):any>,
 						eventName2: ...,
 						...
 					},
 					subOn?: {
-						init?: <function($ocd)>,
-						remove?: <function($ocd)>,
-						eventName1: <function($ocd, e):any>,
+						init?: <function([this]$ocd)>,
+						remove?: <function([this]$ocd)>,
+						eventName1: <function([this]$ocd, e):any>,
 						eventName2: ...,
 						...
 					},
@@ -733,11 +727,11 @@
 		}
 		var oninit = on.init;
 		if (checkVariableIsNullOrUndefined(oninit) === true) {
-			oninit = function (ocdItem) { };
+			oninit = function () { };
 		}
 		var onremove = on.remove;
 		if (checkVariableIsNullOrUndefined(onremove) === true) {
-			onremove = function (ocdItem) { };
+			onremove = function () { };
 		}
 
 		var queryParentEl = parentEl;
@@ -755,7 +749,7 @@
 			var cloneElClone = cloneEl.cloneNode(true);
 			cloneElClone.removeAttribute('ocd-clone');
 			cloneEl.remove();
-			clone = function () {
+			clone = function (value) {
 				return cloneElClone.cloneNode(true);
 			};
 		}
@@ -804,14 +798,14 @@
 				};
 	
 				queues.push(function () {
-					oninit(ocdItem);
+					oninit.call(ocdItem);
 				});
 			})(ocdItem);
 		}
 
 		if (checkVariableIsNullOrUndefined(parentEl) === false) {
 			var createACloneOcd = function (value) {
-				var cloneEl = clone();
+				var cloneEl = clone.call(parentOcd);
 
 				var ocdItem = createOcdItem(cloneEl, sub, get, set, data, jobject, parentOcd, queues, on, subOnCurrent, rootOcd, methods);
 				if (checkVariableIsNullOrUndefined(value) === false) {
@@ -846,7 +840,7 @@
 
 				consumeQueues(queues);
 
-				oninit(ocdNewItem.ocd);
+				oninit.call(ocdNewItem.ocd);
 
 				return ocdNewItem.ocd;
 			};
@@ -863,7 +857,7 @@
 				ocdItem.el.remove();
 				resultOcd.splice(index, 1);
 
-				onremove(ocdItem);
+				onremove.call(ocdItem);
 			};
 
 			resultOcd.clear = function (index) {
@@ -890,7 +884,7 @@
 
 				consumeQueues(queues);
 
-				oninit(ocdNewItem.ocd);
+				oninit.call(ocdNewItem.ocd);
 			};
 
 			delete resultOcd.concat;

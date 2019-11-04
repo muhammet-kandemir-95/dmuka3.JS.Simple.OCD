@@ -141,11 +141,11 @@
 		var $student = $d.ocd({
 			query: '#students-parent',
 			methods: {
-				refreshJson: function ($ocd, eventName) {
-					$ocd.$root.runOnce(function () {
+				refreshJson: function (eventName) {
+					this.$root.runOnce(function () {
 						console.log('EVENT = ' + eventName);
 
-						var json = JSON.stringify($ocd.$root.jobject, null, 4);
+						var json = JSON.stringify(this.$root.jobject, null, 4);
 						if (json !== $ocdQuery.findFirst('pre').$.html()) {
 							$ocdQuery.findFirst('pre').$.html(json);
 							localStorage.setItem('students', json);
@@ -154,17 +154,17 @@
 				}
 			},
 			subOn: {
-				init: function ($ocd) {
-					$ocd.$root.m.refreshJson('INIT Parent');
+				init: function () {
+					this.$root.m.refreshJson('INIT Parent');
 				},
-				remove: function ($ocd) {
-					$ocd.$root.m.refreshJson('REMOVE Parent');
+				remove: function () {
+					this.$root.m.refreshJson('REMOVE Parent');
 				},
-				input: function ($ocd, e) {
-					$ocd.$root.m.refreshJson('INPUT Parent');
+				input: function (e) {
+					this.$root.m.refreshJson('INPUT Parent');
 				},
-				click: function ($ocd, e) {
-					$ocd.$root.m.refreshJson('CLICK Parent');
+				click: function (e) {
+					this.$root.m.refreshJson('CLICK Parent');
 				}
 			},
 			sub: [{
@@ -174,12 +174,7 @@
 				sub: [{
 					single: true,
 					query: '>input[name="Name"]',
-					alias: 'name',
-					on: {
-						input: function ($ocd, e) {
-							refreshJson();
-						}
-					}
+					alias: 'name'
 				}]
 			}, {
 				parentQuery: '>.students',
@@ -188,19 +183,19 @@
 				data: {
 					enableOpacity: {
 						jobject: true,
-						get: function ($ocd, el, key, currentValue) {
-							return el.$.is('.active-opacity');
+						get: function (key, currentValue) {
+							return this.el.$.is('.active-opacity');
 						},
-						set: function ($ocd, el, value, key) {
+						set: function (value, key) {
 							if (value === true) {
-								el.$.addClass('active-opacity');
-								$ocd.opacityButton.el.$.text('Remove Opacity');
+								this.el.$.addClass('active-opacity');
+								this.opacityButton.el.$.text('Remove Opacity');
 							} else {
-								el.$.removeClass('active-opacity');
-								$ocd.opacityButton.el.$.text('Add Opacity');
+								this.el.$.removeClass('active-opacity');
+								this.opacityButton.el.$.text('Add Opacity');
 							}
 
-							$ocd.$root.m.refreshJson('SET enableOpacity');
+							this.$root.m.refreshJson('SET enableOpacity');
 						}
 					}
 				},
@@ -218,8 +213,8 @@
 					query: '>div>.student-opacity',
 					alias: 'opacityButton',
 					on: {
-						click: function ($ocd, e) {
-							$ocd.$parent.enableOpacity = $ocd.$parent.enableOpacity === false;
+						click: function (e) {
+							this.$parent.enableOpacity = this.$parent.enableOpacity === false;
 						}
 					}
 				}, {
@@ -227,9 +222,9 @@
 					query: '>input[name="Description"]',
 					alias: 'addresses',
 					on: {
-						keydown: function ($ocd, e) {
-							if (e.keyCode === 8 && $ocd.value === '') {
-								$ocd.remove();
+						keydown: function (e) {
+							if (e.keyCode === 8 && this.value === '') {
+								this.remove();
 							}
 						}
 					}
