@@ -206,7 +206,7 @@
 	/**
 	 * Create a ocd item. It maybe an array or object.
 	 * This function also is recursive function with 'commitSchema'
-	 * @param {HTMLElement} queryResultItemEl 
+	 * @param {HTMLElement} ocdEl 
 	 * @param {any} sub 
 	 * @param {function} get 
 	 * @param {function} set 
@@ -215,21 +215,21 @@
 	 * @param {any} parentOcd 
 	 * @param {Array} queues 
 	 * @param {any} on 
-	 * @param {any} subOn 
 	 * @param {any} rootOcd 
 	 * @param {any} methods 
 	 */
-	function createOcdItem (queryResultItemEl, sub, get, set, data, jobject, parentOcd, queues, on, subOn, rootOcd, methods) {
+	function createOcdItem (ocdEl, sub, get, set, data, jobject, parentOcd, queues, on, rootOcd, methods) {
 		var ocdItem = null;
 
 		var declareStd = function () {
+			var dataProps = [];
 			Object.defineProperty(ocdItem, '__ocdData', {
 				get: function () {
 					return dataProps;
 				}
 			});
 
-			Object.defineProperty(queryResultItemEl, '$ocd', {
+			Object.defineProperty(ocdEl, '$ocd', {
 				get: function () {
 					return ocdItem;
 				}
@@ -275,7 +275,6 @@
 				}
 			});
 
-			var dataProps = [];
 			for (var key in data) {
 				(function (key) {
 					if (data[key].jobject === true) {
@@ -307,22 +306,22 @@
 
 					Object.defineProperty(ocdItem, key, {
 						get: function () {
-							return dataGet(queryResultItemEl, key);
+							return dataGet(ocdEl, key);
 						},
 						set: function (value) {
-							dataSet(queryResultItemEl, value, key);
+							dataSet(ocdEl, value, key);
 						}
 					});
 
 					queues.push(function () {
 						if (checkVariableIsNullOrUndefined(data[key].default) === false) {
 							if (checkVariableIsFunction(data[key].default) === true) {
-								dataSet(queryResultItemEl, data[key].default(ocdItem), key);
+								dataSet(ocdEl, data[key].default(ocdItem), key);
 							} else {
-								dataSet(queryResultItemEl, data[key].default, key);
+								dataSet(ocdEl, data[key].default, key);
 							}
 						} else if (checkVariableIsNullOrUndefined(dataGet) === false) {
-							dataSet(queryResultItemEl, dataGet(queryResultItemEl, key), key);
+							dataSet(ocdEl, dataGet(ocdEl, key), key);
 						}
 					});
 				})(key);
@@ -330,8 +329,12 @@
 
 			if (checkVariableIsNullOrUndefined(on) === false) {
 				for (var key in on) {
+					if (key[0] === '$') {
+						continue;
+					}
+
 					(function (key) {
-						queryResultItemEl.addEventListener(key, function (e) {
+						ocdEl.addEventListener(key, function (e) {
 							return on[key].call(ocdItem, e);
 						});
 					})(key);
@@ -360,7 +363,7 @@
 
 			Object.defineProperty(ocdItem, 'el', {
 				get: function () {
-					return queryResultItemEl;
+					return ocdEl;
 				}
 			});
 
@@ -369,14 +372,14 @@
 			for (let si = 0; si < sub.length; si++) {
 				const subItem = sub[si];
 
-				commitSchema(queryResultItemEl, subItem, ocdItem, queues, subOn, rootOcd);
+				commitSchema(ocdEl, subItem, ocdItem, queues, rootOcd);
 			}
 		} else {
 			var ocdGet = get;
 			if (checkVariableIsNullOrUndefined(ocdGet) === true) {
-				switch (queryResultItemEl.tagName) {
+				switch (ocdEl.tagName) {
 					case 'INPUT': {
-						var type = queryResultItemEl.getAttribute('type');
+						var type = ocdEl.getAttribute('type');
 						if (checkVariableIsNullOrUndefined(type) === true) {
 							type = 'text';
 						}
@@ -414,9 +417,9 @@
 
 			var ocdSet = set;
 			if (checkVariableIsNullOrUndefined(ocdSet) === true) {
-				switch (queryResultItemEl.tagName) {
+				switch (ocdEl.tagName) {
 					case 'INPUT': {
-						var type = queryResultItemEl.getAttribute('type');
+						var type = ocdEl.getAttribute('type');
 						if (checkVariableIsNullOrUndefined(type) === true) {
 							type = 'text';
 						}
@@ -463,7 +466,7 @@
 					ocdSet.call(ocdItem, value);
 				},
 				get el () {
-					return queryResultItemEl;
+					return ocdEl;
 				}
 			};
 
@@ -568,13 +571,11 @@
 	 * @param {any} schema 
 	 * @param {any} parentOcd 
 	 * @param {Array} queues 
-	 * @param {any} subOn 
 	 * @param {any} rootOcd 
 	 */
-	function commitSchema (parentEl, schema, parentOcd, queues, subOn, rootOcd) {
+	function commitSchema (parentEl, schema, parentOcd, queues, rootOcd) {
 		/*
 		{
-			parentQuery?: <string|array|HTMLElement>,
 			query: <string|array|HTMLElement>,
 			get?: <function($ocd):any>,
 			set?: <function($ocd, value)>,
@@ -594,19 +595,17 @@
 				...
 			},
 			on?: {
-				init?: <function([this]$ocd)>,
-				remove?: <function([this]$ocd)>,
+				$init?: <function([this]$ocd)>,
+				$remove?: <function([this]$ocd)>,
 				eventName1: <function([this]$ocd, e):any>,
 				eventName2: ...,
 				...
 			},
-			subOn?: {
-				init?: <function([this]$ocd)>,
-				remove?: <function([this]$ocd)>,
-				eventName1: <function([this]$ocd, e):any>,
-				eventName2: ...,
-				...
-			},
+			mixins?: [{
+				data?: ...,
+				on?: ...,
+				methods?: ...
+			}],
 			sub?: [{
 				parentQuery?: <string|array|HTMLElement>,
 				query: <string|array|HTMLElement>,
@@ -626,19 +625,17 @@
 				},
 				clone?: <function([this]$parentOcd, value):el>,
 				on?: {
-					init?: <function([this]$ocd)>,
-					remove?: <function([this]$ocd)>,
+					$init?: <function([this]$ocd)>,
+					$remove?: <function([this]$ocd)>,
 					eventName1: <function([this]$ocd, e):any>,
 					eventName2: ...,
 					...
 				},
-				subOn?: {
-					init?: <function([this]$ocd)>,
-					remove?: <function([this]$ocd)>,
-					eventName1: <function([this]$ocd, e):any>,
-					eventName2: ...,
-					...
-				},
+				mixins?: [{
+					data?: ...,
+					on?: ...,
+					methods?: ...
+				}],
 				sub?: [{
 					parentQuery?: <string|array|HTMLElement>,
 					query: <string|array|HTMLElement>,
@@ -658,19 +655,17 @@
 					},
 					clone?: <function([this]$parentOcd, value):el>,
 					on?: {
-						init?: <function([this]$ocd)>,
-						remove?: <function([this]$ocd)>,
+						$init?: <function([this]$ocd)>,
+						$remove?: <function([this]$ocd)>,
 						eventName1: <function([this]$ocd, e):any>,
 						eventName2: ...,
 						...
 					},
-					subOn?: {
-						init?: <function([this]$ocd)>,
-						remove?: <function([this]$ocd)>,
-						eventName1: <function([this]$ocd, e):any>,
-						eventName2: ...,
-						...
-					},
+					mixins?: [{
+						data?: ...,
+						on?: ...,
+						methods?: ...
+					}],
 					sub?: ...
 				}, ...]
 			}, ...]
@@ -686,25 +681,84 @@
 			single = true;
 		}
 
-		var on = {};
-		var subOnCurrent = {};
-		if (checkVariableIsNullOrUndefined(subOn) === false) {
-			for (var key in subOn) {
-				subOnCurrent[key] = subOn[key];
-				on[key] = subOn[key];
-			}
+		var on = schema.on;
+		if (checkVariableIsNullOrUndefined(schema.on) === true) {
+			on = {};
 		}
 
-		if (checkVariableIsNullOrUndefined(schema.subOn) === false) {
-			for (var key in schema.subOn) {
-				subOnCurrent[key] = schema.subOn[key];
-				on[key] = schema.subOn[key];
-			}
+		var jobject = schema.jobject;
+		var get = schema.get;
+		var set = schema.set;
+
+		var data = schema.data;
+		if (checkVariableIsNullOrUndefined(data) === true) {
+			data = {};
 		}
 
-		if (checkVariableIsNullOrUndefined(schema.on) === false) {
-			for (var key in schema.on) {
-				on[key] = schema.on[key];
+		var methods = schema.methods;
+		if (checkVariableIsNullOrUndefined(methods) === true) {
+			methods = {};
+		}
+
+		var parentQuery = schema.parentQuery;
+		var clone = schema.clone;
+		if (checkVariableIsNullOrUndefined(schema.mixins) === false) {
+			checkVariableIsArray(schema.mixins, 'Mixins');
+
+			for (let i = 0; i < schema.mixins.length; i++) {
+				const mixin = schema.mixins[i];
+				
+				if (checkVariableIsNullOrUndefined(jobject) === true && checkVariableIsNullOrUndefined(mixin.jobject) === false) {
+					jobject = mixin.jobject;
+				}
+				
+				if (checkVariableIsNullOrUndefined(get) === true && checkVariableIsNullOrUndefined(mixin.get) === false) {
+					get = mixin.get;
+				}
+				
+				if (checkVariableIsNullOrUndefined(set) === true && checkVariableIsNullOrUndefined(mixin.set) === false) {
+					set = mixin.set;
+				}
+				
+				if (checkVariableIsNullOrUndefined(clone) === true && checkVariableIsNullOrUndefined(mixin.clone) === false) {
+					clone = mixin.clone;
+				}
+				
+				if (checkVariableIsNullOrUndefined(parentQuery) === true && checkVariableIsNullOrUndefined(mixin.parentQuery) === false) {
+					parentQuery = mixin.parentQuery;
+				}
+				
+				if (checkVariableIsNullOrUndefined(mixin.methods) === false) {
+					for(var key in mixin.methods) {
+						if (checkVariableIsNullOrUndefined(methods[key]) === true) {
+							methods[key] = mixin.methods[key];
+						}
+					}
+				}
+				
+				if (checkVariableIsNullOrUndefined(mixin.data) === false) {
+					for(var key in mixin.data) {
+						if (checkVariableIsNullOrUndefined(data[key]) === true) {
+							data[key] = mixin.data[key];
+						}
+					}
+				}
+				
+				if (checkVariableIsNullOrUndefined(mixin.on) === false) {
+					for(var key in mixin.on) {
+						(function (key) {
+							if (checkVariableIsNullOrUndefined(on[key]) === true) {
+								on[key] = mixin.on[key];
+							} else {
+								var previousOn = on[key];
+								on[key] = function () {
+									previousOn.apply(this, arguments);
+									mixin.on[key].apply(this, arguments);
+								};
+							}
+						})(key);
+					}
+				}
 			}
 		}
 
@@ -712,24 +766,11 @@
 		var query = schema.query;
 		checkVariableIsNullOrUndefined(query, 'Query');
 
-		var parentQuery = schema.parentQuery;
-
-		var jobject = schema.jobject;
-		var get = schema.get;
-		var set = schema.set;
-		var data = schema.data;
-		if (checkVariableIsNullOrUndefined(data) === true) {
-			data = {};
-		}
-		var methods = schema.methods;
-		if (checkVariableIsNullOrUndefined(methods) === true) {
-			methods = {};
-		}
-		var oninit = on.init;
+		var oninit = on.$init;
 		if (checkVariableIsNullOrUndefined(oninit) === true) {
 			oninit = function () { };
 		}
-		var onremove = on.remove;
+		var onremove = on.$remove;
 		if (checkVariableIsNullOrUndefined(onremove) === true) {
 			onremove = function () { };
 		}
@@ -743,7 +784,6 @@
 			throw 'Query must be String or HTMLElement';
 		}
 
-		var clone = schema.clone;
 		if (checkVariableIsNullOrUndefined(parentEl) === false && checkVariableIsNullOrUndefined(clone) === true && single !== true) {
 			var cloneEl = queryParentEl.querySelector(':scope>*[ocd-clone]');
 			var cloneElClone = cloneEl.cloneNode(true);
@@ -787,9 +827,9 @@
 			}
 		};
 		for (let i = 0; i < queryResults.length; i++) {
-			const queryResultItemEl = queryResults[i];
+			const ocdEl = queryResults[i];
 
-			var ocdItem = createOcdItem(queryResultItemEl, sub, get, set, data, jobject, parentOcd, queues, on, subOnCurrent, rootOcd, methods);
+			var ocdItem = createOcdItem(ocdEl, sub, get, set, data, jobject, parentOcd, queues, on, rootOcd, methods);
 			Array.prototype.push.call(resultOcd, ocdItem);
 
 			(function (ocdItem) {
@@ -807,7 +847,7 @@
 			var createACloneOcd = function (value) {
 				var cloneEl = clone.call(parentOcd);
 
-				var ocdItem = createOcdItem(cloneEl, sub, get, set, data, jobject, parentOcd, queues, on, subOnCurrent, rootOcd, methods);
+				var ocdItem = createOcdItem(cloneEl, sub, get, set, data, jobject, parentOcd, queues, on, rootOcd, methods);
 				if (checkVariableIsNullOrUndefined(value) === false) {
 					recursiveFill(value, ocdItem);
 				}
@@ -974,7 +1014,7 @@
 	window['$d']['ocd'] = function (schema) {
 		var queues = [];
 
-		var $ocd = commitSchema(undefined, schema, undefined, queues);
+		var $ocd = commitSchema(undefined, schema, undefined, queues, undefined);
 		consumeQueues(queues);
 
 		return $ocd;

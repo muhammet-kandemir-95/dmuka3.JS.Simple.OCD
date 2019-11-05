@@ -9,7 +9,7 @@
 <body>
 	<div id="students-parent">
 		<div class="class-name">
-			<input name="Name" placeholder="Class Name" type="text" value="">
+			<input name="Name" placeholder="Class Name" type="text" value="My Class Name">
 			<button onclick="localStorage.clear();location.reload();">Clear Local Storage</button>
 		</div>
 		<div class="add-student">
@@ -40,10 +40,12 @@
 			</div>
 			<div class="student">
 				<div>
-					<span>Student Name : </span> <input name="Name" placeholder="Student Name" type="text" value="MUHAMMET">
+					<span>Student Name : </span> <input name="Name" placeholder="Student Name" type="text"
+						value="MUHAMMET">
 				</div>
 				<div>
-					<span>Student Surname : </span> <input name="Surname" placeholder="Student Surname" type="text" value="KANDEMIR">
+					<span>Student Surname : </span> <input name="Surname" placeholder="Student Surname" type="text"
+						value="KANDEMIR">
 				</div>
 				<div>
 					<button class="student-opacity">Add Opacity</button>
@@ -55,12 +57,12 @@
 				<div class="addresses">
 					<input ocd-clone name="Description"
 						placeholder="Student Address (Press backspace to delete while is empty)" type="text">
-					<input name="Description"
-						placeholder="Student Address (Press backspace to delete while is empty)" type="text" value="MUHAMMET Address 1">
-					<input name="Description"
-						placeholder="Student Address (Press backspace to delete while is empty)" type="text" value="MUHAMMET Address 2">
-					<input name="Description"
-						placeholder="Student Address (Press backspace to delete while is empty)" type="text" value="MUHAMMET Address 3">
+					<input name="Description" placeholder="Student Address (Press backspace to delete while is empty)"
+						type="text" value="MUHAMMET Address 1">
+					<input name="Description" placeholder="Student Address (Press backspace to delete while is empty)"
+						type="text" value="MUHAMMET Address 2">
+					<input name="Description" placeholder="Student Address (Press backspace to delete while is empty)"
+						type="text" value="MUHAMMET Address 3">
 				</div>
 				<div class="remove-student">
 					<button onclick="this.$.$parentOcd.remove();">Remove Student</button>
@@ -68,10 +70,12 @@
 			</div>
 			<div class="student active-opacity">
 				<div>
-					<span>Student Name : </span> <input name="Name" placeholder="Student Name" type="text" value="MEDINE">
+					<span>Student Name : </span> <input name="Name" placeholder="Student Name" type="text"
+						value="MEDINE">
 				</div>
 				<div>
-					<span>Student Surname : </span> <input name="Surname" placeholder="Student Surname" type="text" value="KANDEMIR">
+					<span>Student Surname : </span> <input name="Surname" placeholder="Student Surname" type="text"
+						value="KANDEMIR">
 				</div>
 				<div>
 					<button class="student-opacity">Add Opacity</button>
@@ -83,10 +87,10 @@
 				<div class="addresses">
 					<input ocd-clone name="Description"
 						placeholder="Student Address (Press backspace to delete while is empty)" type="text">
-					<input name="Description"
-						placeholder="Student Address (Press backspace to delete while is empty)" type="text" value="MEDINE Address 1">
-					<input name="Description"
-						placeholder="Student Address (Press backspace to delete while is empty)" type="text" value="MEDINE Address 2">
+					<input name="Description" placeholder="Student Address (Press backspace to delete while is empty)"
+						type="text" value="MEDINE Address 1">
+					<input name="Description" placeholder="Student Address (Press backspace to delete while is empty)"
+						type="text" value="MEDINE Address 2">
 				</div>
 				<div class="remove-student">
 					<button onclick="this.$.$parentOcd.remove();">Remove Student</button>
@@ -94,10 +98,12 @@
 			</div>
 			<div class="student">
 				<div>
-					<span>Student Name : </span> <input name="Name" placeholder="Student Name" type="text" value="NESIBE">
+					<span>Student Name : </span> <input name="Name" placeholder="Student Name" type="text"
+						value="NESIBE">
 				</div>
 				<div>
-					<span>Student Surname : </span> <input name="Surname" placeholder="Student Surname" type="text" value="KANDEMIR">
+					<span>Student Surname : </span> <input name="Surname" placeholder="Student Surname" type="text"
+						value="KANDEMIR">
 				</div>
 				<div>
 					<button class="student-opacity">Add Opacity</button>
@@ -109,16 +115,16 @@
 				<div class="addresses">
 					<input ocd-clone name="Description"
 						placeholder="Student Address (Press backspace to delete while is empty)" type="text">
-					<input name="Description"
-						placeholder="Student Address (Press backspace to delete while is empty)" type="text" value="NESIBE Address 1">
-					<input name="Description"
-						placeholder="Student Address (Press backspace to delete while is empty)" type="text" value="NESIBE Address 2">
-					<input name="Description"
-						placeholder="Student Address (Press backspace to delete while is empty)" type="text" value="NESIBE Address 3">
-					<input name="Description"
-						placeholder="Student Address (Press backspace to delete while is empty)" type="text" value="NESIBE Address 4">
-					<input name="Description"
-						placeholder="Student Address (Press backspace to delete while is empty)" type="text" value="NESIBE Address 5">
+					<input name="Description" placeholder="Student Address (Press backspace to delete while is empty)"
+						type="text" value="NESIBE Address 1">
+					<input name="Description" placeholder="Student Address (Press backspace to delete while is empty)"
+						type="text" value="NESIBE Address 2">
+					<input name="Description" placeholder="Student Address (Press backspace to delete while is empty)"
+						type="text" value="NESIBE Address 3">
+					<input name="Description" placeholder="Student Address (Press backspace to delete while is empty)"
+						type="text" value="NESIBE Address 4">
+					<input name="Description" placeholder="Student Address (Press backspace to delete while is empty)"
+						type="text" value="NESIBE Address 5">
 				</div>
 				<div class="remove-student">
 					<button onclick="this.$.$parentOcd.remove();">Remove Student</button>
@@ -138,8 +144,7 @@
 			lastJObject = JSON.parse(localStorage.getItem('students'));
 		}
 
-		var $student = $d.ocd({
-			query: '#students-parent',
+		var globalMixin = {
 			methods: {
 				refreshJson: function (eventName) {
 					this.$root.runOnce(function () {
@@ -153,20 +158,25 @@
 					});
 				}
 			},
-			subOn: {
-				init: function () {
-					this.$root.m.refreshJson('INIT Parent');
+			on: {
+				$init: function () {
+					this.m.refreshJson('INIT Parent');
 				},
-				remove: function () {
-					this.$root.m.refreshJson('REMOVE Parent');
+				$remove: function () {
+					this.m.refreshJson('REMOVE Parent');
 				},
 				input: function (e) {
-					this.$root.m.refreshJson('INPUT Parent');
+					this.m.refreshJson('INPUT Parent');
 				},
 				click: function (e) {
-					this.$root.m.refreshJson('CLICK Parent');
+					this.m.refreshJson('CLICK Parent');
 				}
-			},
+			}
+		};
+
+		var $student = $d.ocd({
+			query: '#students-parent',
+			mixins: [globalMixin],
 			sub: [{
 				single: true,
 				query: '>.class-name',
@@ -174,12 +184,14 @@
 				sub: [{
 					single: true,
 					query: '>input[name="Name"]',
-					alias: 'name'
+					alias: 'name',
+					mixins: [globalMixin]
 				}]
 			}, {
 				parentQuery: '>.students',
 				query: '>.student',
 				alias: 'students',
+				mixins: [globalMixin],
 				data: {
 					enableOpacity: {
 						jobject: true,
@@ -195,23 +207,26 @@
 								this.opacityButton.el.$.text('Add Opacity');
 							}
 
-							this.$root.m.refreshJson('SET enableOpacity');
+							this.m.refreshJson('SET enableOpacity');
 						}
 					}
 				},
 				sub: [{
 					single: true,
 					query: '>div>*[name="Name"]',
-					alias: 'name'
+					alias: 'name',
+					mixins: [globalMixin]
 				}, {
 					single: true,
 					query: '>div>*[name="Surname"]',
-					alias: 'surname'
+					alias: 'surname',
+					mixins: [globalMixin]
 				}, {
 					jobject: false,
 					single: true,
 					query: '>div>.student-opacity',
 					alias: 'opacityButton',
+					mixins: [globalMixin],
 					on: {
 						click: function (e) {
 							this.$parent.enableOpacity = this.$parent.enableOpacity === false;
@@ -221,6 +236,7 @@
 					parentQuery: '>.addresses',
 					query: '>input[name="Description"]',
 					alias: 'addresses',
+					mixins: [globalMixin],
 					on: {
 						keydown: function (e) {
 							if (e.keyCode === 8 && this.value === '') {
