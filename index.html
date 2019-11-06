@@ -13,7 +13,7 @@
 			<button onclick="localStorage.clear();location.reload();">Clear Local Storage</button>
 		</div>
 		<div class="add-student">
-			<button onclick="$student.students.add();">Add a Student</button>
+			<button onclick="$student.students.$add();">Add a Student</button>
 		</div>
 		<div class="students">
 			<div ocd-clone class="student">
@@ -28,14 +28,14 @@
 				</div>
 				<div>
 					<span>Addresses</span>
-					<button onclick="this.$.$parentOcd.addresses.add();">Add an Address</button>
+					<button onclick="this.$.$parentOcd.addresses.$add();">Add an Address</button>
 				</div>
 				<div class="addresses">
 					<input ocd-clone name="Description"
 						placeholder="Student Address (Press backspace to delete while is empty)" type="text">
 				</div>
 				<div class="remove-student">
-					<button onclick="this.$.$parentOcd.remove();">Remove Student</button>
+					<button onclick="this.$.$parentOcd.$remove();">Remove Student</button>
 				</div>
 			</div>
 			<div class="student">
@@ -52,7 +52,7 @@
 				</div>
 				<div>
 					<span>Addresses</span>
-					<button onclick="this.$.$parentOcd.addresses.add();">Add an Address</button>
+					<button onclick="this.$.$parentOcd.addresses.$add();">Add an Address</button>
 				</div>
 				<div class="addresses">
 					<input ocd-clone name="Description"
@@ -65,7 +65,7 @@
 						type="text" value="MUHAMMET Address 3">
 				</div>
 				<div class="remove-student">
-					<button onclick="this.$.$parentOcd.remove();">Remove Student</button>
+					<button onclick="this.$.$parentOcd.$remove();">Remove Student</button>
 				</div>
 			</div>
 			<div class="student active-opacity">
@@ -82,7 +82,7 @@
 				</div>
 				<div>
 					<span>Addresses</span>
-					<button onclick="this.$.$parentOcd.addresses.add();">Add an Address</button>
+					<button onclick="this.$.$parentOcd.addresses.$add();">Add an Address</button>
 				</div>
 				<div class="addresses">
 					<input ocd-clone name="Description"
@@ -93,7 +93,7 @@
 						type="text" value="MEDINE Address 2">
 				</div>
 				<div class="remove-student">
-					<button onclick="this.$.$parentOcd.remove();">Remove Student</button>
+					<button onclick="this.$.$parentOcd.$remove();">Remove Student</button>
 				</div>
 			</div>
 			<div class="student">
@@ -110,7 +110,7 @@
 				</div>
 				<div>
 					<span>Addresses</span>
-					<button onclick="this.$.$parentOcd.addresses.add();">Add an Address</button>
+					<button onclick="this.$.$parentOcd.addresses.$add();">Add an Address</button>
 				</div>
 				<div class="addresses">
 					<input ocd-clone name="Description"
@@ -127,7 +127,7 @@
 						type="text" value="NESIBE Address 5">
 				</div>
 				<div class="remove-student">
-					<button onclick="this.$.$parentOcd.remove();">Remove Student</button>
+					<button onclick="this.$.$parentOcd.$remove();">Remove Student</button>
 				</div>
 			</div>
 		</div>
@@ -147,12 +147,12 @@
 		var globalMixin = {
 			methods: {
 				refreshJson: function (eventName) {
-					this.$root.runOnce(function () {
+					this.$runOnce(function () {
 						console.log('EVENT = ' + eventName);
 
 						var json = JSON.stringify(this.$root.jobject, null, 4);
-						if (json !== $ocdQuery.findFirst('pre').$.html()) {
-							$ocdQuery.findFirst('pre').$.html(json);
+						if (json !== $ocdQuery.first('pre').$.html()) {
+							$ocdQuery.first('pre').$.html(json);
 							localStorage.setItem('students', json);
 						}
 					});
@@ -160,16 +160,16 @@
 			},
 			on: {
 				$init: function () {
-					this.m.refreshJson('INIT Parent');
+					this.$m.refreshJson('INIT Parent');
 				},
 				$remove: function () {
-					this.m.refreshJson('REMOVE Parent');
+					this.$m.refreshJson('REMOVE Parent');
 				},
 				input: function (e) {
-					this.m.refreshJson('INPUT Parent');
+					this.$m.refreshJson('INPUT Parent');
 				},
 				click: function (e) {
-					this.m.refreshJson('CLICK Parent');
+					this.$m.refreshJson('CLICK Parent');
 				}
 			}
 		};
@@ -194,20 +194,19 @@
 				mixins: [globalMixin],
 				data: {
 					enableOpacity: {
-						jobject: true,
 						get: function (key, currentValue) {
-							return this.el.$.is('.active-opacity');
+							return this.$el.$.is('.active-opacity');
 						},
 						set: function (value, key) {
 							if (value === true) {
-								this.el.$.addClass('active-opacity');
-								this.opacityButton.el.$.text('Remove Opacity');
+								this.$el.$.addClass('active-opacity');
+								this.opacityButton.$el.$.text('Remove Opacity');
 							} else {
-								this.el.$.removeClass('active-opacity');
-								this.opacityButton.el.$.text('Add Opacity');
+								this.$el.$.removeClass('active-opacity');
+								this.opacityButton.$el.$.text('Add Opacity');
 							}
 
-							this.m.refreshJson('SET enableOpacity');
+							this.$m.refreshJson('SET enableOpacity');
 						}
 					}
 				},
@@ -240,7 +239,7 @@
 					on: {
 						keydown: function (e) {
 							if (e.keyCode === 8 && this.value === '') {
-								this.remove();
+								this.$remove();
 							}
 						}
 					}
@@ -249,7 +248,7 @@
 		});
 
 		if (lastJObject !== null) {
-			$student.set(lastJObject);
+			$student.$set(lastJObject);
 		}
 	</script>
 </body>
