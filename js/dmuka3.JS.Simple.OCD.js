@@ -168,7 +168,7 @@
 	}
 
 	try {
-		new Function('(() => { console.log("a"); })();')();
+		new Function('(() => { })();')();
 	} catch (error) {
 		$oldBrowser = true;
 	}
@@ -331,6 +331,7 @@
 				prop === '$m' ||
 				prop === '$set' ||
 				prop === '$el' ||
+				prop === '$index' ||
 				(checkVariableIsNullOrUndefined(obj.__ocdData) === false && obj.__ocdData[prop] === false)
 			) {
 				continue;
@@ -914,7 +915,7 @@
 						queryResults.push(queryParentEl.querySelector(':scope ' + query));
 					} else {
 						queryResults = [];
-						
+
 						if (query.trim()[0] === '>') {
 							ocdElIdProcess(queryParentEl, function (ocdElId) {
 								queryResults.push(queryParentEl.parentNode.querySelector('*[ocd-el-id="' + ocdElId + '"] ' + query));
@@ -971,6 +972,7 @@
 				}
 			});
 		}
+
 		var removeOcdItemMethod = function (ocdItem) {
 			for (let i = 0; i < resultOcd.length; i++) {
 				const item = resultOcd[i];
@@ -980,6 +982,16 @@
 				}
 			}
 		};
+		var getIndexOcdItemMethod = function (ocdItem) {
+			for (let i = 0; i < resultOcd.length; i++) {
+				if (resultOcd[i] === ocdItem) {
+					return i;
+				}
+			}
+
+			return -1;
+		};
+
 		for (let i = 0; i < queryResults.length; i++) {
 			const ocdEl = queryResults[i];
 
@@ -1004,6 +1016,12 @@
 						return function () {
 							removeOcdItemMethod(ocdItem);
 						};
+					}
+				});
+
+				Object.defineProperty(ocdItem, '$index', {
+					get: function () {
+						return getIndexOcdItemMethod(ocdItem);
 					}
 				});
 
@@ -1074,6 +1092,12 @@
 							}
 						});
 
+						Object.defineProperty(ocdNewItem.ocd, '$index', {
+							get: function () {
+								return getIndexOcdItemMethod(ocdNewItem.ocd);
+							}
+						});
+
 						consumeQueues(queues);
 
 						oninit.call(ocdNewItem.ocd);
@@ -1140,6 +1164,12 @@
 							}
 						});
 
+						Object.defineProperty(ocdNewItem.ocd, '$index', {
+							get: function () {
+								return getIndexOcdItemMethod(ocdNewItem.ocd);
+							}
+						});
+
 						consumeQueues(queues);
 
 						oninit.call(ocdNewItem.ocd);
@@ -1169,6 +1199,7 @@
 				resultOcd = resultOcd[0];
 
 				delete resultOcd.$remove;
+				delete resultOcd.$index;
 			}
 
 			return resultOcd;
@@ -1177,6 +1208,7 @@
 				resultOcd = resultOcd[0];
 
 				delete resultOcd.$remove;
+				delete resultOcd.$index;
 			}
 
 			var result = parentOcd;
@@ -1317,6 +1349,13 @@
 			// Checking alias...
 			if (sub === true) {
 				checkVariableIsNullOrUndefined(schema.alias, alias + currentAlias + ' Alias');
+
+				checkVariableIsString(schema.alias, alias + currentAlias + ' Alias');
+
+				schema.alias = schema.alias.trim();
+				if (schema.alias.trim().length === 0) {
+					throw alias + currentAlias + ' "alias" must be filled!';
+				}
 			}
 
 			// Checking set...
@@ -1332,6 +1371,9 @@
 			// Checking parentQuery...
 			if (schema.single !== true) {
 				if (checkVariableIsString(schema.parentQuery) === true) {
+					if (schema.parentQuery.trim().length === 0) {
+						throw alias + currentAlias + ' "parentQuery" must be filled!';
+					}
 				} else if (checkVariableIsHTML(schema.parentQuery) === true) {
 				} else if (checkVariableIsNullOrUndefined(schema.parentQuery) === false) {
 					throw alias + currentAlias + ' "parentQuery" must be String or HTMLElement if you don\'t use "single: true"!';
@@ -1342,6 +1384,9 @@
 
 			// Checking query...
 			if (checkVariableIsString(schema.query) === true) {
+				if (schema.query.trim().length === 0) {
+					throw alias + currentAlias + ' "query" must be filled!';
+				}
 			} else if (checkVariableIsArray(schema.query) === true) {
 			} else if (checkVariableIsHTML(schema.query) === true) {
 			} else {
@@ -1545,6 +1590,4 @@
 			};
 		}
 	});
-
-	console.log('dmuka3.JS.Simple.OCD completed(ES6 Support = ' + ($oldBrowser === false) + ').');
 })();

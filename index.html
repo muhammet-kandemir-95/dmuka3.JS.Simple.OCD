@@ -27,14 +27,14 @@
 				</div>
 				<div>
 					<span>Addresses</span>
-					<button onclick="this.$.$parentOcd.addresses.$add();">Add an Address</button>
+					<button class="add-an-address">Add an Address</button>
 				</div>
 				<div class="addresses">
 					<input ocd-clone name="Description"
 						placeholder="Student Address (Press backspace to delete while is empty)" type="text">
 				</div>
 				<div class="remove-student">
-					<button onclick="this.$.$parentOcd.$remove();">Remove Student</button>
+					<button>Remove Student</button>
 				</div>
 			</div>
 			<div class="student">
@@ -51,7 +51,7 @@
 				</div>
 				<div>
 					<span>Addresses</span>
-					<button onclick="this.$.$parentOcd.addresses.$add();">Add an Address</button>
+					<button class="add-an-address">Add an Address</button>
 				</div>
 				<div class="addresses">
 					<input ocd-clone name="Description"
@@ -64,7 +64,7 @@
 						type="text" value="MUHAMMET Address 3">
 				</div>
 				<div class="remove-student">
-					<button onclick="this.$.$parentOcd.$remove();">Remove Student</button>
+					<button>Remove Student</button>
 				</div>
 			</div>
 			<div class="student active-opacity">
@@ -81,7 +81,7 @@
 				</div>
 				<div>
 					<span>Addresses</span>
-					<button onclick="this.$.$parentOcd.addresses.$add();">Add an Address</button>
+					<button class="add-an-address">Add an Address</button>
 				</div>
 				<div class="addresses">
 					<input ocd-clone name="Description"
@@ -92,7 +92,7 @@
 						type="text" value="MEDINE Address 2">
 				</div>
 				<div class="remove-student">
-					<button onclick="this.$.$parentOcd.$remove();">Remove Student</button>
+					<button>Remove Student</button>
 				</div>
 			</div>
 			<div class="student">
@@ -109,7 +109,7 @@
 				</div>
 				<div>
 					<span>Addresses</span>
-					<button onclick="this.$.$parentOcd.addresses.$add();">Add an Address</button>
+					<button class="add-an-address">Add an Address</button>
 				</div>
 				<div class="addresses">
 					<input ocd-clone name="Description"
@@ -126,7 +126,7 @@
 						type="text" value="NESIBE Address 5">
 				</div>
 				<div class="remove-student">
-					<button onclick="this.$.$parentOcd.$remove();">Remove Student</button>
+					<button>Remove Student</button>
 				</div>
 			</div>
 		</div>
@@ -225,6 +225,16 @@
 						}
 					}
 				}, {
+					jobject: false,
+					single: true,
+					query: '.add-an-address',
+					alias: 'addAnAddress',
+					on: {
+						click: function (e) {
+							this.$parent.addresses.$add();
+						}
+					}
+				}, {
 					parentQuery: '>.addresses',
 					query: '>input[name="Description"]',
 					alias: 'addresses',
@@ -234,6 +244,16 @@
 							if (e.keyCode === 8 && this.value === '') {
 								this.$remove();
 							}
+						}
+					}
+				}, {
+					jobject: false,
+					single: true,
+					query: '>.remove-student>button',
+					alias: 'removeStudent',
+					on: {
+						click: function (e) {
+							this.$parent.$remove();
 						}
 					}
 				}]
