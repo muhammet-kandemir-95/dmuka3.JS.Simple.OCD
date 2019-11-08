@@ -111,6 +111,44 @@
 
 	//#region Check Variable by ?
 	/**
+	 * Is variable's type boolean?
+	 * @param {any} value 
+	 * @param {string} errorVariableName 
+	 */
+	function checkVariableIsBoolean (value, errorVariableName) {
+		if (checkVariableIsNullOrUndefined(value) === true) {
+			return false;
+		}
+
+		if (value.constructor.name !== 'Boolean') {
+			if (errorVariableName !== null && errorVariableName !== undefined) {
+				throw errorVariableName + ' must be a Boolean!';
+			}
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * Is variable's type object?
+	 * @param {any} value 
+	 * @param {string} errorVariableName 
+	 */
+	function checkVariableIsObject (value, errorVariableName) {
+		if (checkVariableIsNullOrUndefined(value) === true) {
+			return false;
+		}
+
+		if (value.constructor.name !== 'Object') {
+			if (errorVariableName !== null && errorVariableName !== undefined) {
+				throw errorVariableName + ' must be a Object!';
+			}
+			return false;
+		}
+		return true;
+	}
+
+	/**
 	 * Is variable's type function?
 	 * @param {any} value 
 	 * @param {string} errorVariableName 
@@ -122,7 +160,7 @@
 
 		if (value.constructor.name !== 'Function') {
 			if (errorVariableName !== null && errorVariableName !== undefined) {
-				throw errorVariableName + ' must be a Array or a NodeList!';
+				throw errorVariableName + ' must be a Function!';
 			}
 			return false;
 		}
@@ -248,7 +286,7 @@
 			return v;
 		} else if (v.__jobject === false) {
 			return;
-		} else if (checkVariableIsArray(v)) {
+		} else if (checkVariableIsArray(v) === true) {
 			var arr = [];
 
 			for (let i = 0; i < v.length; i++) {
@@ -257,7 +295,7 @@
 			}
 
 			return arr;
-		} else if (v.constructor.name !== 'Object') {
+		} else if (checkVariableIsObject(v) === false) {
 			return v;
 		} else if (v.__ocd === true) {
 			var ocdDataProps = getPropAsObject(v.__ocdData);
@@ -302,8 +340,8 @@
 		if (
 			checkVariableIsNullOrUndefined(v) === true ||
 			(
-				v.constructor.name !== 'Object' &&
-				v.constructor.name !== 'Array'
+				checkVariableIsObject(v) === false &&
+				checkVariableIsArray(v) === false
 			)
 		) {
 			ocdP.value = v;
@@ -658,107 +696,7 @@
 		var rootOcd = params.rootOcd;
 		//#endregion
 
-		/*
-		{
-			query: <string|array|HTMLElement>,
-			get?: <function($ocd):any>,
-			set?: <function($ocd, value)>,
-			data?: {
-				prop1: {
-					jobject: <bool>,
-					default: <any|function([this]$ocd):any>,
-					get: <function([this]$ocd, key, currentValue):any>,
-					set: <function([this]$ocd, value, key)>
-				},
-				prop2: ...,
-				...
-			},
-			methods?: {
-				method1: <function([this]$ocd, ...):any>,
-				method2: ...,
-				...
-			},
-			on?: {
-				$init?: <function([this]$ocd)>,
-				$remove?: <function([this]$ocd)>,
-				eventName1: <function([this]$ocd, e):any>,
-				eventName2: ...,
-				...
-			},
-			mixins?: [{
-				data?: ...,
-				on?: ...,
-				methods?: ...
-			}],
-			sub?: [{
-				parentQuery?: <string|array|HTMLElement>,
-				query: <string|array|HTMLElement>,
-				single: <bool>,
-				alias: <string>,
-				get?: <function([this]$ocd):any>,
-				set?: <function([this]$ocd, value)>,
-				data?: {
-					prop1: {
-						jobject: <bool>,
-						default: <any|function([this]$ocd):any>,
-						get: <function([this]$ocd, key, currentValue):any>,
-						set: <function([this]$ocd, value, key)>
-					},
-					prop2: ...,
-					...
-				},
-				clone?: <function([this]$parentOcd, value):el>,
-				on?: {
-					$init?: <function([this]$ocd)>,
-					$remove?: <function([this]$ocd)>,
-					eventName1: <function([this]$ocd, e):any>,
-					eventName2: ...,
-					...
-				},
-				mixins?: [{
-					data?: ...,
-					on?: ...,
-					methods?: ...
-				}],
-				sub?: [{
-					parentQuery?: <string|array|HTMLElement>,
-					query: <string|array|HTMLElement>,
-					single: <bool>,
-					alias: <string>,
-					get?: <function($ocd):any>,
-					set?: <function($ocd, value)>,
-					data?: {
-						prop1: {
-							jobject: <bool>,
-							default: <any|function([this]$ocd):any>,
-							get: <function([this]$ocd, key, currentValue):any>,
-							set: <function([this]$ocd, value, key)>
-						},
-						prop2: ...,
-						...
-					},
-					clone?: <function([this]$parentOcd, value):el>,
-					on?: {
-						$init?: <function([this]$ocd)>,
-						$remove?: <function([this]$ocd)>,
-						eventName1: <function([this]$ocd, e):any>,
-						eventName2: ...,
-						...
-					},
-					mixins?: [{
-						data?: ...,
-						on?: ...,
-						methods?: ...
-					}],
-					sub?: ...
-				}, ...]
-			}, ...]
-		}
-		 */
 		var alias = schema.alias;
-		if (checkVariableIsNullOrUndefined(parentEl) === false) {
-			checkVariableIsNullOrUndefined(alias, 'Alias');
-		}
 
 		var jobject = schema.jobject;
 		var single = schema.single;
@@ -849,7 +787,6 @@
 
 		var sub = schema.sub;
 		var query = schema.query;
-		checkVariableIsNullOrUndefined(query, 'Query');
 
 		var oninit = on.$init;
 		if (checkVariableIsNullOrUndefined(oninit) === true) {
@@ -865,8 +802,6 @@
 			queryParentEl = (parentEl || document).querySelector(':scope ' + parentQuery);
 		} else if (checkVariableIsHTML(parentQuery) === true) {
 			queryParentEl = parentQuery;
-		} else if (checkVariableIsNullOrUndefined(parentQuery) === false) {
-			throw 'Query must be String or HTMLElement';
 		}
 
 		if (checkVariableIsNullOrUndefined(parentEl) === false && checkVariableIsNullOrUndefined(clone) === true && single !== true) {
@@ -893,8 +828,6 @@
 			}
 		} else if (checkVariableIsHTML(query) === true) {
 			queryResults = [query];
-		} else {
-			throw 'Query must be String, Array, NodeList or HTMLElement';
 		}
 
 		if (single === true && queryResults.length > 1) {
@@ -907,6 +840,7 @@
 				return jobject !== false;
 			}
 		});
+
 		if (checkVariableIsNullOrUndefined(queryParentEl) === false && checkVariableIsNullOrUndefined(queryParentEl.$ocd) === true) {
 			Object.defineProperty(queryParentEl, '$ocd', {
 				get: function () {
@@ -1143,6 +1077,314 @@
 		queues.length = 0;
 	}
 
+	/**
+	 * To check schema is correct.
+	 * @param {any} schema 
+	 * @param {string} alias 
+	 * @param {boolean} sub 
+	 * @param {boolean} mixin 
+	 */
+	function checkSchema (schema, alias, sub, mixin) {
+		/*
+		{
+			query: <string|array|HTMLElement>,
+			get?: <function($ocd):any>,
+			set?: <function($ocd, value)>,
+			data?: {
+				prop1: {
+					jobject?: <bool>,
+					default?: <any|function([this]$ocd):any>,
+					get?: <function([this]$ocd, key, currentValue):any>,
+					set?: <function([this]$ocd, value, key)>
+				},
+				prop2: ...,
+				...
+			},
+			methods?: {
+				method1: <function([this]$ocd, ...):any>,
+				method2: ...,
+				...
+			},
+			on?: {
+				$init?: <function([this]$ocd)>,
+				$remove?: <function([this]$ocd)>,
+				eventName1: <function([this]$ocd, e):any>,
+				eventName2: ...,
+				...
+			},
+			mixins?: [{
+				data?: ...,
+				on?: ...,
+				methods?: ...
+			}],
+			sub?: [{
+				parentQuery?: <string|array|HTMLElement>,
+				query: <string|array|HTMLElement>,
+				single: <bool>,
+				alias: <string>,
+				get?: <function([this]$ocd):any>,
+				set?: <function([this]$ocd, value)>,
+				data?: {
+					prop1: {
+						jobject?: <bool>,
+						default?: <any|function([this]$ocd):any>,
+						get?: <function([this]$ocd, key, currentValue):any>,
+						set?: <function([this]$ocd, value, key)>
+					},
+					prop2: ...,
+					...
+				},
+				clone?: <function([this]$parentOcd, value):el>,
+				on?: {
+					$init?: <function([this]$ocd)>,
+					$remove?: <function([this]$ocd)>,
+					eventName1: <function([this]$ocd, e):any>,
+					eventName2: ...,
+					...
+				},
+				mixins?: [{
+					data?: ...,
+					on?: ...,
+					methods?: ...
+				}],
+				sub?: [{
+					parentQuery?: <string|array|HTMLElement>,
+					query: <string|array|HTMLElement>,
+					single: <bool>,
+					alias: <string>,
+					get?: <function($ocd):any>,
+					set?: <function($ocd, value)>,
+					data?: {
+						prop1: {
+							jobject?: <bool>,
+							default?: <any|function([this]$ocd):any>,
+							get?: <function([this]$ocd, key, currentValue):any>,
+							set?: <function([this]$ocd, value, key)>
+						},
+						prop2: ...,
+						...
+					},
+					clone?: <function([this]$parentOcd, value):el>,
+					on?: {
+						$init?: <function([this]$ocd)>,
+						$remove?: <function([this]$ocd)>,
+						eventName1: <function([this]$ocd, e):any>,
+						eventName2: ...,
+						...
+					},
+					mixins?: [{
+						data?: ...,
+						on?: ...,
+						methods?: ...
+					}],
+					sub?: ...
+				}, ...]
+			}, ...]
+		}
+		 */
+		var currentAlias = '';
+		if (checkVariableIsNullOrUndefined(schema.alias) === false) {
+			currentAlias = '<' + schema.alias + '>';
+		}
+
+		if (mixin === false) {
+			// Checking alias...
+			if (sub === true) {
+				checkVariableIsNullOrUndefined(schema.alias, alias + currentAlias + ' Alias');
+			}
+
+			// Checking set...
+			if (checkVariableIsNullOrUndefined(schema.set) === false && checkVariableIsFunction(schema.set) === false) {
+				throw alias + currentAlias + ' "set" must be Function!';
+			}
+
+			// Checking single...
+			if (checkVariableIsNullOrUndefined(schema.single) === false && checkVariableIsBoolean(schema.single) === false) {
+				throw alias + currentAlias + ' "single" must be Boolean!';
+			}
+
+			// Checking parentQuery...
+			if (schema.single !== true) {
+				if (checkVariableIsString(schema.parentQuery) === true) {
+				} else if (checkVariableIsHTML(schema.parentQuery) === true) {
+				} else if (checkVariableIsNullOrUndefined(schema.parentQuery) === false) {
+					throw alias + currentAlias + ' "parentQuery" must be String or HTMLElement if you don\'t use "single: true"!';
+				} else if (sub === true && checkVariableIsNullOrUndefined(schema.parentQuery) === true) {
+					throw alias + currentAlias + ' "parentQuery" must be String or HTMLElement if you don\'t use "single: true"!';
+				}
+			}
+
+			// Checking query...
+			if (checkVariableIsString(schema.query) === true) {
+			} else if (checkVariableIsArray(schema.query) === true) {
+			} else if (checkVariableIsHTML(schema.query) === true) {
+			} else {
+				throw alias + currentAlias + ' "query" must be String, Array, NodeList or HTMLElement!';
+			}
+
+			// Checking get...
+			if (checkVariableIsNullOrUndefined(schema.get) === false && checkVariableIsFunction(schema.get) === false) {
+				throw alias + currentAlias + ' "get" must be Function!';
+			}
+
+			// Checking set...
+			if (checkVariableIsNullOrUndefined(schema.set) === false && checkVariableIsFunction(schema.set) === false) {
+				throw alias + currentAlias + ' "set" must be Function!';
+			}
+		} else {
+			// Checking alias...
+			if (checkVariableIsNullOrUndefined(schema.alias) === false) {
+				throw alias + currentAlias + ' "alias" cannot be used on a mixin!';
+			}
+
+			// Checking single...
+			if (checkVariableIsNullOrUndefined(schema.single) === false) {
+				throw alias + currentAlias + ' "single" cannot be used on a mixin!';
+			}
+
+			// Checking parentQuery...
+			if (checkVariableIsNullOrUndefined(schema.parentQuery) === false) {
+				throw alias + currentAlias + ' "parentQuery" cannot be used on a mixin!';
+			}
+
+			// Checking query...
+			if (checkVariableIsNullOrUndefined(schema.query) === false) {
+				throw alias + currentAlias + ' "query" cannot be used on a mixin!';
+			}
+
+			// Checking get...
+			if (checkVariableIsNullOrUndefined(schema.get) === false) {
+				throw alias + currentAlias + ' "get" cannot be used on a mixin!';
+			}
+
+			// Checking set...
+			if (checkVariableIsNullOrUndefined(schema.set) === false) {
+				throw alias + currentAlias + ' "set" cannot be used on a mixin!';
+			}
+
+			// Checking mixins...
+			if (checkVariableIsNullOrUndefined(schema.mixins) === false) {
+				throw alias + currentAlias + ' "mixins" cannot be used on a mixin!';
+			}
+		}
+
+		// Checking data...
+		if (checkVariableIsNullOrUndefined(schema.data) === false) {
+			if (checkVariableIsObject(schema.data) === false) {
+				throw alias + currentAlias + ' "data" must be Object!';
+			}
+
+			// Checking data's properties...
+			for (var key in schema.data) {
+				// Checking data.prop...
+				if (checkVariableIsObject(schema.data[key]) === false) {
+					throw alias + currentAlias + ' "data.' + key + '" must be Object!';
+				}
+
+				// Checking data.prop.jobject...
+				if (checkVariableIsNullOrUndefined(schema.data[key].jobject) === false && checkVariableIsBoolean(schema.data[key].jobject) === false) {
+					throw alias + currentAlias + ' "data.' + key + '.jobject" must be Boolean!';
+				}
+
+				// Checking data.prop.get...
+				if (checkVariableIsNullOrUndefined(schema.data[key].get) === false && checkVariableIsFunction(schema.data[key].get) === false) {
+					throw alias + currentAlias + ' "data.' + key + '.get" must be Function!';
+				}
+
+				// Checking data.prop.set...
+				if (checkVariableIsNullOrUndefined(schema.data[key].set) === false && checkVariableIsFunction(schema.data[key].set) === false) {
+					throw alias + currentAlias + ' "data.' + key + '.set" must be Function!';
+				}
+			}
+		}
+
+		// Checking methods...
+		if (checkVariableIsNullOrUndefined(schema.methods) === false) {
+			if (checkVariableIsObject(schema.methods) === false) {
+				throw alias + currentAlias + ' "methods" must be Object!';
+			}
+
+			// Checking methods's properties...
+			for (var key in schema.methods) {
+				// Checking methods.prop...
+				if (checkVariableIsFunction(schema.methods[key]) === false) {
+					throw alias + currentAlias + ' "methods.' + key + '" must be Function!';
+				}
+			}
+		}
+
+		// Checking on...
+		if (checkVariableIsNullOrUndefined(schema.on) === false) {
+			if (checkVariableIsObject(schema.on) === false) {
+				throw alias + currentAlias + ' "on" must be Object!';
+			}
+
+			// Checking on's properties...
+			for (var key in schema.on) {
+				// Checking on.prop...
+				if (checkVariableIsFunction(schema.on[key]) === false) {
+					throw alias + currentAlias + ' "on.' + key + '" must be Function!';
+				}
+			}
+		}
+
+		// Checking mixins...
+		if (checkVariableIsNullOrUndefined(schema.mixins) === false) {
+			if (checkVariableIsArray(schema.mixins) === false) {
+				throw alias + currentAlias + ' "mixins" must be Array!';
+			}
+
+			// Checking mixins's items...
+			for (let i = 0; i < schema.mixins.length; i++) {
+				const mixin = schema.mixins[i];
+				checkSchema(mixin, alias + currentAlias + '.mixins[' + i + ']', false, true);
+			}
+		}
+
+		// Checking sub...
+		if (checkVariableIsNullOrUndefined(schema.sub) === false) {
+			if (checkVariableIsArray(schema.sub) === false) {
+				throw alias + currentAlias + ' "sub" must be Array!';
+			}
+
+			// Checking sub's items...
+			for (let i = 0; i < schema.sub.length; i++) {
+				const sub = schema.sub[i];
+				checkSchema(sub, alias + currentAlias + '.sub[' + i + ']', true, false);
+			}
+		}
+	}
+
+	/**
+	 * Create a clone object from source without references.
+	 * @param {any} source 
+	 */
+	function cloneObject (source) {
+		var destination = source;
+		if (checkVariableIsNullOrUndefined(source) === true) {
+			return destination;
+		}
+
+		if (checkVariableIsArray(source) === true) {
+			destination = [];
+			for (let i = 0; i < source.length; i++) {
+				destination.push(source[i]);
+			}
+
+			return destination;
+		} else if (checkVariableIsObject(source) === true) {
+			destination = {};
+
+			for (var key in source) {
+				destination[key] = cloneObject(source[key]);
+			}
+
+			return destination;
+		}
+
+		return destination;
+	}
+
 	if (window['$d'] === null || window['$d'] === undefined) {
 		var $d = {};
 		Object.defineProperty(window, '$d', {
@@ -1155,14 +1397,17 @@
 	Object.defineProperty(window['$d'], 'ocd', {
 		get: function () {
 			return function (schema) {
+				schema = cloneObject(schema);
+				checkSchema(schema, '$', false, false);
+
 				var queues = [];
-		
+
 				var $ocd = createOcdBySchema({
 					schema: schema,
 					queues: queues
 				});
 				consumeQueues(queues);
-		
+
 				return $ocd;
 			};
 		}
