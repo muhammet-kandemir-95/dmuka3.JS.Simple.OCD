@@ -80,10 +80,10 @@
 					self.removeEventListener(name, fnc);
 				},
 				find: function (query) {
-					return self.querySelectorAll(':scope ' + query);
+					return self.querySelectorAll(query);
 				},
 				first: function (query) {
-					return self.querySelector(':scope ' + query);
+					return self.querySelector(query);
 				},
 				append: function (el) {
 					self.appendChild(el);
@@ -107,6 +107,15 @@
 	});
 	//#endregion
 
+	var ocdElId = 1;
+	function ocdElIdProcess (el, fnc) {
+		ocdElId++;
+		el.setAttribute('ocd-el-id', ocdElId.toString());
+		fnc(ocdElId.toString());
+		el.removeAttribute('ocd-el-id');
+	}
+
+	//#region IE Bugs
 	// For IE.
 	if (Function.prototype.name === undefined && Object.defineProperty !== undefined) {
 		Object.defineProperty(Function.prototype, 'name', {
@@ -118,6 +127,17 @@
 			set: function (value) { }
 		});
 	}
+	if (!('remove' in Element.prototype)) {
+		Element.prototype.remove = function () {
+			if (this.parentNode) {
+				this.parentNode.removeChild(this);
+			}
+		};
+	}
+	if (!Element.prototype.matches) {
+		Element.prototype.matches = Element.prototype.msMatchesSelector;
+	}
+	//#endregion
 
 	//#region Check Variable by ?
 	/**
@@ -809,27 +829,49 @@
 
 		var queryParentEl = parentEl;
 		if (checkVariableIsString(parentQuery) === true) {
-			queryParentEl = (parentEl || document).querySelector(':scope ' + parentQuery);
+			if (checkVariableIsNullOrUndefined(parentEl) === false) {
+				ocdElIdProcess(parentEl, function (ocdElId) {
+					queryParentEl = document.querySelector('*[ocd-el-id="' + ocdElId + '"] ' + parentQuery);
+				});
+			} else {
+				queryParentEl = document.querySelector(parentQuery);
+			}
 		} else if (checkVariableIsHTML(parentQuery) === true) {
 			queryParentEl = parentQuery;
 		}
 
 		if (checkVariableIsNullOrUndefined(parentEl) === false && checkVariableIsNullOrUndefined(clone) === true && single !== true) {
-			var cloneEl = queryParentEl.querySelector(':scope>*[ocd-clone]');
-			var cloneElClone = cloneEl.cloneNode(true);
-			cloneElClone.removeAttribute('ocd-clone');
-			cloneEl.remove();
-			clone = function (value) {
-				return cloneElClone.cloneNode(true);
-			};
+			ocdElIdProcess(queryParentEl, function (ocdElId) {
+				var cloneEl = document.querySelector('*[ocd-el-id="' + ocdElId + '"]>*[ocd-clone]');
+				var cloneElClone = cloneEl.cloneNode(true);
+				cloneElClone.removeAttribute('ocd-clone');
+				cloneEl.remove();
+				clone = function (value) {
+					return cloneElClone.cloneNode(true);
+				};
+			});
 		}
 
 		var queryResults = null;
 		if (checkVariableIsString(query) === true) {
 			if (single === true) {
-				queryResults = [(queryParentEl || document).querySelector(':scope ' + query)];
+				if (checkVariableIsNullOrUndefined(queryParentEl) === false) {
+					queryResults = [];
+					ocdElIdProcess(queryParentEl, function (ocdElId) {
+						queryResults.push(document.querySelector('*[ocd-el-id="' + ocdElId + '"] ' + query));
+					});
+				} else {
+					queryResults = [];
+					queryResults.push(document.body.querySelector(query));
+				}
 			} else {
-				queryResults = (queryParentEl || document).querySelectorAll(':scope ' + query);
+				if (checkVariableIsNullOrUndefined(queryParentEl) === false) {
+					ocdElIdProcess(queryParentEl, function (ocdElId) {
+						queryResults = document.querySelectorAll('*[ocd-el-id="' + ocdElId + '"] ' + query);
+					});
+				} else {
+					queryResults = document.body.querySelectorAll(query);
+				}
 			}
 		} else if (checkVariableIsArray(query) === true) {
 			for (let i = 0; i < query.length; i++) {
@@ -901,8 +943,9 @@
 		}
 
 		if (checkVariableIsNullOrUndefined(parentEl) === false) {
-			var createACloneOcd = function (value) {
+			var createACloneOcd = function (value, fnc) {
 				var cloneEl = clone.call(parentOcd);
+				fnc(cloneEl);
 
 				var ocdItem = createOcdItem({
 					rootOcd: rootOcd,
@@ -946,8 +989,9 @@
 			Object.defineProperty(resultOcd, '$add', {
 				get: function () {
 					return function (value) {
-						var ocdNewItem = createACloneOcd(value);
-						queryParentEl.appendChild(ocdNewItem.el);
+						var ocdNewItem = createACloneOcd(value, function (el) {
+							queryParentEl.appendChild(el);
+						});
 
 						Array.prototype.push.call(resultOcd, ocdNewItem.ocd);
 
@@ -1010,9 +1054,10 @@
 							return;
 						}
 
-						var ocdNewItem = createACloneOcd(value);
 						var ocdItem = resultOcd[index];
-						ocdItem.$el.parentNode.insertBefore(ocdNewItem.el, ocdItem.$el);
+						var ocdNewItem = createACloneOcd(value, function (el) {
+							ocdItem.$el.parentNode.insertBefore(el, ocdItem.$el);
+						});
 
 						resultOcd.splice(index, 0, ocdNewItem.ocd);
 
