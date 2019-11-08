@@ -319,7 +319,20 @@
 		var props = Object.getOwnPropertyNames(obj);
 		for (let i = 0; i < props.length; i++) {
 			const prop = props[i];
-			if (prop === '__jobject' || prop === '__ocd' || prop === '__ocdData' || prop === '__ocdDataEnableCount' || prop === '__runOnceCheck' || prop === '$root' || prop === '$parent' || prop === 'jobject' || prop === '$m' || prop === '$set' || prop === '$el' || (checkVariableIsNullOrUndefined(obj.__ocdData) === false && obj.__ocdData[prop] === false)) {
+			if (
+				prop === '__jobject' ||
+				prop === '__ocd' ||
+				prop === '__ocdData' ||
+				prop === '__ocdDataEnableCount' ||
+				prop === '__runOnceCheck' ||
+				prop === '$root' ||
+				prop === '$parent' ||
+				prop === 'jobject' ||
+				prop === '$m' ||
+				prop === '$set' ||
+				prop === '$el' ||
+				(checkVariableIsNullOrUndefined(obj.__ocdData) === false && obj.__ocdData[prop] === false)
+			) {
 				continue;
 			}
 
@@ -901,7 +914,7 @@
 						queryResults.push(queryParentEl.querySelector(':scope ' + query));
 					} else {
 						queryResults = [];
-
+						
 						if (query.trim()[0] === '>') {
 							ocdElIdProcess(queryParentEl, function (ocdElId) {
 								queryResults.push(queryParentEl.parentNode.querySelector('*[ocd-el-id="' + ocdElId + '"] ' + query));
