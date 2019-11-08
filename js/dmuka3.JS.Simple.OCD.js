@@ -11,6 +11,16 @@
  *         ______\/////_____________\/////////__\////////////_____
  */
 (function () {
+	var $oldBrowser = false;
+
+	var ocdElId = 1;
+	function ocdElIdProcess (el, fnc) {
+		ocdElId++;
+		el.setAttribute('ocd-el-id', ocdElId.toString());
+		fnc(ocdElId.toString());
+		el.removeAttribute('ocd-el-id');
+	}
+
 	//#region HTML Element Prototypes
 	Object.defineProperty(Element.prototype, '$', {
 		get: function () {
@@ -80,9 +90,33 @@
 					self.removeEventListener(name, fnc);
 				},
 				find: function (query) {
+					if ($oldBrowser === false) {
+						return self.querySelectorAll(':scope ' + query);
+					}
+
+					if (query.trim()[0] === '>') {
+						var result = [];
+						ocdElIdProcess(self, function (ocdElId) {
+							result = self.parentNode.querySelectorAll('*[ocd-el-id="' + ocdElId + '"] ' + query);
+						})
+						return result;
+					}
+
 					return self.querySelectorAll(query);
 				},
 				first: function (query) {
+					if ($oldBrowser === false) {
+						return self.querySelector(':scope ' + query);
+					}
+
+					if (query.trim()[0] === '>') {
+						var result = null;
+						ocdElIdProcess(self, function (ocdElId) {
+							result = self.parentNode.querySelector('*[ocd-el-id="' + ocdElId + '"] ' + query);
+						})
+						return result;
+					}
+
 					return self.querySelector(query);
 				},
 				append: function (el) {
@@ -107,17 +141,10 @@
 	});
 	//#endregion
 
-	var ocdElId = 1;
-	function ocdElIdProcess (el, fnc) {
-		ocdElId++;
-		el.setAttribute('ocd-el-id', ocdElId.toString());
-		fnc(ocdElId.toString());
-		el.removeAttribute('ocd-el-id');
-	}
-
 	//#region IE Bugs
 	// For IE.
 	if (Function.prototype.name === undefined && Object.defineProperty !== undefined) {
+		$oldBrowser = true;
 		Object.defineProperty(Function.prototype, 'name', {
 			get: function () {
 				var funcNameRegex = /function\s([^(]{1,})\(/;
@@ -128,6 +155,7 @@
 		});
 	}
 	if (!('remove' in Element.prototype)) {
+		$oldBrowser = true;
 		Element.prototype.remove = function () {
 			if (this.parentNode) {
 				this.parentNode.removeChild(this);
@@ -135,7 +163,14 @@
 		};
 	}
 	if (!Element.prototype.matches) {
+		$oldBrowser = true;
 		Element.prototype.matches = Element.prototype.msMatchesSelector;
+	}
+
+	try {
+		new Function('(() => { console.log("a"); })();')();
+	} catch (error) {
+		$oldBrowser = true;
 	}
 	//#endregion
 
@@ -830,9 +865,17 @@
 		var queryParentEl = parentEl;
 		if (checkVariableIsString(parentQuery) === true) {
 			if (checkVariableIsNullOrUndefined(parentEl) === false) {
-				ocdElIdProcess(parentEl, function (ocdElId) {
-					queryParentEl = document.querySelector('*[ocd-el-id="' + ocdElId + '"] ' + parentQuery);
-				});
+				if ($oldBrowser === false) {
+					queryParentEl = parentEl.querySelector(':scope ' + parentQuery);
+				} else {
+					if (parentQuery.trim()[0] === '>') {
+						ocdElIdProcess(parentEl, function (ocdElId) {
+							queryParentEl = parentEl.parentNode.querySelector('*[ocd-el-id="' + ocdElId + '"] ' + parentQuery);
+						});
+					} else {
+						queryParentEl = parentEl.querySelector(parentQuery);
+					}
+				}
 			} else {
 				queryParentEl = document.querySelector(parentQuery);
 			}
@@ -841,34 +884,62 @@
 		}
 
 		if (checkVariableIsNullOrUndefined(parentEl) === false && checkVariableIsNullOrUndefined(clone) === true && single !== true) {
-			ocdElIdProcess(queryParentEl, function (ocdElId) {
-				var cloneEl = document.querySelector('*[ocd-el-id="' + ocdElId + '"]>*[ocd-clone]');
+			if ($oldBrowser === false) {
+				var cloneEl = queryParentEl.querySelector(':scope>*[ocd-clone]');
 				var cloneElClone = cloneEl.cloneNode(true);
 				cloneElClone.removeAttribute('ocd-clone');
 				cloneEl.remove();
 				clone = function (value) {
 					return cloneElClone.cloneNode(true);
 				};
-			});
+			} else {
+				ocdElIdProcess(queryParentEl, function (ocdElId) {
+					var cloneEl = queryParentEl.parentNode.querySelector('*[ocd-el-id="' + ocdElId + '"]>*[ocd-clone]');
+					var cloneElClone = cloneEl.cloneNode(true);
+					cloneElClone.removeAttribute('ocd-clone');
+					cloneEl.remove();
+					clone = function (value) {
+						return cloneElClone.cloneNode(true);
+					};
+				});
+			}
 		}
 
 		var queryResults = null;
 		if (checkVariableIsString(query) === true) {
 			if (single === true) {
 				if (checkVariableIsNullOrUndefined(queryParentEl) === false) {
-					queryResults = [];
-					ocdElIdProcess(queryParentEl, function (ocdElId) {
-						queryResults.push(document.querySelector('*[ocd-el-id="' + ocdElId + '"] ' + query));
-					});
+					if ($oldBrowser === false) {
+						queryResults = [];
+						queryResults.push(queryParentEl.querySelector(':scope ' + query));
+					} else {
+						queryResults = [];
+						
+						if (query.trim()[0] === '>') {
+							ocdElIdProcess(queryParentEl, function (ocdElId) {
+								queryResults.push(queryParentEl.parentNode.querySelector('*[ocd-el-id="' + ocdElId + '"] ' + query));
+							});
+						} else {
+							queryResults.push(queryParentEl.querySelector(query));
+						}
+					}
 				} else {
 					queryResults = [];
 					queryResults.push(document.body.querySelector(query));
 				}
 			} else {
 				if (checkVariableIsNullOrUndefined(queryParentEl) === false) {
-					ocdElIdProcess(queryParentEl, function (ocdElId) {
-						queryResults = document.querySelectorAll('*[ocd-el-id="' + ocdElId + '"] ' + query);
-					});
+					if ($oldBrowser === false) {
+						queryResults = queryParentEl.querySelectorAll(':scope ' + query);
+					} else {
+						if (query.trim()[0] === '>') {
+							ocdElIdProcess(queryParentEl, function (ocdElId) {
+								queryResults = queryParentEl.parentNode.querySelectorAll('*[ocd-el-id="' + ocdElId + '"] ' + query);
+							});
+						} else {
+							queryResults = queryParentEl.querySelectorAll(query);
+						}
+					}
 				} else {
 					queryResults = document.body.querySelectorAll(query);
 				}
@@ -1474,4 +1545,6 @@
 			};
 		}
 	});
+
+	console.log('dmuka3.JS.Simple.OCD completed(ES6 Support = ' + ($oldBrowser === false) + ').');
 })();
