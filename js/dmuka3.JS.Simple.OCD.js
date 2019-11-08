@@ -410,13 +410,7 @@
 	 * @param {any} ocdP 
 	 */
 	function recursiveFill (v, ocdP) {
-		if (
-			checkVariableIsNullOrUndefined(v) === true ||
-			(
-				checkVariableIsObject(v) === false &&
-				checkVariableIsArray(v) === false
-			)
-		) {
+		if (ocdP.__ocd === true) {
 			ocdP.value = v;
 		} else if (checkVariableIsArray(v)) {
 			ocdP.$clear();
@@ -684,6 +678,12 @@
 						};
 					}
 						break;
+					case 'OPTION': {
+						ocdGet = function () {
+							return this.$el.getAttribute('value');
+						};
+					}
+						break;
 					default: {
 						ocdGet = function () {
 							return this.$el.innerHTML;
@@ -721,6 +721,18 @@
 					case 'SELECT': {
 						ocdSet = function (value) {
 							this.$el.value = value;
+						};
+					}
+						break;
+					case 'OPTION': {
+						ocdSet = function (value) {
+							if (checkVariableIsString(value) === true) {
+								this.$el.setAttribute('value', value);
+								this.$el.innerText = value;
+							} else {
+								this.$el.setAttribute('value', value.value);
+								this.$el.innerText = value.text;
+							}
 						};
 					}
 						break;
@@ -872,20 +884,22 @@
 
 		var queryParentEl = parentEl;
 		if (checkVariableIsString(parentQuery) === true) {
-			if (checkVariableIsNullOrUndefined(parentEl) === false) {
-				if ($oldBrowser === false) {
-					queryParentEl = parentEl.querySelector(':scope ' + parentQuery);
-				} else {
-					if (parentQuery.trim()[0] === '>') {
-						ocdElIdProcess(parentEl, function (ocdElId) {
-							queryParentEl = parentEl.parentNode.querySelector('*[ocd-el-id="' + ocdElId + '"] ' + parentQuery);
-						});
+			if (parentQuery !== '') {
+				if (checkVariableIsNullOrUndefined(parentEl) === false) {
+					if ($oldBrowser === false) {
+						queryParentEl = parentEl.querySelector(':scope ' + parentQuery);
 					} else {
-						queryParentEl = parentEl.querySelector(parentQuery);
+						if (parentQuery.trim()[0] === '>') {
+							ocdElIdProcess(parentEl, function (ocdElId) {
+								queryParentEl = parentEl.parentNode.querySelector('*[ocd-el-id="' + ocdElId + '"] ' + parentQuery);
+							});
+						} else {
+							queryParentEl = parentEl.querySelector(parentQuery);
+						}
 					}
+				} else {
+					queryParentEl = document.querySelector(parentQuery);
 				}
-			} else {
-				queryParentEl = document.querySelector(parentQuery);
 			}
 		} else if (checkVariableIsHTML(parentQuery) === true) {
 			queryParentEl = parentQuery;
@@ -1253,8 +1267,8 @@
 		/*
 		{
 			query: <string|array|HTMLElement>,
-			get?: <function($ocd):any>,
-			set?: <function($ocd, value)>,
+			get?: <function([this]$ocd):any>,
+			set?: <function([this]$ocd, value)>,
 			data?: {
 				prop1: {
 					jobject?: <bool>,
@@ -1317,8 +1331,8 @@
 					query: <string|array|HTMLElement>,
 					single: <bool>,
 					alias: <string>,
-					get?: <function($ocd):any>,
-					set?: <function($ocd, value)>,
+					get?: <function([this]$ocd):any>,
+					set?: <function([this]$ocd, value)>,
 					data?: {
 						prop1: {
 							jobject?: <bool>,
@@ -1365,11 +1379,6 @@
 				}
 			}
 
-			// Checking set...
-			if (checkVariableIsNullOrUndefined(schema.set) === false && checkVariableIsFunction(schema.set) === false) {
-				throw alias + currentAlias + ' "set" must be Function!';
-			}
-
 			// Checking single...
 			if (checkVariableIsNullOrUndefined(schema.single) === false && checkVariableIsBoolean(schema.single) === false) {
 				throw alias + currentAlias + ' "single" must be Boolean!';
@@ -1378,9 +1387,6 @@
 			// Checking parentQuery...
 			if (schema.single !== true) {
 				if (checkVariableIsString(schema.parentQuery) === true) {
-					if (schema.parentQuery.trim().length === 0) {
-						throw alias + currentAlias + ' "parentQuery" must be filled!';
-					}
 				} else if (checkVariableIsHTML(schema.parentQuery) === true) {
 				} else if (checkVariableIsNullOrUndefined(schema.parentQuery) === false) {
 					throw alias + currentAlias + ' "parentQuery" must be String or HTMLElement if you don\'t use "single: true"!';
@@ -1408,6 +1414,11 @@
 			// Checking set...
 			if (checkVariableIsNullOrUndefined(schema.set) === false && checkVariableIsFunction(schema.set) === false) {
 				throw alias + currentAlias + ' "set" must be Function!';
+			}
+
+			// Checking clone...
+			if (checkVariableIsNullOrUndefined(schema.clone) === false && checkVariableIsFunction(schema.clone) === false) {
+				throw alias + currentAlias + ' "clone" must be Function!';
 			}
 		} else {
 			// Checking alias...
@@ -1438,6 +1449,11 @@
 			// Checking set...
 			if (checkVariableIsNullOrUndefined(schema.set) === false) {
 				throw alias + currentAlias + ' "set" cannot be used on a mixin!';
+			}
+
+			// Checking clone...
+			if (checkVariableIsNullOrUndefined(schema.clone) === false) {
+				throw alias + currentAlias + ' "clone" cannot be used on a mixin!';
 			}
 
 			// Checking mixins...

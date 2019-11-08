@@ -1,0 +1,78 @@
+<html>
+
+<head>
+	<title>dmuka3.JS.Simple.OCD</title>
+
+	<link rel="stylesheet" href="css/main.css">
+</head>
+
+<body>
+	<div id="app">
+		<input type="radio" name="choices" value="c1">Choice 1 <br />
+		<input type="radio" name="choices" value="c2">Choice 2 <br />
+		<input type="radio" name="choices" value="c3" checked>Choice 3 <br />
+		<input type="radio" name="choices" value="c4">Choice 4 <br />
+	</div>
+
+	<hr>
+
+	<pre></pre>
+
+	<script src="js/dmuka3.JS.Simple.OCD.js"></script>
+	<script>
+		var $app = $d.ocd({
+			query: '#app',
+			methods: {
+				refreshJson: function () {
+					this.$runOnce(function () {
+						var json = JSON.stringify(this.$root.jobject, null, 4);
+						if (json !== $d.q.first('pre').$.html()) {
+							$d.q.first('pre').$.html(json);
+						}
+					});
+				}
+			},
+			sub: [{
+				single: true,
+				query: '>input[value=c1]',
+				alias: 'radioChoice1',
+				on: {
+					change: function (e) {
+						this.$root.$m.refreshJson();
+					}
+				}
+			}, {
+				single: true,
+				query: '>input[value=c2]',
+				alias: 'radioChoice2',
+				on: {
+					change: function (e) {
+						this.$root.$m.refreshJson();
+					}
+				}
+			}, {
+				single: true,
+				query: '>input[value=c3]',
+				alias: 'radioChoice3',
+				on: {
+					change: function (e) {
+						this.$root.$m.refreshJson();
+					}
+				}
+			}, {
+				single: true,
+				query: '>input[value=c4]',
+				alias: 'radioChoice4',
+				on: {
+					change: function (e) {
+						this.$root.$m.refreshJson();
+					}
+				}
+			}]
+		});
+
+		$app.$m.refreshJson();
+	</script>
+</body>
+
+</html>

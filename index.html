@@ -8,11 +8,29 @@
 
 <body>
 	<div id="students-parent">
+		<a href="input.html" target="_blank">
+			<button>INPUT EXAMPLE</button>
+		</a>
+
+		<a href="select.html" target="_blank">
+			<button>SELECT EXAMPLE</button>
+		</a>
+
+		<a href="checkbox.html" target="_blank">
+			<button>CHECKBOX EXAMPLE</button>
+		</a>
+
+		<a href="radio.html" target="_blank">
+			<button>RADIO EXAMPLE</button>
+		</a>
+
+		<hr>
+
 		<div class="class-name">
 			<input name="Name" placeholder="Class Name" type="text" value="My Class Name">
 		</div>
 		<div class="add-student">
-			<button onclick="$student.students.$add();">Add a Student</button>
+			<button>Add a Student</button>
 		</div>
 		<div class="students">
 			<div ocd-clone class="student">
@@ -180,6 +198,16 @@
 					alias: 'name',
 					mixins: [globalMixin]
 				}]
+			}, {
+				jobject: false,
+				single: true,
+				query: '>.add-student>button',
+				alias: 'addStudent',
+				on: {
+					click: function (e) {
+						this.$parent.students.$add();
+					}
+				}
 			}, {
 				parentQuery: '>.students',
 				query: '>.student',
