@@ -148,7 +148,7 @@
 			methods: {
 				refreshJson: function (eventName) {
 					this.$runOnce(function () {
-						console.log('EVENT = ' + eventName);
+						console.log('EVENT = ' + eventName, this);
 
 						var json = JSON.stringify(this.$root.jobject, null, 4);
 						if (json !== $d.q.first('pre').$.html()) {

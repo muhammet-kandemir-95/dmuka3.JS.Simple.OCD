@@ -404,7 +404,7 @@
 						if (rootOcd.__runOnceCheck === false) {
 							rootOcd.__runOnceCheck = true;
 
-							setTimeout(() => {
+							setTimeout(function () {
 								fnc.call(ocdItem);
 								rootOcd.__runOnceCheck = false;
 							});
