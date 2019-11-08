@@ -105,8 +105,6 @@
 			return result;
 		}
 	});
-
-	window['$ocdQuery'] = document.body.$;
 	//#endregion
 
 	//#region Check Variable by ?
@@ -1393,6 +1391,13 @@
 			}
 		});
 	}
+
+
+	Object.defineProperty(window['$d'], 'q', {
+		get: function () {
+			return document.body.$;
+		}
+	});
 
 	Object.defineProperty(window['$d'], 'ocd', {
 		get: function () {

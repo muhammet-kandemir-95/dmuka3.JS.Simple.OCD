@@ -151,8 +151,8 @@
 						console.log('EVENT = ' + eventName);
 
 						var json = JSON.stringify(this.$root.jobject, null, 4);
-						if (json !== $ocdQuery.first('pre').$.html()) {
-							$ocdQuery.first('pre').$.html(json);
+						if (json !== $d.q.first('pre').$.html()) {
+							$d.q.first('pre').$.html(json);
 							localStorage.setItem('students', json);
 						}
 					});
