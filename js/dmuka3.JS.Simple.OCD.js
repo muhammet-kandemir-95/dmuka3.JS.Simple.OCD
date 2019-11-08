@@ -66,6 +66,13 @@
 						self.__ocdElementData[arguments[0]] = arguments[1];
 					}
 				},
+				val: function () {
+					if (arguments.length === 0) {
+						return self.value;
+					} else if (arguments.length === 1) {
+						self.value = arguments[0];
+					}
+				},
 				html: function () {
 					if (arguments.length === 0) {
 						return self.innerHTML;
@@ -1564,7 +1571,6 @@
 			}
 		});
 	}
-
 
 	Object.defineProperty(window['$d'], 'q', {
 		get: function () {
