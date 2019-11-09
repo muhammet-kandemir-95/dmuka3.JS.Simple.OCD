@@ -233,6 +233,12 @@
 	} catch (error) {
 		$oldBrowser = true;
 	}
+
+	try {
+		document.body.querySelector(':scope>div');
+	} catch (error) {
+		$oldBrowser = true;
+	}
 	//#endregion
 
 	//#region Check Variable by ?
@@ -1303,6 +1309,8 @@
 						consumeQueues(queues);
 
 						oninit.call(ocdNewItem.ocd);
+						
+						return ocdNewItem.ocd;
 					};
 				}
 			});
