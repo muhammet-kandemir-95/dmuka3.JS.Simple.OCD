@@ -29,7 +29,11 @@
 				self.__ocdElementData = {};
 			}
 
-			var result = {
+			var result = null;
+			result = {
+				get $el () {
+					return self;
+				},
 				get $parentOcd () {
 					if (self.$ocd !== null && self.$ocd !== undefined) {
 						return self.$ocd.$parent;
@@ -43,103 +47,153 @@
 						return el.$ocd;
 					}
 				},
-				addClass: function (value) {
-					self.classList.add(value);
-				},
-				removeClass: function (value) {
-					self.classList.remove(value);
-				},
-				containsClass: function (value) {
-					return self.classList.contains(value);
-				},
-				attr: function () {
-					if (arguments.length === 1) {
-						return self.getAttribute(arguments[0]);
-					} else if (arguments.length === 2) {
-						self.setAttribute(arguments[0], arguments[1]);
-					}
-				},
-				data: function () {
-					if (arguments.length === 1) {
-						return self.__ocdElementData[arguments[0]];
-					} else if (arguments.length === 2) {
-						self.__ocdElementData[arguments[0]] = arguments[1];
-					}
-				},
-				val: function () {
-					if (arguments.length === 0) {
-						return self.value;
-					} else if (arguments.length === 1) {
-						self.value = arguments[0];
-					}
-				},
-				html: function () {
-					if (arguments.length === 0) {
-						return self.innerHTML;
-					} else if (arguments.length === 1) {
-						self.innerHTML = arguments[0];
-					}
-				},
-				text: function () {
-					if (arguments.length === 0) {
-						return self.innerText;
-					} else if (arguments.length === 1) {
-						self.innerText = arguments[0];
-					}
-				},
-				is: function (query) {
-					return self.matches(query);
-				},
-				on: function (name, fnc) {
-					self.addEventListener(name, fnc);
-				},
-				removeEvent: function (name, fnc) {
-					self.removeEventListener(name, fnc);
-				},
-				find: function (query) {
-					if ($oldBrowser === false) {
-						return self.querySelectorAll(':scope ' + query);
-					}
-
-					if (query.trim()[0] === '>') {
-						var result = [];
-						ocdElIdProcess(self, function (ocdElId) {
-							result = self.parentNode.querySelectorAll('*[ocd-el-id="' + ocdElId + '"] ' + query);
-						})
+				get addClass () {
+					return function (value) {
+						self.classList.add(value);
 						return result;
-					}
-
-					return self.querySelectorAll(query);
+					};
 				},
-				first: function (query) {
-					if ($oldBrowser === false) {
-						return self.querySelector(':scope ' + query);
-					}
-
-					if (query.trim()[0] === '>') {
-						var result = null;
-						ocdElIdProcess(self, function (ocdElId) {
-							result = self.parentNode.querySelector('*[ocd-el-id="' + ocdElId + '"] ' + query);
-						})
+				get removeClass () {
+					return function (value) {
+						self.classList.remove(value);
 						return result;
-					}
+					};
+				},
+				get containsClass () {
+					return function (value) {
+						return self.classList.contains(value);
+					};
+				},
+				get attr () {
+					return function () {
+						if (arguments.length === 1) {
+							return self.getAttribute(arguments[0]);
+						} else if (arguments.length === 2) {
+							self.setAttribute(arguments[0], arguments[1]);
+							return result;
+						}
+					};
+				},
+				get data () {
+					return function () {
+						if (arguments.length === 1) {
+							return self.__ocdElementData[arguments[0]];
+						} else if (arguments.length === 2) {
+							self.__ocdElementData[arguments[0]] = arguments[1];
+							return result;
+						}
+					};
+				},
+				get val () {
+					return function () {
+						if (arguments.length === 0) {
+							return self.value;
+						} else if (arguments.length === 1) {
+							self.value = arguments[0];
+							return result;
+						}
+					};
+				},
+				get html () {
+					return function () {
+						if (arguments.length === 0) {
+							return self.innerHTML;
+						} else if (arguments.length === 1) {
+							self.innerHTML = arguments[0];
+							return result;
+						}
+					};
+				},
+				get text () {
+					return function () {
+						if (arguments.length === 0) {
+							return self.innerText;
+						} else if (arguments.length === 1) {
+							self.innerText = arguments[0];
+							return result;
+						}
+					};
+				},
+				get is () {
+					return function (query) {
+						return self.matches(query);
+					};
+				},
+				get on () {
+					return function (name, fnc) {
+						self.addEventListener(name, fnc);
+						return result;
+					};
+				},
+				get removeEvent () {
+					return function (name, fnc) {
+						self.removeEventListener(name, fnc);
+						return result;
+					};
+				},
+				get find () {
+					return function (query) {
+						if ($oldBrowser === false) {
+							return self.querySelectorAll(':scope ' + query);
+						}
 
-					return self.querySelector(query);
+						if (query.trim()[0] === '>') {
+							var result = [];
+							ocdElIdProcess(self, function (ocdElId) {
+								result = self.parentNode.querySelectorAll('*[ocd-el-id="' + ocdElId + '"] ' + query);
+							})
+							return result;
+						}
+
+						return self.querySelectorAll(query);
+					};
 				},
-				append: function (el) {
-					self.appendChild(el);
+				get first () {
+					return function (query) {
+						if ($oldBrowser === false) {
+							return self.querySelector(':scope ' + query);
+						}
+
+						if (query.trim()[0] === '>') {
+							var result = null;
+							ocdElIdProcess(self, function (ocdElId) {
+								result = self.parentNode.querySelector('*[ocd-el-id="' + ocdElId + '"] ' + query);
+							})
+							return result;
+						}
+
+						return self.querySelector(query);
+					};
 				},
-				appendBegin: function (el) {
-					el.insertAdjacentElement('afterbegin', self);
+				get append () {
+					return function (el) {
+						self.appendChild(el);
+						return result;
+					};
 				},
-				append: function (el) {
-					self.appendChild(el);
+				get appendBegin () {
+					return function (el) {
+						el.insertAdjacentElement('afterbegin', self);
+						return result;
+					};
 				},
-				insertBefore: function (el) {
-					el.insertAdjacentElement('beforebegin', self);
+				get append () {
+					return function (el) {
+						self.appendChild(el);
+						return result;
+					};
 				},
-				insertAfter: function (el) {
-					el.insertAdjacentElement('afterend', self);
+				get insertBefore () {
+					return function (el) {
+						el.insertAdjacentElement('beforebegin', self);
+						return result;
+					};
+				},
+				get insertAfter () {
+					return function (el) {
+						el.insertAdjacentElement('afterend', self);
+						return result;
+					};
 				}
 			};
 
@@ -327,6 +381,8 @@
 		for (let i = 0; i < props.length; i++) {
 			const prop = props[i];
 			if (
+				prop === '__hide' ||
+				prop === '__alias' ||
 				prop === '__jobject' ||
 				prop === '__ocd' ||
 				prop === '__ocdData' ||
@@ -816,10 +872,6 @@
 			for (let i = 0; i < schema.mixins.length; i++) {
 				const mixin = schema.mixins[i];
 
-				if (checkVariableIsNullOrUndefined(jobject) === true && checkVariableIsNullOrUndefined(mixin.jobject) === false) {
-					jobject = mixin.jobject;
-				}
-
 				if (checkVariableIsNullOrUndefined(get) === true && checkVariableIsNullOrUndefined(mixin.get) === false) {
 					get = mixin.get;
 				}
@@ -830,10 +882,6 @@
 
 				if (checkVariableIsNullOrUndefined(clone) === true && checkVariableIsNullOrUndefined(mixin.clone) === false) {
 					clone = mixin.clone;
-				}
-
-				if (checkVariableIsNullOrUndefined(parentQuery) === true && checkVariableIsNullOrUndefined(mixin.parentQuery) === false) {
-					parentQuery = mixin.parentQuery;
 				}
 
 				if (checkVariableIsNullOrUndefined(mixin.methods) === false) {
@@ -900,9 +948,13 @@
 				} else {
 					queryParentEl = document.querySelector(parentQuery);
 				}
+
+				checkVariableIsNullOrUndefined(queryParentEl, alias + ' "parentQuery"\'s result must not be null!');
 			}
 		} else if (checkVariableIsHTML(parentQuery) === true) {
 			queryParentEl = parentQuery;
+
+			checkVariableIsNullOrUndefined(queryParentEl, alias + ' "parentQuery"\'s result must not be null!');
 		}
 
 		if (checkVariableIsNullOrUndefined(parentEl) === false && checkVariableIsNullOrUndefined(clone) === true && single !== true) {
@@ -975,7 +1027,8 @@
 			queryResults = [query];
 		}
 
-		if (single === true && queryResults.length > 1) {
+		if (single === true) {
+			checkVariableIsNullOrUndefined(queryResults[0], alias + ' "query"\'s result must not be null!');
 			queryResults.length = 1;
 		}
 
@@ -1012,6 +1065,56 @@
 
 			return -1;
 		};
+		var createOcdEasyMethods = function (ocdItem) {
+			var hide = {};
+			Object.defineProperty(ocdItem, '__hide', {
+				get: function () {
+					return hide;
+				}
+			});
+
+			Object.defineProperty(ocdItem, '__isNullOrUndefined', {
+				get: function () {
+					return checkVariableIsNullOrUndefined;
+				}
+			});
+
+			Object.defineProperty(ocdItem, '__isString', {
+				get: function () {
+					return checkVariableIsString;
+				}
+			});
+
+			Object.defineProperty(ocdItem, '__isArray', {
+				get: function () {
+					return checkVariableIsArray;
+				}
+			});
+
+			Object.defineProperty(ocdItem, '__isBool', {
+				get: function () {
+					return checkVariableIsBoolean;
+				}
+			});
+
+			Object.defineProperty(ocdItem, '__isObject', {
+				get: function () {
+					return checkVariableIsObject;
+				}
+			});
+
+			Object.defineProperty(ocdItem, '__isHTML', {
+				get: function () {
+					return checkVariableIsHTML;
+				}
+			});
+
+			Object.defineProperty(ocdItem, '__alias', {
+				get: function () {
+					return alias;
+				}
+			});
+		};
 
 		for (let i = 0; i < queryResults.length; i++) {
 			const ocdEl = queryResults[i];
@@ -1032,6 +1135,8 @@
 			Array.prototype.push.call(resultOcd, ocdItem);
 
 			(function (ocdItem) {
+				createOcdEasyMethods(ocdItem);
+
 				Object.defineProperty(ocdItem, '$remove', {
 					get: function () {
 						return function () {
@@ -1105,6 +1210,8 @@
 
 						Array.prototype.push.call(resultOcd, ocdNewItem.ocd);
 
+						createOcdEasyMethods(ocdNewItem.ocd);
+
 						Object.defineProperty(ocdNewItem.ocd, '$remove', {
 							get: function () {
 								return function () {
@@ -1176,6 +1283,8 @@
 						});
 
 						resultOcd.splice(index, 0, ocdNewItem.ocd);
+
+						createOcdEasyMethods(ocdNewItem.ocd);
 
 						Object.defineProperty(ocdNewItem.ocd, '$remove', {
 							get: function () {
@@ -1406,24 +1515,19 @@
 				throw alias + currentAlias + ' "query" must be String, Array, NodeList or HTMLElement!';
 			}
 
-			// Checking get...
-			if (checkVariableIsNullOrUndefined(schema.get) === false && checkVariableIsFunction(schema.get) === false) {
-				throw alias + currentAlias + ' "get" must be Function!';
-			}
-
-			// Checking set...
-			if (checkVariableIsNullOrUndefined(schema.set) === false && checkVariableIsFunction(schema.set) === false) {
-				throw alias + currentAlias + ' "set" must be Function!';
-			}
-
-			// Checking clone...
-			if (checkVariableIsNullOrUndefined(schema.clone) === false && checkVariableIsFunction(schema.clone) === false) {
-				throw alias + currentAlias + ' "clone" must be Function!';
+			// Checking jobject...
+			if (checkVariableIsNullOrUndefined(schema.jobject) === false && checkVariableIsBoolean(schema.jobject) === false) {
+				throw alias + currentAlias + ' "jobject" must be Boolean!';
 			}
 		} else {
 			// Checking alias...
 			if (checkVariableIsNullOrUndefined(schema.alias) === false) {
 				throw alias + currentAlias + ' "alias" cannot be used on a mixin!';
+			}
+
+			// Checking jobject...
+			if (checkVariableIsNullOrUndefined(schema.jobject) === false) {
+				throw alias + currentAlias + ' "jobject" cannot be used on a mixin!';
 			}
 
 			// Checking single...
@@ -1441,25 +1545,25 @@
 				throw alias + currentAlias + ' "query" cannot be used on a mixin!';
 			}
 
-			// Checking get...
-			if (checkVariableIsNullOrUndefined(schema.get) === false) {
-				throw alias + currentAlias + ' "get" cannot be used on a mixin!';
-			}
-
-			// Checking set...
-			if (checkVariableIsNullOrUndefined(schema.set) === false) {
-				throw alias + currentAlias + ' "set" cannot be used on a mixin!';
-			}
-
-			// Checking clone...
-			if (checkVariableIsNullOrUndefined(schema.clone) === false) {
-				throw alias + currentAlias + ' "clone" cannot be used on a mixin!';
-			}
-
 			// Checking mixins...
 			if (checkVariableIsNullOrUndefined(schema.mixins) === false) {
 				throw alias + currentAlias + ' "mixins" cannot be used on a mixin!';
 			}
+		}
+
+		// Checking get...
+		if (checkVariableIsNullOrUndefined(schema.get) === false && checkVariableIsFunction(schema.get) === false) {
+			throw alias + currentAlias + ' "get" must be Function!';
+		}
+
+		// Checking set...
+		if (checkVariableIsNullOrUndefined(schema.set) === false && checkVariableIsFunction(schema.set) === false) {
+			throw alias + currentAlias + ' "set" must be Function!';
+		}
+
+		// Checking clone...
+		if (checkVariableIsNullOrUndefined(schema.clone) === false && checkVariableIsFunction(schema.clone) === false) {
+			throw alias + currentAlias + ' "clone" must be Function!';
 		}
 
 		// Checking data...
@@ -1594,22 +1698,49 @@
 		}
 	});
 
+	var ocdFnc = function (schema) {
+		schema = cloneObject(schema);
+		checkSchema(schema, '$', false, false);
+
+		var queues = [];
+
+		var $ocd = createOcdBySchema({
+			schema: schema,
+			queues: queues
+		});
+
+		consumeQueues(queues);
+
+		return $ocd;
+	};
+
+	var globalPlugins = {};
+	Object.defineProperty(globalPlugins, '$add', {
+		get: function () {
+			return function (alias, plugin) {
+				checkVariableIsString(alias, 'Plugin\'s alias');
+
+				plugin = cloneObject(plugin);
+				checkSchema(plugin, '$', false, true);
+
+				Object.defineProperty(globalPlugins, alias, {
+					get: function () {
+						return plugin;
+					}
+				});
+			};
+		}
+	});
+
+	Object.defineProperty(ocdFnc, 'plugins', {
+		get: function () {
+			return globalPlugins;
+		}
+	});
+
 	Object.defineProperty(window['$d'], 'ocd', {
 		get: function () {
-			return function (schema) {
-				schema = cloneObject(schema);
-				checkSchema(schema, '$', false, false);
-
-				var queues = [];
-
-				var $ocd = createOcdBySchema({
-					schema: schema,
-					queues: queues
-				});
-				consumeQueues(queues);
-
-				return $ocd;
-			};
+			return ocdFnc;
 		}
 	});
 })();

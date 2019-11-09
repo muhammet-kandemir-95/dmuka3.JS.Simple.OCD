@@ -1,0 +1,102 @@
+<html>
+
+<head>
+	<title>dmuka3.JS.Simple.OCD</title>
+
+	<link rel="stylesheet" href="css/main.css">
+</head>
+
+<body>
+	<div id="app">
+		<input class="mask1" placeholder="99.99.9999 99:99(fill:true)" type="text" value="">
+		<input class="mask2" placeholder="99.99.9999 99:99(fill:false)" type="text" value="">
+		<input class="mask3" placeholder="AAAAAA(fill:false)" type="text" value="">
+		<input class="mask4" placeholder="llllll(fill:false)" type="text" value="">
+		<input class="mask5" placeholder="LLLLLL(fill:false)" type="text" value="">
+		<input class="mask6" placeholder="99--AA__ll**LL(fill:false)" type="text" value="">
+	</div>
+
+	<script src="js/dmuka3.JS.Simple.OCD.js"></script>
+	<script src="js/dmuka3.JS.Simple.OCD.Plugin.Mask.js"></script>
+	<script>
+		var $app = $d.ocd({
+			query: '#app',
+			sub: [{
+				single: true,
+				query: '>.mask1',
+				alias: 'mask1',
+				mixins: [$d.ocd.plugins.mask],
+				data: {
+					$maskOptions: {
+						default: {
+							mask: '99.99.9999 99:99',
+							fill: true
+						}
+					}
+				}
+			}, {
+				single: true,
+				query: '>.mask2',
+				alias: 'mask2',
+				mixins: [$d.ocd.plugins.mask],
+				data: {
+					$maskOptions: {
+						default: {
+							mask: '99.99.9999 99:99'
+						}
+					}
+				}
+			}, {
+				single: true,
+				query: '>.mask3',
+				alias: 'mask3',
+				mixins: [$d.ocd.plugins.mask],
+				data: {
+					$maskOptions: {
+						default: {
+							mask: 'AAAAAA'
+						}
+					}
+				}
+			}, {
+				single: true,
+				query: '>.mask4',
+				alias: 'mask4',
+				mixins: [$d.ocd.plugins.mask],
+				data: {
+					$maskOptions: {
+						default: {
+							mask: 'llllll'
+						}
+					}
+				}
+			}, {
+				single: true,
+				query: '>.mask5',
+				alias: 'mask5',
+				mixins: [$d.ocd.plugins.mask],
+				data: {
+					$maskOptions: {
+						default: {
+							mask: 'LLLLLL'
+						}
+					}
+				}
+			}, {
+				single: true,
+				query: '>.mask6',
+				alias: 'mask6',
+				mixins: [$d.ocd.plugins.mask],
+				data: {
+					$maskOptions: {
+						default: {
+							mask: '99--AA__ll**LL'
+						}
+					}
+				}
+			}]
+		});
+	</script>
+</body>
+
+</html>
