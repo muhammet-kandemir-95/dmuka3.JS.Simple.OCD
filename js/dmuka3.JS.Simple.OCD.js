@@ -1200,6 +1200,8 @@
 						consumeQueues(queues);
 
 						oninit.call(ocdNewItem.ocd);
+						
+						return ocdNewItem.ocd;
 					};
 				}
 			});
