@@ -177,12 +177,6 @@
 						return result;
 					};
 				},
-				get append () {
-					return function (el) {
-						self.appendChild(el);
-						return result;
-					};
-				},
 				get insertBefore () {
 					return function (el) {
 						el.insertAdjacentElement('beforebegin', self);

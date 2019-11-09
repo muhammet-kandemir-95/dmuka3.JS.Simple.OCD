@@ -157,6 +157,8 @@ $d.ocd.plugins.$add('mask', {
 				}).on('focus', function (e) {
 					if (this.value.length === 0) {
 						this.value = self.__hide.mask.previousValue;
+						this.selectionStart = this.value.length;
+						this.selectionEnd = this.value.length;
 					}
 				});
 			}
