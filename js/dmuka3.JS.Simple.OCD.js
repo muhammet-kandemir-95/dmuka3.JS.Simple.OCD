@@ -26,7 +26,7 @@
 		get: function () {
 			var self = this;
 			if (self.__ocdElementData === null || self.__ocdElementData === undefined) {
-				self.__ocdElementData = { };
+				self.__ocdElementData = {};
 			}
 
 			var result = null;
@@ -52,19 +52,55 @@
 				},
 				get addClass () {
 					return function (value) {
-						self.classList.add(value);
+						try {
+							self.classList.add(value);
+						} catch (error) {
+							// IE 9 > Version
+							var classAttr = self.getAttribute('class');
+							if (checkVariableIsNullOrUndefined(classAttr) === true) {
+								classAttr = '';
+							}
+							if (classAttr === value) {
+								classAttr = '';
+							}
+							classAttr = classAttr.replace(' ' + value, '').replace(value + ' ', '');
+							classAttr += ' ' + value;
+							self.setAttribute('class', classAttr);
+						}
 						return result;
 					};
 				},
 				get removeClass () {
 					return function (value) {
-						self.classList.remove(value);
+						try {
+							self.classList.remove(value);
+						} catch (error) {
+							// IE 9 > Version
+							var classAttr = self.getAttribute('class');
+							if (checkVariableIsNullOrUndefined(classAttr) === true) {
+								classAttr = '';
+							}
+							if (classAttr.trim() === value) {
+								classAttr = '';
+							}
+							classAttr = classAttr.replace(' ' + value, '').replace(value + ' ', '');
+							self.setAttribute('class', classAttr);
+						}
 						return result;
 					};
 				},
 				get containsClass () {
 					return function (value) {
-						return self.classList.contains(value);
+						try {
+							return self.classList.contains(value);
+						} catch (error) {
+							// IE 9 > Version
+							var classAttr = self.getAttribute('class');
+							if (checkVariableIsNullOrUndefined(classAttr) === true) {
+								classAttr = '';
+							}
+							return classAttr.trim() === value || classAttr.indexOf(' ' + value) >= 0 || classAttr.indexOf(value + ' ') >= 0;
+						}
 					};
 				},
 				get attr () {
@@ -229,7 +265,7 @@
 		get: function () {
 			var self = this;
 			if (self.__ocdElementData === null || self.__ocdElementData === undefined) {
-				self.__ocdElementData = { };
+				self.__ocdElementData = {};
 			}
 
 			var result = null;
@@ -460,10 +496,10 @@
 	 */
 	function getPropAsObject (obj) {
 		if (checkVariableIsNullOrUndefined(obj) === true) {
-			return { };
+			return {};
 		}
 
-		var result = { };
+		var result = {};
 		var props = Object.getOwnPropertyNames(obj);
 		for (var i = 0; i < props.length; i++) {
 			var prop = props[i];
@@ -528,7 +564,7 @@
 				return o;
 			}
 		} else {
-			var o = { };
+			var o = {};
 
 			for (var key in getPropAsObject(v)) {
 				if (checkVariableIsFunction(v[key]) === true) {
@@ -630,7 +666,7 @@
 				}
 			});
 
-			var dataProps = { };
+			var dataProps = {};
 			var dataPropsEnableCount = 0;
 			Object.defineProperty(ocdItem, '__ocdData', {
 				get: function () {
@@ -675,7 +711,7 @@
 				}
 			});
 
-			ocdItem.__proto__.toString = function () {
+			ocdItem.toString = function () {
 				return ocdItem.value;
 			};
 
@@ -766,7 +802,7 @@
 		};
 
 		if (checkVariableIsNullOrUndefined(sub) === false) {
-			ocdItem = { };
+			ocdItem = {};
 
 			declareStd();
 
@@ -904,7 +940,7 @@
 	 * @param {*} item 
 	 */
 	function createEasyMethods (item) {
-		var hide = { };
+		var hide = {};
 		Object.defineProperty(item, '__hide', {
 			get: function () {
 				return hide;
@@ -994,7 +1030,7 @@
 
 		var on = schema.on;
 		if (checkVariableIsNullOrUndefined(schema.on) === true) {
-			on = { };
+			on = {};
 		}
 
 		var get = schema.get;
@@ -1002,12 +1038,12 @@
 
 		var data = schema.data;
 		if (checkVariableIsNullOrUndefined(data) === true) {
-			data = { };
+			data = {};
 		}
 
 		var methods = schema.methods;
 		if (checkVariableIsNullOrUndefined(methods) === true) {
-			methods = { };
+			methods = {};
 		}
 
 		var parentQuery = schema.parentQuery;
@@ -1784,7 +1820,7 @@
 
 			return destination;
 		} else if (checkVariableIsObject(source) === true) {
-			destination = { };
+			destination = {};
 
 			for (var key in source) {
 				destination[key] = cloneObject(source[key]);
@@ -1797,7 +1833,7 @@
 	}
 
 	if (window['$d'] === null || window['$d'] === undefined) {
-		var $d = { };
+		var $d = {};
 		Object.defineProperty(window, '$d', {
 			get: function () {
 				return $d;
@@ -1827,8 +1863,8 @@
 		return $ocd;
 	};
 
-	var globalPlugins = { };
-	var globalPluginSelf = { };
+	var globalPlugins = {};
+	var globalPluginSelf = {};
 	createEasyMethods(globalPluginSelf);
 	Object.defineProperty(globalPlugins, '$add', {
 		get: function () {
