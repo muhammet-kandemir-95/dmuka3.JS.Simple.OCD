@@ -101,10 +101,10 @@ $d.ocd.plugins.$add('contextMenu', function ($options) {
 								left: x + 'px',
 								right: 'auto'
 							});
-							if (contextEl.$.screen.left + contextEl.$.screen.width > Math.min(window.innerWidth, bodyEl.clientWidth)) {
+							if (contextEl.$.screen.left + contextEl.$.screen.width > Math.min(window.innerWidth, bodyEl.$.client.width)) {
 								contextEl.$.css({
 									left: 'auto',
-									right: (Math.min(window.innerWidth, bodyEl.clientWidth) - x) + 'px'
+									right: (Math.min(window.innerWidth, bodyEl.$.client.width) - x) + 'px'
 								});
 							}
 						}
@@ -113,10 +113,10 @@ $d.ocd.plugins.$add('contextMenu', function ($options) {
 								top: y + 'px',
 								bottom: 'auto'
 							});
-							if (contextEl.$.screen.top + contextEl.$.screen.height > Math.min(window.innerHeight, bodyEl.clientHeight)) {
+							if (contextEl.$.screen.top + contextEl.$.screen.height > Math.min(window.innerHeight, bodyEl.$.client.height)) {
 								contextEl.$.css({
 									top: 'auto',
-									bottom: (Math.min(window.innerHeight, bodyEl.clientHeight) - y) + 'px'
+									bottom: (Math.min(window.innerHeight, bodyEl.$.client.height) - y) + 'px'
 								});
 							}
 						}

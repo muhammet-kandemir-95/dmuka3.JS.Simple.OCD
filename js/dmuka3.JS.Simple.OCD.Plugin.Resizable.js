@@ -189,8 +189,8 @@ $d.ocd.plugins.$add('resizable', function ($options) {
 						};
 
 						self.__hide.resizable.size = {
-							w: self.$el.clientWidth,
-							h: self.$el.clientHeight
+							w: self.$el.$.client.width,
+							h: self.$el.$.client.height
 						};
 					}
 				};

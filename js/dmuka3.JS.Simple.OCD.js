@@ -50,6 +50,18 @@
 				get screen () {
 					return self.getClientRects()[0];
 				},
+				get client () {
+					var result = {
+						x: self.clientLeft,
+						y: self.clientTop,
+						left: self.clientLeft,
+						top: self.clientTop,
+						width: self.clientWidth,
+						height: self.clientHeight
+					};
+
+					return result;
+				},
 				get addClass () {
 					return function (value) {
 						try {
