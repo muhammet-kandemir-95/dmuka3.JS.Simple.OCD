@@ -838,6 +838,73 @@
 
 		return ocdItem;
 	}
+	
+	/**
+	 * Added some methods to item.
+	 * @param {*} item 
+	 */
+	function createEasyMethods (item) {
+		var hide = {};
+		Object.defineProperty(item, '__hide', {
+			get: function () {
+				return hide;
+			}
+		});
+
+		Object.defineProperty(item, '__isNullOrUndefined', {
+			get: function () {
+				return checkVariableIsNullOrUndefined;
+			}
+		});
+
+		Object.defineProperty(item, '__isString', {
+			get: function () {
+				return checkVariableIsString;
+			}
+		});
+
+		Object.defineProperty(item, '__isNumber', {
+			get: function () {
+				return checkVariableIsNumber;
+			}
+		});
+
+		Object.defineProperty(item, '__isArray', {
+			get: function () {
+				return checkVariableIsArray;
+			}
+		});
+
+		Object.defineProperty(item, '__isBool', {
+			get: function () {
+				return checkVariableIsBoolean;
+			}
+		});
+
+		Object.defineProperty(item, '__isObject', {
+			get: function () {
+				return checkVariableIsObject;
+			}
+		});
+
+		Object.defineProperty(item, '__isHTML', {
+			get: function () {
+				return checkVariableIsHTML;
+			}
+		});
+
+		Object.defineProperty(item, '__isFunction', {
+			get: function () {
+				return checkVariableIsFunction;
+			}
+		});
+
+		Object.defineProperty(item, '__alias', {
+			get: function () {
+				return alias;
+			}
+		});
+	};
 
 	/**
 	 * Create a ocd item by schema.
@@ -1092,68 +1159,6 @@
 
 			return -1;
 		};
-		var createOcdEasyMethods = function (ocdItem) {
-			var hide = {};
-			Object.defineProperty(ocdItem, '__hide', {
-				get: function () {
-					return hide;
-				}
-			});
-
-			Object.defineProperty(ocdItem, '__isNullOrUndefined', {
-				get: function () {
-					return checkVariableIsNullOrUndefined;
-				}
-			});
-
-			Object.defineProperty(ocdItem, '__isString', {
-				get: function () {
-					return checkVariableIsString;
-				}
-			});
-
-			Object.defineProperty(ocdItem, '__isNumber', {
-				get: function () {
-					return checkVariableIsNumber;
-				}
-			});
-
-			Object.defineProperty(ocdItem, '__isArray', {
-				get: function () {
-					return checkVariableIsArray;
-				}
-			});
-
-			Object.defineProperty(ocdItem, '__isBool', {
-				get: function () {
-					return checkVariableIsBoolean;
-				}
-			});
-
-			Object.defineProperty(ocdItem, '__isObject', {
-				get: function () {
-					return checkVariableIsObject;
-				}
-			});
-
-			Object.defineProperty(ocdItem, '__isHTML', {
-				get: function () {
-					return checkVariableIsHTML;
-				}
-			});
-
-			Object.defineProperty(ocdItem, '__isFunction', {
-				get: function () {
-					return checkVariableIsFunction;
-				}
-			});
-
-			Object.defineProperty(ocdItem, '__alias', {
-				get: function () {
-					return alias;
-				}
-			});
-		};
 
 		for (let i = 0; i < queryResults.length; i++) {
 			const ocdEl = queryResults[i];
@@ -1174,7 +1179,7 @@
 			Array.prototype.push.call(resultOcd, ocdItem);
 
 			(function (ocdItem) {
-				createOcdEasyMethods(ocdItem);
+				createEasyMethods(ocdItem);
 
 				Object.defineProperty(ocdItem, '$remove', {
 					get: function () {
@@ -1249,7 +1254,7 @@
 
 						Array.prototype.push.call(resultOcd, ocdNewItem.ocd);
 
-						createOcdEasyMethods(ocdNewItem.ocd);
+						createEasyMethods(ocdNewItem.ocd);
 
 						Object.defineProperty(ocdNewItem.ocd, '$remove', {
 							get: function () {
@@ -1323,7 +1328,7 @@
 
 						resultOcd.splice(index, 0, ocdNewItem.ocd);
 
-						createOcdEasyMethods(ocdNewItem.ocd);
+						createEasyMethods(ocdNewItem.ocd);
 
 						Object.defineProperty(ocdNewItem.ocd, '$remove', {
 							get: function () {
@@ -1763,17 +1768,19 @@
 	};
 
 	var globalPlugins = {};
+	var globalPluginSelf = {};
+	createEasyMethods(globalPluginSelf);
 	Object.defineProperty(globalPlugins, '$add', {
 		get: function () {
 			return function (alias, plugin) {
 				checkVariableIsString(alias, 'Plugin\'s alias');
-
-				plugin = cloneObject(plugin);
-				checkSchema(plugin, '$', false, true);
+				checkVariableIsFunction(plugin, 'Plugin\'s');
 
 				Object.defineProperty(globalPlugins, alias, {
 					get: function () {
-						return plugin;
+						return function () {
+							return plugin.apply(globalPluginSelf, arguments);
+						};
 					}
 				});
 			};

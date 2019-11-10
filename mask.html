@@ -14,6 +14,7 @@
 		<input class="mask4" placeholder="llllll(fill:false)" type="text" value="">
 		<input class="mask5" placeholder="LLLLLL(fill:false)" type="text" value="">
 		<input class="mask6" placeholder="99--AA__ll**LL(fill:false)" type="text" value="">
+		<input class="mask7" placeholder="?????(fill:false)" type="text" value="">
 	</div>
 
 	<script src="js/dmuka3.JS.Simple.OCD.js"></script>
@@ -25,75 +26,52 @@
 				single: true,
 				query: '>.mask1',
 				alias: 'mask1',
-				mixins: [$d.ocd.plugins.mask],
-				data: {
-					$maskOptions: {
-						default: {
-							mask: '99.99.9999 99:99',
-							fill: true
-						}
-					}
-				}
+				mixins: [$d.ocd.plugins.mask({
+					mask: '99.99.9999 99:99',
+					fill: true
+				})]
 			}, {
 				single: true,
 				query: '>.mask2',
 				alias: 'mask2',
-				mixins: [$d.ocd.plugins.mask],
-				data: {
-					$maskOptions: {
-						default: {
-							mask: '99.99.9999 99:99'
-						}
-					}
-				}
+				mixins: [$d.ocd.plugins.mask({
+					mask: '99.99.9999 99:99'
+				})]
 			}, {
 				single: true,
 				query: '>.mask3',
 				alias: 'mask3',
-				mixins: [$d.ocd.plugins.mask],
-				data: {
-					$maskOptions: {
-						default: {
-							mask: 'AAAAAA'
-						}
-					}
-				}
+				mixins: [$d.ocd.plugins.mask({
+					mask: 'AAAAAA'
+				})]
 			}, {
 				single: true,
 				query: '>.mask4',
 				alias: 'mask4',
-				mixins: [$d.ocd.plugins.mask],
-				data: {
-					$maskOptions: {
-						default: {
-							mask: 'llllll'
-						}
-					}
-				}
+				mixins: [$d.ocd.plugins.mask({
+					mask: 'llllll'
+				})]
 			}, {
 				single: true,
 				query: '>.mask5',
 				alias: 'mask5',
-				mixins: [$d.ocd.plugins.mask],
-				data: {
-					$maskOptions: {
-						default: {
-							mask: 'LLLLLL'
-						}
-					}
-				}
+				mixins: [$d.ocd.plugins.mask({
+					mask: 'LLLLLL'
+				})]
 			}, {
 				single: true,
 				query: '>.mask6',
 				alias: 'mask6',
-				mixins: [$d.ocd.plugins.mask],
-				data: {
-					$maskOptions: {
-						default: {
-							mask: '99--AA__ll**LL'
-						}
-					}
-				}
+				mixins: [$d.ocd.plugins.mask({
+					mask: '99--AA__ll**LL'
+				})]
+			}, {
+				single: true,
+				query: '>.mask7',
+				alias: 'mask7',
+				mixins: [$d.ocd.plugins.mask({
+					mask: '?????'
+				})]
 			}]
 		});
 	</script>

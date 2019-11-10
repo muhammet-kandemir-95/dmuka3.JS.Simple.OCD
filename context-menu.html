@@ -36,21 +36,16 @@
 				single: true,
 				query: '>div>div>.show-context-menu',
 				alias: 'showContextMenu',
-				mixins: [$d.ocd.plugins.contextMenu],
-				data: {
-					$contextMenuOptions: {
-						default: {
-							contextEl: '#app>.context-menu',
-							zIndex: 999, // default: 999999
-							onShow: function () {
-								console.log('Context Menu opened', this);
-							},
-							onHide: function () {
-								console.log('Context Menu closed', this);
-							}
-						}
+				mixins: [$d.ocd.plugins.contextMenu({
+					contextEl: '#app>.context-menu',
+					zIndex: 999, // default: 999999
+					onShow: function () {
+						console.log('Context Menu opened', this);
+					},
+					onHide: function () {
+						console.log('Context Menu closed', this);
 					}
-				}
+				})]
 			}]
 		});
 	</script>
