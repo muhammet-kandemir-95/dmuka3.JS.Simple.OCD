@@ -132,9 +132,10 @@ $d.ocd.plugins.$add('draggable', function ($options) {
 							e.pageY = e.touches[0].pageY;
 							e.clientX = e.touches[0].clientX;
 							e.clientY = e.touches[0].clientY;
-						} else {
-							e.preventDefault();
 						}
+						try {
+							e.preventDefault();
+						} catch (error) { }
 						e.stopPropagation();
 						self.__hide.draggable.down = true;
 
@@ -161,6 +162,9 @@ $d.ocd.plugins.$add('draggable', function ($options) {
 					if (e.type.indexOf('touch') >= 0) {
 						e.pageX = e.touches[0].pageX;
 						e.pageY = e.touches[0].pageY;
+						try {
+							e.preventDefault();
+						} catch (error) { }
 					}
 					checkPosition(e.pageX, e.pageY);
 				};
