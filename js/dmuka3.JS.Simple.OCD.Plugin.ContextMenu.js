@@ -3,7 +3,9 @@
  * {
  * 	data: {
  * 		$contextMenuOptions: {
- * 			contextEl: <String>
+ * 			contextEl: <String>,
+ * 			onShow?: <Function([this]$ocd)>,
+ * 			onHide?: <Function([this]$ocd)>
  * 		}
  * 	}
  * }
@@ -39,6 +41,16 @@ $d.ocd.plugins.$add('contextMenu', {
 				console.error(this.__alias + ' "data.$contextMenuOptions.contextEl" must be String or HTML Element!', this);
 				throw this.__alias + ' "data.$contextMenuOptions.contextEl" must be String or HTML Element!';
 			}
+
+			if (this.__isNullOrUndefined(this.$contextMenuOptions.onShow) === false && this.__isFunction(this.$contextMenuOptions.onShow) === false) {
+				console.error(this.__alias + ' "data.$contextMenuOptions.onShow" must be Function!', this);
+				throw this.__alias + ' "data.$contextMenuOptions.onShow" must be Function!';
+			}
+
+			if (this.__isNullOrUndefined(this.$contextMenuOptions.onHide) === false && this.__isFunction(this.$contextMenuOptions.onHide) === false) {
+				console.error(this.__alias + ' "data.$contextMenuOptions.onHide" must be Function!', this);
+				throw this.__alias + ' "data.$contextMenuOptions.onHide" must be Function!';
+			}
 			//#endregion
 
 			var self = this;
@@ -58,10 +70,18 @@ $d.ocd.plugins.$add('contextMenu', {
 			contextEl.style.position = 'fixed';
 			self.__hide.contextMenu = {
 				/**
+				 * Context menu's situation.
+				 */
+				enable: false,
+				/**
 				 * Hide context menu.
 				 */
 				hide: function () {
 					contextEl.style.display = 'none';
+					if (self.__hide.contextMenu.enable === true && self.__isNullOrUndefined(self.$contextMenuOptions.onHide) === false) {
+						self.$contextMenuOptions.onHide.call(self);
+					}
+					self.__hide.contextMenu.enable = false;
 				},
 				/**
 				 * Show context menu.
@@ -76,9 +96,14 @@ $d.ocd.plugins.$add('contextMenu', {
 					if (self.__isNullOrUndefined(y) === false) {
 						contextEl.style.top = y + 'px';
 					}
+
+					if (self.__isNullOrUndefined(self.$contextMenuOptions.onShow) === false) {
+						self.$contextMenuOptions.onShow.call(self);
+					}
+					self.__hide.contextMenu.enable = true;
 				}
 			};
-			self.__hide.contextMenu.hide();
+			contextEl.style.display = 'none';
 
 			contextEl.$contextMenu = {
 				hide: self.__hide.contextMenu.hide,
@@ -88,6 +113,12 @@ $d.ocd.plugins.$add('contextMenu', {
 			self.$el.$.on('contextmenu', function (e) {
 				e.preventDefault();
 				self.__hide.contextMenu.show(e.clientX, e.clientY);
+			});
+			
+			document.addEventListener('contextmenu', function (e) {
+				if (self.$el !== e.target && self.$el.$.has(e.target) === false && contextEl !== e.target && contextEl.$.has(e.target) === false) {
+					self.__hide.contextMenu.hide();
+				}
 			});
 
 			document.addEventListener('click', function (e) {

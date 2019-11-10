@@ -8,9 +8,9 @@
 
 <body>
 	<div id="app">
-		<div style="width:700px;height:300px;overflow:auto;">
+		<div style="width:700px;height:400px;overflow:auto;">
 			<div style="padding: 200px;">
-				<button class="show-context-menu">Show Context Menu</button>
+				<button class="show-context-menu" style="width:200px;height:200px;">Show Context Menu</button>
 			</div>
 		</div>
 
@@ -40,7 +40,13 @@
 				data: {
 					$contextMenuOptions: {
 						default: {
-							contextEl: '#app>.context-menu'
+							contextEl: '#app>.context-menu',
+							onShow: function () {
+								console.log('Context Menu opened', this);
+							},
+							onHide: function () {
+								console.log('Context Menu closed', this);
+							}
 						}
 					}
 				}

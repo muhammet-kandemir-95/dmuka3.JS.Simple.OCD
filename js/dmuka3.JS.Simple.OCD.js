@@ -1134,6 +1134,12 @@
 				}
 			});
 
+			Object.defineProperty(ocdItem, '__isFunction', {
+				get: function () {
+					return checkVariableIsFunction;
+				}
+			});
+
 			Object.defineProperty(ocdItem, '__alias', {
 				get: function () {
 					return alias;
