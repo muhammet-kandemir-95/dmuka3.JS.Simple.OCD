@@ -26,7 +26,7 @@
 		get: function () {
 			var self = this;
 			if (self.__ocdElementData === null || self.__ocdElementData === undefined) {
-				self.__ocdElementData = {};
+				self.__ocdElementData = { };
 			}
 
 			var result = null;
@@ -229,7 +229,7 @@
 		get: function () {
 			var self = this;
 			if (self.__ocdElementData === null || self.__ocdElementData === undefined) {
-				self.__ocdElementData = {};
+				self.__ocdElementData = { };
 			}
 
 			var result = null;
@@ -460,13 +460,13 @@
 	 */
 	function getPropAsObject (obj) {
 		if (checkVariableIsNullOrUndefined(obj) === true) {
-			return {};
+			return { };
 		}
 
-		var result = {};
+		var result = { };
 		var props = Object.getOwnPropertyNames(obj);
-		for (let i = 0; i < props.length; i++) {
-			const prop = props[i];
+		for (var i = 0; i < props.length; i++) {
+			var prop = props[i];
 			if (
 				prop === '__hide' ||
 				prop === '__alias' ||
@@ -504,8 +504,8 @@
 		} else if (checkVariableIsArray(v) === true) {
 			var arr = [];
 
-			for (let i = 0; i < v.length; i++) {
-				const item = v[i];
+			for (var i = 0; i < v.length; i++) {
+				var item = v[i];
 				arr.push(toJObject(item));
 			}
 
@@ -528,7 +528,7 @@
 				return o;
 			}
 		} else {
-			var o = {};
+			var o = { };
 
 			for (var key in getPropAsObject(v)) {
 				if (checkVariableIsFunction(v[key]) === true) {
@@ -556,8 +556,8 @@
 			ocdP.value = v;
 		} else if (checkVariableIsArray(v)) {
 			ocdP.$clear();
-			for (let ai = 0; ai < v.length; ai++) {
-				const vItem = v[ai];
+			for (var ai = 0; ai < v.length; ai++) {
+				var vItem = v[ai];
 				var ocdPItem = ocdP.$add();
 				recursiveFill(vItem, ocdPItem);
 			}
@@ -630,7 +630,7 @@
 				}
 			});
 
-			var dataProps = {};
+			var dataProps = { };
 			var dataPropsEnableCount = 0;
 			Object.defineProperty(ocdItem, '__ocdData', {
 				get: function () {
@@ -766,12 +766,12 @@
 		};
 
 		if (checkVariableIsNullOrUndefined(sub) === false) {
-			ocdItem = {};
+			ocdItem = { };
 
 			declareStd();
 
-			for (let si = 0; si < sub.length; si++) {
-				const subItem = sub[si];
+			for (var si = 0; si < sub.length; si++) {
+				var subItem = sub[si];
 
 				createOcdBySchema({
 					parentEl: ocdEl,
@@ -904,7 +904,7 @@
 	 * @param {*} item 
 	 */
 	function createEasyMethods (item) {
-		var hide = {};
+		var hide = { };
 		Object.defineProperty(item, '__hide', {
 			get: function () {
 				return hide;
@@ -994,7 +994,7 @@
 
 		var on = schema.on;
 		if (checkVariableIsNullOrUndefined(schema.on) === true) {
-			on = {};
+			on = { };
 		}
 
 		var get = schema.get;
@@ -1002,20 +1002,20 @@
 
 		var data = schema.data;
 		if (checkVariableIsNullOrUndefined(data) === true) {
-			data = {};
+			data = { };
 		}
 
 		var methods = schema.methods;
 		if (checkVariableIsNullOrUndefined(methods) === true) {
-			methods = {};
+			methods = { };
 		}
 
 		var parentQuery = schema.parentQuery;
 		var clone = schema.clone;
 		if (checkVariableIsNullOrUndefined(schema.mixins) === false) {
 			var addedMixins = [];
-			for (let i = 0; i < schema.mixins.length; i++) {
-				const mixin = schema.mixins[i];
+			for (var i = 0; i < schema.mixins.length; i++) {
+				var mixin = schema.mixins[i];
 
 				if (addedMixins.indexOf(mixin) >= 0) {
 					continue;
@@ -1023,7 +1023,7 @@
 				addedMixins.push(mixin);
 
 				if (checkVariableIsNullOrUndefined(mixin.mixins) === false) {
-					for (let si = 0; si < mixin.mixins.length; si++) {
+					for (var si = 0; si < mixin.mixins.length; si++) {
 						schema.mixins.push(mixin.mixins[si]);
 					}
 				}
@@ -1173,8 +1173,8 @@
 				}
 			}
 		} else if (checkVariableIsArray(query) === true) {
-			for (let i = 0; i < query.length; i++) {
-				const element = query[i];
+			for (var i = 0; i < query.length; i++) {
+				var element = query[i];
 				checkVariableIsHTML(element, alias + '[' + i + ']');
 			}
 		} else if (checkVariableIsHTML(query) === true) {
@@ -1202,8 +1202,8 @@
 		}
 
 		var removeOcdItemMethod = function (ocdItem) {
-			for (let i = 0; i < resultOcd.length; i++) {
-				const item = resultOcd[i];
+			for (var i = 0; i < resultOcd.length; i++) {
+				var item = resultOcd[i];
 				if (item === ocdItem) {
 					resultOcd.$removeAt(i);
 					break;
@@ -1211,7 +1211,7 @@
 			}
 		};
 		var getIndexOcdItemMethod = function (ocdItem) {
-			for (let i = 0; i < resultOcd.length; i++) {
+			for (var i = 0; i < resultOcd.length; i++) {
 				if (resultOcd[i] === ocdItem) {
 					return i;
 				}
@@ -1220,8 +1220,8 @@
 			return -1;
 		};
 
-		for (let i = 0; i < queryResults.length; i++) {
-			const ocdEl = queryResults[i];
+		for (var i = 0; i < queryResults.length; i++) {
+			var ocdEl = queryResults[i];
 
 			var ocdItem = createOcdItem({
 				rootOcd: rootOcd,
@@ -1342,8 +1342,8 @@
 			Object.defineProperty(resultOcd, '$addRange', {
 				get: function () {
 					return function (values) {
-						for (let i = 0; i < values.length; i++) {
-							const value = values[i];
+						for (var i = 0; i < values.length; i++) {
+							var value = values[i];
 							resultOcd.$add(value);
 						}
 					};
@@ -1366,7 +1366,7 @@
 				get: function () {
 					return function (index) {
 						var len = resultOcd.length;
-						for (let i = len - 1; i >= 0; i--) {
+						for (var i = len - 1; i >= 0; i--) {
 							resultOcd.$removeAt(i);
 						}
 					};
@@ -1420,8 +1420,8 @@
 			}
 		});
 
-		for (let i = 0; i < resultOcd.length; i++) {
-			const resultOcdItem = resultOcd[i];
+		for (var i = 0; i < resultOcd.length; i++) {
+			var resultOcdItem = resultOcd[i];
 
 			(function (resultOcdItem) {
 				resultOcdItem.$set = function (value) {
@@ -1464,7 +1464,7 @@
 	 * @param {*} queues 
 	 */
 	function consumeQueues (queues) {
-		for (let i = 0; i < queues.length; i++) {
+		for (var i = 0; i < queues.length; i++) {
 			queues[i]();
 		}
 
@@ -1746,8 +1746,8 @@
 			}
 
 			// Checking mixins's items...
-			for (let i = 0; i < schema.mixins.length; i++) {
-				const mixin = schema.mixins[i];
+			for (var i = 0; i < schema.mixins.length; i++) {
+				var mixin = schema.mixins[i];
 				checkSchema(mixin, alias + currentAlias + '.mixins[' + i + ']', false, true);
 			}
 		}
@@ -1759,8 +1759,8 @@
 			}
 
 			// Checking sub's items...
-			for (let i = 0; i < schema.sub.length; i++) {
-				const sub = schema.sub[i];
+			for (var i = 0; i < schema.sub.length; i++) {
+				var sub = schema.sub[i];
 				checkSchema(sub, alias + currentAlias + '.sub[' + i + ']', true, false);
 			}
 		}
@@ -1778,13 +1778,13 @@
 
 		if (checkVariableIsArray(source) === true) {
 			destination = [];
-			for (let i = 0; i < source.length; i++) {
+			for (var i = 0; i < source.length; i++) {
 				destination.push(source[i]);
 			}
 
 			return destination;
 		} else if (checkVariableIsObject(source) === true) {
-			destination = {};
+			destination = { };
 
 			for (var key in source) {
 				destination[key] = cloneObject(source[key]);
@@ -1797,7 +1797,7 @@
 	}
 
 	if (window['$d'] === null || window['$d'] === undefined) {
-		var $d = {};
+		var $d = { };
 		Object.defineProperty(window, '$d', {
 			get: function () {
 				return $d;
@@ -1827,8 +1827,8 @@
 		return $ocd;
 	};
 
-	var globalPlugins = {};
-	var globalPluginSelf = {};
+	var globalPlugins = { };
+	var globalPluginSelf = { };
 	createEasyMethods(globalPluginSelf);
 	Object.defineProperty(globalPlugins, '$add', {
 		get: function () {

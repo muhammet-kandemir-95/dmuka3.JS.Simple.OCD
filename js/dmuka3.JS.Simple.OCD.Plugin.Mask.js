@@ -56,7 +56,7 @@ $d.ocd.plugins.$add('mask', function ($options) {
 					var countMaskCharacter = 0;
 
 					var maskIndex = 0;
-					for (let i = 0; i < val.length; i++) {
+					for (var i = 0; i < val.length; i++) {
 						if (maskIndex >= $options.mask.length) {
 							break;
 						}
