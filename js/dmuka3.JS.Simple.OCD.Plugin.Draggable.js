@@ -66,7 +66,11 @@ $d.ocd.plugins.$add('draggable', function ($options) {
 
 				self.__hide.draggable = {
 					content: self.$el.parentElement,
-					down: false
+					down: false,
+					coordinate: {
+						x: 0,
+						y: 0
+					}
 				};
 
 				if (this.__isString($options.content) === true) {

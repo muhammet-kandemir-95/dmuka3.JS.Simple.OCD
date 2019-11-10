@@ -9,34 +9,33 @@
 <body>
 	<div id="app">
 		<div class="content" style="margin-left:100px;margin-top:100px;width:500px;height:500px;border:1px solid #ccc;">
-			<div class="drag-me" style="width:100px;height:100px;background-color:#fff;">
+			<div class="resize-me" style="width:200px;height:200px;background-color:#fff;min-width:100px;min-height:100px;max-width:100%;max-height:100%;">
 				<ul style="margin:0px;padding:0px;list-style-type:none;">
-					<li>Drag Me</li>
+					<li>Resize Me</li>
 				</ul>
 			</div>
 		</div>
 	</div>
 
 	<script src="js/dmuka3.JS.Simple.OCD.js"></script>
-	<script src="js/dmuka3.JS.Simple.OCD.Plugin.Draggable.js"></script>
+	<script src="js/dmuka3.JS.Simple.OCD.Plugin.Resizable.js"></script>
 	<script>
 		var $app = $d.ocd({
 			query: '#app',
 			sub: [{
 				single: true,
-				query: '>.content>.drag-me',
-				alias: 'dragMe',
-				mixins: [$d.ocd.plugins.draggable({
-					// moveX: false,
-					// moveY: false,
-					// content: 'body',
-					contentX: true,
-					contentY: true,
+				query: '>.content>.resize-me',
+				alias: 'resizeMe',
+				mixins: [$d.ocd.plugins.resizable({
+					// resizeX: false,
+					// resizeY: false,
+					// resizeBarWidth: '10px',
+					// resizeBarHeight: '10px',
 					onBegin: function () {
 						console.log('onBegin');
 					},
-					onMove: function (pos) {
-						console.log('onMove', pos);
+					onResize: function (size) {
+						console.log('onResize', size);
 					},
 					onEnd: function () {
 						console.log('onEnd');
