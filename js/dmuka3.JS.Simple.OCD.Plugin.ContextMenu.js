@@ -4,6 +4,7 @@
  * 	data: {
  * 		$contextMenuOptions: {
  * 			contextEl: <String>,
+ * 			zIndex?(999999): <Number>,
  * 			onShow?: <Function([this]$ocd)>,
  * 			onHide?: <Function([this]$ocd)>
  * 		}
@@ -51,10 +52,19 @@ $d.ocd.plugins.$add('contextMenu', {
 				console.error(this.__alias + ' "data.$contextMenuOptions.onHide" must be Function!', this);
 				throw this.__alias + ' "data.$contextMenuOptions.onHide" must be Function!';
 			}
+
+			if (this.__isNullOrUndefined(this.$contextMenuOptions.zIndex) === false && this.__isNumber(this.$contextMenuOptions.zIndex) === false) {
+				console.error(this.__alias + ' "data.$contextMenuOptions.zIndex" must be Number!', this);
+				throw this.__alias + ' "data.$contextMenuOptions.zIndex" must be Number!';
+			}
 			//#endregion
 
 			var self = this;
 			var contextEl = null;
+			var zIndex = '999999';
+			if (this.__isNullOrUndefined(this.$contextMenuOptions.zIndex) === false) {
+				zIndex = this.$contextMenuOptions.zIndex.toString();
+			}
 
 			if (self.__isString(self.$contextMenuOptions.contextEl) === true) {
 				contextEl = document.querySelector(self.$contextMenuOptions.contextEl);
@@ -68,6 +78,7 @@ $d.ocd.plugins.$add('contextMenu', {
 			}
 
 			contextEl.style.position = 'fixed';
+			contextEl.style.zIndex = zIndex;
 			self.__hide.contextMenu = {
 				/**
 				 * Context menu's situation.
