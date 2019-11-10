@@ -22,7 +22,7 @@
 	}
 
 	//#region HTML Element Prototypes
-	Object.defineProperty(Element.prototype, '$', {
+	var _$ = {
 		get: function () {
 			var self = this;
 			if (self.__ocdElementData === null || self.__ocdElementData === undefined) {
@@ -46,6 +46,9 @@
 
 						return el.$ocd;
 					}
+				},
+				get screen() {
+					return self.getClientRects()[0];
 				},
 				get addClass () {
 					return function (value) {
@@ -94,6 +97,11 @@
 						}
 					};
 				},
+				get create () {
+					return function (tagName) {
+						return document.createElement(tagName);
+					};
+				},
 				get html () {
 					return function () {
 						if (arguments.length === 0) {
@@ -120,14 +128,14 @@
 					};
 				},
 				get on () {
-					return function (name, fnc) {
-						self.addEventListener(name, fnc);
+					return function (name, fnc, options) {
+						self.addEventListener(name, fnc, options);
 						return result;
 					};
 				},
 				get removeEvent () {
-					return function (name, fnc) {
-						self.removeEventListener(name, fnc);
+					return function (name, fnc, options) {
+						self.removeEventListener(name, fnc, options);
 						return result;
 					};
 				},
@@ -199,7 +207,51 @@
 
 			return result;
 		}
-	});
+	};
+	Object.defineProperty(Element.prototype, '$', _$);
+	_$ = {
+		get: function () {
+			var self = this;
+			if (self.__ocdElementData === null || self.__ocdElementData === undefined) {
+				self.__ocdElementData = {};
+			}
+
+			var result = null;
+			result = {
+				get create () {
+					return function (tagName) {
+						return document.createElement(tagName);
+					};
+				},
+				get on () {
+					return function (name, fnc, options) {
+						self.addEventListener(name, fnc, options);
+						return result;
+					};
+				},
+				get removeEvent () {
+					return function (name, fnc, options) {
+						self.removeEventListener(name, fnc, options);
+						return result;
+					};
+				},
+				get find () {
+					return function (query) {
+						return self.querySelectorAll(query);
+					};
+				},
+				get first () {
+					return function (query) {
+						return self.querySelector(query);
+					};
+				}
+			};
+
+			return result;
+		}
+	};
+	Object.defineProperty(document, '$', _$);
+	Object.defineProperty(window, '$', _$);
 	//#endregion
 
 	//#region IE Bugs
@@ -410,7 +462,6 @@
 				prop === '$root' ||
 				prop === '$parent' ||
 				prop === 'jobject' ||
-				prop === '$m' ||
 				prop === '$set' ||
 				prop === '$el' ||
 				prop === '$index' ||
@@ -613,10 +664,9 @@
 			};
 
 
-			var methodsOcd = {};
 			for (var key in getPropAsObject(methods)) {
 				(function (key) {
-					Object.defineProperty(methodsOcd, key, {
+					Object.defineProperty(ocdItem, key, {
 						get: function () {
 							return function () {
 								methods[key].apply(ocdItem, arguments);
@@ -625,12 +675,6 @@
 					});
 				})(key);
 			}
-
-			Object.defineProperty(ocdItem, '$m', {
-				get: function () {
-					return methodsOcd;
-				}
-			});
 
 			for (var key in getPropAsObject(data)) {
 				(function (key) {
@@ -1747,7 +1791,7 @@
 
 	Object.defineProperty(window['$d'], 'q', {
 		get: function () {
-			return document.body.$;
+			return document.$;
 		}
 	});
 

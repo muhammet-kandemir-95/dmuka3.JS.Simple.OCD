@@ -52,14 +52,13 @@ $d.ocd.plugins.$add('contextMenu', function ($options) {
 				var self = this;
 				var contextEl = null;
 				var zIndex = '999999';
-				var $htmlEl = document.querySelector('html');
 
 				if (this.__isNullOrUndefined($options.zIndex) === false) {
 					zIndex = $options.zIndex.toString();
 				}
 
 				if (self.__isString($options.contextEl) === true) {
-					contextEl = document.querySelector($options.contextEl);
+					contextEl = document.$.first($options.contextEl);
 
 					if (self.__isNullOrUndefined($options.contextEl) === true) {
 						console.error(self.__alias + ' "data.$contextMenuOptions.contextEl"\'s result must not be null!', self);
@@ -93,20 +92,21 @@ $d.ocd.plugins.$add('contextMenu', function ($options) {
 					 */
 					show: function (x, y) {
 						contextEl.style.display = 'block';
+
 						if (self.__isNullOrUndefined(x) === false) {
 							contextEl.style.left = x + 'px';
 							contextEl.style.right = 'auto';
-							if (contextEl.offsetLeft + contextEl.offsetWidth > $htmlEl.offsetWidth) {
+							if (contextEl.$.screen.left + contextEl.$.screen.width > window.innerWidth) {
 								contextEl.style.left = 'auto';
-								contextEl.style.right = ($htmlEl.offsetWidth - x) + 'px';
+								contextEl.style.right = (window.innerWidth - x) + 'px';
 							}
 						}
 						if (self.__isNullOrUndefined(y) === false) {
 							contextEl.style.top = y + 'px';
 							contextEl.style.bottom = 'auto';
-							if (contextEl.offsetTop + contextEl.offsetHeight > $htmlEl.offsetHeight) {
+							if (contextEl.$.screen.top + contextEl.$.screen.height > window.innerHeight) {
 								contextEl.style.top = 'auto';
-								contextEl.style.bottom = ($htmlEl.offsetHeight - y) + 'px';
+								contextEl.style.bottom = (window.innerHeight - y) + 'px';
 							}
 						}
 
@@ -128,21 +128,25 @@ $d.ocd.plugins.$add('contextMenu', function ($options) {
 					self.__hide.contextMenu.show(e.clientX, e.clientY);
 				});
 
-				document.addEventListener('contextmenu', function (e) {
+				document.$.on('contextmenu', function (e) {
 					if (self.$el !== e.target && self.$el.$.has(e.target) === false && contextEl !== e.target && contextEl.$.has(e.target) === false) {
 						self.__hide.contextMenu.hide();
 					}
 				});
 
-				document.addEventListener('click', function (e) {
+				document.$.on('click', function (e) {
 					if (contextEl !== e.target && contextEl.$.has(e.target) === false) {
 						self.__hide.contextMenu.hide();
 					}
 				});
 
-				window.addEventListener('scroll', function () {
+				window.$.on('scroll', function () {
 					self.__hide.contextMenu.hide();
 				}, true);
+
+				window.$.on('resize', function () {
+					self.__hide.contextMenu.hide();
+				});
 			}
 		}
 	};

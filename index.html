@@ -25,11 +25,15 @@
 		</a>
 
 		<a href="mask.html" target="_blank">
-			<button>MASK EXAMPLE</button>
+			<button>PLUGIN - MASK EXAMPLE</button>
 		</a>
 
 		<a href="context-menu.html" target="_blank">
-			<button>CONTEXT MENU EXAMPLE</button>
+			<button>PLUGIN - CONTEXT MENU EXAMPLE</button>
+		</a>
+
+		<a href="draggable.html" target="_blank">
+			<button>PLUGIN - DRAGGABLE EXAMPLE</button>
 		</a>
 
 		<hr>
@@ -179,16 +183,16 @@
 			},
 			on: {
 				$init: function () {
-					this.$m.refreshJson('INIT Parent');
+					this.refreshJson('INIT Parent');
 				},
 				$remove: function () {
-					this.$m.refreshJson('REMOVE Parent');
+					this.refreshJson('REMOVE Parent');
 				},
 				input: function (e) {
-					this.$m.refreshJson('INPUT Parent');
+					this.refreshJson('INPUT Parent');
 				},
 				click: function (e) {
-					this.$m.refreshJson('CLICK Parent');
+					this.refreshJson('CLICK Parent');
 				}
 			}
 		};
@@ -235,7 +239,7 @@
 								this.opacityButton.$el.$.text('Add Opacity');
 							}
 
-							this.$m.refreshJson('SET enableOpacity');
+							this.refreshJson('SET enableOpacity');
 						}
 					}
 				},

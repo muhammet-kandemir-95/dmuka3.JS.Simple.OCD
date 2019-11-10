@@ -1,0 +1,50 @@
+<html>
+
+<head>
+	<title>dmuka3.JS.Simple.OCD</title>
+
+	<link rel="stylesheet" href="css/main.css">
+</head>
+
+<body>
+	<div id="app">
+		<div class="content" style="margin-left:100px;margin-top:100px;width:500px;height:500px;border:1px solid #ccc;">
+			<div class="drag-me" style="width:100px;height:100px;background-color:#fff;">
+				<ul style="padding:0px;list-style-type:none;">
+					<li>Drag Me</li>
+				</ul>
+			</div>
+		</div>
+	</div>
+
+	<script src="js/dmuka3.JS.Simple.OCD.js"></script>
+	<script src="js/dmuka3.JS.Simple.OCD.Plugin.Draggable.js"></script>
+	<script>
+		var $app = $d.ocd({
+			query: '#app',
+			sub: [{
+				single: true,
+				query: '>.content>.drag-me',
+				alias: 'dragMe',
+				mixins: [$d.ocd.plugins.draggable({
+					// moveX: false,
+					// moveY: false,
+					// content: 'body',
+					contentX: true,
+					contentY: true,
+					onBegin: function () {
+						console.log('onBegin');
+					},
+					onMove: function (pos) {
+						console.log('onMove', pos);
+					},
+					onEnd: function () {
+						console.log('onEnd');
+					}
+				})]
+			}]
+		});
+	</script>
+</body>
+
+</html>
