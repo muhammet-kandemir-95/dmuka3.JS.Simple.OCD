@@ -1274,7 +1274,7 @@
 			var ocdItem = createOcdItem({
 				rootOcd: rootOcd,
 				jobject: jobject,
-				parentOcd: parentOcd,
+				parentOcd: single === true ? parentOcd : resultOcd,
 				queues: queues,
 				ocdEl: ocdEl,
 				sub: sub,
@@ -1317,7 +1317,7 @@
 				var ocdItem = createOcdItem({
 					rootOcd: rootOcd,
 					jobject: jobject,
-					parentOcd: parentOcd,
+					parentOcd: single !== true ? parentOcd : resultOcd,
 					queues: queues,
 					ocdEl: cloneEl,
 					sub: sub,
@@ -1342,6 +1342,12 @@
 			Object.defineProperty(resultOcd, '$el', {
 				get: function () {
 					return queryParentEl;
+				}
+			});
+
+			Object.defineProperty(resultOcd, '$parent', {
+				get: function () {
+					return parentOcd;
 				}
 			});
 
