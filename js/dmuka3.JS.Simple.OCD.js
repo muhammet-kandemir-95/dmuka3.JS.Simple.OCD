@@ -188,6 +188,12 @@
 						el.insertAdjacentElement('afterend', self);
 						return result;
 					};
+				},
+				get has () {
+					return function (el) {
+						while ((el = el.parentNode) && el !== self);
+						return !!el;
+					}
 				}
 			};
 
@@ -220,12 +226,6 @@
 	if (!Element.prototype.matches) {
 		$oldBrowser = true;
 		Element.prototype.matches = Element.prototype.msMatchesSelector;
-	}
-
-	try {
-		new Function('(() => { })();')();
-	} catch (error) {
-		$oldBrowser = true;
 	}
 
 	try {
@@ -325,6 +325,25 @@
 		if (value.constructor.name !== 'String') {
 			if (errorVariableName !== null && errorVariableName !== undefined) {
 				throw errorVariableName + ' must be string!';
+			}
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * Is variable's type number?
+	 * @param {any} value 
+	 * @param {number} errorVariableName 
+	 */
+	function checkVariableIsNumber (value, errorVariableName) {
+		if (checkVariableIsNullOrUndefined(value) === true) {
+			return false;
+		}
+
+		if (value.constructor.name !== 'Number') {
+			if (errorVariableName !== null && errorVariableName !== undefined) {
+				throw errorVariableName + ' must be number!';
 			}
 			return false;
 		}
@@ -1085,6 +1104,12 @@
 				}
 			});
 
+			Object.defineProperty(ocdItem, '__isNumber', {
+				get: function () {
+					return checkVariableIsNumber;
+				}
+			});
+
 			Object.defineProperty(ocdItem, '__isArray', {
 				get: function () {
 					return checkVariableIsArray;
@@ -1303,7 +1328,7 @@
 						consumeQueues(queues);
 
 						oninit.call(ocdNewItem.ocd);
-						
+
 						return ocdNewItem.ocd;
 					};
 				}

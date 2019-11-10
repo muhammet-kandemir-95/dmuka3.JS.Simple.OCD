@@ -1,0 +1,52 @@
+<html>
+
+<head>
+	<title>dmuka3.JS.Simple.OCD</title>
+
+	<link rel="stylesheet" href="css/main.css">
+</head>
+
+<body>
+	<div id="app">
+		<div style="width:700px;height:300px;overflow:auto;">
+			<div style="padding: 200px;">
+				<button class="show-context-menu">Show Context Menu</button>
+			</div>
+		</div>
+
+		<div class="context-menu"
+			style="width:100px;background-color:white;border:1px solid #000;padding:10px;text-align:center;">
+			Hello, I'm a context menu.
+			<ul style="font-size: 12px;padding-left: 15px;">
+				<li>Test Menu 1</li>
+				<li>Test Menu 2</li>
+				<li>Test Menu 3</li>
+				<li>Test Menu 4</li>
+				<li>Test Menu 5</li>
+			</ul>
+		</div>
+	</div>
+
+	<script src="js/dmuka3.JS.Simple.OCD.js"></script>
+	<script src="js/dmuka3.JS.Simple.OCD.Plugin.ContextMenu.js"></script>
+	<script>
+		var $app = $d.ocd({
+			query: '#app',
+			sub: [{
+				single: true,
+				query: '>div>div>.show-context-menu',
+				alias: 'showContextMenu',
+				mixins: [$d.ocd.plugins.contextMenu],
+				data: {
+					$contextMenuOptions: {
+						default: {
+							contextEl: '#app>.context-menu'
+						}
+					}
+				}
+			}]
+		});
+	</script>
+</body>
+
+</html>

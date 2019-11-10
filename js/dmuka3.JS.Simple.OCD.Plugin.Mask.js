@@ -10,6 +10,7 @@
  * 			// L    = Only Upper Letter
  * 			// Examples = ["99.99.9999 99:99", "L-99", "??LL99-AAA", ...]
  * 			mask: <String>,
+ * 			// Required completely filling.
  * 			fill?: <Boolean>
  * 		}
  * 	}
@@ -148,7 +149,26 @@ $d.ocd.plugins.$add('mask', {
 			};
 
 			self.$el.$.on('input', inputEvent);
+
+			self.__hide.mask = {
+				/**
+				 * This is only to provide more useful to be used with fill.
+				 * It is used on focusin and focusout.
+				 */
+				previousValue: self.$el.value,
+				/**
+				 * Check all rules from the beginning.
+				 */
+				refreshInput: function () {
+					inputEvent.call(self.$el, { preventDefault: function () { } });
+				}
+			};
+
 			if (this.$maskOptions.fill === true) {
+				if (this.value.length !== self.$maskOptions.mask.length) {
+					this.value = '';
+				}
+
 				self.$el.$.on('focusout', function (e) {
 					if (this.value.length !== self.$maskOptions.mask.length) {
 						self.__hide.mask.previousValue = this.value;
@@ -162,13 +182,6 @@ $d.ocd.plugins.$add('mask', {
 					}
 				});
 			}
-
-			self.__hide.mask = {
-				previousValue: self.$el.value,
-				refreshInput: function () {
-					inputEvent.call(self.$el, { preventDefault: function () { } });
-				}
-			};
 		}
 	}
 });
