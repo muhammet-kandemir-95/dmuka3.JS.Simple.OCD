@@ -62,6 +62,8 @@ $d.ocd.plugins.$add('contextMenu', {
 			var self = this;
 			var contextEl = null;
 			var zIndex = '999999';
+			var $htmlEl = document.querySelector('html');
+
 			if (this.__isNullOrUndefined(this.$contextMenuOptions.zIndex) === false) {
 				zIndex = this.$contextMenuOptions.zIndex.toString();
 			}
@@ -103,9 +105,19 @@ $d.ocd.plugins.$add('contextMenu', {
 					contextEl.style.display = 'block';
 					if (self.__isNullOrUndefined(x) === false) {
 						contextEl.style.left = x + 'px';
+						contextEl.style.right = 'auto';
+						if (contextEl.offsetLeft + contextEl.offsetWidth > $htmlEl.offsetWidth) {
+							contextEl.style.left = 'auto';
+							contextEl.style.right = ($htmlEl.offsetWidth - x) + 'px';
+						}
 					}
 					if (self.__isNullOrUndefined(y) === false) {
 						contextEl.style.top = y + 'px';
+						contextEl.style.bottom = 'auto';
+						if (contextEl.offsetTop + contextEl.offsetHeight > $htmlEl.offsetHeight) {
+							contextEl.style.top = 'auto';
+							contextEl.style.bottom = ($htmlEl.offsetHeight - y) + 'px';
+						}
 					}
 
 					if (self.__isNullOrUndefined(self.$contextMenuOptions.onShow) === false) {

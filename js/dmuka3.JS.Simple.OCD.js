@@ -886,10 +886,20 @@
 		var parentQuery = schema.parentQuery;
 		var clone = schema.clone;
 		if (checkVariableIsNullOrUndefined(schema.mixins) === false) {
-			checkVariableIsArray(schema.mixins, 'Mixins');
-
+			var addedMixins = [];
 			for (let i = 0; i < schema.mixins.length; i++) {
 				const mixin = schema.mixins[i];
+
+				if (addedMixins.indexOf(mixin) >= 0) {
+					continue;
+				}
+				addedMixins.push(mixin);
+
+				if (checkVariableIsNullOrUndefined(mixin.mixins) === false) {
+					for (let si = 0; si < mixin.mixins.length; si++) {
+						schema.mixins.push(mixin.mixins[si]);
+					}
+				}
 
 				if (checkVariableIsNullOrUndefined(get) === true && checkVariableIsNullOrUndefined(mixin.get) === false) {
 					get = mixin.get;
@@ -972,8 +982,6 @@
 			}
 		} else if (checkVariableIsHTML(parentQuery) === true) {
 			queryParentEl = parentQuery;
-
-			checkVariableIsNullOrUndefined(queryParentEl, alias + ' "parentQuery"\'s result must not be null!');
 		}
 
 		if (checkVariableIsNullOrUndefined(parentEl) === false && checkVariableIsNullOrUndefined(clone) === true && single !== true) {
@@ -1434,6 +1442,10 @@
 				...
 			},
 			mixins?: [{
+				get?: ...,
+				set?: ...,
+				clone?: ...,
+				mixins?: ...,
 				data?: ...,
 				on?: ...,
 				methods?: ...
@@ -1464,6 +1476,10 @@
 					...
 				},
 				mixins?: [{
+					get?: ...,
+					set?: ...,
+					clone?: ...,
+					mixins?: ...,
 					data?: ...,
 					on?: ...,
 					methods?: ...
@@ -1494,6 +1510,10 @@
 						...
 					},
 					mixins?: [{
+						get?: ...,
+						set?: ...,
+						clone?: ...,
+						mixins?: ...,
 						data?: ...,
 						on?: ...,
 						methods?: ...
@@ -1576,11 +1596,6 @@
 			// Checking query...
 			if (checkVariableIsNullOrUndefined(schema.query) === false) {
 				throw alias + currentAlias + ' "query" cannot be used on a mixin!';
-			}
-
-			// Checking mixins...
-			if (checkVariableIsNullOrUndefined(schema.mixins) === false) {
-				throw alias + currentAlias + ' "mixins" cannot be used on a mixin!';
 			}
 		}
 
