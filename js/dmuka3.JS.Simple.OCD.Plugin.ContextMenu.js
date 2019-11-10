@@ -52,13 +52,14 @@ $d.ocd.plugins.$add('contextMenu', function ($options) {
 				var self = this;
 				var contextEl = null;
 				var zIndex = '999999';
+				var bodyEl = $d.q.first('body');
 
 				if (this.__isNullOrUndefined($options.zIndex) === false) {
 					zIndex = $options.zIndex.toString();
 				}
 
 				if (self.__isString($options.contextEl) === true) {
-					contextEl = document.$.first($options.contextEl);
+					contextEl = $d.q.first($options.contextEl);
 
 					if (self.__isNullOrUndefined($options.contextEl) === true) {
 						console.error(self.__alias + ' "data.$contextMenuOptions.contextEl"\'s result must not be null!', self);
@@ -68,8 +69,10 @@ $d.ocd.plugins.$add('contextMenu', function ($options) {
 					contextEl = $options.contextEl;
 				}
 
-				contextEl.style.position = 'fixed';
-				contextEl.style.zIndex = zIndex;
+				contextEl.$.css({
+					position: 'fixed',
+					zIndex: zIndex
+				});
 				self.__hide.contextMenu = {
 					/**
 					 * Context menu's situation.
@@ -79,7 +82,7 @@ $d.ocd.plugins.$add('contextMenu', function ($options) {
 					 * Hide context menu.
 					 */
 					hide: function () {
-						contextEl.style.display = 'none';
+						contextEl.$.css('display', 'none');
 						if (self.__hide.contextMenu.enable === true && self.__isNullOrUndefined($options.onHide) === false) {
 							$options.onHide.call(self);
 						}
@@ -91,22 +94,30 @@ $d.ocd.plugins.$add('contextMenu', function ($options) {
 					 * @param {Number} y 
 					 */
 					show: function (x, y) {
-						contextEl.style.display = 'block';
+						contextEl.$.css('display', 'block');
 
 						if (self.__isNullOrUndefined(x) === false) {
-							contextEl.style.left = x + 'px';
-							contextEl.style.right = 'auto';
-							if (contextEl.$.screen.left + contextEl.$.screen.width > window.innerWidth) {
-								contextEl.style.left = 'auto';
-								contextEl.style.right = (window.innerWidth - x) + 'px';
+							contextEl.$.css({
+								left: x + 'px',
+								right: 'auto'
+							});
+							if (contextEl.$.screen.left + contextEl.$.screen.width > Math.min(window.innerWidth, bodyEl.clientWidth)) {
+								contextEl.$.css({
+									left: 'auto',
+									right: (Math.min(window.innerWidth, bodyEl.clientWidth) - x) + 'px'
+								});
 							}
 						}
 						if (self.__isNullOrUndefined(y) === false) {
-							contextEl.style.top = y + 'px';
-							contextEl.style.bottom = 'auto';
-							if (contextEl.$.screen.top + contextEl.$.screen.height > window.innerHeight) {
-								contextEl.style.top = 'auto';
-								contextEl.style.bottom = (window.innerHeight - y) + 'px';
+							contextEl.$.css({
+								top: y + 'px',
+								bottom: 'auto'
+							});
+							if (contextEl.$.screen.top + contextEl.$.screen.height > Math.min(window.innerHeight, bodyEl.clientHeight)) {
+								contextEl.$.css({
+									top: 'auto',
+									bottom: (Math.min(window.innerHeight, bodyEl.clientHeight) - y) + 'px'
+								});
 							}
 						}
 
@@ -116,7 +127,7 @@ $d.ocd.plugins.$add('contextMenu', function ($options) {
 						self.__hide.contextMenu.enable = true;
 					}
 				};
-				contextEl.style.display = 'none';
+				contextEl.$.css('display', 'none');
 
 				contextEl.$contextMenu = {
 					hide: self.__hide.contextMenu.hide,
@@ -128,13 +139,13 @@ $d.ocd.plugins.$add('contextMenu', function ($options) {
 					self.__hide.contextMenu.show(e.clientX, e.clientY);
 				});
 
-				document.$.on('contextmenu', function (e) {
+				$d.q.on('contextmenu', function (e) {
 					if (self.$el !== e.target && self.$el.$.has(e.target) === false && contextEl !== e.target && contextEl.$.has(e.target) === false) {
 						self.__hide.contextMenu.hide();
 					}
 				});
 
-				document.$.on('click', function (e) {
+				$d.q.on('click', function (e) {
 					if (contextEl !== e.target && contextEl.$.has(e.target) === false) {
 						self.__hide.contextMenu.hide();
 					}

@@ -59,7 +59,10 @@ $d.ocd.plugins.$add('draggable', function ($options) {
 			$init: function () {
 				var self = this;
 
-				self.$el.style.position = 'absolute';
+				self.$el.$.css({
+					position: 'absolute',
+					'touch-action': 'none'
+				});
 
 				self.__hide.draggable = {
 					content: self.$el.parentElement,
@@ -67,7 +70,7 @@ $d.ocd.plugins.$add('draggable', function ($options) {
 				};
 
 				if (this.__isString($options.content) === true) {
-					self.__hide.draggable.content = document.$.first($options.content);
+					self.__hide.draggable.content = $d.q.first($options.content);
 				} else if (this.__isHTML($options.content) === true) {
 					self.__hide.draggable.content = $options.content;
 				}
@@ -132,10 +135,9 @@ $d.ocd.plugins.$add('draggable', function ($options) {
 							e.pageY = e.touches[0].pageY;
 							e.clientX = e.touches[0].clientX;
 							e.clientY = e.touches[0].clientY;
-						}
-						try {
+						} else {
 							e.preventDefault();
-						} catch (error) { }
+						}
 						e.stopPropagation();
 						self.__hide.draggable.down = true;
 
@@ -151,8 +153,8 @@ $d.ocd.plugins.$add('draggable', function ($options) {
 						checkPosition(e.pageX, e.pageY);
 					}
 				};
-				document.$.on('mousedown', downEvent);
-				document.$.on('touchstart', downEvent);
+				$d.q.on('mousedown', downEvent);
+				$d.q.on('touchstart', downEvent);
 
 				var moveEvent = function (e) {
 					if (self.__hide.draggable.down === false) {
@@ -162,14 +164,11 @@ $d.ocd.plugins.$add('draggable', function ($options) {
 					if (e.type.indexOf('touch') >= 0) {
 						e.pageX = e.touches[0].pageX;
 						e.pageY = e.touches[0].pageY;
-						try {
-							e.preventDefault();
-						} catch (error) { }
 					}
 					checkPosition(e.pageX, e.pageY);
 				};
-				document.$.on('mousemove', moveEvent);
-				document.$.on('touchmove', moveEvent);
+				$d.q.on('mousemove', moveEvent);
+				$d.q.on('touchmove', moveEvent);
 
 				var upEvent = function (e) {
 					if (self.__hide.draggable.down === false) {
@@ -181,7 +180,6 @@ $d.ocd.plugins.$add('draggable', function ($options) {
 						if (self.__isNullOrUndefined($options.onEnd) === false) {
 							$options.onEnd.call(self);
 						}
-
 						return;
 					} else {
 						e.preventDefault();
@@ -194,9 +192,9 @@ $d.ocd.plugins.$add('draggable', function ($options) {
 						$options.onEnd.call(self);
 					}
 				};
-				document.$.on('mouseup', upEvent);
-				document.$.on('touchend', upEvent);
-				document.$.on('touchcancel', upEvent);
+				$d.q.on('mouseup', upEvent);
+				$d.q.on('touchend', upEvent);
+				$d.q.on('touchcancel', upEvent);
 			}
 		}
 	};

@@ -47,7 +47,7 @@
 						return el.$ocd;
 					}
 				},
-				get screen() {
+				get screen () {
 					return self.getClientRects()[0];
 				},
 				get addClass () {
@@ -73,6 +73,22 @@
 							return self.getAttribute(arguments[0]);
 						} else if (arguments.length === 2) {
 							self.setAttribute(arguments[0], arguments[1]);
+							return result;
+						}
+					};
+				},
+				get css () {
+					return function () {
+						if (arguments.length === 1) {
+							if (checkVariableIsString(arguments[0]) === true) {
+								return self.style[arguments[0]];
+							} else {
+								for (var key in arguments[0]) {
+									self.style[key] = arguments[0][key];
+								}
+							}
+						} else if (arguments.length === 2) {
+							self.style[arguments[0]] = arguments[1];
 							return result;
 						}
 					};
@@ -882,7 +898,7 @@
 
 		return ocdItem;
 	}
-	
+
 	/**
 	 * Added some methods to item.
 	 * @param {*} item 
