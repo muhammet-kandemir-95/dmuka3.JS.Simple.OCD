@@ -1,7 +1,7 @@
 /**
  * dmuka3.JS.Simple.OCD.Plugin.Draggable
  * {
- *  timeout?(default: 0): <Number>,
+ * 	timeout?(default: 0): <Number>,
  * 	content?(default: $el.parentElement): <String|HTML>,
  * 	contentX?(default: false): <Boolean>,
  * 	contentY?(default: false): <Boolean>,

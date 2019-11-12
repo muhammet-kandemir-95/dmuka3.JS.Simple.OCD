@@ -172,7 +172,7 @@ $d.ocd.plugins.$add('resizable', function ($options) {
 					self.__hide.resizable.type.w = e.target === self.__hide.resizable.barHorizantal || e.target === self.__hide.resizable.barBoth;
 					self.__hide.resizable.type.h = e.target === self.__hide.resizable.barVertical || e.target === self.__hide.resizable.barBoth;
 
-					if (self.__hide.resizable.type.w === true || self.__hide.resizable.type.h === true) {
+					if (self.__hide.resizable.type.w === true || self.__hide.resizable.type.h === true || (e.type.indexOf('touch') >= 0 && (e.target === self.$el || self.$el.$.has(e.target) === true))) {
 						if (e.type.indexOf('touch') >= 0) {
 							e.clientX = e.touches[0].clientX;
 							e.clientY = e.touches[0].clientY;
