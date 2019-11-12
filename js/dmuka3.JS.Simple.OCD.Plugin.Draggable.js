@@ -81,6 +81,7 @@ $d.ocd.plugins.$add('draggable', function ($options) {
 
 				self.__hide.draggable = {
 					content: self.$el.parentElement,
+					userSelectCss: '',
 					down: false,
 					active: false,
 					coordinate: {
@@ -156,11 +157,16 @@ $d.ocd.plugins.$add('draggable', function ($options) {
 					}
 
 					if (e.target === self.$el || self.$el.$.has(e.target) === true) {
+						self.__hide.draggable.userSelectCss = self.$el.$.css('user-select');
 						if (e.type.indexOf('touch') >= 0) {
 							e.pageX = e.touches[0].pageX;
 							e.pageY = e.touches[0].pageY;
 							e.clientX = e.touches[0].clientX;
 							e.clientY = e.touches[0].clientY;
+
+							self.$el.$.css({
+								'user-select': 'none'
+							});
 						} else {
 							e.preventDefault();
 						}
@@ -227,6 +233,7 @@ $d.ocd.plugins.$add('draggable', function ($options) {
 					self.__hide.draggable.active = false;
 					clearTimeout(self.__hide.draggable.timer);
 					self.__hide.draggable.timer = null;
+					self.$el.$.css('user-select', self.__hide.draggable.userSelectCss);
 
 					if (e.type.indexOf('touch') >= 0) {
 						if (active === true) {
