@@ -128,6 +128,10 @@ $d.ocd.plugins.$add('resizable', function ($options) {
 						x: 0,
 						y: 0
 					},
+					coordinate2: {
+						x: 0,
+						y: 0
+					},
 					size: {
 						w: 0,
 						h: 0
@@ -165,7 +169,18 @@ $d.ocd.plugins.$add('resizable', function ($options) {
 
 				var downEvent = function (e) {
 					if (self.__hide.resizable.down === true) {
-						self.__hide.resizable.doubleTouch = true;
+						if (e.type.indexOf('touch') >= 0) {
+							e.clientX = e.touches[1].clientX;
+							e.clientY = e.touches[1].clientY;
+
+							self.__hide.resizable.coordinate2 = {
+								x: e.clientX,
+								y: e.clientY
+							};
+							self.__hide.resizable.type.w = true;
+							self.__hide.resizable.type.h = true;
+							self.__hide.resizable.doubleTouch = true;
+						}
 						return;
 					}
 
@@ -205,13 +220,13 @@ $d.ocd.plugins.$add('resizable', function ($options) {
 					}
 
 					if (e.type.indexOf('touch') >= 0) {
+						e.clientX = e.touches[0].clientX;
+						e.clientY = e.touches[0].clientY;
+
 						if (self.__hide.resizable.doubleTouch === true) {
-							e.clientX = e.touches[1].clientX;
-							e.clientY = e.touches[1].clientY;
-						} else {
-							e.clientX = e.touches[0].clientX;
-							e.clientY = e.touches[0].clientY;
-						}
+							e.clientX2 = e.touches[1].clientX;
+							e.clientY2 = e.touches[1].clientY;
+						} 
 					}
 
 					if (self.__hide.resizable.type.w === false) {
@@ -221,7 +236,14 @@ $d.ocd.plugins.$add('resizable', function ($options) {
 						self.__hide.resizable.coordinate.x = e.clientX;
 					}
 
-					checkSize(self.__hide.resizable.size.w + (e.clientX - self.__hide.resizable.coordinate.x), self.__hide.resizable.size.h + (e.clientY - self.__hide.resizable.coordinate.y));
+					
+					if (e.type.indexOf('touch') >= 0 && self.__hide.resizable.doubleTouch === true) {
+						checkSize(
+							self.__hide.resizable.size.w + ((e.clientX2 - e.clientX) - (self.__hide.resizable.coordinate2.x - self.__hide.resizable.coordinate.x)), 
+							self.__hide.resizable.size.h + ((e.clientY2 - e.clientY) - (self.__hide.resizable.coordinate2.y - self.__hide.resizable.coordinate.y)));
+					} else {
+						checkSize(self.__hide.resizable.size.w + (e.clientX - self.__hide.resizable.coordinate.x), self.__hide.resizable.size.h + (e.clientY - self.__hide.resizable.coordinate.y));
+					}
 				};
 				$d.q.on('mousemove', moveEvent);
 				$d.q.on('touchmove', moveEvent);
