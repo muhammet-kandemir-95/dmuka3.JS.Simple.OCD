@@ -9,7 +9,7 @@
 <body>
 	<div id="app">
 		<div class="content" style="margin-left:100px;margin-top:100px;width:500px;height:500px;border:1px solid #ccc;">
-			<div class="drag-me" style="width:100px;height:100px;background-color:#fff;">
+			<div class="drag-me" style="width:100px;height:100px;background-color:#fff;transition-duration:0.5s;transition-property: transform;opacity:0.7;">
 				<ul style="margin:0px;padding:0px;list-style-type:none;">
 					<li>Drag Me</li>
 				</ul>
@@ -30,9 +30,27 @@
 					// moveX: false,
 					// moveY: false,
 					// content: 'body',
+					timeout: 2000,
 					contentX: true,
 					contentY: true,
+					onDown: function () {
+						this.$el.$.css({
+							transform: 'scale(1.1)'
+						});
+						console.log('onDown');
+					},
+					onUp: function () {
+						this.$el.$.css({
+							transform: null,
+							opacity: '0.7'
+						});
+						console.log('onUp');
+					},
 					onBegin: function () {
+						this.$el.$.css({
+							transform: 'scale(1.2)',
+							opacity: '1'
+						});
 						console.log('onBegin');
 					},
 					onMove: function (pos) {

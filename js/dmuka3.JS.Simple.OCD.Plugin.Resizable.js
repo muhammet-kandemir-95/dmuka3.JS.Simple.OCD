@@ -116,6 +116,7 @@ $d.ocd.plugins.$add('resizable', function ($options) {
 
 				self.__hide.resizable = {
 					down: false,
+					doubleTouch: false,
 					type: {
 						w: false,
 						h: false
@@ -164,6 +165,7 @@ $d.ocd.plugins.$add('resizable', function ($options) {
 
 				var downEvent = function (e) {
 					if (self.__hide.resizable.down === true) {
+						self.__hide.resizable.doubleTouch = true;
 						return;
 					}
 
@@ -203,8 +205,13 @@ $d.ocd.plugins.$add('resizable', function ($options) {
 					}
 
 					if (e.type.indexOf('touch') >= 0) {
-						e.clientX = e.touches[0].clientX;
-						e.clientY = e.touches[0].clientY;
+						if (self.__hide.resizable.doubleTouch === true) {
+							e.clientX = e.touches[1].clientX;
+							e.clientY = e.touches[1].clientY;
+						} else {
+							e.clientX = e.touches[0].clientX;
+							e.clientY = e.touches[0].clientY;
+						}
 					}
 
 					if (self.__hide.resizable.type.w === false) {
@@ -225,6 +232,7 @@ $d.ocd.plugins.$add('resizable', function ($options) {
 					}
 
 					self.__hide.resizable.down = false;
+					self.__hide.resizable.doubleTouch = false;
 					if (self.__isNullOrUndefined($options.onEnd) === false) {
 						$options.onEnd.call(self);
 					}

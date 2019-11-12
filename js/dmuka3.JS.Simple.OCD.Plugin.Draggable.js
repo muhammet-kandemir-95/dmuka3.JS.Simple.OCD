@@ -1,12 +1,15 @@
 /**
  * dmuka3.JS.Simple.OCD.Plugin.Draggable
  * {
+ *  timeout?(default: 0): <Number>,
  * 	content?(default: $el.parentElement): <String|HTML>,
  * 	contentX?(default: false): <Boolean>,
  * 	contentY?(default: false): <Boolean>,
  * 	moveX?(default: true): <Boolean>,
  * 	moveY?(default: true): <Boolean>,
  * 	onMove?: <Function([this]$ocd, pos)>,
+ * 	onDown?: <Function([this]$ocd)>,
+ * 	onUp?: <Function([this]$ocd)>,
  * 	onBegin?: <Function([this]$ocd)>,
  * 	onEnd?: <Function([this]$ocd)>
  * }
@@ -19,6 +22,10 @@ $d.ocd.plugins.$add('draggable', function ($options) {
 
 	if (this.__isObject($options) === false) {
 		throw '"$options" must be Object!';
+	}
+
+	if (this.__isNullOrUndefined($options.timeout) === false && this.__isNumber($options.timeout) === false) {
+		throw '"$options.timeout" must be Number!';
 	}
 
 	if (this.__isNullOrUndefined($options.content) === false && this.__isString($options.content) === false && this.__isHTML($options.content) === false) {
@@ -45,6 +52,14 @@ $d.ocd.plugins.$add('draggable', function ($options) {
 		throw '"$options.onMove" must be Function!';
 	}
 
+	if (this.__isNullOrUndefined($options.onDown) === false && this.__isFunction($options.onDown) === false) {
+		throw '"$options.onDown" must be Function!';
+	}
+
+	if (this.__isNullOrUndefined($options.onUp) === false && this.__isFunction($options.onUp) === false) {
+		throw '"$options.onUp" must be Function!';
+	}
+
 	if (this.__isNullOrUndefined($options.onBegin) === false && this.__isFunction($options.onBegin) === false) {
 		throw '"$options.onBegin" must be Function!';
 	}
@@ -67,11 +82,18 @@ $d.ocd.plugins.$add('draggable', function ($options) {
 				self.__hide.draggable = {
 					content: self.$el.parentElement,
 					down: false,
+					active: false,
 					coordinate: {
 						x: 0,
 						y: 0
-					}
+					},
+					timeout: $options.timeout,
+					timer: null
 				};
+
+				if (self.__isNullOrUndefined(self.__hide.draggable.timeout) === true) {
+					self.__hide.draggable.timeout = 0;
+				}
 
 				if (this.__isString($options.content) === true) {
 					self.__hide.draggable.content = $d.q.first($options.content);
@@ -145,23 +167,40 @@ $d.ocd.plugins.$add('draggable', function ($options) {
 						e.stopPropagation();
 						self.__hide.draggable.down = true;
 
-						if (self.__isNullOrUndefined($options.onBegin) === false) {
-							$options.onBegin.call(self);
-						}
-
 						self.__hide.draggable.coordinate = {
 							x: (e.clientX - self.$el.$.screen.left),
 							y: (e.clientY - self.$el.$.screen.top)
 						};
 
-						checkPosition(e.pageX, e.pageY);
+						if (self.__isNullOrUndefined($options.onDown) === false) {
+							$options.onDown.call(self);
+						}
+
+						var activeDrag = function () {
+							if (self.__isNullOrUndefined($options.onBegin) === false) {
+								$options.onBegin.call(self);
+							}
+
+							self.__hide.draggable.active = true;
+							checkPosition(e.pageX, e.pageY);
+						};
+						if (self.__hide.draggable.timeout > 0) {
+							self.__hide.draggable.timer = setTimeout(function () {
+								self.__hide.draggable.timer = null;
+								if (self.__hide.draggable.down === true) {
+									activeDrag();
+								}
+							}, self.__hide.draggable.timeout);
+						} else {
+							activeDrag();
+						}
 					}
 				};
 				$d.q.on('mousedown', downEvent);
 				$d.q.on('touchstart', downEvent);
 
 				var moveEvent = function (e) {
-					if (self.__hide.draggable.down === false) {
+					if (self.__hide.draggable.active === false) {
 						return;
 					}
 
@@ -179,10 +218,21 @@ $d.ocd.plugins.$add('draggable', function ($options) {
 						return;
 					}
 
+					if (self.__isNullOrUndefined($options.onUp) === false) {
+						$options.onUp.call(self);
+					}
+
+					var active = self.__hide.draggable.active;
 					self.__hide.draggable.down = false;
+					self.__hide.draggable.active = false;
+					clearTimeout(self.__hide.draggable.timer);
+					self.__hide.draggable.timer = null;
+
 					if (e.type.indexOf('touch') >= 0) {
-						if (self.__isNullOrUndefined($options.onEnd) === false) {
-							$options.onEnd.call(self);
+						if (active === true) {
+							if (self.__isNullOrUndefined($options.onEnd) === false) {
+								$options.onEnd.call(self);
+							}
 						}
 						return;
 					} else {
@@ -190,10 +240,10 @@ $d.ocd.plugins.$add('draggable', function ($options) {
 					}
 					e.stopPropagation();
 
-					checkPosition(e.pageX, e.pageY);
-
-					if (self.__isNullOrUndefined($options.onEnd) === false) {
-						$options.onEnd.call(self);
+					if (active === true) {
+						if (self.__isNullOrUndefined($options.onEnd) === false) {
+							$options.onEnd.call(self);
+						}
 					}
 				};
 				$d.q.on('mouseup', upEvent);
