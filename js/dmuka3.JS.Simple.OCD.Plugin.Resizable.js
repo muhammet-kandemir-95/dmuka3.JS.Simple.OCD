@@ -117,6 +117,7 @@ $d.ocd.plugins.$add('resizable', function ($options) {
 				self.__hide.resizable = {
 					down: false,
 					doubleTouch: false,
+					doubleTouchActive: false,
 					type: {
 						w: false,
 						h: false
@@ -180,6 +181,7 @@ $d.ocd.plugins.$add('resizable', function ($options) {
 							self.__hide.resizable.type.w = true;
 							self.__hide.resizable.type.h = true;
 							self.__hide.resizable.doubleTouch = true;
+							self.__hide.resizable.doubleTouchActive = true;
 						}
 						return;
 					}
@@ -219,6 +221,10 @@ $d.ocd.plugins.$add('resizable', function ($options) {
 						return;
 					}
 
+					if (self.__hide.resizable.doubleTouchActive === true && self.__hide.resizable.doubleTouch === false) {
+						return;
+					}
+
 					if (e.type.indexOf('touch') >= 0) {
 						e.clientX = e.touches[0].clientX;
 						e.clientY = e.touches[0].clientY;
@@ -226,7 +232,7 @@ $d.ocd.plugins.$add('resizable', function ($options) {
 						if (self.__hide.resizable.doubleTouch === true) {
 							e.clientX2 = e.touches[1].clientX;
 							e.clientY2 = e.touches[1].clientY;
-						} 
+						}
 					}
 
 					if (self.__hide.resizable.type.w === false) {
@@ -236,11 +242,10 @@ $d.ocd.plugins.$add('resizable', function ($options) {
 						self.__hide.resizable.coordinate.x = e.clientX;
 					}
 
-					
 					if (e.type.indexOf('touch') >= 0 && self.__hide.resizable.doubleTouch === true) {
 						checkSize(
-							self.__hide.resizable.size.w + ((e.clientX2 - e.clientX) - (self.__hide.resizable.coordinate2.x - self.__hide.resizable.coordinate.x)), 
-							self.__hide.resizable.size.h + ((e.clientY2 - e.clientY) - (self.__hide.resizable.coordinate2.y - self.__hide.resizable.coordinate.y)));
+							self.__hide.resizable.size.w + (Math.abs(e.clientX2 - e.clientX) - Math.abs(self.__hide.resizable.coordinate2.x - self.__hide.resizable.coordinate.x)),
+							self.__hide.resizable.size.h + (Math.abs(e.clientY2 - e.clientY) - Math.abs(self.__hide.resizable.coordinate2.y - self.__hide.resizable.coordinate.y)));
 					} else {
 						checkSize(self.__hide.resizable.size.w + (e.clientX - self.__hide.resizable.coordinate.x), self.__hide.resizable.size.h + (e.clientY - self.__hide.resizable.coordinate.y));
 					}
@@ -249,12 +254,23 @@ $d.ocd.plugins.$add('resizable', function ($options) {
 				$d.q.on('touchmove', moveEvent);
 
 				var upEvent = function (e) {
+					if (self.__hide.resizable.doubleTouch === true) {
+						self.__hide.resizable.doubleTouch = false;
+
+						self.__hide.resizable.size = {
+							w: self.$el.$.client.width,
+							h: self.$el.$.client.height
+						};
+						return;
+					}
+
 					if (self.__hide.resizable.down === false) {
 						return;
 					}
 
 					self.__hide.resizable.down = false;
 					self.__hide.resizable.doubleTouch = false;
+					self.__hide.resizable.doubleTouchActive = false;
 					if (self.__isNullOrUndefined($options.onEnd) === false) {
 						$options.onEnd.call(self);
 					}
