@@ -1070,11 +1070,16 @@
 				}
 				addedMixins.push(mixin);
 
-				if (checkVariableIsNullOrUndefined(mixin.mixins) === false) {
-					for (var si = 0; si < mixin.mixins.length; si++) {
-						schema.mixins.push(mixin.mixins[si]);
+				var addSubMixin = null;
+				addSubMixin = function (m) {
+					if (checkVariableIsNullOrUndefined(m.mixins) === false) {
+						for (var si = 0; si < m.mixins.length; si++) {
+							schema.mixins.push(m.mixins[si]);
+							addSubMixin(m.mixins[si]);
+						}
 					}
-				}
+				};
+				addSubMixin(mixin);
 
 				if (checkVariableIsNullOrUndefined(get) === true && checkVariableIsNullOrUndefined(mixin.get) === false) {
 					get = mixin.get;
