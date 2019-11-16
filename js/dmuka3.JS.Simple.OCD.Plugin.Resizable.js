@@ -49,18 +49,18 @@ $d.ocd.plugins.$add('resizable', function ($options) {
 	}
 	//#endregion
 
-	var resizeBarWidth = '10px';
-	var resizeBarHeight = '10px';
-	if (this.__isNullOrUndefined($options.resizeBarWidth) === false) {
-		resizeBarWidth = $options.resizeBarWidth;
-	}
-	if (this.__isNullOrUndefined($options.resizeBarHeight) === false) {
-		resizeBarHeight = $options.resizeBarHeight;
-	}
-
 	var mixin = {
 		on: {
 			$init: function () {
+				var resizeBarWidth = '10px';
+				var resizeBarHeight = '10px';
+				if (this.__isNullOrUndefined($options.resizeBarWidth) === false) {
+					resizeBarWidth = $options.resizeBarWidth;
+				}
+				if (this.__isNullOrUndefined($options.resizeBarHeight) === false) {
+					resizeBarHeight = $options.resizeBarHeight;
+				}
+
 				var self = this;
 
 				self.$el.$.css({
