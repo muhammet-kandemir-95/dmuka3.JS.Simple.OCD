@@ -7,16 +7,14 @@
  * 	hour(default: false): <Boolean>,
  * 	minute(default: false): <Boolean>,
  * 	second(default: false): <Boolean>,
- * 	millisecond(default: false): <Boolean>,
- * 	order(default: ['day', 'month', 'year', 'hour', 'minute', 'second', 'millisecond']): <Array(String)>,
+ * 	order(default: ['day', 'month', 'year', 'hour', 'minute', 'second']): <Array(String)>,
  * 	label: {
  * 		day(default: 'Day : '): <String>,
  * 		month(default: 'Month : '): <String>,
  * 		year(default: 'Year : '): <String>,
  * 		hour(default: 'Hour : '): <String>,
  * 		minute(default: 'Minute : '): <String>,
- * 		second(default: 'Second : '): <String>,
- * 		millisecond(default: 'Ms : '): <String>
+ * 		second(default: 'Second : '): <String>
  * 	}
  * }
  */
@@ -54,10 +52,6 @@ $d.ocd.plugins.$add('datetime', function ($options) {
 		throw '"$options.second" must be Boolean!';
 	}
 
-	if (this.__isNullOrUndefined($options.millisecond) === false && this.__isBool($options.millisecond) === false) {
-		throw '"$options.millisecond" must be Boolean!';
-	}
-
 	if (this.__isNullOrUndefined($options.label) === false && this.__isString($options.label.day) === false) {
 		throw '"$options.label.day" must be String!';
 	}
@@ -82,9 +76,6 @@ $d.ocd.plugins.$add('datetime', function ($options) {
 		throw '"$options.label.second" must be String!';
 	}
 
-	if (this.__isNullOrUndefined($options.label) === false && this.__isString($options.label.millisecond) === false) {
-		throw '"$options.label.millisecond" must be String!';
-	}
 
 	if (this.__isNullOrUndefined($options.order) === false && this.__isArray($options.order) === false) {
 		throw '"$options.order" must be Array!';
@@ -113,10 +104,6 @@ $d.ocd.plugins.$add('datetime', function ($options) {
 	if (this.__isNullOrUndefined($options.order) === false && $options.order.indexOf('second') < 0) {
 		throw '"$options.order" must contain "second"!';
 	}
-
-	if (this.__isNullOrUndefined($options.order) === false && $options.order.indexOf('millisecond') < 0) {
-		throw '"$options.order" must contain "millisecond"!';
-	}
 	//#endregion
 
 	var mixin = {
@@ -140,14 +127,13 @@ $d.ocd.plugins.$add('datetime', function ($options) {
 					year: 'Year : ',
 					hour: 'Hour : ',
 					minute: 'Minute : ',
-					second: 'Second : ',
-					millisecond: 'Ms : '
+					second: 'Second : '
 				};
 				if (self.__isNullOrUndefined($options.label) === false) {
 					label = $options.label;
 				}
 
-				var order = ['day', 'month', 'year', 'hour', 'minute', 'second', 'millisecond'];
+				var order = ['day', 'month', 'year', 'hour', 'minute', 'second'];
 				if (self.__isNullOrUndefined($options.order) === false) {
 					order = $options.order;
 				}
@@ -303,30 +289,6 @@ $d.ocd.plugins.$add('datetime', function ($options) {
 				secondParent.$.append(secondCb);
 				// #endregion
 
-				// #region Millisecond
-				var millisecondParent = $d.q.create('span');
-				millisecondParent.$.addClass('dmuka3-datetime-millisecond');
-				if ($options.millisecond !== true) {
-					millisecondParent.$.css('display', 'none');
-				}
-
-				var millisecondLabel = $d.q.create('label');
-				millisecondLabel.$.text(label.millisecond);
-				millisecondParent.$.append(millisecondLabel);
-
-				var millisecondCb = $d.q.create('select');
-				millisecondCb.$.css('margin-right', '5px');
-				var millisecondCbOptions = [];
-				for (var i = 0; i <= 999; i++) {
-					var millisecondCbOption = $d.q.create('option');
-					millisecondCbOption.$.attr('value', i.toString());
-					millisecondCbOption.$.text(i.toString().padStart(2, '0'));
-					millisecondCb.$.append(millisecondCbOption);
-					millisecondCbOptions.push(millisecondCbOption);
-				}
-				millisecondParent.$.append(millisecondCb);
-				// #endregion
-
 				var addedOrder = {};
 				for (var i = 0; i < order.length; i++) {
 					var orderItem = order[i].toString().toLowerCase();
@@ -350,9 +312,6 @@ $d.ocd.plugins.$add('datetime', function ($options) {
 						case 'second':
 							topParent.$.append(secondParent);
 							break;
-						case 'millisecond':
-							topParent.$.append(millisecondParent);
-							break;
 						default:
 							break;
 					}
@@ -375,9 +334,6 @@ $d.ocd.plugins.$add('datetime', function ($options) {
 				}
 				if (addedOrder['second'] !== true) {
 					topParent.$.append(secondParent);
-				}
-				if (addedOrder['millisecond'] !== true) {
-					topParent.$.append(millisecondParent);
 				}
 
 				self.__hide.datetime = {
@@ -415,7 +371,6 @@ $d.ocd.plugins.$add('datetime', function ($options) {
 						hourCb.value = date.getHours();
 						minuteCb.value = date.getMinutes();
 						secondCb.value = date.getSeconds();
-						millisecondCb.value = date.getMilliseconds();
 
 						self.__hide.datetime.checkMaxDay();
 					},
@@ -423,7 +378,7 @@ $d.ocd.plugins.$add('datetime', function ($options) {
 					 * Get value as date.
 					 */
 					getDate: function () {
-						return new Date(yearCb.value + '-' + monthCb.value + '-' + dayCb.value + ' ' + hourCb.value + ':' + minuteCb.value + ':' + secondCb.value + '.' + millisecondCb.value);
+						return new Date(yearCb.value + '-' + monthCb.value + '-' + dayCb.value + ' ' + hourCb.value + ':' + minuteCb.value + ':' + secondCb.value);
 					},
 					/**
 					 * datetime's elements.
@@ -464,12 +419,6 @@ $d.ocd.plugins.$add('datetime', function ($options) {
 							label: secondLabel,
 							cb: secondCb,
 							options: secondCbOptions
-						},
-						millisecond: {
-							parent: millisecondParent,
-							label: millisecondLabel,
-							cb: millisecondCb,
-							options: millisecondCbOptions
 						}
 					}
 				};

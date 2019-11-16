@@ -132,7 +132,7 @@ $d.ocd.plugins.$add('number', function ($options) {
 							iop = val.length;
 						}
 
-						for (let i = iop - 1; i >= 0; i--) {
+						for (var i = iop - 1; i >= 0; i--) {
 							var c = val[i];
 
 							if (dotCounter > 4) {
