@@ -263,8 +263,11 @@
 				},
 				get has () {
 					return function (el) {
-						while ((el = el.parentNode) && el !== self);
-						return !!el;
+						ocdElId++;
+						el.setAttribute('ocd-el-id', ocdElId.toString());
+						var result = self.querySelector(el.tagName + '[ocd-el-id="' + ocdElId + '"]') !== null;
+						el.removeAttribute('ocd-el-id');
+						return result;
 					}
 				}
 			};

@@ -76,6 +76,7 @@ $d.ocd.plugins.$add('resizable', function ($options) {
 				}
 
 				var resizeBarHorizantal = $d.q.create('div');
+				resizeBarHorizantal.$.addClass('dmuka3-ocd-resizable-horizantal-bar');
 				resizeBarHorizantal.$.css({
 					position: 'absolute',
 					left: '0px',
@@ -89,6 +90,7 @@ $d.ocd.plugins.$add('resizable', function ($options) {
 				}
 
 				var resizeBarVertical = $d.q.create('div');
+				resizeBarVertical.$.addClass('dmuka3-ocd-resizable-vertical-bar');
 				resizeBarVertical.$.css({
 					position: 'absolute',
 					right: '0px',
@@ -102,6 +104,7 @@ $d.ocd.plugins.$add('resizable', function ($options) {
 				}
 
 				var resizeBarBoth = $d.q.create('div');
+				resizeBarBoth.$.addClass('dmuka3-ocd-resizable-both-bar');
 				resizeBarBoth.$.css({
 					position: 'absolute',
 					right: '0px',
