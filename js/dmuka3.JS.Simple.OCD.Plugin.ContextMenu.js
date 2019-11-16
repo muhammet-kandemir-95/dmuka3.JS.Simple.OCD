@@ -62,8 +62,8 @@ $d.ocd.plugins.$add('contextMenu', function ($options) {
 					contextEl = $d.q.first($options.contextEl);
 
 					if (self.__isNullOrUndefined($options.contextEl) === true) {
-						console.error(self.__alias + ' "data.$contextMenuOptions.contextEl"\'s result must not be null!', self);
-						throw self.__alias + ' "data.$contextMenuOptions.contextEl"\'s result must not be null!';
+						console.error(self.__alias + ' "contextEl"\'s result must not be null!', self);
+						throw self.__alias + ' "contextEl"\'s result must not be null!';
 					}
 				} else {
 					contextEl = $options.contextEl;
@@ -73,6 +73,7 @@ $d.ocd.plugins.$add('contextMenu', function ($options) {
 					position: 'fixed',
 					zIndex: zIndex
 				});
+
 				self.__hide.contextMenu = {
 					/**
 					 * Context menu's situation.
