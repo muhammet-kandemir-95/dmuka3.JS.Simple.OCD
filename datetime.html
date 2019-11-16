@@ -1,0 +1,106 @@
+<html>
+
+<head>
+	<title>dmuka3.JS.Simple.OCD</title>
+
+	<link rel="stylesheet" href="css/main.css">
+</head>
+
+<body>
+	<div id="app" style="padding-left:10px;">
+		<br />
+		<b>Just Date(Default)</b>
+		<br />
+		<br />
+		<div class="datetime1"></div>
+		<br />
+		<b>Just Time</b>
+		<br />
+		<br />
+		<div class="datetime2"></div>
+		<br />
+		<b>Date Time</b>
+		<br />
+		<br />
+		<div class="datetime3"></div>
+		<br />
+		<b>Different Order</b>
+		<br />
+		<br />
+		<div class="datetime4"></div>
+		<br />
+		<b>Different Label</b>
+		<br />
+		<br />
+		<div class="datetime5"></div>
+	</div>
+
+	<script src="js/dmuka3.JS.Simple.OCD.js"></script>
+	<script src="js/dmuka3.JS.Simple.OCD.Plugin.DateTime.js"></script>
+	<script>
+		var $app = $d.ocd({
+			query: '#app',
+			sub: [{
+				single: true,
+				query: '>.datetime1',
+				alias: 'datetime1',
+				mixins: [$d.ocd.plugins.datetime({})]
+			}, {
+				single: true,
+				query: '>.datetime2',
+				alias: 'datetime2',
+				mixins: [$d.ocd.plugins.datetime({
+					day: false,
+					month: false,
+					year: false,
+					hour: true,
+					minute: true,
+					second: true,
+					millisecond: true
+				})]
+			}, {
+				single: true,
+				query: '>.datetime3',
+				alias: 'datetime3',
+				mixins: [$d.ocd.plugins.datetime({
+					hour: true,
+					minute: true,
+					second: true,
+					millisecond: true
+				})]
+			}, {
+				single: true,
+				query: '>.datetime4',
+				alias: 'datetime4',
+				mixins: [$d.ocd.plugins.datetime({
+					hour: true,
+					minute: true,
+					second: true,
+					millisecond: true,
+					order: ['hour', 'minute', 'second', 'millisecond', 'month', 'day', 'year']
+				})]
+			}, {
+				single: true,
+				query: '>.datetime5',
+				alias: 'datetime5',
+				mixins: [$d.ocd.plugins.datetime({
+					hour: true,
+					minute: true,
+					second: true,
+					millisecond: true,
+					label: {
+						day: 'dd : ',
+						month: 'mm : ',
+						year: 'yyyy : ',
+						hour: 'HH : ',
+						minute: 'MM : ',
+						second: 'ss : ',
+						millisecond: 'fff : '
+					}
+				})]
+			}]
+		});
+	</script>
+</body>
+
+</html>

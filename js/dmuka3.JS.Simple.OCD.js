@@ -125,6 +125,11 @@
 						}
 					};
 				},
+				get removeAttr () {
+					return function (name) {
+						return self.removeAttribute(name);
+					};
+				},
 				get css () {
 					return function () {
 						if (arguments.length === 1) {
@@ -311,6 +316,99 @@
 					return function (query) {
 						return self.querySelector(query);
 					};
+				},
+				get seturl () {
+					return function (url) {
+						history.replaceState(null, null, url);
+					};
+				},
+				get cookie () {
+					return function () {
+						if (arguments.length === 1) {
+							// GET
+							var name = arguments[0];
+							var nameEQ = name + "=";
+							var ca = document.cookie.split(';');
+							for (var i = 0; i < ca.length; i++) {
+								var c = ca[i];
+								while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+								if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+							}
+							return null;
+						} else if (arguments.length === 2 || arguments.length === 3) {
+							var name = arguments[0];
+							var value = arguments[1];
+							var days = arguments[2];
+							if (checkVariableIsNullOrUndefined(days) === true) {
+								days = 365;
+							}
+
+							if (checkVariableIsNullOrUndefined(value) === true) {
+								// REMOVE
+								document.cookie = name + '=; Max-Age=-99999999;';
+							} else {
+								// SET
+								var expires = "";
+								var date = new Date();
+								date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+								expires = "; expires=" + date.toUTCString();
+								document.cookie = name + "=" + (value || "") + expires + "; path=/";
+							}
+						}
+					};
+				},
+				get queryString () {
+					return function () {
+						if (arguments.length === 0) {
+							// GET all
+							var queryString = window.location.search.slice(1).split('#')[0];
+
+							var obj = {};
+							var arr = queryString.split('&');
+
+							for (var i = 0; i < arr.length; i++) {
+								var a = arr[i].split('=');
+
+								var paramName = a[0];
+								var paramValue = typeof (a[1]) === 'undefined' ? true : a[1];
+
+								paramName = paramName.toLowerCase();
+								if (typeof paramValue === 'string') paramValue = paramValue.toLowerCase();
+
+								if (paramName.match(/\[(\d+)?\]$/)) {
+									var key = paramName.replace(/\[(\d+)?\]/, '');
+									if (!obj[key]) obj[key] = [];
+
+									if (paramName.match(/\[\d+\]$/)) {
+										var index = /\[(\d+)\]/.exec(paramName)[1];
+										obj[key][index] = paramValue;
+									} else {
+										obj[key].push(paramValue);
+									}
+								} else {
+									if (!obj[paramName]) {
+										obj[paramName] = paramValue;
+									} else if (obj[paramName] && typeof obj[paramName] === 'string') {
+										obj[paramName] = [obj[paramName]];
+										obj[paramName].push(paramValue);
+									} else {
+										obj[paramName].push(paramValue);
+									}
+								}
+							}
+
+							return obj;
+						} else if (arguments.length === 1) {
+							// GET param_name
+							var url = window.location.href;
+							var name = arguments[0].replace(/[\[\]]/g, '\\$&');
+							var regex = new RegExp('[?&]' + name + '(=([^&#]*)|&|#|$)'),
+								results = regex.exec(url);
+							if (!results) return null;
+							if (!results[2]) return '';
+							return decodeURIComponent(results[2].replace(/\+/g, ' '));
+						}
+					};
 				}
 			};
 
@@ -318,7 +416,6 @@
 		}
 	};
 	Object.defineProperty(document, '$', _$);
-	Object.defineProperty(window, '$', _$);
 	//#endregion
 
 	//#region IE Bugs
@@ -425,6 +522,25 @@
 		if (value.constructor.name !== 'Array' && value.constructor.name !== 'NodeList') {
 			if (errorVariableName !== null && errorVariableName !== undefined) {
 				throw errorVariableName + ' must be a Array or a NodeList!';
+			}
+			return false;
+		}
+		return true;
+	}
+
+	/**
+	 * Is variable's type date?
+	 * @param {any} value 
+	 * @param {string} errorVariableName 
+	 */
+	function checkVariableIsDate (value, errorVariableName) {
+		if (checkVariableIsNullOrUndefined(value) === true) {
+			return false;
+		}
+
+		if (value.constructor.name !== 'Date') {
+			if (errorVariableName !== null && errorVariableName !== undefined) {
+				throw errorVariableName + ' must be date!';
 			}
 			return false;
 		}
@@ -965,6 +1081,12 @@
 		Object.defineProperty(item, '__isNullOrUndefined', {
 			get: function () {
 				return checkVariableIsNullOrUndefined;
+			}
+		});
+
+		Object.defineProperty(item, '__isDate', {
+			get: function () {
+				return checkVariableIsDate;
 			}
 		});
 
