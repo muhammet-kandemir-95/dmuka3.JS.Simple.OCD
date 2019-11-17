@@ -1,4 +1,6 @@
 /**
+ * https://github.com/muhammet-kandemir-95/dmuka3.JS.Simple.OCD
+ * 
  * Object Connect to DOM
  * _______/\\\\\_____________/\\\\\\\\\__/\\\\\\\\\\\\____        
  *  _____/\\\///\\\________/\\\////////__\/\\\////////\\\__       
