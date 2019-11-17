@@ -152,11 +152,11 @@ $d.ocd.plugins.$add('contextMenu', function ($options) {
 					}
 				});
 
-				window.$.on('scroll', function () {
+				window.$q.on('scroll', function () {
 					self.__hide.contextMenu.hide();
 				}, true);
 
-				window.$.on('resize', function () {
+				window.$q.on('resize', function () {
 					self.__hide.contextMenu.hide();
 				});
 			}

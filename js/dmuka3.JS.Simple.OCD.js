@@ -416,6 +416,7 @@
 		}
 	};
 	Object.defineProperty(document, '$', _$);
+	Object.defineProperty(window, '$q', _$);
 	//#endregion
 
 	//#region IE Bugs
