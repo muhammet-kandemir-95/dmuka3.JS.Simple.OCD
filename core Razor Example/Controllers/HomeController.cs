@@ -27,9 +27,10 @@ namespace core_Razor_Example.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> Edit([FromRoute]int id, Student model = null)
+        public async Task<IActionResult> Edit([FromRoute]int id, Student model)
         {
             model = JsonConvert.DeserializeObject<Student>(await new System.IO.StreamReader(this.Request.Body).ReadToEndAsync());
+
             var student = Student.Database.First(o => o.Id == id);
             student.Name = model.Name;
             student.Surname = model.Surname;
