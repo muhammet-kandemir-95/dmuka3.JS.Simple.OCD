@@ -842,6 +842,10 @@
 				}
 			});
 
+			ocdItem.toJSON = function () {
+				return ocdItem.jobject;
+			};
+
 			ocdItem.toString = function () {
 				return ocdItem.value;
 			};
@@ -1483,8 +1487,8 @@
 
 			Object.defineProperty(resultOcd, '$set', {
 				get: function () {
-					return function (index, value) {
-						recursiveFill(value, resultOcd[index]);
+					return function (value) {
+						recursiveFill(value, resultOcd);
 					};
 				}
 			});
@@ -1499,6 +1503,14 @@
 						Array.prototype.push.call(resultOcd, ocdNewItem.ocd);
 
 						createEasyMethods(ocdNewItem.ocd);
+
+						Object.defineProperty(ocdNewItem.ocd, '$set', {
+							get: function () {
+								return function (value) {
+									recursiveFill(value, ocdNewItem.ocd);
+								};
+							}
+						});
 
 						Object.defineProperty(ocdNewItem.ocd, '$remove', {
 							get: function () {
@@ -1574,6 +1586,14 @@
 
 						createEasyMethods(ocdNewItem.ocd);
 
+						Object.defineProperty(ocdNewItem.ocd, '$set', {
+							get: function () {
+								return function (value) {
+									recursiveFill(value, ocdNewItem.ocd);
+								};
+							}
+						});
+
 						Object.defineProperty(ocdNewItem.ocd, '$remove', {
 							get: function () {
 								return function () {
@@ -1608,9 +1628,13 @@
 			var resultOcdItem = resultOcd[i];
 
 			(function (resultOcdItem) {
-				resultOcdItem.$set = function (value) {
-					recursiveFill(value, resultOcdItem);
-				};
+				Object.defineProperty(resultOcdItem, '$set', {
+					get: function () {
+						return function (value) {
+							recursiveFill(value, resultOcdItem);
+						};
+					}
+				});
 			})(resultOcdItem);
 		}
 
@@ -1636,6 +1660,9 @@
 			Object.defineProperty(result, alias, {
 				get: function () {
 					return resultOcd;
+				},
+				set: function (value) {
+					resultOcd.$set(value);
 				}
 			});
 

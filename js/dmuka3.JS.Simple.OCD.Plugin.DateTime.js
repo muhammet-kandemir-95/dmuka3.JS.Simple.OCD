@@ -1,3 +1,15 @@
+window.$globalDateTimeOptions = {
+	label: {
+		day: 'Day : ',
+		month: 'Month : ',
+		year: 'Year : ',
+		hour: 'Hour : ',
+		minute: 'Minute : ',
+		second: 'Second : '
+	},
+	order: ['day', 'month', 'year', 'hour', 'minute', 'second']
+};
+
 /**
  * dmuka3.JS.Simple.OCD.Plugin.DateTime
  * {
@@ -76,7 +88,6 @@ $d.ocd.plugins.$add('datetime', function ($options) {
 		throw '"$options.label.second" must be String!';
 	}
 
-
 	if (this.__isNullOrUndefined($options.order) === false && this.__isArray($options.order) === false) {
 		throw '"$options.order" must be Array!';
 	}
@@ -116,24 +127,15 @@ $d.ocd.plugins.$add('datetime', function ($options) {
 			}
 			this.__hide.datetime.setDate(value);
 		},
-		methods: {
-		},
 		on: {
 			$init: function () {
 				var self = this;
-				var label = {
-					day: 'Day : ',
-					month: 'Month : ',
-					year: 'Year : ',
-					hour: 'Hour : ',
-					minute: 'Minute : ',
-					second: 'Second : '
-				};
+				var label = window.$globalDateTimeOptions.label;
 				if (self.__isNullOrUndefined($options.label) === false) {
 					label = $options.label;
 				}
 
-				var order = ['day', 'month', 'year', 'hour', 'minute', 'second'];
+				var order = window.$globalDateTimeOptions.order;
 				if (self.__isNullOrUndefined($options.order) === false) {
 					order = $options.order;
 				}
@@ -378,7 +380,15 @@ $d.ocd.plugins.$add('datetime', function ($options) {
 					 * Get value as date.
 					 */
 					getDate: function () {
-						return new Date(yearCb.value + '-' + monthCb.value + '-' + dayCb.value + ' ' + hourCb.value + ':' + minuteCb.value + ':' + secondCb.value);
+						var dtStr = ($options.year === false ? '2000' : yearCb.value) + '-' + ($options.month === false ? '01' : monthCb.value) + '-' + ($options.day === false ? '01' : dayCb.value) + ' ' + ($options.hour !== true ? '00' : hourCb.value) + ':' + ($options.minute !== true ? '00' : minuteCb.value) + ':' + ($options.second !== true ? '00' : secondCb.value);
+						var result = new Date(dtStr);
+						result.toString = function () {
+							return dtStr;
+						}
+						result.toJSON = function () {
+							return dtStr;
+						}
+						return result;
 					},
 					/**
 					 * datetime's elements.
