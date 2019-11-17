@@ -1,0 +1,114 @@
+﻿@model core_Razor_Example.Models.Student
+
+@{
+    ViewData["Title"] = "Edit";
+}
+
+<h1>Edit</h1>
+
+<h4>Student</h4>
+<hr />
+<div class="row" id="student">
+    <div class="col-md-4">
+        <form asp-action="Edit">
+            <div class="form-group">
+                <label asp-for="Name" class="control-label"></label>
+                <input asp-for="Name" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Surname" class="control-label"></label>
+                <input asp-for="Surname" class="form-control" />
+            </div>
+            <div class="form-group">
+                <label asp-for="Birthday" class="control-label"></label>
+                <div id="Birthday" class="form-control">
+                    @Model.Birthday.ToString("yyyy-MM-dd")
+                </div>
+            </div>
+            <div class="form-group">
+                <label asp-for="Addresses" class="control-label"></label>
+                <div id="Addresses">
+                    <input type="text" class="form-control" ocd-clone />
+
+                    @foreach (var item in Model.Addresses)
+                    {
+                        <input type="text" class="form-control" value="@item" />
+                    }
+                </div>
+            </div>
+            <div class="form-group">
+                <input id="save" type="button" value="Save" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    <script>
+        var id = @Model.Id;
+        var $student = $d.ocd({
+            query: '#student',
+            on: {
+                $init: function () {
+                    if (this.addresses.length === 0) {
+                        this.addresses = [''];
+                    }
+                }
+            },
+            sub: [{
+                    alias: 'name',
+                    single: true,
+                    query: '#Name'
+                }, {
+                    alias: 'surname',
+                    single: true,
+                    query: '#Surname'
+                }, {
+                    alias: 'birthday',
+                    single: true,
+                    query: '#Birthday',
+                    mixins: [$d.ocd.plugins.datetime({})]
+                },  {
+                    alias: 'addresses',
+                    parentQuery: '#Addresses',
+                    query: '>input',
+                    on: {
+                        keydown: function (e) {
+                            if (e.keyCode == 13/*ENTER*/) {
+                                var item = this.$parent.$insert(this.$index + 1, '');
+                                item.$el.focus();
+                            } else if (e.keyCode == 8/*BACKSPACE*/) {
+                                if (this.value === '' && this.$parent.length > 1) {
+                                    var index = Math.max(0, this.$index - 1);
+                                    this.$remove();
+                                    this.$parent[index].$el.focus();
+                                }
+                            }
+                        }
+                    }
+                }, {
+                    jobject: false,
+                    alias: 'save',
+                    single: true,
+                    query: '#save',
+                    on: {
+                        click: function (e) {
+                            $d.q.ajax({
+                                url: '/Home/Edit/' + id,
+                                type: 'POST',
+                                contentType: 'application/json; charset=utf-8',
+                                data: JSON.stringify(this.$root.jobject),
+                                success: function (res) {
+                                    alert('Student was updated.');
+                                }
+                            });
+                        }
+                    }
+                }]
+        });
+    </script>
+}

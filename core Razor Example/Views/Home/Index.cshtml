@@ -1,0 +1,283 @@
+﻿@model List<Student>
+@{
+    ViewData["Title"] = "Home Page";
+
+    int pageCount = (int)ViewBag.PageCount;
+    int pageIndex = (int)ViewBag.PageIndex;
+}
+
+<div id="student-list" class="text-center">
+    <h1 class="display-4">Students</h1>
+    <table id="students">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Surname</th>
+                <th>Birthday</th>
+                <th>#</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr ocd-clone data-id="">
+                <td class="name"></td>
+                <td class="surname"></td>
+                <td class="birthday"></td>
+                <td class="process">
+                    <a class="edit-link">Edit</a> - <a class="delete-link" href="#">Delete</a>
+                </td>
+            </tr>
+
+            @foreach (var item in Model)
+            {
+                <tr data-id="@item.Id">
+                    <td class="name">@item.Name</td>
+                    <td class="surname">@item.Surname</td>
+                    <td class="birthday">@item.Birthday.ToString("dd.MM.yyyy")</td>
+                    <td class="process">
+                        <a class="edit-link" href="/Home/Edit/@item.Id">Edit</a> - <a class="delete-link" href="#">Delete</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+    <div class="row" id="paging">
+        <div class="col-12">
+            <a class="previous-page" href="?pageIndex=@(pageIndex - 1)">Previous Page</a>
+            <span class="links">
+                <a ocd-clone class="link-page" href=""></a>
+                @for (int i = pageIndex - 5; i < pageIndex + 5; i++)
+                {
+                    if (i < 0 || i >= pageCount)
+                        continue;
+
+                    if (i == pageIndex)
+                    {
+                        <a class="link-page active" href="?pageIndex=@i">@(i + 1)</a>
+                    }
+                    else
+                    {
+                        <a class="link-page" href="?pageIndex=@i">@(i + 1)</a>
+                    }
+                }
+            </span>
+            <a class="next-page" href="?pageIndex=@(pageIndex + 1)">Next Page</a>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    <script>
+        var $mixinDisplayEnable = {
+            data: {
+                enable: {
+                    get: function () {
+                        return this.$el.$.css('display') !== 'none';
+                    },
+                    set: function (value) {
+                        if (value == true) {
+                            this.$el.$.css('display', null);
+                        } else {
+                            this.$el.$.css('display', 'none');
+                        }
+                    }
+                }
+            }
+        };
+
+        var $studentParent = $d.ocd({
+            query: '#student-list',
+            data: {
+                listAjax: {
+                    default: null
+                }
+            },
+            methods: {
+                refreshList: function (pageIndex) {
+                    pageIndex = pageIndex || this.paging.pageIndex;
+
+                    if (this.$loaded !== true) {
+                        return;
+                    }
+                    $d.q.seturl('?pageIndex=' + pageIndex);
+
+                    if (this.listAjax) {
+                        this.listAjax.abort();
+                    }
+
+                    var self = this;
+                    this.listAjax = $d.q.ajax({
+                        url: '/Home/List?pageIndex=' + pageIndex,
+                        type: 'POST',
+                        success: function (res) {
+                            self.listAjax = null;
+                            res = JSON.parse(res);
+
+                            self.paging.pageCount = res.pageCount;
+                            if (self.paging.pageCount <= self.paging.pageIndex) {
+                                self.paging.pageIndex--;
+                            } else {
+                                self.students.rows = res.rows;
+                            }
+                        }
+                    });
+                }
+            },
+            sub: [{
+                alias: 'students',
+                single: true,
+                query: '#students',
+                sub: [{
+                    alias: 'rows',
+                    parentQuery: '>tbody',
+                    query: '>tr',
+                    data: {
+                        id: {
+                            get: function () {
+                                return this.$el.$.attr('data-id');
+                            },
+                            set: function (value) {
+                                this.$el.$.attr('data-id', value);
+                                this.editlink.$el.$.attr('href', '/Home/Edit/' + value);
+                            }
+                        }
+                    },
+                    sub: [{
+                        alias: 'name',
+                        single: true,
+                        query: '>td.name'
+                    }, {
+                        alias: 'surname',
+                        single: true,
+                        query: '>td.surname'
+                    }, {
+                        alias: 'birthday',
+                        single: true,
+                        query: '>td.birthday'
+                    }, {
+                        alias: 'editlink',
+                        single: true,
+                        query: '>td.process>.edit-link'
+                    }, {
+                        alias: 'deletelink',
+                        single: true,
+                        query: '>td.process>.delete-link',
+                        on: {
+                            click: function (e) {
+                                e.preventDefault();
+                                if (confirm('Are you sure to delete "' + this.$parent.name + ' ' + this.$parent.surname + '"?') == true) {
+                                    var self = this;
+                                    this.listAjax = $d.q.ajax({
+                                        url: '/Home/Delete/' + this.$parent.id,
+                                        type: 'DELETE',
+                                        success: function (res) {
+                                            self.$root.refreshList();
+                                        }
+                                    });
+                                }
+                            }
+                        }
+                    }]
+                }]
+            }, {
+                alias: 'paging',
+                single: true,
+                query: '>#paging',
+                methods: {
+                    refreshLinks: function (value, pageCount) {
+                        value = value || this.pageIndex;
+                        pageCount = pageCount || this.pageCount;
+                        
+                        this.previous.enable = value !== 0;
+                        this.next.enable = value !== pageCount - 1;
+
+                        this.links.$clear();
+                        for (var i = value - 5; i < value + 5; i++) {
+                            if (i < 0 || i > pageCount - 1) {
+                                continue;
+                            }
+
+                            var link = this.links.$add(i + 1);
+                            if (i == value) {
+                                link.active = true;
+                            }
+                        }
+                    }
+                },
+                data: {
+                    pageCount: {
+                        default: @pageCount,
+                        set: function (value) {
+                            this.refreshLinks(this.pageIndex, value);
+                        }
+                    },
+                    pageIndex: {
+                        default: @pageIndex,
+                        set: function (value, key) {
+                            value = Math.min(this.pageCount - 1, Math.max(0, value));
+
+                            this.refreshLinks(value);
+                            this.$root.refreshList(value);
+
+                            return value;
+                        }
+                    }
+                },
+                sub: [{
+                    alias: 'previous',
+                    single: true,
+                    query: '.previous-page',
+                    mixins: [$mixinDisplayEnable],
+                    on: {
+                        click: function (e) {
+                            e.preventDefault();
+                            this.$root.paging.pageIndex--;
+                        }
+                    }
+                }, {
+                    alias: 'next',
+                    single: true,
+                    query: '.next-page',
+                    mixins: [$mixinDisplayEnable],
+                    on: {
+                        click: function (e) {
+                            e.preventDefault();
+                            this.$root.paging.pageIndex++;
+                        }
+                    }
+                }, {
+                    alias: 'links',
+                    parentQuery: '.links',
+                    query: '.link-page',
+                    get: function () {
+                        return parseInt(this.$el.$.text());
+                    },
+                    set: function (value) {
+                        this.$el.$.attr('href', '?pageIndex=' + (value - 1));
+                        this.$el.$.text(' ' + value + ' ');
+                    },
+                    data: {
+                        active: {
+                            get: function () {
+                                return this.$el.$.is('.active');
+                            },
+                            set: function (value) {
+                                if (value == true) {
+                                    this.$el.$.addClass('active');
+                                } else {
+                                    this.$el.$.removeClass('active');
+                                }
+                            }
+                        }
+                    },
+                    on: {
+                        click: function (e) {
+                            e.preventDefault();
+                            this.$root.paging.pageIndex = this.value - 1;
+                        }
+                    }
+                }]
+            }]
+        });
+    </script>
+}

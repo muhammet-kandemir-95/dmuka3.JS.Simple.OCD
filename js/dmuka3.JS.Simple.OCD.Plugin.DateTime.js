@@ -1,11 +1,11 @@
 window.$globalDateTimeOptions = {
 	label: {
-		day: 'Day : ',
-		month: 'Month : ',
-		year: 'Year : ',
-		hour: 'Hour : ',
-		minute: 'Minute : ',
-		second: 'Second : '
+		day: 'Day&nbsp;:&nbsp;',
+		month: 'Month&nbsp;:&nbsp;',
+		year: 'Year&nbsp;:&nbsp;',
+		hour: 'Hour&nbsp;:&nbsp;',
+		minute: 'Minute&nbsp;:&nbsp;',
+		second: 'Second&nbsp;:&nbsp;'
 	},
 	order: ['day', 'month', 'year', 'hour', 'minute', 'second']
 };
@@ -155,7 +155,7 @@ $d.ocd.plugins.$add('datetime', function ($options) {
 				}
 
 				var dayLabel = $d.q.create('label');
-				dayLabel.$.text(label.day);
+				dayLabel.$.html(label.day);
 				dayParent.$.append(dayLabel);
 
 				var dayCb = $d.q.create('select');
@@ -179,7 +179,7 @@ $d.ocd.plugins.$add('datetime', function ($options) {
 				}
 
 				var monthLabel = $d.q.create('label');
-				monthLabel.$.text(label.month);
+				monthLabel.$.html(label.month);
 				monthParent.$.append(monthLabel);
 
 				var monthCb = $d.q.create('select');
@@ -203,7 +203,7 @@ $d.ocd.plugins.$add('datetime', function ($options) {
 				}
 
 				var yearLabel = $d.q.create('label');
-				yearLabel.$.text(label.year);
+				yearLabel.$.html(label.year);
 				yearParent.$.append(yearLabel);
 
 				var yearCb = $d.q.create('select');
@@ -227,7 +227,7 @@ $d.ocd.plugins.$add('datetime', function ($options) {
 				}
 
 				var hourLabel = $d.q.create('label');
-				hourLabel.$.text(label.hour);
+				hourLabel.$.html(label.hour);
 				hourParent.$.append(hourLabel);
 
 				var hourCb = $d.q.create('select');
@@ -251,7 +251,7 @@ $d.ocd.plugins.$add('datetime', function ($options) {
 				}
 
 				var minuteLabel = $d.q.create('label');
-				minuteLabel.$.text(label.minute);
+				minuteLabel.$.html(label.minute);
 				minuteParent.$.append(minuteLabel);
 
 				var minuteCb = $d.q.create('select');
@@ -275,7 +275,7 @@ $d.ocd.plugins.$add('datetime', function ($options) {
 				}
 
 				var secondLabel = $d.q.create('label');
-				secondLabel.$.text(label.second);
+				secondLabel.$.html(label.second);
 				secondParent.$.append(secondLabel);
 
 				var secondCb = $d.q.create('select');

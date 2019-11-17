@@ -339,6 +339,70 @@
 						}
 					};
 				},
+				get ajax () {
+					return function (options) {
+						var url = options.url;
+						var type = options.type || 'GET';
+						var data = options.data || '';
+						var callback = options.callback || function () { };
+						var success = options.success || function () { };
+						var error = options.error || function () { };
+						var onprogress = options.onprogress || function () { };
+						var onabort = options.onabort || function () { };
+						var contentType = options.contentType;
+						var headers = options.headers || {};
+						var responseType = options.responseType;
+
+						var xhr = new XMLHttpRequest();
+						xhr.open(type, url, true);
+
+						if (responseType !== null && responseType !== undefined) {
+							xhr.responseType = responseType;
+						}
+
+						if (contentType !== null && contentType !== undefined) {
+							xhr.setRequestHeader('Content-Type', contentType);
+						}
+						for (var key in headers) {
+							xhr.setRequestHeader(key, headers[key]);
+						}
+
+						xhr.onreadystatechange = function () {
+							if (xhr.readyState === 4) {
+								callback.call(xhr, xhr.response);
+
+								if (xhr.status >= 200 && xhr.status < 300) {
+									success.call(xhr, xhr.response, xhr.status);
+								} else {
+									error.call(xhr, xhr.response, xhr.status);
+								}
+							}
+						}
+
+						xhr.onprogress = function () {
+							onprogress.call(xhr);
+						};
+
+						xhr.onabort = function () {
+							onabort.call(xhr);
+						};
+
+						xhr.send(data);
+
+						var result = {
+							get xhr () {
+								return xhr;
+							},
+							get abort () {
+								return function () {
+									xhr.abort();
+								}
+							}
+						};
+
+						return result;
+					};
+				},
 				get cookie () {
 					return function () {
 						if (arguments.length === 1) {
@@ -702,6 +766,7 @@
 				prop === '$parent' ||
 				prop === 'jobject' ||
 				prop === '$set' ||
+				prop === '$loaded' ||
 				prop === '$el' ||
 				prop === '$index' ||
 				(checkVariableIsNullOrUndefined(obj.__ocdData) === false && obj.__ocdData[prop] === false)
@@ -786,6 +851,10 @@
 			}
 		} else {
 			for (var key in getPropAsObject(v)) {
+				if (ocdP[key] === undefined) {
+					continue;
+				}
+
 				if (checkVariableIsNullOrUndefined(ocdP.__ocdData) === false && ocdP.__ocdData[key] === true) {
 					ocdP[key] = v[key];
 				} else {
@@ -949,8 +1018,11 @@
 						};
 					} else {
 						dataSet = function (el, value, key) {
+							var result = data[key].set.call(ocdItem, value, key);
+							if (checkVariableIsNullOrUndefined(result) === false) {
+								value = result;
+							}
 							el.$.data(key, value);
-							data[key].set.call(ocdItem, value, key);
 						};
 					}
 
@@ -965,6 +1037,7 @@
 
 					queues.push(function () {
 						if (checkVariableIsNullOrUndefined(data[key].default) === false) {
+							ocdEl.$.data(key, data[key].default);
 							if (checkVariableIsFunction(data[key].default) === true) {
 								dataSet(ocdEl, data[key].default(ocdItem), key);
 							} else {
@@ -1464,7 +1537,7 @@
 			var ocdItem = createOcdItem({
 				rootOcd: rootOcd,
 				jobject: jobject,
-				parentOcd: single === true ? parentOcd : resultOcd,
+				parentOcd: resultOcd,
 				queues: queues,
 				ocdEl: ocdEl,
 				sub: sub,
@@ -1507,7 +1580,7 @@
 				var ocdItem = createOcdItem({
 					rootOcd: rootOcd,
 					jobject: jobject,
-					parentOcd: single !== true ? parentOcd : resultOcd,
+					parentOcd: resultOcd,
 					queues: queues,
 					ocdEl: cloneEl,
 					sub: sub,
@@ -1629,7 +1702,7 @@
 				get: function () {
 					return function (index, value) {
 						if (index >= resultOcd.length) {
-							resultOcd.$add(value);
+							return resultOcd.$add(value);
 							return;
 						}
 
@@ -1731,11 +1804,11 @@
 	 * @param {*} queues 
 	 */
 	function consumeQueues (queues) {
-		for (var i = 0; i < queues.length; i++) {
-			queues[i]();
-		}
-
+		var queuesClone = cloneObject(queues);
 		queues.length = 0;
+		for (var i = 0; i < queuesClone.length; i++) {
+			queuesClone[i]();
+		}
 	}
 
 	/**
@@ -2090,6 +2163,12 @@
 		});
 
 		consumeQueues(queues);
+
+		Object.defineProperty($ocd, '$loaded', {
+			get: function () {
+				return true;
+			}
+		});
 
 		return $ocd;
 	};

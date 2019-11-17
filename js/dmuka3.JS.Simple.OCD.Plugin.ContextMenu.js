@@ -21,7 +21,7 @@ $d.ocd.plugins.$add('contextMenu', function ($options) {
 		throw '"$options.contextEl" must be filled!';
 	}
 
-	if (this.__isString($options.contextEl) === false && this.__isHTML($options.contextEl) === false) {
+	if (this.__isString($options.contextEl) === false && this.__isHTML($options.contextEl) === false && this.__isFunction($options.contextEl) === false) {
 		throw '"$options.contextEl" must be String or HTML Element!';
 	}
 
@@ -60,13 +60,15 @@ $d.ocd.plugins.$add('contextMenu', function ($options) {
 
 				if (self.__isString($options.contextEl) === true) {
 					contextEl = $d.q.first($options.contextEl);
-
-					if (self.__isNullOrUndefined($options.contextEl) === true) {
-						console.error(self.__alias + ' "contextEl"\'s result must not be null!', self);
-						throw self.__alias + ' "contextEl"\'s result must not be null!';
-					}
+				} else if (this.__isFunction($options.contextEl) === true) {
+					contextEl = $options.contextEl.call(self);
 				} else {
 					contextEl = $options.contextEl;
+				}
+
+				if (self.__isNullOrUndefined(contextEl) === true) {
+					console.error(self.__alias + ' "contextEl"\'s result must not be null!', self);
+					throw self.__alias + ' "contextEl"\'s result must not be null!';
 				}
 
 				contextEl.$.css({

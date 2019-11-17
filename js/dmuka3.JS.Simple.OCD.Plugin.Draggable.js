@@ -100,6 +100,8 @@ $d.ocd.plugins.$add('draggable', function ($options) {
 					self.__hide.draggable.content = $d.q.first($options.content);
 				} else if (this.__isHTML($options.content) === true) {
 					self.__hide.draggable.content = $options.content;
+				} else if (this.__isFunction($options.content) === true) {
+					self.__hide.draggable.content = $options.content.call(self);
 				}
 
 				if (this.__isNullOrUndefined(self.__hide.draggable.content) === true) {
