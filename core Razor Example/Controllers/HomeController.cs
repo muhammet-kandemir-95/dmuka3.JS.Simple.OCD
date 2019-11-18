@@ -21,25 +21,6 @@ namespace core_Razor_Example.Controllers
             return View(Student.Database.Skip(pageIndex * pageRowCount).Take(pageRowCount).ToList());
         }
 
-        public IActionResult Edit([FromRoute]int id)
-        {
-            return View(Student.Database.First(o => o.Id == id));
-        }
-
-        [HttpPost]
-        public async Task<IActionResult> Edit([FromRoute]int id, Student model)
-        {
-            model = JsonConvert.DeserializeObject<Student>(await new System.IO.StreamReader(this.Request.Body).ReadToEndAsync());
-
-            var student = Student.Database.First(o => o.Id == id);
-            student.Name = model.Name;
-            student.Surname = model.Surname;
-            student.Birthday = model.Birthday;
-            student.Addresses = model.Addresses;
-
-            return Ok();
-        }
-
         [HttpPost]
         public IActionResult List([FromQuery]int pageIndex = 0)
         {
@@ -54,6 +35,40 @@ namespace core_Razor_Example.Controllers
                     birthday = o.Birthday.ToString("dd.MM.yyyy")
                 }).ToList()
             });
+        }
+
+        public IActionResult Create()
+        {
+            return View(new Student());
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> CreateAJAX([FromRoute]int id)
+        {
+            var model = JsonConvert.DeserializeObject<Student>(await new System.IO.StreamReader(this.Request.Body).ReadToEndAsync());
+
+            Student.Database.Add(model);
+
+            return Ok();
+        }
+
+        public IActionResult Edit([FromRoute]int id)
+        {
+            return View(Student.Database.First(o => o.Id == id));
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditAJAX([FromRoute]int id)
+        {
+            var model = JsonConvert.DeserializeObject<Student>(await new System.IO.StreamReader(this.Request.Body).ReadToEndAsync());
+
+            var student = Student.Database.First(o => o.Id == id);
+            student.Name = model.Name;
+            student.Surname = model.Surname;
+            student.Birthday = model.Birthday;
+            student.Addresses = model.Addresses;
+
+            return Ok();
         }
 
         [HttpDelete]

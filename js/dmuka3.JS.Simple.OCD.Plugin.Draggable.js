@@ -17,7 +17,7 @@
 $d.ocd.plugins.$add('draggable', function ($options) {
 	//#region Validations
 	if (this.__isNullOrUndefined($options) === true) {
-		throw '"$options" must be filled!';
+		$options = {};
 	}
 
 	if (this.__isObject($options) === false) {
@@ -28,7 +28,7 @@ $d.ocd.plugins.$add('draggable', function ($options) {
 		throw '"$options.timeout" must be Number!';
 	}
 
-	if (this.__isNullOrUndefined($options.content) === false && this.__isString($options.content) === false && this.__isHTML($options.content) === false) {
+	if (this.__isNullOrUndefined($options.content) === false && this.__isString($options.content) === false && this.__isHTML($options.content) === false && this.__isFunction($options.content) === false) {
 		throw '"$options.content" must be String or HTML Element!';
 	}
 
@@ -96,15 +96,15 @@ $d.ocd.plugins.$add('draggable', function ($options) {
 					self.__hide.draggable.timeout = 0;
 				}
 
-				if (this.__isString($options.content) === true) {
+				if (self.__isString($options.content) === true) {
 					self.__hide.draggable.content = $d.q.first($options.content);
-				} else if (this.__isHTML($options.content) === true) {
+				} else if (self.__isHTML($options.content) === true) {
 					self.__hide.draggable.content = $options.content;
-				} else if (this.__isFunction($options.content) === true) {
+				} else if (self.__isFunction($options.content) === true) {
 					self.__hide.draggable.content = $options.content.call(self);
 				}
 
-				if (this.__isNullOrUndefined(self.__hide.draggable.content) === true) {
+				if (self.__isNullOrUndefined(self.__hide.draggable.content) === true) {
 					throw 'content\'s result must not be null!';
 				}
 

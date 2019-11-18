@@ -1,10 +1,10 @@
 ﻿@model core_Razor_Example.Models.Student
 
 @{
-    ViewData["Title"] = "Edit";
+    ViewData["Title"] = "Create";
 }
 
-<h1>Edit</h1>
+<h1>Create</h1>
 
 <h4>Student</h4>
 <hr />
@@ -51,11 +51,6 @@
     <script>
         var $student = $d.ocd({
             query: '#student',
-            data: {
-                id: {
-                    default: @Model.Id
-                }
-            },
             on: {
                 $init: function () {
                     if (this.addresses.length === 0) {
@@ -102,12 +97,17 @@
                     query: '#save',
                     on: {
                         click: function (e) {
+                            var self = this;
                             $d.q.ajax({
-                                url: '/Home/EditAJAX/' + this.$root.id,
+                                url: '/Home/CreateAJAX',
                                 type: 'POST',
                                 data: this.$root.jobject,
                                 success: function (res) {
-                                    alert('Student was updated.');
+                                    self.$parent.name = '';
+                                    self.$parent.surname = '';
+                                    self.$parent.birthday = new Date();
+                                    self.$parent.addresses = [''];
+                                    alert('Student was created.');
                                 }
                             });
                         }

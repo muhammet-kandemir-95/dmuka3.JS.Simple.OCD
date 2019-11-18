@@ -30,7 +30,10 @@
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
                     <ul class="navbar-nav flex-grow-1">
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">List</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Create">Create</a>
                         </li>
                     </ul>
                 </div>
@@ -48,8 +51,9 @@
             &copy; 2019 - dmuka3.JS.Simple.OCD (Core Razor Example) - <a href="https://github.com/muhammet-kandemir-95/dmuka3.JS.Simple.OCD" target="_blank">Github</a>
         </div>
     </footer>
-	
-	<script src="/js/dmuka3.JS.Simple.OCD.min.js"></script>
+
+    <script src="/js/dmuka3.JS.Simple.OCD.min.js"></script>
+    <script src="/js/dmuka3.JS.Simple.OCD.Plugins.min.js"></script>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

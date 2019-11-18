@@ -15,7 +15,7 @@
 $d.ocd.plugins.$add('mask', function ($options) {
 	//#region Validations
 	if (this.__isNullOrUndefined($options) === true) {
-		throw '"$options" must be filled!';
+		$options = {};
 	}
 
 	if (this.__isObject($options) === false) {

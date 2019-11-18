@@ -10,7 +10,7 @@
 $d.ocd.plugins.$add('contextMenu', function ($options) {
 	//#region Validations
 	if (this.__isNullOrUndefined($options) === true) {
-		throw '"$options" must be filled!';
+		$options = {};
 	}
 
 	if (this.__isObject($options) === false) {
@@ -54,13 +54,13 @@ $d.ocd.plugins.$add('contextMenu', function ($options) {
 				var zIndex = '999999';
 				var bodyEl = $d.q.first('body');
 
-				if (this.__isNullOrUndefined($options.zIndex) === false) {
+				if (self.__isNullOrUndefined($options.zIndex) === false) {
 					zIndex = $options.zIndex.toString();
 				}
 
 				if (self.__isString($options.contextEl) === true) {
 					contextEl = $d.q.first($options.contextEl);
-				} else if (this.__isFunction($options.contextEl) === true) {
+				} else if (self.__isFunction($options.contextEl) === true) {
 					contextEl = $options.contextEl.call(self);
 				} else {
 					contextEl = $options.contextEl;

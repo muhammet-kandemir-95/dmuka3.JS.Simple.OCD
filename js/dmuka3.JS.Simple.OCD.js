@@ -347,11 +347,18 @@
 						var callback = options.callback || function () { };
 						var success = options.success || function () { };
 						var error = options.error || function () { };
-						var onprogress = options.onprogress || function () { };
-						var onabort = options.onabort || function () { };
+						var onprogress = options.progress || function () { };
+						var onabort = options.abort || function () { };
 						var contentType = options.contentType;
 						var headers = options.headers || {};
 						var responseType = options.responseType;
+
+						if (checkVariableIsObject(data) === true || checkVariableIsArray(data) === true) {
+							data = JSON.stringify(data);
+							if (checkVariableIsNullOrUndefined(contentType) === true) {
+								contentType = 'application/json; charset=utf-8';
+							}
+						}
 
 						var xhr = new XMLHttpRequest();
 						xhr.open(type, url, true);
@@ -1537,7 +1544,7 @@
 			var ocdItem = createOcdItem({
 				rootOcd: rootOcd,
 				jobject: jobject,
-				parentOcd: resultOcd,
+				parentOcd: single === true ? parentOcd : resultOcd,
 				queues: queues,
 				ocdEl: ocdEl,
 				sub: sub,
@@ -1580,7 +1587,7 @@
 				var ocdItem = createOcdItem({
 					rootOcd: rootOcd,
 					jobject: jobject,
-					parentOcd: resultOcd,
+					parentOcd: single === true ? parentOcd : resultOcd,
 					queues: queues,
 					ocdEl: cloneEl,
 					sub: sub,
@@ -1768,12 +1775,10 @@
 		}
 
 		if (checkVariableIsNullOrUndefined(parentEl) === true) {
-			if (single === true) {
-				resultOcd = resultOcd[0];
+			resultOcd = resultOcd[0];
 
-				delete resultOcd.$remove;
-				delete resultOcd.$index;
-			}
+			delete resultOcd.$remove;
+			delete resultOcd.$index;
 
 			return resultOcd;
 		} else {
