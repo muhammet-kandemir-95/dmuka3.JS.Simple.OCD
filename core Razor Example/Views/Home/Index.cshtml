@@ -94,7 +94,7 @@
             },
             methods: {
                 refreshList: function (pageIndex) {
-                    pageIndex = pageIndex || this.paging.pageIndex;
+                    pageIndex = pageIndex != null ? pageIndex : this.paging.pageIndex;
 
                     if (this.$loaded !== true) {
                         return;
@@ -155,10 +155,12 @@
                         single: true,
                         query: '>td.birthday'
                     }, {
+                        jobject: false,
                         alias: 'editlink',
                         single: true,
                         query: '>td.process>.edit-link'
                     }, {
+                        jobject: false,
                         alias: 'deletelink',
                         single: true,
                         query: '>td.process>.delete-link',
@@ -185,8 +187,8 @@
                 query: '>#paging',
                 methods: {
                     refreshLinks: function (value, pageCount) {
-                        value = value || this.pageIndex;
-                        pageCount = pageCount || this.pageCount;
+                        value = value != null ? value : this.pageIndex;
+                        pageCount = pageCount != null ? pageCount : this.pageCount;
                         
                         this.previous.enable = value !== 0;
                         this.next.enable = value !== pageCount - 1;
@@ -229,7 +231,7 @@
                     query: '.previous-page',
                     mixins: [$mixinDisplayEnable],
                     on: {
-                        click: function (e) {
+                        click: function (e) {   
                             e.preventDefault();
                             this.$root.paging.pageIndex--;
                         }

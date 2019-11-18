@@ -342,15 +342,15 @@
 				get ajax () {
 					return function (options) {
 						var url = options.url;
-						var type = options.type || 'GET';
-						var data = options.data || '';
-						var callback = options.callback || function () { };
-						var success = options.success || function () { };
-						var error = options.error || function () { };
-						var onprogress = options.progress || function () { };
-						var onabort = options.abort || function () { };
+						var type = checkVariableIsNullOrUndefined(options.type) === false ? options.type : 'GET';
+						var data = checkVariableIsNullOrUndefined(options.data) === false ? options.data : '';
+						var callback = checkVariableIsNullOrUndefined(options.callback) === false ? options.callback : function () { };
+						var success = checkVariableIsNullOrUndefined(options.success) === false ? options.success : function () { };
+						var error = checkVariableIsNullOrUndefined(options.error) === false ? options.error : function () { };
+						var onprogress = checkVariableIsNullOrUndefined(options.progress) === false ? options.progress : function () { };
+						var onabort = checkVariableIsNullOrUndefined(options.abort) === false ? options.abort : function () { };
 						var contentType = options.contentType;
-						var headers = options.headers || {};
+						var headers = checkVariableIsNullOrUndefined(options.headers) === false ? options.headers : {};
 						var responseType = options.responseType;
 
 						if (checkVariableIsObject(data) === true || checkVariableIsArray(data) === true) {
@@ -830,8 +830,10 @@
 					continue;
 				}
 
-				if (v[key].__ocd === false) {
-					continue;
+				if (checkVariableIsNullOrUndefined(v[key]) === false) {
+					if (v[key].__ocd === false) {
+						continue;
+					}
 				}
 
 				o[key] = toJObject(v[key]);
