@@ -1434,6 +1434,10 @@
 		if (checkVariableIsNullOrUndefined(parentEl) === false && checkVariableIsNullOrUndefined(clone) === true && single !== true) {
 			if ($oldBrowser === false) {
 				var cloneEl = queryParentEl.querySelector(':scope>*[ocd-clone]');
+				if (checkVariableIsNullOrUndefined(cloneEl) === true) {
+					console.error('Clone element("' + query + '") was not found in "' + parentQuery + '"', queryParentEl);
+					throw 'Clone element("' + query + '") was not found in "' + parentQuery + '"';
+				}
 				var cloneElClone = cloneEl.cloneNode(true);
 				cloneElClone.removeAttribute('ocd-clone');
 				cloneEl.remove();
@@ -1443,6 +1447,10 @@
 			} else {
 				ocdElIdProcess(queryParentEl, function (ocdElId) {
 					var cloneEl = queryParentEl.parentNode.querySelector('*[ocd-el-id="' + ocdElId + '"]>*[ocd-clone]');
+					if (checkVariableIsNullOrUndefined(cloneEl) === true) {
+						console.error('Clone element("' + query + '") was not found in "' + parentQuery + '"', queryParentEl);
+						throw 'Clone element("' + query + '") was not found in "' + parentQuery + '"';
+					}
 					var cloneElClone = cloneEl.cloneNode(true);
 					cloneElClone.removeAttribute('ocd-clone');
 					cloneEl.remove();

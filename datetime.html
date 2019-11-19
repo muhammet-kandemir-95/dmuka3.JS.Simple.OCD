@@ -36,6 +36,7 @@
 	</div>
 
 	<script src="js/dmuka3.JS.Simple.OCD.min.js"></script>
+	<script src="js/dmuka3.JS.Simple.OCD.Plugins.min.js"></script>
 	<script>
 		var $app = $d.ocd({
 			query: '#app',
@@ -43,7 +44,7 @@
 				single: true,
 				query: '>.datetime1',
 				alias: 'datetime1',
-				mixins: [$d.ocd.plugins.datetime({})]
+				mixins: [$d.ocd.plugins.datetime()]
 			}, {
 				single: true,
 				query: '>.datetime2',
