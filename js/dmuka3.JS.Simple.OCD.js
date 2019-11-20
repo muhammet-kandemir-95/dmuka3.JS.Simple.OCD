@@ -1353,6 +1353,14 @@
 					});
 				}
 					break;
+				default: {
+					queues.push(function () {
+						ocdEl.addEventListener('change', function () {
+							ocdItem.value = ocdItem.value;
+						});
+					});
+				}
+					break;
 			}
 
 			ocdItem = {
