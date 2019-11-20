@@ -2219,4 +2219,11 @@
 			return ocdFnc;
 		}
 	});
+	
+	var global = {};
+	Object.defineProperty(window['$d'], '$global', {
+		get: function () {
+			return global;
+		}
+	});
 })();

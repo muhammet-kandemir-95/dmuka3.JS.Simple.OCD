@@ -1,4 +1,4 @@
-window.$globalDateTimeOptions = {
+window.$global.datetime = {
 	label: {
 		day: 'Day&nbsp;:&nbsp;',
 		month: 'Month&nbsp;:&nbsp;',
@@ -130,12 +130,12 @@ $d.ocd.plugins.$add('datetime', function ($options) {
 		on: {
 			$init: function () {
 				var self = this;
-				var label = window.$globalDateTimeOptions.label;
+				var label = window.$global.datetime.label;
 				if (self.__isNullOrUndefined($options.label) === false) {
 					label = $options.label;
 				}
 
-				var order = window.$globalDateTimeOptions.order;
+				var order = window.$global.datetime.order;
 				if (self.__isNullOrUndefined($options.order) === false) {
 					order = $options.order;
 				}
