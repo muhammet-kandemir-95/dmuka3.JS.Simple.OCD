@@ -776,6 +776,8 @@
 				prop === '$loaded' ||
 				prop === '$el' ||
 				prop === '$index' ||
+				prop.indexOf('__ocdObjectRefValue') === 0 ||
+				prop.indexOf('__ocdObjectRefSetter') === 0 ||
 				(checkVariableIsNullOrUndefined(obj.__ocdData) === false && obj.__ocdData[prop] === false)
 			) {
 				continue;
@@ -864,11 +866,137 @@
 					continue;
 				}
 
-				if (checkVariableIsNullOrUndefined(ocdP.__ocdData) === false && ocdP.__ocdData[key] === true) {
-					ocdP[key] = v[key];
-				} else {
-					recursiveFill(v[key], ocdP[key]);
-				}
+				(function (key) {
+					if (checkVariableIsNullOrUndefined(ocdP.__ocdData) === false && ocdP.__ocdData[key] === true) {
+						ocdP['__ocdObjectRefValue' + key] = {};
+						ocdP[key] = v[key];
+
+						try {
+							var disableSetter = false;
+
+							ocdP['__ocdObjectRefValue' + key] = v;
+							if (checkVariableIsNullOrUndefined(ocdP['__ocdObjectRefSetter' + key]) === true) {
+								ocdP['__ocdObjectRefSetter' + key] = true;
+								var previousOcdpSetter = ocdP.__lookupSetter__(key);
+								Object.defineProperty(ocdP, key, {
+									configurable: true,
+									set: function (value) {
+										previousOcdpSetter.call(ocdP, value);
+
+										if (disableSetter === true) {
+											return;
+										}
+										disableSetter = true;
+
+										ocdP['__ocdObjectRefValue' + key][key] = value;
+
+										disableSetter = false;
+									}
+								});
+							}
+
+							var previousValueSetter = v.__lookupSetter__(key);
+							if (checkVariableIsNullOrUndefined(previousValueSetter) === true) {
+								previousValueSetter = function (value) { };
+							}
+							Object.defineProperty(v, key, {
+								configurable: true,
+								get: function () {
+									return ocdP[key];
+								},
+								set: function (value) {
+									previousValueSetter.call(v, value);
+
+									if (disableSetter === true) {
+										return;
+									}
+									disableSetter = true;
+
+									if (ocdP['__ocdObjectRefValue' + key] === v) {
+										ocdP[key] = value;
+									}
+
+									disableSetter = false;
+								}
+							});
+						} catch (error) { }
+					} else if (ocdP[key].__ocd === true) {
+						ocdP[key].__ocdObjectRefValue = {};
+						ocdP[key].value = v[key];
+
+						try {
+							var disableSetter = false;
+
+							ocdP[key].__ocdObjectRefValue = v;
+							if (checkVariableIsNullOrUndefined(ocdP[key].__ocdObjectRefSetter) === true) {
+								ocdP[key].__ocdObjectRefSetter = true;
+								var previousOcdpSetter = ocdP[key].__lookupSetter__('value');
+								Object.defineProperty(ocdP[key], 'value', {
+									configurable: true,
+									set: function (value) {
+										previousOcdpSetter.call(ocdP, value);
+
+										if (disableSetter === true) {
+											return;
+										}
+										disableSetter = true;
+
+										ocdP[key].__ocdObjectRefValue[key] = value;
+
+										disableSetter = false;
+									}
+								});
+							}
+
+							var previousValueSetter = v.__lookupSetter__(key);
+							if (checkVariableIsNullOrUndefined(previousValueSetter) === true) {
+								previousValueSetter = function (value) { };
+							}
+							Object.defineProperty(v, key, {
+								configurable: true,
+								get: function () {
+									return ocdP[key].value;
+								},
+								set: function (value) {
+									previousValueSetter.call(v, value);
+
+									if (disableSetter === true) {
+										return;
+									}
+									disableSetter = true;
+
+									if (ocdP[key].__ocdObjectRefValue === v) {
+										ocdP[key].value = value;
+									}
+
+									disableSetter = false;
+								}
+							});
+						} catch (error) { }
+					} else {
+						recursiveFill(v[key], ocdP[key]);
+
+						try {
+							var previousValueSetter = v.__lookupSetter__(key);
+							if (checkVariableIsNullOrUndefined(previousValueSetter) === true) {
+								previousValueSetter = function (value) { };
+							}
+
+							var previousValue = v[key];
+							Object.defineProperty(v, key, {
+								configurable: true,
+								get: function () {
+									return previousValue;
+								},
+								set: function (value) {
+									previousValueSetter.call(v, value);
+									previousValue = value;
+									recursiveFill(previousValue, ocdP[key]);
+								}
+							});
+						} catch (error) { }
+					}
+				})(key);
 			}
 		}
 	}
@@ -1036,6 +1164,7 @@
 					}
 
 					Object.defineProperty(ocdItem, key, {
+						configurable: true,
 						get: function () {
 							return dataGet(ocdEl, key);
 						},
@@ -1187,6 +1316,43 @@
 					}
 						break;
 				}
+			}
+
+			switch (ocdEl.tagName) {
+				case 'INPUT': {
+					var type = ocdEl.getAttribute('type');
+					if (checkVariableIsNullOrUndefined(type) === true) {
+						type = 'text';
+					}
+					type = type.toLowerCase();
+
+					switch (type) {
+						case 'checkbox':
+						case 'radio':
+							queues.push(function () {
+								ocdEl.addEventListener('change', function () {
+									ocdItem.value = ocdItem.value;
+								});
+							});
+							break;
+						default:
+							queues.push(function () {
+								ocdEl.addEventListener('input', function () {
+									ocdItem.value = ocdItem.value;
+								});
+							});
+							break;
+					}
+				}
+					break;
+				case 'SELECT': {
+					queues.push(function () {
+						ocdEl.addEventListener('change', function () {
+							ocdItem.value = ocdItem.value;
+						});
+					});
+				}
+					break;
 			}
 
 			ocdItem = {
@@ -1802,6 +1968,7 @@
 			var result = parentOcd;
 
 			Object.defineProperty(result, alias, {
+				configurable: true,
 				get: function () {
 					return resultOcd;
 				},
@@ -2219,7 +2386,7 @@
 			return ocdFnc;
 		}
 	});
-	
+
 	var global = {};
 	Object.defineProperty(window['$d'], '$global', {
 		get: function () {

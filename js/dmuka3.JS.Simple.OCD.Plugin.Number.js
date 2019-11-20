@@ -1,4 +1,4 @@
-window.$global.number = {
+window.$d.$global.number = {
 	precision: 2,
 	format: true,
 	formatChars: [',', '.']
@@ -76,17 +76,17 @@ $d.ocd.plugins.$add('number', function ($options) {
 		on: {
 			$init: function () {
 				var self = this;
-				var formatChars = window.$global.number.formatChars;
+				var formatChars = window.$d.$global.number.formatChars;
 				if (this.__isNullOrUndefined($options.formatChars) === false) {
 					formatChars = $options.formatChars;
 				}
 
-				var precision = window.$global.number.precision;
+				var precision = window.$d.$global.number.precision;
 				if (this.__isNullOrUndefined($options.precision) === false) {
 					precision = $options.precision;
 				}
 
-				var format = window.$global.number.format;
+				var format = window.$d.$global.number.format;
 				if (this.__isNullOrUndefined($options.format) === true) {
 					format = $options.format;
 				}
