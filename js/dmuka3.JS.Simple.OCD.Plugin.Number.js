@@ -1,9 +1,15 @@
+window.$globalNumberOptions = {
+	precision: 2,
+	format: true,
+	formatChars: [',', '.']
+};
+
 /**
  * dmuka3.JS.Simple.OCD.Plugin.Number
  * {
  * 	precision(default: 2): <Number>,
  * 	format(default: true): <Boolean>,
- * 	formatChars(default: ['.', ',']): <Array(String)>
+ * 	formatChars(default: [',', '.']): <Array(String)>
  * }
  */
 $d.ocd.plugins.$add('number', function ($options) {
@@ -70,14 +76,19 @@ $d.ocd.plugins.$add('number', function ($options) {
 		on: {
 			$init: function () {
 				var self = this;
-				var formatChars = [',', '.'];
+				var formatChars = window.$globalNumberOptions.formatChars;
 				if (this.__isNullOrUndefined($options.formatChars) === false) {
 					formatChars = $options.formatChars;
 				}
 
-				var precision = 2;
+				var precision = window.$globalNumberOptions.precision;
 				if (this.__isNullOrUndefined($options.precision) === false) {
 					precision = $options.precision;
+				}
+
+				var format = window.$globalNumberOptions.format;
+				if (this.__isNullOrUndefined($options.format) === true) {
+					format = $options.format;
 				}
 
 				var inputEvent = function (e) {
@@ -99,7 +110,7 @@ $d.ocd.plugins.$add('number', function ($options) {
 									precisionCounter++;
 								}
 							}
-						} else if ($options.format !== false) {
+						} else if (format !== false) {
 							if (c === formatChars[0]) {
 								if (newVal.length !== 0 && c !== pc && dotExist === false) {
 									newVal += c;
@@ -121,7 +132,7 @@ $d.ocd.plugins.$add('number', function ($options) {
 						}
 					}
 
-					if ($options.format !== false) {
+					if (format !== false) {
 						var iop = newVal.indexOf(formatChars[1]);
 						var dotCounter = 4;
 						val = newVal;
