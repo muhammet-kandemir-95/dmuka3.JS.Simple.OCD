@@ -1,0 +1,132 @@
+<html>
+
+<head>
+	<title>dmuka3.JS.Simple.OCD</title>
+
+	<link rel="stylesheet" href="css/main.css">
+</head>
+
+<body>
+	<div id="app">
+		<input id="input1" placeholder="maxlen:10" type="text" value="">
+		<input id="input2" placeholder="minlen:10" type="text" value="">
+		<input id="input3" placeholder="max:10" type="text" value="">
+		<input id="input4" placeholder="min:10" type="text" value="">
+		<input id="input5" placeholder="regex" type="text" value="">
+		<input id="input6" placeholder="email" type="text" value="">
+		<input id="input7" placeholder="required" type="text" value="">
+	</div>
+
+	<hr>
+
+	<pre></pre>
+
+	<script src="js/dmuka3.JS.Simple.OCD.min.js"></script>
+	<script src="js/dmuka3.JS.Simple.OCD.UI.min.js"></script>
+	<script>
+		var $app = $d.ocd({
+			query: '#app',
+			mixins: [$d.ocd.plugins.validation({
+				$callback: function (value) {
+					if (value.ok === true) {
+						this.$el.$.css('background-color', null);
+					} else {
+						this.$el.$.css('background-color', 'red');
+					}
+				},
+				input1: {
+					maxlen: 10,
+					message: {
+						maxlen: 'Max len err!'
+					}
+				},
+				input2: {
+					minlen: 10,
+					message: {
+						minlen: 'Min len err!'
+					}
+				},
+				input3: {
+					max: 10,
+					message: {
+						max: 'Max err!'
+					}
+				},
+				input4: {
+					min: 10,
+					message: {
+						min: 'Min err!'
+					}
+				},
+				input5: {
+					regex: /^([a-z0-9]{5,})$/,
+					message: {
+						regex: 'Regex err!'
+					}
+				},
+				input6: {
+					email: true,
+					message: {
+						email: 'Email err!'
+					}
+				},
+				input7: {
+					required: true,
+					message: {
+						required: 'Required err!'
+					}
+				}
+			})],
+			methods: {
+				refreshJson: function () {
+					this.$runOnce(function () {
+						var json = JSON.stringify(this.valid(), null, 4);
+						if (json !== $d.q.first('pre').$.html()) {
+							$d.q.first('pre').$.html(json);
+						}
+					});
+				}
+			},
+			on: {
+				input: function (e) {
+					this.refreshJson();
+				}
+			},
+			sub: [{
+				single: true,
+				query: '#input1',
+				alias: 'input1'
+			}, {
+				single: true,
+				query: '#input2',
+				alias: 'input2'
+			}, {
+				single: true,
+				query: '#input3',
+				alias: 'input3',
+				mixins: [$d.ocd.plugins.number()]
+			}, {
+				single: true,
+				query: '#input4',
+				alias: 'input4',
+				mixins: [$d.ocd.plugins.number()]
+			}, {
+				single: true,
+				query: '#input5',
+				alias: 'input5'
+			}, {
+				single: true,
+				query: '#input6',
+				alias: 'input6'
+			}, {
+				single: true,
+				query: '#input7',
+				alias: 'input7'
+			}]
+		});
+
+		$app.refreshJson();
+	</script>
+</body>
+
+</html>

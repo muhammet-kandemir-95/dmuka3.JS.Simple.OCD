@@ -599,6 +599,25 @@
 	}
 
 	/**
+	 * Is variable's type regex?
+	 * @param {any} value 
+	 * @param {string} errorVariableName 
+	 */
+	function checkVariableIsRegex (value, errorVariableName) {
+		if (checkVariableIsNullOrUndefined(value) === true) {
+			return false;
+		}
+
+		if (value.constructor.name !== 'RegExp') {
+			if (errorVariableName !== null && errorVariableName !== undefined) {
+				throw errorVariableName + ' must be a RegExp!';
+			}
+			return false;
+		}
+		return true;
+	}
+
+	/**
 	 * Is variable's type object?
 	 * @param {any} value 
 	 * @param {string} errorVariableName 
@@ -1120,7 +1139,7 @@
 					Object.defineProperty(ocdItem, key, {
 						get: function () {
 							return function () {
-								methods[key].apply(ocdItem, arguments);
+								return methods[key].apply(ocdItem, arguments);
 							};
 						}
 					});
@@ -1400,6 +1419,12 @@
 			}
 		});
 
+		Object.defineProperty(item, '__getPropAsObject', {
+			get: function () {
+				return getPropAsObject;
+			}
+		});
+
 		Object.defineProperty(item, '__isNullOrUndefined', {
 			get: function () {
 				return checkVariableIsNullOrUndefined;
@@ -1433,6 +1458,12 @@
 		Object.defineProperty(item, '__isBool', {
 			get: function () {
 				return checkVariableIsBoolean;
+			}
+		});
+
+		Object.defineProperty(item, '__isRegex', {
+			get: function () {
+				return checkVariableIsRegex;
 			}
 		});
 
