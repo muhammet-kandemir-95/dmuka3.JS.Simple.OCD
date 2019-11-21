@@ -1029,6 +1029,7 @@
 		var on = params.on;
 		var rootOcd = params.rootOcd;
 		var methods = params.methods;
+		var watches = params.watches;
 		//#endregion
 		var ocdItem = null;
 
@@ -1372,6 +1373,10 @@
 				},
 				set value (value) {
 					ocdSet.call(ocdItem, value);
+
+					for (var i = 0; i < watches.length; i++) {
+						watches[i].call(ocdItem, value);
+					}
 				}
 			};
 
@@ -1473,6 +1478,10 @@
 		//#endregion
 
 		var alias = schema.alias;
+		var watches = schema.watches;
+		if (checkVariableIsNullOrUndefined(watches) === true) {
+			watches = [];
+		}
 
 		var jobject = schema.jobject;
 		var single = schema.single;
@@ -1539,6 +1548,12 @@
 						if (checkVariableIsNullOrUndefined(methods[key]) === true) {
 							methods[key] = mixin.methods[key];
 						}
+					}
+				}
+
+				if (checkVariableIsNullOrUndefined(mixin.watches) === false) {
+					for (var i = 0; i < mixin.watches.length; i++) {
+						watches.push(mixin.watches[i]);
 					}
 				}
 
@@ -1736,7 +1751,8 @@
 				set: set,
 				data: data,
 				on: on,
-				methods: methods
+				methods: methods,
+				watches: watches
 			});
 			Array.prototype.push.call(resultOcd, ocdItem);
 
@@ -1779,7 +1795,8 @@
 					set: set,
 					data: data,
 					on: on,
-					methods: methods
+					methods: methods,
+					watches: watches
 				});
 
 				if (checkVariableIsNullOrUndefined(value) === false) {
@@ -2029,6 +2046,7 @@
 				method2: ...,
 				...
 			},
+			watches?: <Array(function([this]$ocd, value))>,
 			on?: {
 				$init?: <function([this]$ocd)>,
 				$remove?: <function([this]$ocd)>,
@@ -2063,6 +2081,7 @@
 					...
 				},
 				clone?: <function([this]$parentOcd, value):el>,
+				watches?: <Array(function([this]$ocd, value))>,
 				on?: {
 					$init?: <function([this]$ocd)>,
 					$remove?: <function([this]$ocd)>,
@@ -2097,6 +2116,7 @@
 						...
 					},
 					clone?: <function([this]$parentOcd, value):el>,
+					watches?: <Array(function([this]$ocd, value))>,
 					on?: {
 						$init?: <function([this]$ocd)>,
 						$remove?: <function([this]$ocd)>,
@@ -2250,6 +2270,21 @@
 				// Checking methods.prop...
 				if (checkVariableIsFunction(schema.methods[key]) === false) {
 					throw alias + currentAlias + ' "methods.' + key + '" must be Function!';
+				}
+			}
+		}
+
+		// Checking watches...
+		if (checkVariableIsNullOrUndefined(schema.watches) === false) {
+			if (checkVariableIsArray(schema.watches) === false) {
+				throw alias + currentAlias + ' "watches" must be Array!';
+			}
+
+			// Checking watches's properties...
+			for (var i = 0; i < schema.watches.length; i++) {
+				// Checking watches.item...
+				if (checkVariableIsFunction(schema.watches[i]) === false) {
+					throw alias + currentAlias + ' "watches[' + i + ']" must be Function!';
 				}
 			}
 		}
