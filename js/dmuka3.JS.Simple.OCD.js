@@ -854,6 +854,7 @@
 		if (ocdP.__ocd === true) {
 			ocdP.value = v;
 		} else if (checkVariableIsArray(v)) {
+			// TODO: Array reference will be added!
 			ocdP.$clear();
 			for (var ai = 0; ai < v.length; ai++) {
 				var vItem = v[ai];
