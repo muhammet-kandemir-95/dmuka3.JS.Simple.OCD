@@ -795,8 +795,8 @@
 				prop === '$loaded' ||
 				prop === '$el' ||
 				prop === '$index' ||
-				prop.indexOf('__ocdObjectRefValue') === 0 ||
-				prop.indexOf('__ocdObjectRefSetter') === 0 ||
+				prop === '__isOcdItem' ||
+				prop === '__isOcdValueItem' ||
 				(checkVariableIsNullOrUndefined(obj.__ocdData) === false && obj.__ocdData[prop] === false)
 			) {
 				continue;
@@ -903,7 +903,7 @@
 	 * @param {any} ocdP 
 	 */
 	function recursiveFill (v, ocdP) {
-		if (ocdP.__ocd === true && ocdP.__ocdDataEnableCount === 0) {
+		if (ocdP.__isOcdValueItem === true && ocdP.__ocdDataEnableCount === 0) {
 			ocdP.value = v;
 		} else if (checkVariableIsArray(v) === true) {
 			ocdP.$clear();
@@ -1003,6 +1003,12 @@
 							});
 						}
 					};
+				}
+			});
+
+			Object.defineProperty(ocdItem, '__isOcdItem', {
+				get: function () {
+					return true;
 				}
 			});
 
@@ -1319,6 +1325,9 @@
 			ocdItem = {
 				get __ocd () {
 					return jobject !== false;
+				},
+				get __isOcdValueItem () {
+					return true;
 				},
 				get value () {
 					return ocdGet.call(ocdItem);

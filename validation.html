@@ -15,6 +15,31 @@
 		<input id="input5" placeholder="regex" type="text" value="">
 		<input id="input6" placeholder="email" type="text" value="">
 		<input id="input7" placeholder="required" type="text" value="">
+		<input id="input8" placeholder="check" type="text" value="">
+
+		<hr>
+
+		<div>
+			<span ocd-clone></span>
+
+			<span>
+				<input ocd-clone placeholder="minlen:2, maxlen: 10, required: true" type="text" value="">
+				<input placeholder="minlen:2, maxlen: 10, required: true" type="text" value="">
+				<input placeholder="minlen:2, maxlen: 10, required: true" type="text" value="">
+			</span>
+
+			<span>
+				<input ocd-clone placeholder="minlen:2, maxlen: 10, required: true" type="text" value="">
+				<input placeholder="minlen:2, maxlen: 10, required: true" type="text" value="">
+			</span>
+
+			<span>
+				<input ocd-clone placeholder="minlen:2, maxlen: 10, required: true" type="text" value="">
+				<input placeholder="minlen:2, maxlen: 10, required: true" type="text" value="">
+				<input placeholder="minlen:2, maxlen: 10, required: true" type="text" value="">
+				<input placeholder="minlen:2, maxlen: 10, required: true" type="text" value="">
+			</span>
+		</div>
 	</div>
 
 	<hr>
@@ -75,6 +100,24 @@
 					message: {
 						required: 'Required err!'
 					}
+				},
+				input8: {
+					check: function () {
+						return this.value === 'MUHAMMET';
+					},
+					message: {
+						check: 'Check err!'
+					}
+				},
+				'divel.spanel.inputel': {
+					required: true,
+					minlen: 2,
+					maxlen: 10,
+					message: {
+						required: 'Required suberr!',
+						minlen: 'Min len suberr!',
+						maxlen: 'Max len suberr!'
+					}
 				}
 			})],
 			methods: {
@@ -122,6 +165,24 @@
 				single: true,
 				query: '#input7',
 				alias: 'input7'
+			}, {
+				single: true,
+				query: '#input8',
+				alias: 'input8'
+			}, {
+				single: true,
+				query: '>div',
+				alias: 'divel',
+				sub: [{
+					alias: 'spanel',
+					parentQuery: '',
+					query: '>span',
+					sub:[{
+						alias: 'inputel',
+						parentQuery: '',
+						query: '>input'
+					}]
+				}]
 			}]
 		});
 
