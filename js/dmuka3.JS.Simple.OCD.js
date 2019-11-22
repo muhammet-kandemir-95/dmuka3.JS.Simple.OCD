@@ -864,16 +864,48 @@
 		}
 	}
 
+	function clearArrayMethods (arr) {
+		arr.concat = undefined;
+		arr.copyWithin = undefined;
+		arr.entries = undefined;
+		arr.every = undefined;
+		arr.fill = undefined;
+		arr.filter = undefined;
+		arr.find = undefined;
+		arr.findIndex = undefined;
+		arr.forEach = undefined;
+		arr.from = undefined;
+		arr.includes = undefined;
+		arr.indexOf = undefined;
+		arr.isArray = undefined;
+		arr.join = undefined;
+		arr.keys = undefined;
+		arr.lastIndexOf = undefined;
+		arr.map = undefined;
+		arr.pop = undefined;
+		arr.push = undefined;
+		arr.reduce = undefined;
+		arr.reduceRight = undefined;
+		arr.reverse = undefined;
+		arr.shift = undefined;
+		arr.slice = undefined;
+		arr.some = undefined;
+		arr.sort = undefined;
+		arr.splice = undefined;
+		arr.toString = undefined;
+		arr.unshift = undefined;
+		arr.valueOf = undefined;
+	}
+
 	/**
 	 * Fill the ocd item by a object value.
 	 * @param {any} v 
 	 * @param {any} ocdP 
 	 */
 	function recursiveFill (v, ocdP) {
-		if (ocdP.__ocd === true) {
+		if (ocdP.__ocd === true && ocdP.__ocdDataEnableCount === 0) {
 			ocdP.value = v;
-		} else if (checkVariableIsArray(v)) {
-			// TODO: Array reference will be added!
+		} else if (checkVariableIsArray(v) === true) {
 			ocdP.$clear();
 			for (var ai = 0; ai < v.length; ai++) {
 				var vItem = v[ai];
@@ -888,108 +920,16 @@
 
 				(function (key) {
 					if (checkVariableIsNullOrUndefined(ocdP.__ocdData) === false && ocdP.__ocdData[key] === true) {
-						ocdP['__ocdObjectRefValue' + key] = {};
 						ocdP[key] = v[key];
 
 						try {
-							var disableSetter = false;
-
-							ocdP['__ocdObjectRefValue' + key] = v;
-							if (checkVariableIsNullOrUndefined(ocdP['__ocdObjectRefSetter' + key]) === true) {
-								ocdP['__ocdObjectRefSetter' + key] = true;
-								var previousOcdpSetter = ocdP.__lookupSetter__(key);
-								Object.defineProperty(ocdP, key, {
-									configurable: true,
-									set: function (value) {
-										previousOcdpSetter.call(ocdP, value);
-
-										if (disableSetter === true) {
-											return;
-										}
-										disableSetter = true;
-
-										ocdP['__ocdObjectRefValue' + key][key] = value;
-
-										disableSetter = false;
-									}
-								});
-							}
-
-							var previousValueSetter = v.__lookupSetter__(key);
-							if (checkVariableIsNullOrUndefined(previousValueSetter) === true) {
-								previousValueSetter = function (value) { };
-							}
 							Object.defineProperty(v, key, {
 								configurable: true,
 								get: function () {
 									return ocdP[key];
 								},
 								set: function (value) {
-									previousValueSetter.call(v, value);
-
-									if (disableSetter === true) {
-										return;
-									}
-									disableSetter = true;
-
-									if (ocdP['__ocdObjectRefValue' + key] === v) {
-										ocdP[key] = value;
-									}
-
-									disableSetter = false;
-								}
-							});
-						} catch (error) { }
-					} else if (ocdP[key].__ocd === true) {
-						ocdP[key].__ocdObjectRefValue = {};
-						ocdP[key].value = v[key];
-
-						try {
-							var disableSetter = false;
-
-							ocdP[key].__ocdObjectRefValue = v;
-							if (checkVariableIsNullOrUndefined(ocdP[key].__ocdObjectRefSetter) === true) {
-								ocdP[key].__ocdObjectRefSetter = true;
-								var previousOcdpSetter = ocdP[key].__lookupSetter__('value');
-								Object.defineProperty(ocdP[key], 'value', {
-									configurable: true,
-									set: function (value) {
-										previousOcdpSetter.call(ocdP, value);
-
-										if (disableSetter === true) {
-											return;
-										}
-										disableSetter = true;
-
-										ocdP[key].__ocdObjectRefValue[key] = value;
-
-										disableSetter = false;
-									}
-								});
-							}
-
-							var previousValueSetter = v.__lookupSetter__(key);
-							if (checkVariableIsNullOrUndefined(previousValueSetter) === true) {
-								previousValueSetter = function (value) { };
-							}
-							Object.defineProperty(v, key, {
-								configurable: true,
-								get: function () {
-									return ocdP[key].value;
-								},
-								set: function (value) {
-									previousValueSetter.call(v, value);
-
-									if (disableSetter === true) {
-										return;
-									}
-									disableSetter = true;
-
-									if (ocdP[key].__ocdObjectRefValue === v) {
-										ocdP[key].value = value;
-									}
-
-									disableSetter = false;
+									ocdP[key] = value;
 								}
 							});
 						} catch (error) { }
@@ -997,21 +937,13 @@
 						recursiveFill(v[key], ocdP[key]);
 
 						try {
-							var previousValueSetter = v.__lookupSetter__(key);
-							if (checkVariableIsNullOrUndefined(previousValueSetter) === true) {
-								previousValueSetter = function (value) { };
-							}
-
-							var previousValue = v[key];
 							Object.defineProperty(v, key, {
 								configurable: true,
 								get: function () {
-									return previousValue;
+									return ocdP[key];
 								},
 								set: function (value) {
-									previousValueSetter.call(v, value);
-									previousValue = value;
-									recursiveFill(previousValue, ocdP[key]);
+									recursiveFill(value, ocdP[key]);
 								}
 							});
 						} catch (error) { }
@@ -1855,6 +1787,7 @@
 			});
 
 			Object.defineProperty(resultOcd, '$set', {
+				configurable: true,
 				get: function () {
 					return function (value) {
 						recursiveFill(value, resultOcd);
@@ -1863,6 +1796,7 @@
 			});
 
 			Object.defineProperty(resultOcd, '$add', {
+				configurable: true,
 				get: function () {
 					return function (value) {
 						var ocdNewItem = createACloneOcd(value, function (el) {
@@ -1905,6 +1839,7 @@
 			});
 
 			Object.defineProperty(resultOcd, '$addRange', {
+				configurable: true,
 				get: function () {
 					return function (values) {
 						for (var i = 0; i < values.length; i++) {
@@ -1916,11 +1851,13 @@
 			});
 
 			Object.defineProperty(resultOcd, '$removeAt', {
+				configurable: true,
 				get: function () {
 					return function (index) {
 						var ocdItem = resultOcd[index];
 						ocdItem.$el.remove();
-						resultOcd.splice(index, 1);
+
+						Array.prototype.splice.call(resultOcd, index, 1);
 
 						onremove.call(ocdItem);
 					};
@@ -1928,8 +1865,9 @@
 			});
 
 			Object.defineProperty(resultOcd, '$clear', {
+				configurable: true,
 				get: function () {
-					return function (index) {
+					return function () {
 						var len = resultOcd.length;
 						for (var i = len - 1; i >= 0; i--) {
 							resultOcd.$removeAt(i);
@@ -1939,11 +1877,11 @@
 			});
 
 			Object.defineProperty(resultOcd, '$insert', {
+				configurable: true,
 				get: function () {
 					return function (index, value) {
 						if (index >= resultOcd.length) {
 							return resultOcd.$add(value);
-							return;
 						}
 
 						var ocdItem = resultOcd[index];
@@ -1951,7 +1889,7 @@
 							ocdItem.$el.parentNode.insertBefore(el, ocdItem.$el);
 						});
 
-						resultOcd.splice(index, 0, ocdNewItem.ocd);
+						Array.prototype.splice.call(resultOcd, index, 0, ocdNewItem.ocd);
 
 						createEasyMethods(ocdNewItem.ocd);
 
@@ -1985,6 +1923,8 @@
 					};
 				}
 			});
+
+			clearArrayMethods(resultOcd);
 		}
 
 		Object.defineProperty(resultOcd, 'jobject', {
