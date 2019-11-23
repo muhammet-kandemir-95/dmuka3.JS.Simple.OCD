@@ -1305,47 +1305,6 @@
 				}
 			};
 
-			switch (ocdEl.tagName) {
-				case 'INPUT': {
-					var type = ocdEl.getAttribute('type');
-					if (checkVariableIsNullOrUndefined(type) === true) {
-						type = 'text';
-					}
-					type = type.toLowerCase();
-
-					switch (type) {
-						case 'checkbox':
-						case 'radio':
-							ocdEl.addEventListener('change', function () {
-								triggerWatches();
-							});
-							break;
-						default:
-							ocdEl.addEventListener('input', function () {
-								triggerWatches();
-							});
-							break;
-					}
-				}
-					break;
-				case 'SELECT': {
-					ocdEl.addEventListener('change', function () {
-						triggerWatches();
-					});
-				}
-					break;
-				default: {
-					ocdEl.addEventListener('change', function () {
-						triggerWatches();
-					});
-
-					ocdEl.addEventListener('input', function () {
-						triggerWatches();
-					});
-				}
-					break;
-			}
-
 			ocdItem = {
 				get __ocd () {
 					return jobject !== false;
@@ -1364,6 +1323,51 @@
 					}
 				}
 			};
+
+			queues.push(function () {
+				switch (ocdEl.tagName) {
+					case 'INPUT': {
+						var type = ocdEl.getAttribute('type');
+						if (checkVariableIsNullOrUndefined(type) === true) {
+							type = 'text';
+						}
+						type = type.toLowerCase();
+
+						switch (type) {
+							case 'checkbox':
+							case 'radio':
+								ocdEl.addEventListener('change', function () {
+									triggerWatches();
+								});
+								break;
+							default:
+								ocdEl.addEventListener('input', function () {
+									triggerWatches();
+								});
+								break;
+						}
+					}
+						break;
+					case 'SELECT': {
+						ocdEl.addEventListener('change', function () {
+							triggerWatches();
+						});
+					}
+						break;
+					default: {
+						ocdEl.addEventListener('change', function () {
+							triggerWatches();
+						});
+
+						ocdEl.addEventListener('input', function () {
+							triggerWatches();
+						});
+					}
+						break;
+				}
+
+				ocdItem.value = ocdItem.value;
+			});
 
 			declareStd();
 		}
