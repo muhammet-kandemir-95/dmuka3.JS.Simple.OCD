@@ -864,6 +864,10 @@
 		}
 	}
 
+	/**
+	 * Clear all methods of array which is not used by OCD.
+	 * @param {*} arr 
+	 */
 	function clearArrayMethods (arr) {
 		arr.concat = undefined;
 		arr.copyWithin = undefined;
@@ -903,6 +907,10 @@
 	 * @param {any} ocdP 
 	 */
 	function recursiveFill (v, ocdP) {
+		if (checkVariableIsNullOrUndefined(v) === false && v.__isOcdValueItem === true) {
+			v = v.value;
+		}
+
 		if (ocdP.__isOcdValueItem === true && ocdP.__ocdDataEnableCount === 0) {
 			ocdP.value = v;
 		} else if (checkVariableIsArray(v) === true) {
@@ -1115,7 +1123,7 @@
 					} else {
 						dataSet = function (el, value, key) {
 							var result = data[key].set.call(ocdItem, value, key);
-							if (checkVariableIsNullOrUndefined(result) === false) {
+							if (result !== undefined) {
 								value = result;
 							}
 							el.$.data(key, value);
@@ -1134,7 +1142,15 @@
 
 					queues.push(function () {
 						if (checkVariableIsNullOrUndefined(data[key].default) === false) {
-							ocdEl.$.data(key, data[key].default);
+							if (checkVariableIsNullOrUndefined(get) === false) {
+								var value = dataGet(ocdEl, key);
+
+								if (checkVariableIsNullOrUndefined(value) === false && value !== '') {
+									dataSet(ocdEl, value, key);
+									return;
+								}
+							}
+
 							if (checkVariableIsFunction(data[key].default) === true) {
 								dataSet(ocdEl, data[key].default(ocdItem), key);
 							} else {
@@ -1154,8 +1170,8 @@
 					}
 
 					(function (key) {
-						ocdEl.addEventListener(key, function (e) {
-							return on[key].call(ocdItem, e);
+						ocdEl.addEventListener(key, function () {
+							return on[key].apply(ocdItem, arguments);
 						});
 					})(key);
 				}
@@ -1277,6 +1293,18 @@
 				}
 			}
 
+			var triggerWatches = function () {
+				var value = ocdItem.value;
+
+				if (checkVariableIsNullOrUndefined(set) === false) {
+					ocdSet.call(ocdItem, value);
+				}
+
+				for (var i = 0; i < watches.length; i++) {
+					watches[i].call(ocdItem, value);
+				}
+			};
+
 			switch (ocdEl.tagName) {
 				case 'INPUT': {
 					var type = ocdEl.getAttribute('type');
@@ -1288,35 +1316,31 @@
 					switch (type) {
 						case 'checkbox':
 						case 'radio':
-							queues.push(function () {
-								ocdEl.addEventListener('change', function () {
-									ocdItem.value = ocdItem.value;
-								});
+							ocdEl.addEventListener('change', function () {
+								triggerWatches();
 							});
 							break;
 						default:
-							queues.push(function () {
-								ocdEl.addEventListener('input', function () {
-									ocdItem.value = ocdItem.value;
-								});
+							ocdEl.addEventListener('input', function () {
+								triggerWatches();
 							});
 							break;
 					}
 				}
 					break;
 				case 'SELECT': {
-					queues.push(function () {
-						ocdEl.addEventListener('change', function () {
-							ocdItem.value = ocdItem.value;
-						});
+					ocdEl.addEventListener('change', function () {
+						triggerWatches();
 					});
 				}
 					break;
 				default: {
-					queues.push(function () {
-						ocdEl.addEventListener('change', function () {
-							ocdItem.value = ocdItem.value;
-						});
+					ocdEl.addEventListener('change', function () {
+						triggerWatches();
+					});
+
+					ocdEl.addEventListener('input', function () {
+						triggerWatches();
 					});
 				}
 					break;
@@ -1663,10 +1687,7 @@
 				}
 			}
 		} else if (checkVariableIsArray(query) === true) {
-			for (var i = 0; i < query.length; i++) {
-				var element = query[i];
-				checkVariableIsHTML(element, alias + '[' + i + ']');
-			}
+			queryResults = query;
 		} else if (checkVariableIsHTML(query) === true) {
 			queryResults = [query];
 		}
@@ -1754,7 +1775,7 @@
 
 		if (checkVariableIsNullOrUndefined(parentEl) === false) {
 			var createACloneOcd = function (value, fnc) {
-				var cloneEl = clone.call(parentOcd);
+				var cloneEl = clone.call(resultOcd, value);
 				fnc(cloneEl);
 
 				var ocdItem = createOcdItem({
@@ -2006,7 +2027,7 @@
 	 * @param {boolean} sub 
 	 * @param {boolean} mixin 
 	 */
-	function checkSchema (schema, alias, sub, mixin) {
+	function checkSchema (schema, alias, sub, mixin, root) {
 		/*
 		{
 			query: <string|array|HTMLElement>,
@@ -2045,7 +2066,7 @@
 				methods?: ...
 			}],
 			sub?: [{
-				parentQuery?: <string|array|HTMLElement>,
+				parentQuery?: <string|HTMLElement>,
 				query: <string|array|HTMLElement>,
 				single: <bool>,
 				alias: <string>,
@@ -2080,7 +2101,7 @@
 					methods?: ...
 				}],
 				sub?: [{
-					parentQuery?: <string|array|HTMLElement>,
+					parentQuery?: <string|HTMLElement>,
 					query: <string|array|HTMLElement>,
 					single: <bool>,
 					alias: <string>,
@@ -2124,6 +2145,33 @@
 			currentAlias = '<' + schema.alias + '>';
 		}
 
+		if (root === true) {
+			// Checking single...
+			if (checkVariableIsNullOrUndefined(schema.single) === false) {
+				throw alias + currentAlias + ' "single" cannot be used on root!';
+			}
+
+			// Checking parentQuery...
+			if (checkVariableIsNullOrUndefined(schema.parentQuery) === false) {
+				throw alias + currentAlias + ' "parentQuery" cannot be used on root!';
+			}
+
+			// Checking alias...
+			if (checkVariableIsNullOrUndefined(schema.alias) === false) {
+				throw alias + currentAlias + ' "alias" cannot be used on root!';
+			}
+
+			// Checking jobject...
+			if (checkVariableIsNullOrUndefined(schema.jobject) === false) {
+				throw alias + currentAlias + ' "jobject" cannot be used on root!';
+			}
+
+			// Checking clone...
+			if (checkVariableIsNullOrUndefined(schema.clone) === false) {
+				throw alias + currentAlias + ' "clone" cannot be used on root!';
+			}
+		}
+
 		if (mixin === false) {
 			// Checking alias...
 			if (sub === true) {
@@ -2135,6 +2183,14 @@
 				if (schema.alias.trim().length === 0) {
 					throw alias + currentAlias + ' "alias" must be filled!';
 				}
+
+				if (schema.alias[0] === '$') {
+					throw alias + currentAlias + ' "alias" must not have "$" on name at the beginning!';
+				}
+				if (schema.alias[0] === '_' && key[1] === '_') {
+					throw alias + currentAlias + ' "alias" must not have "__" on name at the beginning!';
+				}
+
 			}
 
 			// Checking single...
@@ -2159,6 +2215,12 @@
 					throw alias + currentAlias + ' "query" must be filled!';
 				}
 			} else if (checkVariableIsArray(schema.query) === true) {
+				for (var i = 0; i < schema.query.length; i++) {
+					var element = schema.query[i];
+					if (checkVariableIsHTML(element) === false) {
+						throw alias + currentAlias + ' "query[' + i + ']" must be HTMLElement!';
+					}
+				}
 			} else if (checkVariableIsHTML(schema.query) === true) {
 			} else {
 				throw alias + currentAlias + ' "query" must be String, Array, NodeList or HTMLElement!';
@@ -2218,6 +2280,13 @@
 
 			// Checking data's properties...
 			for (var key in schema.data) {
+				if (key[0] === '$') {
+					throw alias + currentAlias + ' "data.' + key + '" must not have "$" on name at the beginning!';
+				}
+				if (key[0] === '_' && key[1] === '_') {
+					throw alias + currentAlias + ' "data.' + key + '" must not have "__" on name at the beginning!';
+				}
+
 				// Checking data.prop...
 				if (checkVariableIsObject(schema.data[key]) === false) {
 					throw alias + currentAlias + ' "data.' + key + '" must be Object!';
@@ -2248,6 +2317,13 @@
 
 			// Checking methods's properties...
 			for (var key in schema.methods) {
+				if (key[0] === '$') {
+					throw alias + currentAlias + ' "methods.' + key + '" must not have "$" on name at the beginning!';
+				}
+				if (key[0] === '_' && key[1] === '_') {
+					throw alias + currentAlias + ' "methods.' + key + '" must not have "__" on name at the beginning!';
+				}
+
 				// Checking methods.prop...
 				if (checkVariableIsFunction(schema.methods[key]) === false) {
 					throw alias + currentAlias + ' "methods.' + key + '" must be Function!';
@@ -2278,6 +2354,10 @@
 
 			// Checking on's properties...
 			for (var key in schema.on) {
+				if (key[0] === '_' && key[1] === '_') {
+					throw alias + currentAlias + ' "on.' + key + '" must not have "__" on name at the beginning!';
+				}
+
 				// Checking on.prop...
 				if (checkVariableIsFunction(schema.on[key]) === false) {
 					throw alias + currentAlias + ' "on.' + key + '" must be Function!';
@@ -2359,7 +2439,7 @@
 
 	var ocdFnc = function (schema) {
 		schema = cloneObject(schema);
-		checkSchema(schema, '$', false, false);
+		checkSchema(schema, '$', false, false, true);
 
 		var queues = [];
 

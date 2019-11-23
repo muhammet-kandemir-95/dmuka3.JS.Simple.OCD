@@ -1,0 +1,49 @@
+<html>
+
+<head>
+	<title>dmuka3.JS.Simple.OCD</title>
+
+	<link rel="stylesheet" href="../assets/css/example.css">
+</head>
+
+<body>
+	<style>
+		span {
+			display: inline-block;
+			margin-right: 10px;
+		}
+	</style>
+	<div id="app">
+		<div>
+			<span ocd-clone></span>
+			<span>Data</span>
+			<span>Data</span>
+			<span>Data</span>
+		</div>
+		<br>
+		<button>Add a New Data</button>
+	</div>
+
+	<script src="../js/dmuka3.JS.Simple.OCD.min.js"></script>
+	<script>
+		var $app = $d.ocd({
+			query: '#app',
+			sub: [{
+				alias: 'datas',
+				parentQuery: '>div',
+				query: '>span'
+			}, {
+				alias: 'addNewData',
+				single: true,
+				query: '>button',
+				on: {
+					click: function (e) {
+						this.$parent.datas.$add('New Data');
+					}
+				}
+			}]
+		});
+	</script>
+</body>
+
+</html>

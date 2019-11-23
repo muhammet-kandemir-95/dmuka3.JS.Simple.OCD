@@ -1,0 +1,74 @@
+<html>
+
+<head>
+	<title>dmuka3.JS.Simple.OCD</title>
+
+	<link rel="stylesheet" href="../assets/css/example.css">
+</head>
+
+<body>
+	<style>
+		.red {
+			background-color: red;
+		}
+
+		.green {
+			background-color: green;
+		}
+
+		.blue {
+			background-color: blue;
+		}
+
+		span {
+			display: inline-block;
+			margin-right: 10px;
+			color: white;
+			padding-left: 10px;
+			padding-right: 10px;
+		}
+	</style>
+	<div id="app">
+		<div>
+		</div>
+		<br>
+		<select>
+			<option value="red">Red</option>
+			<option value="green">Green</option>
+			<option value="blue">Blue</option>
+		</select>
+		<button>Add a Row</button>
+	</div>
+
+	<script src="../js/dmuka3.JS.Simple.OCD.min.js"></script>
+	<script>
+		var $app = $d.ocd({
+			query: '#app',
+			sub: [{
+				alias: 'items',
+				parentQuery: '>div',
+				query: '>span',
+				clone: function (value) {
+					var $el = $d.q.create('span');
+					$el.$.attr('class', value);
+					return $el;
+				}
+			}, {
+				alias: 'select',
+				single: true,
+				query: '>select'
+			}, {
+				alias: 'button',
+				single: true,
+				query: '>button',
+				on: {
+					click: function (e) {
+						this.$parent.items.$add(this.$parent.select);
+					}
+				}
+			}]
+		});
+	</script>
+</body>
+
+</html>

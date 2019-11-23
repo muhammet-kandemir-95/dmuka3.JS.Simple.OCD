@@ -1,0 +1,87 @@
+<html>
+
+<head>
+	<title>dmuka3.JS.Simple.OCD</title>
+
+	<link rel="stylesheet" href="../assets/css/example.css">
+</head>
+
+<body>
+	<div id="app">
+		<input type="text" style="background-color:blue;color:white;" value="Muhammet Kandemir">
+		<br>
+		<br>
+		<button class="change-value">Change Value</button>
+		<button class="change-data-background-color">Change Background Color</button>
+		<button class="change-data-color">Change Color</button>
+	</div>
+
+	<script src="../js/dmuka3.JS.Simple.OCD.min.js"></script>
+	<script>
+		var $app = $d.ocd({
+			query: '#app',
+			sub: [{
+				alias: 'input',
+				single: true,
+				query: '>input',
+				data: {
+					backgroundColor: {
+						default: 'green',
+						get: function (key, currentValue) {
+							return this.$el.$.css('background-color');
+						},
+						set: function (value, key) {
+							this.$el.$.css('background-color', value);
+						}
+					},
+					color: {
+						default: 'black',
+						get: function (key, currentValue) {
+							return this.$el.$.css('color');
+						},
+						set: function (value, key) {
+							this.$el.$.css('color', value);
+						}
+					}
+				}
+			}, {
+				alias: 'changeValue',
+				single: true,
+				query: '>button.change-value',
+				on: {
+					click: function (e) {
+						this.$parent.input = this.$parent.input.value.split('').reverse().join('');
+					}
+				}
+			}, {
+				alias: 'changeDataBackgroundColor',
+				single: true,
+				query: '>button.change-data-background-color',
+				on: {
+					click: function (e) {
+						if (this.$parent.input.backgroundColor === 'green') {
+							this.$parent.input.backgroundColor = 'blue';
+						} else {
+							this.$parent.input.backgroundColor = 'green';
+						}
+					}
+				}
+			}, {
+				alias: 'changeDataColor',
+				single: true,
+				query: '>button.change-data-color',
+				on: {
+					click: function (e) {
+						if (this.$parent.input.color === 'black') {
+							this.$parent.input.color = 'white';
+						} else {
+							this.$parent.input.color = 'black';
+						}
+					}
+				}
+			}]
+		});
+	</script>
+</body>
+
+</html>

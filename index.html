@@ -1,320 +1,1308 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
 <head>
 	<title>dmuka3.JS.Simple.OCD</title>
+	<!-- Meta -->
+	<meta charset="utf-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta name="description" content="">
+	<meta name="author" content="">
+	<link rel="shortcut icon" href="favicon.ico">
+	<link
+		href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800'
+		rel='stylesheet' type='text/css'>
+	<!-- FontAwesome JS -->
+	<script defer src="https://use.fontawesome.com/releases/v5.8.2/js/all.js"
+		integrity="sha384-DJ25uNYET2XCl5ZF++U8eNxPWqcKohUUBUpKGlNLMchM7q4Wjg2CUpjHLaL8yYPH"
+		crossorigin="anonymous"></script>
+	<!-- Global CSS -->
+	<link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.min.css">
+	<!-- Plugins CSS -->
+	<link rel="stylesheet" href="assets/plugins/prism/prism.css">
+	<link rel="stylesheet" href="assets/plugins/elegant_font/css/style.css">
 
-	<link rel="stylesheet" href="css/main.css">
+	<!-- Theme CSS -->
+	<link id="theme-style" rel="stylesheet" href="assets/css/styles.css">
+
 </head>
 
-<body>
-	<div id="students-parent">
-		<a href="input.html" target="_blank">
-			<button>INPUT EXAMPLE</button>
-		</a>
+<body class="body-green">
+	<div class="page-wrapper">
+		<!-- ******Header****** -->
+		<header id="header" class="header">
+			<div class="container">
+				<div class="branding">
+					<h1 class="logo">
+						<a href="index.html">
+							<span aria-hidden="true" class="icon_documents_alt icon"></span>
+							<span class="text-highlight">dmuka3.JS.Simple.</span><span class="text-bold">OCD</span>
+						</a>
+					</h1>
 
-		<a href="select.html" target="_blank">
-			<button>SELECT EXAMPLE</button>
-		</a>
-
-		<a href="checkbox.html" target="_blank">
-			<button>CHECKBOX EXAMPLE</button>
-		</a>
-
-		<a href="radio.html" target="_blank">
-			<button>RADIO EXAMPLE</button>
-		</a>
-
-		<a href="validation.html" target="_blank">
-			<button>PLUGIN - VALIDATION EXAMPLE</button>
-		</a>
-
-		<a href="mask.html" target="_blank">
-			<button>PLUGIN - MASK EXAMPLE</button>
-		</a>
-
-		<a href="number.html" target="_blank">
-			<button>PLUGIN - NUMBER EXAMPLE</button>
-		</a>
-
-		<a href="datetime.html" target="_blank">
-			<button>PLUGIN - DATETIME EXAMPLE</button>
-		</a>
-
-		<a href="context-menu.html" target="_blank">
-			<button>PLUGIN - CONTEXT MENU EXAMPLE</button>
-		</a>
-
-		<a href="draggable.html" target="_blank">
-			<button>PLUGIN - DRAGGABLE EXAMPLE</button>
-		</a>
-
-		<a href="resizable.html" target="_blank">
-			<button>PLUGIN - RESIZABLE EXAMPLE</button>
-		</a>
-
-		<hr>
-
-		<div class="class-name">
-			<input name="Name" placeholder="Class Name" type="text" value="My Class Name">
-		</div>
-		<div class="add-student">
-			<button>Add a Student</button>
-		</div>
-		<div class="students">
-			<div ocd-clone class="student">
-				<div>
-					<span>Student Name : </span> <input name="Name" placeholder="Student Name" type="text">
 				</div>
-				<div>
-					<span>Student Surname : </span> <input name="Surname" placeholder="Student Surname" type="text">
-				</div>
-				<div>
-					<button class="student-opacity">Add Opacity</button>
-				</div>
-				<div>
-					<span>Addresses</span>
-					<button class="add-an-address">Add an Address</button>
-				</div>
-				<div class="addresses">
-					<input ocd-clone name="Description"
-						placeholder="Student Address (Press backspace to delete while is empty)" type="text">
-				</div>
-				<div class="remove-student">
-					<button>Remove Student</button>
-				</div>
+				<!--//branding-->
+
+				<ol class="breadcrumb">
+					<li class="breadcrumb-item active">Documentation</li>
+				</ol>
 			</div>
-			<div class="student">
-				<div>
-					<span>Student Name : </span> <input name="Name" placeholder="Student Name" type="text"
-						value="MUHAMMET">
+			<!--//container-->
+		</header>
+		<!--//header-->
+		<div class="doc-wrapper">
+			<div class="container">
+				<div id="doc-header" class="doc-header text-center">
+					<h1 class="doc-title"><i class="icon fa fa-paper-plane"></i> Dökümantasyon</h1>
+					<div class="meta"><i class="far fa-clock"></i> Son Güncelleme: 22 Kasım 2019</div>
 				</div>
-				<div>
-					<span>Student Surname : </span> <input name="Surname" placeholder="Student Surname" type="text"
-						value="KANDEMIR">
-				</div>
-				<div>
-					<button class="student-opacity">Add Opacity</button>
-				</div>
-				<div>
-					<span>Addresses</span>
-					<button class="add-an-address">Add an Address</button>
-				</div>
-				<div class="addresses">
-					<input ocd-clone name="Description"
-						placeholder="Student Address (Press backspace to delete while is empty)" type="text">
-					<input name="Description" placeholder="Student Address (Press backspace to delete while is empty)"
-						type="text" value="MUHAMMET Address 1">
-					<input name="Description" placeholder="Student Address (Press backspace to delete while is empty)"
-						type="text" value="MUHAMMET Address 2">
-					<input name="Description" placeholder="Student Address (Press backspace to delete while is empty)"
-						type="text" value="MUHAMMET Address 3">
-				</div>
-				<div class="remove-student">
-					<button>Remove Student</button>
-				</div>
-			</div>
-			<div class="student active-opacity">
-				<div>
-					<span>Student Name : </span> <input name="Name" placeholder="Student Name" type="text"
-						value="MEDINE">
-				</div>
-				<div>
-					<span>Student Surname : </span> <input name="Surname" placeholder="Student Surname" type="text"
-						value="KANDEMIR">
-				</div>
-				<div>
-					<button class="student-opacity">Add Opacity</button>
-				</div>
-				<div>
-					<span>Addresses</span>
-					<button class="add-an-address">Add an Address</button>
-				</div>
-				<div class="addresses">
-					<input ocd-clone name="Description"
-						placeholder="Student Address (Press backspace to delete while is empty)" type="text">
-					<input name="Description" placeholder="Student Address (Press backspace to delete while is empty)"
-						type="text" value="MEDINE Address 1">
-					<input name="Description" placeholder="Student Address (Press backspace to delete while is empty)"
-						type="text" value="MEDINE Address 2">
-				</div>
-				<div class="remove-student">
-					<button>Remove Student</button>
-				</div>
-			</div>
-			<div class="student">
-				<div>
-					<span>Student Name : </span> <input name="Name" placeholder="Student Name" type="text"
-						value="NESIBE">
-				</div>
-				<div>
-					<span>Student Surname : </span> <input name="Surname" placeholder="Student Surname" type="text"
-						value="KANDEMIR">
-				</div>
-				<div>
-					<button class="student-opacity">Add Opacity</button>
-				</div>
-				<div>
-					<span>Addresses</span>
-					<button class="add-an-address">Add an Address</button>
-				</div>
-				<div class="addresses">
-					<input ocd-clone name="Description"
-						placeholder="Student Address (Press backspace to delete while is empty)" type="text">
-					<input name="Description" placeholder="Student Address (Press backspace to delete while is empty)"
-						type="text" value="NESIBE Address 1">
-					<input name="Description" placeholder="Student Address (Press backspace to delete while is empty)"
-						type="text" value="NESIBE Address 2">
-					<input name="Description" placeholder="Student Address (Press backspace to delete while is empty)"
-						type="text" value="NESIBE Address 3">
-					<input name="Description" placeholder="Student Address (Press backspace to delete while is empty)"
-						type="text" value="NESIBE Address 4">
-					<input name="Description" placeholder="Student Address (Press backspace to delete while is empty)"
-						type="text" value="NESIBE Address 5">
-				</div>
-				<div class="remove-student">
-					<button>Remove Student</button>
-				</div>
-			</div>
-		</div>
-	</div>
+				<!--//doc-header-->
+				<div class="doc-body row">
+					<div class="doc-content col-md-9 col-12 order-1">
+						<div class="content-inner">
+							<section id="what-is-this-section" class="doc-section">
+								<h2 class="section-title">dmuka3.JS.Simple.OCD Nedir?</h2>
+								<div class="section-block">
+									<p>
+										&nbsp;<a href="javascript:void(0)"><b>dmuka3.JS.Simple.OCD</b></a> kütüphanesi
+										sizin SEO ile tamamen entegre sitelerinizi kolay bir şekilde kodlamanızı
+										sağlayan bir <i>JavaScript</i> kütüphanesidir.
+									</p>
+									<p>
+										&nbsp;Dökümanın ilerleyen kısımlarında yer alan örneklerde de görüleceği üzere
+										<i>HTML</i> verisine göre kodlar şekillenmektedir. <i>Server Side Render</i> ile
+										kullanılması önerilmektedir.
+									</p>
+								</div>
+							</section>
+							<!--//doc-section-->
+							<section id="download-section" class="doc-section">
+								<h2 class="section-title">İndir</h2>
+								<div class="section-block">
+									<p>
+										Proje ile alakalı dosyaları indirebileceğiz kaynaklar bu kısımda yer almaktadır.
+									</p>
+									<a href="https://github.com/muhammet-kandemir-95/dmuka3.JS.Simple.OCD/archive/master.zip"
+										class="btn btn-green" target="_blank"><i class="fas fa-download"></i>Source
+										Code</a>
+									<br>
+									<br>
+									<h3>CDN</h3>
+									<div class="code-block">
+										<h6>Main Library</h6>
+										<pre><code class="language-markup">&lt;script src=&quot;https://raw.githubusercontent.com/muhammet-kandemir-95/dmuka3.JS.Simple.OCD/master/js/dmuka3.JS.Simple.OCD.min.js&quot;&gt;&lt;/script&gt;</code></pre>
+									</div>
+									<div class="code-block">
+										<h6>UI Plugins</h6>
+										<pre><code class="language-markup">&lt;script src=&quot;https://raw.githubusercontent.com/muhammet-kandemir-95/dmuka3.JS.Simple.OCD/master/js/dmuka3.JS.Simple.OCD.UI.min.js&quot;&gt;&lt;/script&gt;</code></pre>
+									</div>
+								</div>
+							</section>
+							<!--//doc-section-->
+							<section id="code-schema-section" class="doc-section">
+								<h2 class="section-title">Kod Şeması</h2>
+								<div class="code-block">
+									<p>
+										Buraya kadar geldiyseniz ne mutlu. Size öncelikle <a
+											href="javascript:void(0)">dmuka3.JS.Simple.OCD</a> kütüphanesinin veri
+										şemasını gösterelim.
+									</p>
+									<h6 id="ocd-schema">OCD Schema</h6>
+									<pre><code class="language-javascript">{
+	query: &lt;string|array|HTMLElement&gt;,
+	get?: &lt;function([this]$ocd):any&gt;,
+	set?: &lt;function([this]$ocd, value)&gt;,
+	data?: {
+		prop1: {
+			jobject?: &lt;bool&gt;,
+			default?: &lt;any|function([this]$ocd):any&gt;,
+			get?: &lt;function([this]$ocd, key, currentValue):any&gt;,
+			set?: &lt;function([this]$ocd, value, key)&gt;
+		},
+		prop2: ...,
+		...
+	},
+	methods?: {
+		method1: &lt;function([this]$ocd, ...):any&gt;,
+		method2: ...,
+		...
+	},
+	watches?: &lt;Array(function([this]$ocd, value))&gt;,
+	on?: {
+		$init?: &lt;function([this]$ocd)&gt;,
+		$remove?: &lt;function([this]$ocd)&gt;,
+		eventName1: &lt;function([this]$ocd, e):any&gt;,
+		eventName2: ...,
+		...
+	},
+	mixins?: [{
+		get?: ...,
+		set?: ...,
+		clone?: ...,
+		mixins?: ...,
+		data?: ...,
+		on?: ...,
+		methods?: ...
+	}],
+	sub?: [{
+		parentQuery?: &lt;string|HTMLElement&gt;,
+		query: &lt;string|array|HTMLElement&gt;,
+		single: &lt;bool&gt;,
+		alias: &lt;string&gt;,
+		get?: &lt;function([this]$ocd):any&gt;,
+		set?: &lt;function([this]$ocd, value)&gt;,
+		data?: {
+			prop1: {
+				jobject?: &lt;bool&gt;,
+				default?: &lt;any|function([this]$ocd):any&gt;,
+				get?: &lt;function([this]$ocd, key, currentValue):any&gt;,
+				set?: &lt;function([this]$ocd, value, key)&gt;
+			},
+			prop2: ...,
+			...
+		},
+		clone?: &lt;function([this]$parentOcd, value):el&gt;,
+		watches?: &lt;Array(function([this]$ocd, value))&gt;,
+		on?: {
+			$init?: &lt;function([this]$ocd)&gt;,
+			$remove?: &lt;function([this]$ocd)&gt;,
+			eventName1: &lt;function([this]$ocd, e):any&gt;,
+			eventName2: ...,
+			...
+		},
+		mixins?: [{
+			get?: ...,
+			set?: ...,
+			clone?: ...,
+			mixins?: ...,
+			data?: ...,
+			on?: ...,
+			methods?: ...
+		}],
+		sub?: [{
+			parentQuery?: &lt;string|HTMLElement&gt;,
+			query: &lt;string|array|HTMLElement&gt;,
+			single: &lt;bool&gt;,
+			alias: &lt;string&gt;,
+			get?: &lt;function([this]$ocd):any&gt;,
+			set?: &lt;function([this]$ocd, value)&gt;,
+			data?: {
+				prop1: {
+					jobject?: &lt;bool&gt;,
+					default?: &lt;any|function([this]$ocd):any&gt;,
+					get?: &lt;function([this]$ocd, key, currentValue):any&gt;,
+					set?: &lt;function([this]$ocd, value, key)&gt;
+				},
+				prop2: ...,
+				...
+			},
+			clone?: &lt;function([this]$parentOcd, value):el&gt;,
+			watches?: &lt;Array(function([this]$ocd, value))&gt;,
+			on?: {
+				$init?: &lt;function([this]$ocd)&gt;,
+				$remove?: &lt;function([this]$ocd)&gt;,
+				eventName1: &lt;function([this]$ocd, e):any&gt;,
+				eventName2: ...,
+				...
+			},
+			mixins?: [{
+				get?: ...,
+				set?: ...,
+				clone?: ...,
+				mixins?: ...,
+				data?: ...,
+				on?: ...,
+				methods?: ...
+			}],
+			sub?: ...
+		}, ...]
+	}, ...]
+}</code></pre>
+									<div class="callout-block callout-warning">
+										<div class="icon-holder">
+											<i class="fas fa-exclamation-triangle"></i>
+										</div>
+										<!--//icon-holder-->
+										<div class="content">
+											<h4 class="callout-title">Önemli Not</h4>
+											<p>Şemadaki <b>root</b> dışındaki tüm alt katmanlar aynı şemayı
+												kullanmaktadır. <b>root</b> ise diğerlerinden farklı olarak
+												<i>parentQuery</i>, <i>single</i> ve <i>jobject</i> parametrelerini
+												kullanılamaz!</p>
+										</div>
+										<!--//content-->
+									</div>
+									<!--//callout-block-->
 
-	<hr>
+									<h3 id="alias">alias</h3>
+									<p>
+										<b>alias</b> verinin takma adı.
+									</p>
+									<pre><code class="language-markup">&lt;div id=&quot;app&quot;&gt;
+	&lt;input type=&quot;text&quot; class=&quot;name&quot;&gt;
+	&lt;input type=&quot;text&quot; class=&quot;surname&quot;&gt;
+&lt;/div&gt;
 
-	<pre></pre>
+&lt;script src=&quot;dmuka3.JS.Simple.OCD.min.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+	var $app = $d.ocd({
+		query: &#39;#app&#39;,
+		sub: [{
+			alias: &#39;name&#39;,
+			single: true,
+			query: &#39;&gt;.name&#39;
+		}, {
+			alias: &#39;surname&#39;,
+			single: true,
+			query: &#39;&gt;.surname&#39;
+		}]
+	});
 
-	<script src="js/dmuka3.JS.Simple.OCD.min.js"></script>
-	<script src="js/dmuka3.JS.Simple.OCD.UI.min.js"></script>
-	<script>
-		var globalMixin = {
+	$app.name = &#39;Muhammet&#39;;
+	$app.surname = &#39;Kandemir&#39;;
+&lt;/script&gt;</code></pre>
+									<iframe src="examples/example-alias-01.html" style="height: 140px;"></iframe>
+									<p></p>
+									<h3 id="parentQuery">parentQuery</h3>
+									<p>
+										<b>parentQuery</b> eğer seçim yapılacak element birden fazla ise, kullanılması
+										gerekmektedir. Aşağıdaki örnekte de görüldüğü üzere <b>parentQuery</b> eğer
+										element ilgili bloğun hemen altında yer almıyorsa oldukça iş görmektedir.
+									</p>
+									<pre><code class="language-markup">&lt;style&gt;
+	span {
+		display: inline-block;
+		margin-right: 10px;
+	}
+&lt;/style&gt;
+&lt;div id=&quot;app&quot;&gt;
+	&lt;div&gt;
+		&lt;span ocd-clone&gt;&lt;/span&gt;
+		&lt;span&gt;Data&lt;/span&gt;
+		&lt;span&gt;Data&lt;/span&gt;
+		&lt;span&gt;Data&lt;/span&gt;
+	&lt;/div&gt;
+	&lt;br&gt;
+	&lt;button&gt;Add a New Data&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;script src=&quot;dmuka3.JS.Simple.OCD.min.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+	var $app = $d.ocd({
+		query: &#39;#app&#39;,
+		sub: [{
+			alias: &#39;datas&#39;,
+			parentQuery: &#39;&gt;div&#39;,
+			query: &#39;&gt;span&#39;
+		}, {
+			alias: &#39;addNewData&#39;,
+			single: true,
+			query: &#39;&gt;button&#39;,
+			on: {
+				click: function (e) {
+					this.$parent.datas.$add(&#39;New Data&#39;);
+				}
+			}
+		}]
+	});
+&lt;/script&gt;</code></pre>
+									<iframe src="examples/example-parentquery-01.html" style="height: 170px;"></iframe>
+									<div class="callout-block callout-warning">
+										<div class="icon-holder">
+											<i class="fas fa-exclamation-triangle"></i>
+										</div>
+										<!--//icon-holder-->
+										<div class="content">
+											<h4 class="callout-title">Uyarı</h4>
+											<p>
+												<b>parentQuery</b> kullanılan yerde mutlaka klonlanacak olan element
+												<i>ocd-clone</i> attribute'ü ile beraber bir tane olacak şekilde yer
+												almalıdır. Örnekteki <b>"&lt;span ocd-clone&gt;</span>"</b> gibi. Tabi
+												dökümanın ilerleyen kısımlarında yer alan <a class="scrollto"
+													href="#clone">clone</a> özelliğini
+												<i>override</i> ederek bu durum değiştirilebilir. Fakat varsayılan
+												durumda bu kural geçerlidir.
+											</p>
+										</div>
+										<!--//content-->
+									</div>
+									<!--//callout-block-->
+									<p>
+										Peki eğer <b>parentQuery</b> için ayrı bir elementimiz yok ise? Hemen başka bir
+										örneğe geçelim.
+									</p>
+									<pre><code class="language-markup">&lt;style&gt;
+	span {
+		display: inline-block;
+		margin-right: 10px;
+	}
+&lt;/style&gt;
+&lt;div id=&quot;app&quot;&gt;
+	&lt;button&gt;Add a New Data&lt;/button&gt;
+	&lt;br&gt;
+	&lt;br&gt;
+	&lt;span ocd-clone&gt;&lt;/span&gt;
+	&lt;span&gt;Data&lt;/span&gt;
+	&lt;span&gt;Data&lt;/span&gt;
+	&lt;span&gt;Data&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;script src=&quot;dmuka3.JS.Simple.OCD.min.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+	var $app = $d.ocd({
+		query: &#39;#app&#39;,
+		sub: [{
+			alias: &#39;datas&#39;,
+			parentQuery: &#39;&#39;,
+			query: &#39;&gt;span&#39;
+		}, {
+			alias: &#39;addNewData&#39;,
+			single: true,
+			query: &#39;&gt;button&#39;,
+			on: {
+				click: function (e) {
+					this.$parent.datas.$add(&#39;New Data&#39;);
+				}
+			}
+		}]
+	});
+&lt;/script&gt;</code></pre>
+									<iframe src="examples/example-parentquery-02.html" style="height: 170px;"></iframe>
+									<p>
+										Aslında görüldüğü üzere sadece <b>parentQuery</b> değerine <b>''</b> değerini
+										atamamız başka bir element için olan zorunluluğu ortadan kaldırıyor. Yukarıdaki
+										örnekte <b>parentQuery</b> artık <b>'#app'</b> olarak kabul edilmektedir.
+									</p>
+									<div class="callout-block callout-info">
+										<div class="icon-holder">
+											<i class="fas fa-info"></i>
+										</div>
+										<!--//icon-holder-->
+										<div class="content">
+											<h4 class="callout-title">Ayrıca</h4>
+											<p>
+												<b>parentQuery</b> için ayrı bir elementin olması ve sadece içerisinde
+												tekrar eden elementlerin bulunması önerilir. Yani ilk örnekteki yapı
+												temiz projeler için daha uygun olmaktadır.
+											</p>
+										</div>
+										<!--//content-->
+									</div>
+									<!--//callout-block-->
+									<h3 id="clone">clone</h3>
+									<p>
+										<b>clone</b> <a href="#parentQuery" class="scrollto">parentQuery</a> kullanılan
+										yerlerde yeni bir satır oluşturulacağında kullanılan fonksiyon. Varsayılan
+										değerinde <a href="#parentQuery" class="scrollto">parentQuery</a> içerisinde yer
+										alan <b>ocd-clone</b> attribute değerini taşıyan elemente göre çalışmaktadır.
+										Aşağıdaki örnekte yeni oluşturulacak olan elementi manuel olarak oluşturuyoruz.
+									</p>
+									<pre><code class="language-markup">&lt;style&gt;
+	.red {
+		background-color: red;
+	}
+
+	.green {
+		background-color: green;
+	}
+
+	.blue {
+		background-color: blue;
+	}
+
+	span {
+		display: inline-block;
+		margin-right: 10px;
+		color: white;
+		padding-left: 10px;
+		padding-right: 10px;
+	}
+&lt;/style&gt;
+&lt;div id=&quot;app&quot;&gt;
+	&lt;div&gt;
+	&lt;/div&gt;
+	&lt;br&gt;
+	&lt;select&gt;
+		&lt;option value=&quot;red&quot;&gt;Red&lt;/option&gt;
+		&lt;option value=&quot;green&quot;&gt;Green&lt;/option&gt;
+		&lt;option value=&quot;blue&quot;&gt;Blue&lt;/option&gt;
+	&lt;/select&gt;
+	&lt;button&gt;Add a Row&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;script src=&quot;dmuka3.JS.Simple.OCD.min.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+	var $app = $d.ocd({
+		query: &#39;#app&#39;,
+		sub: [{
+			alias: &#39;items&#39;,
+			parentQuery: &#39;&gt;div&#39;,
+			query: &#39;&gt;span&#39;,
+			clone: function (value) {
+				var $el = $d.q.create(&#39;span&#39;);
+				$el.$.attr(&#39;class&#39;, value);
+				return $el;
+			}
+		}, {
+			alias: &#39;select&#39;,
+			single: true,
+			query: &#39;&gt;select&#39;
+		}, {
+			alias: &#39;button&#39;,
+			single: true,
+			query: &#39;&gt;button&#39;,
+			on: {
+				click: function (e) {
+					this.$parent.items.$add(this.$parent.select);
+				}
+			}
+		}]
+	});
+&lt;/script&gt;</code></pre>
+									<iframe src="examples/example-clone-01.html" style="height: 140px;"></iframe>
+									<p></p>
+									<h3 id="single">single</h3>
+									<p>
+										<b>single</b> ilgili blokta yapılan aramanın sadece tek bir element için
+										olacağını göstermek içindir.
+									</p>
+									<pre><code class="language-markup">&lt;div id=&quot;app&quot;&gt;
+	&lt;button&gt;Click Me&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;script src=&quot;dmuka3.JS.Simple.OCD.min.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+	var $app = $d.ocd({
+		query: &#39;#app&#39;,
+		sub: [{
+			alias: &#39;button&#39;,
+			single: true,
+			query: &#39;&gt;button&#39;,
+			on: {
+				click: function (e) {
+					alert(&#39;Hello World&#39;);
+				}
+			}
+		}]
+	});
+&lt;/script&gt;</code></pre>
+									<iframe src="examples/example-single-01.html" style="height: 110px;"></iframe>
+									<div class="callout-block callout-info">
+										<div class="icon-holder">
+											<i class="fas fa-info"></i>
+										</div>
+										<!--//icon-holder-->
+										<div class="content">
+											<h4 class="callout-title">Ayrıca</h4>
+											<p>
+												İleride daha da iyi görüleceği üzere <a class="scrollto"
+													href="#parentQuery">parentQuery</a> ve <b>single</b> verinin
+												çıktısını <b>Array</b> ve
+												<b>Object</b> olacak şekilde değiştirmektedir.
+											</p>
+											<p>
+												Aynı zamanda eğer <b>single</b> değeri <b>true</b> değil ise o zaman
+												yazılan tüm komutlar her bir row için ayrı ayrı geçerli olacaktır.
+											</p>
+										</div>
+										<!--//content-->
+									</div>
+									<!--//callout-block-->
+									<h3 id="query">query</h3>
+									<p>
+										<b>query</b> işlem yapılacak ana element'e ait bir bilgidir. Fakat burada önemli
+										olan <b>query</b> değeri <a class="scrollto" href="#parentQuery">parentQuery</a>
+										veya <a class="scrollto" href="#single">single</a> ile doğrudan ilişkilidir.
+										Çünkü eğer <a class="scrollto" href="#single">single</a> değeri <b>true</b> ise
+										tek bir element, <a class="scrollto" href="#parentQuery">parentQuery</a> değeri
+										dolu ise birden fazla elementi
+										temsil etmektedir. Aşağıda her iki örneği de inceleyeceğiz.
+									</p>
+									<p>
+										İlk önce <a class="scrollto" href="#single">single</a> örneğine bakalım.
+									</p>
+									<pre><code class="language-markup">&lt;div id=&quot;app&quot;&gt;
+	&lt;input type=&quot;text&quot;&gt;
+&lt;/div&gt;
+
+&lt;script src=&quot;dmuka3.JS.Simple.OCD.min.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+	var $app = $d.ocd({
+		query: &#39;#app&#39;,
+		sub: [{
+			alias: &#39;input&#39;,
+			single: true,
+			query: &#39;&gt;input&#39;
+		}]
+	});
+
+	$app.input = &#39;Muhammet Kandemir&#39;;
+&lt;/script&gt;</code></pre>
+									<iframe src="examples/example-query-01.html" style="height: 110px;"></iframe>
+									<p>
+										Şimdi <a class="scrollto" href="#parentQuery">parentQuery</a> örneğine bakalım.
+									</p>
+									<pre><code class="language-markup">&lt;style&gt;
+	#app input {
+		width: 100%;
+	}
+&lt;/style&gt;
+&lt;div id=&quot;app&quot;&gt;
+	&lt;input ocd-clone type=&quot;text&quot; placeholder=&quot;Press enter to add a new line, press backspace to remove while empty&quot;&gt;
+	&lt;input type=&quot;text&quot; placeholder=&quot;Press enter to add a new line, press backspace to remove while empty&quot;&gt;
+&lt;/div&gt;
+
+&lt;script src=&quot;dmuka3.JS.Simple.OCD.min.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+	var $app = $d.ocd({
+		query: &#39;#app&#39;,
+		sub: [{
+			alias: &#39;inputs&#39;,
+			parentQuery: &#39;&#39;,
+			query: &#39;&gt;input&#39;,
+			on: {
+				keydown: function (e) {
+					if (e.keyCode === 13/*ENTER*/) {
+						var $new = this.$parent.$insert(this.$index + 1, this.value);
+						$new.$el.focus();
+					} else if (e.keyCode === 8/*BACKSPACE*/ &amp;&amp; this.value.length === 0 &amp;&amp; this.$parent.length &gt; 1) {
+						e.preventDefault();
+
+						var index = this.$index;
+						this.$remove();
+						this.$parent[Math.max(0, index - 1)].$el.focus();
+					}
+				}
+			}
+		}]
+	});
+&lt;/script&gt;</code></pre>
+									<iframe src="examples/example-query-02.html" style="height: 250px;"></iframe>
+									<p>
+										Sanki beğendiğinizi duyuyor gibiyiz. Buradan sonra işler çok daha eğlenceli bir
+										hale gelecek.
+									</p>
+									<h3 id="get">get</h3>
+									<p>
+										<b>get</b> sadece <a href="#single" class="scrollto">single</a> değeri
+										<b>true</b> iken çalışmaktadır. Amaç ise ilgili elementin değerinin alınmasını
+										sağlamakdır. Aşağıdaki tablo üzerinde varsayılan değerler açıklanmıştır. Bu
+										fonksiyonu override işlemine sokarak kendi değerinizi elde edebilirsiniz.
+									</p>
+									<div class="table-responsive">
+										<table class="table">
+											<thead>
+												<tr>
+													<th>Element's Tag Name</th>
+													<th>Default Value</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>INPUT[type=checkbox]</td>
+													<td>$el.checked</td>
+												</tr>
+												<tr>
+													<td>INPUT[type=radio]</td>
+													<td>$el.checked</td>
+												</tr>
+												<tr>
+													<td>INPUT</td>
+													<td>$el.value</td>
+												</tr>
+												<tr>
+													<td>SELECT</td>
+													<td>$el.value</td>
+												</tr>
+												<tr>
+													<td>ANY</td>
+													<td>$el.innerHTML</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<!--//table-responsive-->
+									<p>
+										<b>ANY</b> denilen kısım bunların dışında manasına gelmektedir. Eğer verinin
+										kaynağı elementin sahip olduğu başka bir veriden gelecek ise override yaparak
+										bunu sağlayabiliriz. Örnek <a class="scrollto" href="#set">set</a> kısmında yer
+										alıyor.
+									</p>
+									<h3 id="set">set</h3>
+									<p>
+										<b>set</b> sadece <a href="#single" class="scrollto">single</a> değeri
+										<b>true</b> iken çalışmaktadır. Amaç ise ilgili elementin değerinin atamasını
+										sağlamakdır. Aşağıdaki tablo üzerinde varsayılan atanan değerler açıklanmıştır.
+										Bu fonksiyonu override işlemine sokarak kendi değerinizin atamasını
+										değiştirebilirsiniz.
+									</p>
+									<div class="table-responsive">
+										<table class="table">
+											<thead>
+												<tr>
+													<th>Element's Tag Name</th>
+													<th>Default Value</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>INPUT[type=checkbox]</td>
+													<td>$el.checked</td>
+												</tr>
+												<tr>
+													<td>INPUT[type=radio]</td>
+													<td>$el.checked</td>
+												</tr>
+												<tr>
+													<td>INPUT</td>
+													<td>$el.value</td>
+												</tr>
+												<tr>
+													<td>SELECT</td>
+													<td>$el.value</td>
+												</tr>
+												<tr>
+													<td>ANY</td>
+													<td>$el.innerHTML</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<!--//table-responsive-->
+									<p>
+										<b>ANY</b> denilen kısım bunların dışında manasına gelmektedir. Eğer verinin
+										atanması sırasında başka bir işlem yapılacak ise override yaparak bunu
+										sağlayabiliriz. Örneğe bakalım.
+									</p>
+									<pre><code class="language-markup">&lt;div id="app"&gt;
+	&lt;span&gt;
+		SPAN
+	&lt;/span&gt;
+	&lt;br&gt;
+	&lt;br&gt;
+	&lt;input type="text" placeholder="Enter span style"&gt;
+	&lt;br&gt;
+	&lt;br&gt;
+	&lt;div&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script src="dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+	var $app = $d.ocd({
+		query: '#app',
+		sub: [{
+			alias: 'span',
+			single: true,
+			query: '&gt;span',
+			get: function () {
+				return this.$el.$.attr('style');
+			},
+			set: function (value) {
+				this.$el.$.attr('style', value);
+			}
+		}, {
+			alias: 'div',
+			single: true,
+			query: '&gt;div'
+		}, {
+			alias: 'input',
+			single: true,
+			query: '&gt;input',
+			on: {
+				input: function (e) {
+					this.$parent.span = this.value;
+					this.$parent.div = this.$parent.span;
+				}
+			}
+		}]
+	});
+&lt;/script&gt;</code></pre>
+									<iframe src="examples/example-get-set-01.html" style="height: 180px;"></iframe>
+									<p></p>
+									<h3 id="watches">watches</h3>
+									<p>
+										<b>watches</b> ilgili elemente değer atanması sırasında tetiklenen
+										<b>event</b>'tir. Böylece ilişkili verileri kolay bir şekilde yönetebiliriz.
+									</p>
+									<pre><code class="language-markup">&lt;div id="app"&gt;
+	&lt;span&gt;&lt;/span&gt;
+	&lt;br&gt;
+	&lt;br&gt;
+	&lt;input type="text" placeholder="Enter span html"&gt;
+&lt;/div&gt;
+
+&lt;script src="dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+	var $app = $d.ocd({
+		query: '#app',
+		sub: [{
+			alias: 'span',
+			single: true,
+			query: '&gt;span'
+		}, {
+			alias: 'input',
+			single: true,
+			query: '&gt;input',
+			watches: [function (value) {
+				this.$parent.span = value;
+			}]
+		}]
+	});
+&lt;/script&gt;</code></pre>
+									<iframe src="examples/example-watches-01.html" style="height: 140px;"></iframe>
+									<div class="callout-block callout-info">
+										<div class="icon-holder">
+											<i class="fas fa-info"></i>
+										</div>
+										<!--//icon-holder-->
+										<div class="content">
+											<h4 class="callout-title">Ayrıca</h4>
+											<p>
+												<b>watches</b> <b>event</b>'i <a href="#set" class="scrollto">set</a>
+												işleminden sonra tetiklenmektedir.
+											</p>
+										</div>
+										<!--//content-->
+									</div>
+									<!--//callout-block-->
+									<h3 id="data">data</h3>
+									<p>
+										<b>data</b> bir elemente ait birden fazla veri olabilmesini sağlamak amacıyla
+										kullanılmaktadır. Bir metin kutusunun metin değeri dışında yazı rengi, arka plan
+										rengi gibi ekstra özellikleri olmasını istiyorsanız <b>data</b> kullanmanız
+										gerekmektedir.
+									</p>
+									<p>
+										<b>data</b> verisinde <b>default</b> yani varsayılan değer, değerin
+										alınması için <b>get</b> fonksiyonu ve değerin doldurulması durumu için
+										<b>set</b> fonksiyonu gerekmektedir.
+									</p>
+									<p>
+										<b>default</b>, <b>get</b> ve <b>set</b> değerlerinin varsayılan değerleri
+										mevcuttur. Fakat hiçbiri olmadığında <b>data</b> sadece
+										element üzerinde veri saklamak için olmuş olacaktır. O zaman veri sadece anlık
+										sayfa için <i>RAM</i> üzerinde saklanacaktır.
+									</p>
+									<p>
+										<b>data</b> arka planda element üzerinde veri saklamaktadır. Fakat bu değerin
+										değişmesi isteniyorsa <b>set</b> fonksiyonu içerisinde <i>return</i> ile değer
+										döndürülmelidir.
+									</p>
+									<pre><code class="language-markup">&lt;div id="app"&gt;
+	&lt;input type="text" value="Muhammet Kandemir"&gt;
+	&lt;br&gt;
+	&lt;br&gt;
+	&lt;button class="change-value"&gt;Change Value&lt;/button&gt;
+	&lt;button class="change-data-background-color"&gt;Change Background Color&lt;/button&gt;
+	&lt;button class="change-data-color"&gt;Change Color&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;script src="dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+	var $app = $d.ocd({
+		query: '#app',
+		sub: [{
+			alias: 'input',
+			single: true,
+			query: '&gt;input',
+			data: {
+				backgroundColor: {
+					default: 'green',
+					get: function (key, currentValue) {
+						return this.$el.$.css('background-color');
+					},
+					set: function (value, key) {
+						this.$el.$.css('background-color', value);
+					}
+				},
+				color: {
+					default: 'black',
+					get: function (key, currentValue) {
+						return this.$el.$.css('color');
+					},
+					set: function (value, key) {
+						this.$el.$.css('color', value);
+					}
+				}
+			}
+		}, {
+			alias: 'changeValue',
+			single: true,
+			query: '&gt;button.change-value',
+			on: {
+				click: function (e) {
+					this.$parent.input = this.$parent.input.value.split('').reverse().join('');
+				}
+			}
+		}, {
+			alias: 'changeDataBackgroundColor',
+			single: true,
+			query: '&gt;button.change-data-background-color',
+			on: {
+				click: function (e) {
+					if (this.$parent.input.backgroundColor === 'green') {
+						this.$parent.input.backgroundColor = 'blue';
+					} else {
+						this.$parent.input.backgroundColor = 'green';
+					}
+				}
+			}
+		}, {
+			alias: 'changeDataColor',
+			single: true,
+			query: '&gt;button.change-data-color',
+			on: {
+				click: function (e) {
+					if (this.$parent.input.color === 'black') {
+						this.$parent.input.color = 'white';
+					} else {
+						this.$parent.input.color = 'black';
+					}
+				}
+			}
+		}]
+	});
+&lt;/script&gt;</code></pre>
+									<iframe src="examples/example-data-01.html" style="height: 160px;"></iframe>
+									<p>
+										<b>get</b> fonksiyonunu yazmamız şu noktada çok önemli; eğer değer element
+										üzerindeki <i>attribute</i> veya <i>html</i> verisinden okunacak ise bunu
+										başlangıçta alabilmenin tek yolu <b>get</b> fonksiyonunu yazmamız. Aksi takdirde
+										element üzerinden okumadan sadece <b>default</b> ile <i>RAM</i> üzerinde
+										çalışmış oluruz. Bunu ileri seviye örneklerde çok daha iyi bir şekilde
+										göreceğiz. Şimdi <b>get</b> olmadan aynı örneği yapalım.
+									</p>
+									<pre><code class="language-markup">&lt;div id="app"&gt;
+	&lt;input type="text" value="Muhammet Kandemir"&gt;
+	&lt;br&gt;
+	&lt;br&gt;
+	&lt;button class="change-value"&gt;Change Value&lt;/button&gt;
+	&lt;button class="change-data-background-color"&gt;Change Background Color&lt;/button&gt;
+	&lt;button class="change-data-color"&gt;Change Color&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;script src="dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+	var $app = $d.ocd({
+		query: '#app',
+		sub: [{
+			alias: 'input',
+			single: true,
+			query: '&gt;input',
+			data: {
+				backgroundColor: {
+					default: 'green',
+					set: function (value, key) {
+						this.$el.$.css('background-color', value);
+					}
+				},
+				color: {
+					default: 'black',
+					set: function (value, key) {
+						this.$el.$.css('color', value);
+					}
+				}
+			}
+		}, ...
+&lt;/script&gt;</code></pre>
+									<iframe src="examples/example-data-02.html" style="height: 160px;"></iframe>
+									<p>
+										Bir fark yok değil mi? Peki ya bu değeri element üzerinden okumak isteseydik ne
+										olacak tı?
+									</p>
+									<pre><code class="language-markup">&lt;div id="app"&gt;
+	&lt;input type="text" style="background-color:blue;color:white;" value="Muhammet Kandemir"&gt;
+	&lt;br&gt;
+	&lt;br&gt;
+	&lt;button class="change-value"&gt;Change Value&lt;/button&gt;
+	&lt;button class="change-data-background-color"&gt;Change Background Color&lt;/button&gt;
+	&lt;button class="change-data-color"&gt;Change Color&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;script src="dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+	var $app = $d.ocd({
+		query: '#app',
+		sub: [{
+			alias: 'input',
+			single: true,
+			query: '&gt;input',
+			data: {
+				backgroundColor: {
+					default: 'green',
+					set: function (value, key) {
+						this.$el.$.css('background-color', value);
+					}
+				},
+				color: {
+					default: 'black',
+					set: function (value, key) {
+						this.$el.$.css('color', value);
+					}
+				}
+			}
+		}, ...
+&lt;/script&gt;</code></pre>
+									<iframe src="examples/example-data-03.html" style="height: 160px;"></iframe>
+									<p>
+										Buradaki sorun element üzerinde yazmış olduğumuz değerlerin hiçbir öneminin
+										kalmamış olması. Bu durumu önlemek için <b>get</b> fonksiyonunu kullanalım.
+									</p>
+									<pre><code class="language-markup">&lt;div id="app"&gt;
+	&lt;input type="text" style="background-color:blue;color:white;" value="Muhammet Kandemir"&gt;
+	&lt;br&gt;
+	&lt;br&gt;
+	&lt;button class="change-value"&gt;Change Value&lt;/button&gt;
+	&lt;button class="change-data-background-color"&gt;Change Background Color&lt;/button&gt;
+	&lt;button class="change-data-color"&gt;Change Color&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;script src="dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+	var $app = $d.ocd({
+		query: '#app',
+		sub: [{
+			alias: 'input',
+			single: true,
+			query: '&gt;input',
+			data: {
+				backgroundColor: {
+					default: 'green',
+					get: function (key, currentValue) {
+						return this.$el.$.css('background-color');
+					},
+					set: function (value, key) {
+						this.$el.$.css('background-color', value);
+					}
+				},
+				color: {
+					default: 'black',
+					get: function (key, currentValue) {
+						return this.$el.$.css('color');
+					},
+					set: function (value, key) {
+						this.$el.$.css('color', value);
+					}
+				}
+			}
+		}, ...
+&lt;/script&gt;</code></pre>
+									<iframe src="examples/example-data-04.html" style="height: 160px;"></iframe>
+									<p>
+										Görüldüğü üzere bir başlangıç başlangıç değerlerini bu sefer elementin
+										üzerindeki değerlere göre doldurdu ve ona göre devam etti.
+									</p>
+									<div class="callout-block callout-info">
+										<div class="icon-holder">
+											<i class="fas fa-info"></i>
+										</div>
+										<!--//icon-holder-->
+										<div class="content">
+											<h4 class="callout-title">Ayrıca</h4>
+											<p>
+												<b>default</b> ve <b>get</b> birlikte kullanıldığında ilk önce
+												<b>get</b> çalıştırılır. Sonrasında gelen değer <i>null</i>,
+												<i>undefined</i> veya <i>''</i> ise <b>set</b> fonksiyonuna
+												<b>default</b> değer gönderilir. Değil ise <b>get</b> fonksiyonundan
+												gelen değer <b>set</b> fonksiyonuna gönderilir.
+											</p>
+											<p>
+												Bu durumda şunu anlamamız gerekmektedir; ilk yüklemede <b>set</b>
+												mutlaka, <b>get</b> ve <b>default</b> duruma bağlı çalışmaktadır.
+											</p>
+										</div>
+										<!--//content-->
+									</div>
+									<!--//callout-block-->
+									<h3 id="methods">methods</h3>
+									<p>
+										<b>methods</b> geçerli element üzerinde belli başlı metotları tanımlandığı
+										alandır.
+									</p>
+									<pre><code class="language-markup">&lt;div id="app"&gt;
+	&lt;input name="name" type="text" value="Muhammet" placeholder="Name"&gt;
+	&lt;br&gt;
+	&lt;br&gt;
+	&lt;input name="surname" type="text" value="Kandemir" placeholder="Surname"&gt;
+	&lt;br&gt;
+	&lt;br&gt;
+	&lt;input name="class" type="text" value="P-95" placeholder="Class"&gt;
+	&lt;br&gt;
+	&lt;br&gt;
+	&lt;button&gt;Clear Form&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;script src="dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+	var $app = $d.ocd({
+		query: '#app',
+		sub: [{
+			alias: 'name',
+			single: true,
+			query: '&gt;input[name="name"]'
+		}, {
+			alias: 'surname',
+			single: true,
+			query: '&gt;input[name="surname"]'
+		}, {
+			alias: 'class',
+			single: true,
+			query: '&gt;input[name="class"]'
+		}, {
+			alias: 'clear',
+			single: true,
+			query: '&gt;button',
 			methods: {
-				refreshJson: function (eventName) {
-					this.$runOnce(function () {
-						console.log('EVENT = ' + eventName, this);
-
-						var json = JSON.stringify(this.$root.jobject, null, 4);
-						if (json !== $d.q.first('pre').$.html()) {
-							$d.q.first('pre').$.html(json);
-						}
+				clearForm: function () {
+					this.$parent.$set({
+						name: '',
+						surname: '',
+						class: ''
 					});
 				}
 			},
 			on: {
-				$init: function () {
-					this.refreshJson('INIT Parent');
-				},
-				$remove: function () {
-					this.refreshJson('REMOVE Parent');
-				},
-				input: function (e) {
-					this.refreshJson('INPUT Parent');
-				},
 				click: function (e) {
-					this.refreshJson('CLICK Parent');
+					this.clearForm();
 				}
 			}
-		};
+		}]
+	});
+&lt;/script&gt;</code></pre>
+									<iframe src="examples/example-methods-01.html" style="height: 270px;"></iframe>
+									<p>
+										Örnekte de görüldüğü üzere <b>methods</b> kullanılabilir. <i>clearForm</i>
+										içerisinde <i>arguments</i> veya <i>return</i> kullanılabilir. Başka bir örnekte
+										bunu inceleyelim.
+									</p>
+									<pre><code class="language-markup">&lt;div id="app"&gt;
+	&lt;input name="number1" type="text" value="20" placeholder="Number 1"&gt;
+	&lt;br&gt;
+	&lt;br&gt;
+	&lt;input name="number2" type="text" value="10" placeholder="Number 2"&gt;
+	&lt;br&gt;
+	&lt;br&gt;
+	&lt;button&gt;Show Sum&lt;/button&gt;
+&lt;/div&gt;
 
-		var $student = $d.ocd({
-			query: '#students-parent',
-			mixins: [globalMixin],
-			sub: [{
-				single: true,
-				query: '>.class-name',
-				alias: 'class',
-				sub: [{
-					single: true,
-					query: '>input[name="Name"]',
-					alias: 'name',
-					mixins: [globalMixin]
-				}]
-			}, {
-				jobject: false,
-				single: true,
-				query: '>.add-student>button',
-				alias: 'addStudent',
-				on: {
-					click: function (e) {
-						this.$parent.students.$add();
-					}
+&lt;script src="dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+	var $app = $d.ocd({
+		query: '#app',
+		sub: [{
+			alias: 'number1',
+			single: true,
+			query: '&gt;input[name="number1"]'
+		}, {
+			alias: 'number2',
+			single: true,
+			query: '&gt;input[name="number2"]'
+		}, {
+			alias: 'clear',
+			single: true,
+			query: '&gt;button',
+			methods: {
+				sum: function (a, b) {
+					return parseFloat(a) + parseFloat(b);
 				}
-			}, {
-				parentQuery: '>.students',
-				query: '>.student',
-				alias: 'students',
-				mixins: [globalMixin],
-				data: {
-					enableOpacity: {
-						get: function (key, currentValue) {
-							return this.$el.$.is('.active-opacity');
-						},
-						set: function (value, key) {
-							if (value === true) {
-								this.$el.$.addClass('active-opacity');
-								this.opacityButton.$el.$.text('Remove Opacity');
-							} else {
-								this.$el.$.removeClass('active-opacity');
-								this.opacityButton.$el.$.text('Add Opacity');
-							}
+			},
+			on: {
+				click: function (e) {
+					var result = this.sum(this.$parent.number1, this.$parent.number2);
+					alert('Sum : ' + result);
+				}
+			}
+		}]
+	});
+&lt;/script&gt;</code></pre>
+									<iframe src="examples/example-methods-02.html" style="height: 220px;"></iframe>
+								</div>
+							</section>
+							<!--//doc-section-->
+							<section id="code-examples-section" class="doc-section">
+								<h2 class="section-title">Kod Örnekleri</h2>
+								<div class="callout-block callout-success">
+									<div class="icon-holder">
+										<i class="fas fa-thumbs-up"></i>
+									</div>
+									<!--//icon-holder-->
+									<div class="content">
+										<h4 class="callout-title">Bilgilendirme</h4>
+										<p>
+											Dökümanın <a class="scrollto" href="#code-schema-section">Kod Şeması</a>
+											kısmını okuayarak örnekleri çok daha rahat bir şekilde anlayabilirsiniz.
+										</p>
+									</div>
+									<!--//content-->
+								</div>
+								<!--//callout-block-->
+								<div class="code-block">
+									<p>
+										Burada <a href="javascript:void(0)">dmuka3.JS.Simple.OCD</a> kütüphanesini
+										anlamanızı sağlayacak örnekler yer almaktadır.
+									</p>
+									<h3 id="example-basic-student-form">Basit Öğrenci Formu</h3>
+									<p>
+										Şimdi basit bir öğrenci formu ile başlayalım.
+									</p>
+									<h6>Student Example</h6>
+									<pre><code class="language-markup">&lt;div id=&quot;app&quot;&gt;
+	&lt;div&gt;
+		&lt;label&gt;Name : &lt;/label&gt;&lt;input name=&quot;Name&quot; type=&quot;text&quot; value=&quot;Muhammet&quot;&gt;
+	&lt;/div&gt;
+	&lt;br&gt;
+	&lt;div&gt;
+		&lt;label&gt;Surname : &lt;/label&gt;&lt;input name=&quot;Surname&quot; type=&quot;text&quot; value=&quot;Kandemir&quot;&gt;
+	&lt;/div&gt;
+	&lt;br&gt;
+	&lt;div&gt;
+		&lt;button&gt;Show Student Data&lt;/button&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
 
-							this.refreshJson('SET enableOpacity');
-						}
-					}
-				},
-				sub: [{
-					single: true,
-					query: '>div>*[name="Name"]',
-					alias: 'name',
-					mixins: [globalMixin]
-				}, {
-					single: true,
-					query: '>div>*[name="Surname"]',
-					alias: 'surname',
-					mixins: [globalMixin]
-				}, {
-					jobject: false,
-					single: true,
-					query: '>div>.student-opacity',
-					alias: 'opacityButton',
-					mixins: [globalMixin],
-					on: {
-						click: function (e) {
-							this.$parent.enableOpacity = this.$parent.enableOpacity === false;
-						}
-					}
-				}, {
-					jobject: false,
-					single: true,
-					query: '.add-an-address',
-					alias: 'addAnAddress',
-					on: {
-						click: function (e) {
-							this.$parent.addresses.$add();
-						}
-					}
-				}, {
-					parentQuery: '>.addresses',
-					query: '>input[name="Description"]',
-					alias: 'addresses',
-					mixins: [globalMixin],
-					on: {
-						keydown: function (e) {
-							if (e.keyCode === 8 && this.value === '') {
-								this.$remove();
-							}
-						}
-					}
-				}, {
-					jobject: false,
-					single: true,
-					query: '>.remove-student>button',
-					alias: 'removeStudent',
-					on: {
-						click: function (e) {
-							this.$parent.$remove();
-						}
-					}
-				}]
-			}]
+&lt;script src=&quot;dmuka3.JS.Simple.OCD.min.js&quot;&gt;&lt;/script&gt;
+&lt;script&gt;
+	var $app = $d.ocd({
+		query: &#39;#app&#39;,
+		sub: [{
+			alias: &#39;name&#39;,
+			single: true,
+			query: &#39;input[name=&quot;Name&quot;]&#39;
+		}, {
+			alias: &#39;surname&#39;,
+			single: true,
+			query: &#39;input[name=&quot;Surname&quot;]&#39;
+		}, {
+			alias: &#39;showStudentData&#39;,
+			single: true,
+			query: &#39;button&#39;,
+			on: {
+				click: function (e) {
+					alert(this.$parent.name + &#39; &#39; + this.$parent.surname);
+				}
+			}
+		}]
+	});
+&lt;/script&gt;</code></pre>
+									<iframe src="examples/example-basic-student-form.html"
+										style="height: 215px;"></iframe>
+									<p>
+										Burada d
+									</p>
+								</div>
+							</section>
+							<!--//doc-section-->
+						</div>
+						<!--//content-inner-->
+					</div>
+					<!--//doc-content-->
+					<div class="doc-sidebar col-md-3 col-12 order-0 d-none d-md-flex">
+						<div id="doc-nav" class="doc-nav">
+
+							<nav id="doc-menu" class="nav doc-menu flex-column sticky">
+								<a class="nav-link scrollto" href="#what-is-this-section">Nedir?</a>
+								<a class="nav-link scrollto" href="#download-section">İndir</a>
+								<a class="nav-link scrollto" href="#code-schema-section">Kod Şeması</a>
+								<nav class="doc-sub-menu nav flex-column">
+									<a class="nav-link scrollto" href="#ocd-schema">OCD Schema</a>
+									<a class="nav-link scrollto" href="#alias">alias</a>
+									<a class="nav-link scrollto" href="#parentQuery">parentQuery</a>
+									<a class="nav-link scrollto" href="#clone">clone</a>
+									<a class="nav-link scrollto" href="#single">single</a>
+									<a class="nav-link scrollto" href="#query">query</a>
+									<a class="nav-link scrollto" href="#get">get</a>
+									<a class="nav-link scrollto" href="#set">set</a>
+									<a class="nav-link scrollto" href="#watches">watches</a>
+									<a class="nav-link scrollto" href="#data">data</a>
+									<a class="nav-link scrollto" href="#methods">methods</a>
+									<a class="nav-link scrollto" href="#on">on</a>
+									<a class="nav-link scrollto" href="#mixins">mixins</a>
+								</nav>
+								<a class="nav-link scrollto" href="#code-examples-section">Kod Örnekleri</a>
+								<nav class="doc-sub-menu nav flex-column">
+									<a class="nav-link scrollto" href="#example-basic-student-form">Basit Öğrenci
+										Formu</a>
+								</nav>
+							</nav>
+							<!--//doc-menu-->
+
+						</div>
+					</div>
+					<!--//doc-sidebar-->
+				</div>
+				<!--//doc-body-->
+			</div>
+			<!--//container-->
+		</div>
+		<!--//doc-wrapper-->
+
+	</div>
+	<!--//page-wrapper-->
+
+	<footer id="footer" class="footer text-center">
+		<div class="container">
+			<small class="copyright">Created by <a href="https://github.com/muhammet-kandemir-95"
+					target="_blank">Muhammet KANDEMIR</a> for developers</small>
+
+		</div>
+		<!--//container-->
+	</footer>
+	<!--//footer-->
+
+
+	<!-- Main Javascript -->
+	<script type="text/javascript" src="assets/plugins/jquery-3.3.1.min.js"></script>
+	<script type="text/javascript" src="assets/plugins/bootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="assets/plugins/prism/prism.js"></script>
+	<script type="text/javascript" src="assets/plugins/jquery-scrollTo/jquery.scrollTo.min.js"></script>
+	<script type="text/javascript" src="assets/plugins/stickyfill/dist/stickyfill.min.js"></script>
+	<script type="text/javascript" src="assets/js/main.js"></script>
+	<script>
+		function fallbackCopyTextToClipboard(text) {
+			var textArea = document.createElement("textarea");
+			textArea.value = text;
+			textArea.style.position = "fixed";  //avoid scrolling to bottom
+			document.body.appendChild(textArea);
+			textArea.focus();
+			textArea.select();
+
+			try {
+				var successful = document.execCommand('copy');
+				var msg = successful ? 'successful' : 'unsuccessful';
+			} catch (err) {
+				console.error('Fallback: Oops, unable to copy', err);
+			}
+
+			document.body.removeChild(textArea);
+		}
+		function copyTextToClipboard(text) {
+			if (!navigator.clipboard) {
+				fallbackCopyTextToClipboard(text);
+				return;
+			}
+			navigator.clipboard.writeText(text).then(function () {
+			}, function (err) {
+				console.error('Async: Could not copy text: ', err);
+			});
+		}
+
+		$('pre').each(function (index, value) {
+			var $clipboard = $('<div class="clipboard"><i class="fa fa-copy"></i></div>');
+			$(value).append($clipboard);
+
+			$(value).on('scroll', function (e) {
+				$clipboard.css('margin-right', '-' + $(this).scrollLeft() + 'px');
+			});
+		});
+		$('.clipboard').click(function (e) {
+			copyTextToClipboard($(this).parent().find('code').text());
+			$(this).addClass('success');
+
+			clearTimeout(this.timeout);
+			this.timeout = setTimeout(() => {
+				$(this).removeClass('success');
+			}, 500);
 		});
 	</script>
 </body>

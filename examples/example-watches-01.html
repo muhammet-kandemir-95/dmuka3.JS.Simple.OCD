@@ -1,0 +1,37 @@
+<html>
+
+<head>
+	<title>dmuka3.JS.Simple.OCD</title>
+
+	<link rel="stylesheet" href="../assets/css/example.css">
+</head>
+
+<body>
+	<div id="app">
+		<span></span>
+		<br>
+		<br>
+		<input type="text" placeholder="Enter span html">
+	</div>
+
+	<script src="../js/dmuka3.JS.Simple.OCD.min.js"></script>
+	<script>
+		var $app = $d.ocd({
+			query: '#app',
+			sub: [{
+				alias: 'span',
+				single: true,
+				query: '>span'
+			}, {
+				alias: 'input',
+				single: true,
+				query: '>input',
+				watches: [function (value) {
+					this.$parent.span = value;
+				}]
+			}]
+		});
+	</script>
+</body>
+
+</html>

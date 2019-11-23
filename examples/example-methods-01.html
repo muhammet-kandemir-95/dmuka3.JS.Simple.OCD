@@ -1,0 +1,62 @@
+<html>
+
+<head>
+	<title>dmuka3.JS.Simple.OCD</title>
+
+	<link rel="stylesheet" href="../assets/css/example.css">
+</head>
+
+<body>
+	<div id="app">
+		<input name="name" type="text" value="Muhammet" placeholder="Name">
+		<br>
+		<br>
+		<input name="surname" type="text" value="Kandemir" placeholder="Surname">
+		<br>
+		<br>
+		<input name="class" type="text" value="P-95" placeholder="Class">
+		<br>
+		<br>
+		<button>Clear Form</button>
+	</div>
+
+	<script src="../js/dmuka3.JS.Simple.OCD.min.js"></script>
+	<script>
+		var $app = $d.ocd({
+			query: '#app',
+			sub: [{
+				alias: 'name',
+				single: true,
+				query: '>input[name="name"]'
+			}, {
+				alias: 'surname',
+				single: true,
+				query: '>input[name="surname"]'
+			}, {
+				alias: 'class',
+				single: true,
+				query: '>input[name="class"]'
+			}, {
+				alias: 'clear',
+				single: true,
+				query: '>button',
+				methods: {
+					clearForm: function () {
+						this.$parent.$set({
+							name: '',
+							surname: '',
+							class: ''
+						});
+					}
+				},
+				on: {
+					click: function (e) {
+						this.clearForm();
+					}
+				}
+			}]
+		});
+	</script>
+</body>
+
+</html>

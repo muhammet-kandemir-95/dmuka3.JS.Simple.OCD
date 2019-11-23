@@ -1,0 +1,47 @@
+<html>
+
+<head>
+	<title>dmuka3.JS.Simple.OCD</title>
+
+	<link rel="stylesheet" href="../assets/css/example.css">
+</head>
+
+<body>
+	<style>
+		#app input {
+			width: 100%;
+		}
+	</style>
+	<div id="app">
+		<input ocd-clone type="text" placeholder="Press enter to add a new line, press backspace to remove while empty">
+		<input type="text" placeholder="Press enter to add a new line, press backspace to remove while empty">
+	</div>
+
+	<script src="../js/dmuka3.JS.Simple.OCD.min.js"></script>
+	<script>
+		var $app = $d.ocd({
+			query: '#app',
+			sub: [{
+				alias: 'inputs',
+				parentQuery: '',
+				query: '>input',
+				on: {
+					keydown: function (e) {
+						if (e.keyCode === 13/*ENTER*/) {
+							var $new = this.$parent.$insert(this.$index + 1, this.value);
+							$new.$el.focus();
+						} else if (e.keyCode === 8/*BACKSPACE*/ && this.value.length === 0 && this.$parent.length > 1) {
+							e.preventDefault();
+
+							var index = this.$index;
+							this.$remove();
+							this.$parent[Math.max(0, index - 1)].$el.focus();
+						}
+					}
+				}
+			}]
+		});
+	</script>
+</body>
+
+</html>
