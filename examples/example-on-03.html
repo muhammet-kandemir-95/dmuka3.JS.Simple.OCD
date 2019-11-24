@@ -1,0 +1,51 @@
+<html>
+
+<head>
+	<title>dmuka3.JS.Simple.OCD</title>
+
+	<link rel="stylesheet" href="../assets/css/example.css">
+</head>
+
+<body>
+	<div id="app">
+		<input type="text" placeholder="Please click or presskey">
+		<br>
+		<br>
+		<span></span>
+	</div>
+
+	<script src="../js/dmuka3.JS.Simple.OCD.min.js"></script>
+	<script>
+		var $app = $d.ocd({
+			query: '#app',
+			sub: [{
+				alias: 'input',
+				single: true,
+				query: '>input',
+				on: {
+					click: function (e) {
+						this.$parent.span += ' click ';
+					},
+					focusin: function (e) {
+						this.$parent.span += ' focusin ';
+					},
+					focusout: function (e) {
+						this.$parent.span += ' focusout ';
+					},
+					keydown: function (e) {
+						this.$parent.span += ' keydown ';
+					},
+					keyup: function (e) {
+						this.$parent.span += ' keyup ';
+					}
+				}
+			}, {
+				alias: 'span',
+				single: true,
+				query: '>span'
+			}]
+		});
+	</script>
+</body>
+
+</html>

@@ -64,7 +64,11 @@ $d.ocd.plugins.$add('number', function ($options) {
 			val = val.split(this.__hide.number.formatChars[1]).join('.');
 			return parseFloat(val);
 		},
-		set: function (value) {
+		set: function (value, auto) {
+			if (auto === true) {
+				return;
+			}
+
 			this.$el.value = value;
 			this.__hide.number.refreshInput();
 		},

@@ -1,0 +1,74 @@
+<html>
+
+<head>
+	<title>dmuka3.JS.Simple.OCD</title>
+
+	<link rel="stylesheet" href="../assets/css/example.css">
+</head>
+
+<body>
+	<div id="app">
+		<input class="textbox" type="text" placeholder="Click some thing">
+		<br>
+		<br>
+		<input class="checkbox" type="checkbox">
+		<br>
+		<br>
+		<select>
+			<option value="option1">Option 1</option>
+			<option value="option2">Option 2</option>
+			<option value="option3">Option 3</option>
+		</select>
+	</div>
+
+	<script src="../js/dmuka3.JS.Simple.OCD.min.js"></script>
+	<script>
+		var testMixin = {
+			on: {
+				$init: function () {
+					this.$el.$.css({
+						transitionDuration: '0.5s',
+						transformOrigin: '0px 0px'
+					});
+				},
+				click: function (e) {
+					this.$el.$.css({
+						backgroundColor: 'blue',
+						transform: 'scale(1.5)'
+					});
+
+					clearTimeout(this.$el.$.data('timer'));
+					var self = this;
+					this.$el.$.data('timer', setTimeout(function () {
+						self.$el.$.css({
+							backgroundColor: '',
+							transform: ''
+						});
+					}, 1000));
+				}
+			}
+		};
+
+		var $app = $d.ocd({
+			query: '#app',
+			sub: [{
+				alias: 'textbox',
+				single: true,
+				query: '>.textbox',
+				mixins: [testMixin]
+			}, {
+				alias: 'checkbox',
+				single: true,
+				query: '>.checkbox',
+				mixins: [testMixin]
+			}, {
+				alias: 'select',
+				single: true,
+				query: '>select',
+				mixins: [testMixin]
+			}]
+		});
+	</script>
+</body>
+
+</html>

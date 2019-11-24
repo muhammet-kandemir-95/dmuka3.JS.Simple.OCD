@@ -1,0 +1,36 @@
+<html>
+
+<head>
+	<title>dmuka3.JS.Simple.OCD</title>
+
+	<link rel="stylesheet" href="../assets/css/example.css">
+</head>
+
+<body>
+	<div id="app">
+		<button ocd-clone></button>
+		<button>Show List's Alias</button>
+		<button>Show List's Alias</button>
+		<button>Show List's Alias</button>
+		<button>Show List's Alias</button>
+	</div>
+
+	<script src="../js/dmuka3.JS.Simple.OCD.min.js"></script>
+	<script>
+		var $app = $d.ocd({
+			query: '#app',
+			sub: [{
+				alias: 'interestingListAlias',
+				parentQuery: '',
+				query: '>button',
+				on: {
+					click: function (e) {
+						alert('My Alias : ' + this.$list.$alias);
+					}
+				}
+			}]
+		});
+	</script>
+</body>
+
+</html>

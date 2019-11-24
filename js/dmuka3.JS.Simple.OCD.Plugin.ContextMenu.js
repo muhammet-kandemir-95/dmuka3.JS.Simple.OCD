@@ -67,8 +67,8 @@ $d.ocd.plugins.$add('contextMenu', function ($options) {
 				}
 
 				if (self.__isNullOrUndefined(contextEl) === true) {
-					console.error(self.__alias + ' "contextEl"\'s result must not be null!', self);
-					throw self.__alias + ' "contextEl"\'s result must not be null!';
+					console.error(self.$alias + ' "contextEl"\'s result must not be null!', self);
+					throw self.$alias + ' "contextEl"\'s result must not be null!';
 				}
 
 				contextEl.$.css({

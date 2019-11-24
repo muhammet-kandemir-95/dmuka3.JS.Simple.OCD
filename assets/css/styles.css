@@ -1566,7 +1566,7 @@ iframe {
 }
 
 .clipboard.success {
-	background-color: #3ea51e;
+  background-color: #3ea51e;
 }
 
 .clipboard:hover {
@@ -1575,4 +1575,8 @@ iframe {
 
 pre {
   position: relative;
+}
+
+.doc-sub-menu .doc-sub-menu .nav-link {
+  padding-left: 50px;
 }

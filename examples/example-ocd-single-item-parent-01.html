@@ -1,0 +1,45 @@
+<html>
+
+<head>
+	<title>dmuka3.JS.Simple.OCD</title>
+
+	<link rel="stylesheet" href="../assets/css/example.css">
+</head>
+
+<body>
+	<style>
+		div {
+			padding: 20px;
+		}
+	</style>
+	<div id="app">
+		<div>
+			<input type="text" placeholder="Type text">
+		</div>
+	</div>
+
+	<script src="../js/dmuka3.JS.Simple.OCD.min.js"></script>
+	<script>
+		var $app = $d.ocd({
+			query: '#app',
+			sub: [{
+				alias: 'div',
+				single: true,
+				query: '>div',
+				sub: [{
+					alias: 'input',
+					single: true,
+					query: '>input',
+					on: {
+						$init: function () {
+							this.$parent.$el.style.backgroundColor = 'green';
+							this.$parent.$el.style.color = 'white';
+						}
+					}
+				}]
+			}]
+		});
+	</script>
+</body>
+
+</html>

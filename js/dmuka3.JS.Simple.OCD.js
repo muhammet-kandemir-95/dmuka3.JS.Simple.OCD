@@ -38,6 +38,9 @@
 				},
 				get $parentOcd () {
 					if (self.$ocd !== null && self.$ocd !== undefined) {
+						if (self.$ocd.$list !== null && self.$ocd.$list !== undefined) {
+							return self.$ocd.$list;
+						}
 						return self.$ocd.$parent;
 					} else {
 						var el = self.parentNode;
@@ -782,7 +785,7 @@
 			var prop = props[i];
 			if (
 				prop === '__hide' ||
-				prop === '__alias' ||
+				prop === '$alias' ||
 				prop === '__jobject' ||
 				prop === '__ocd' ||
 				prop === '__ocdData' ||
@@ -790,6 +793,7 @@
 				prop === '__runOnceCheck' ||
 				prop === '$root' ||
 				prop === '$parent' ||
+				prop === '$list' ||
 				prop === 'jobject' ||
 				prop === '$set' ||
 				prop === '$loaded' ||
@@ -1005,8 +1009,8 @@
 						if (rootOcd.__runOnceCheck === false) {
 							rootOcd.__runOnceCheck = true;
 
+							fnc.call(ocdItem);
 							setTimeout(function () {
-								fnc.call(ocdItem);
 								rootOcd.__runOnceCheck = false;
 							});
 						}
@@ -1058,11 +1062,19 @@
 			});
 
 			if (checkVariableIsNullOrUndefined(parentOcd) === false) {
-				Object.defineProperty(ocdItem, '$parent', {
-					get: function () {
-						return parentOcd;
-					}
-				});
+				if (checkVariableIsArray(parentOcd) === true) {
+					Object.defineProperty(ocdItem, '$list', {
+						get: function () {
+							return parentOcd;
+						}
+					});
+				} else {
+					Object.defineProperty(ocdItem, '$parent', {
+						get: function () {
+							return parentOcd;
+						}
+					});
+				}
 			}
 
 			Object.defineProperty(ocdItem, 'jobject', {
@@ -1131,7 +1143,6 @@
 					}
 
 					Object.defineProperty(ocdItem, key, {
-						configurable: true,
 						get: function () {
 							return dataGet(ocdEl, key);
 						},
@@ -1140,24 +1151,27 @@
 						}
 					});
 
-					queues.push(function () {
-						if (checkVariableIsNullOrUndefined(data[key].default) === false) {
-							if (checkVariableIsNullOrUndefined(get) === false) {
-								var value = dataGet(ocdEl, key);
+					queues.push({
+						last: true,
+						fnc: function () {
+							if (checkVariableIsNullOrUndefined(data[key].default) === false) {
+								if (checkVariableIsNullOrUndefined(get) === false) {
+									var value = dataGet(ocdEl, key);
 
-								if (checkVariableIsNullOrUndefined(value) === false && value !== '') {
-									dataSet(ocdEl, value, key);
-									return;
+									if (checkVariableIsNullOrUndefined(value) === false && value !== '') {
+										dataSet(ocdEl, value, key);
+										return;
+									}
 								}
-							}
 
-							if (checkVariableIsFunction(data[key].default) === true) {
-								dataSet(ocdEl, data[key].default(ocdItem), key);
-							} else {
-								dataSet(ocdEl, data[key].default, key);
+								if (checkVariableIsFunction(data[key].default) === true) {
+									dataSet(ocdEl, data[key].default(ocdItem), key);
+								} else {
+									dataSet(ocdEl, data[key].default, key);
+								}
+							} else if (checkVariableIsNullOrUndefined(dataGet) === false) {
+								dataSet(ocdEl, dataGet(ocdEl, key), key);
 							}
-						} else if (checkVariableIsNullOrUndefined(dataGet) === false) {
-							dataSet(ocdEl, dataGet(ocdEl, key), key);
 						}
 					});
 				})(key);
@@ -1297,11 +1311,13 @@
 				var value = ocdItem.value;
 
 				if (checkVariableIsNullOrUndefined(set) === false) {
-					ocdSet.call(ocdItem, value);
+					ocdSet.call(ocdItem, value, true);
 				}
 
+				value = ocdItem.value;
+
 				for (var i = 0; i < watches.length; i++) {
-					watches[i].call(ocdItem, value);
+					watches[i].call(ocdItem, value, true);
 				}
 			};
 
@@ -1355,18 +1371,41 @@
 					}
 						break;
 					default: {
-						ocdEl.addEventListener('change', function () {
-							triggerWatches();
-						});
-
+						var runOnceEvent = false;
 						ocdEl.addEventListener('input', function () {
+							if (runOnceEvent === true) {
+								return;
+							}
+							runOnceEvent = true;
+
 							triggerWatches();
+
+							setTimeout(function () {
+								runOnceEvent = false;
+							});
+						});
+						ocdEl.addEventListener('change', function () {
+							if (runOnceEvent === true) {
+								return;
+							}
+							runOnceEvent = true;
+
+							triggerWatches();
+
+							setTimeout(function () {
+								runOnceEvent = false;
+							});
 						});
 					}
 						break;
 				}
+			});
 
-				ocdItem.value = ocdItem.value;
+			queues.push({
+				last: true,
+				fnc: function () {
+					triggerWatches();
+				}
 			});
 
 			declareStd();
@@ -1451,12 +1490,6 @@
 		Object.defineProperty(item, '__isFunction', {
 			get: function () {
 				return checkVariableIsFunction;
-			}
-		});
-
-		Object.defineProperty(item, '__alias', {
-			get: function () {
-				return alias;
 			}
 		});
 	};
@@ -1575,7 +1608,7 @@
 								var previousOn = on[key];
 								on[key] = function () {
 									previousOn.apply(this, arguments);
-									mixin.on[key].apply(this, arguments);
+									return mixin.on[key].apply(this, arguments);
 								};
 							}
 						})(key);
@@ -1726,6 +1759,10 @@
 			}
 		};
 		var getIndexOcdItemMethod = function (ocdItem) {
+			if (checkVariableIsNullOrUndefined(ocdItem.__index) === false) {
+				return ocdItem.__index;
+			}
+
 			for (var i = 0; i < resultOcd.length; i++) {
 				if (resultOcd[i] === ocdItem) {
 					return i;
@@ -1733,6 +1770,41 @@
 			}
 
 			return -1;
+		};
+
+		var declareOcdItemStds = function (ocdItem) {
+			createEasyMethods(ocdItem);
+
+			Object.defineProperty(ocdItem, '$set', {
+				get: function () {
+					return function (value) {
+						recursiveFill(value, ocdItem);
+					};
+				}
+			});
+
+			Object.defineProperty(ocdItem, '$remove', {
+				configurable: true,
+				get: function () {
+					return function () {
+						removeOcdItemMethod(ocdItem);
+					};
+				}
+			});
+
+			Object.defineProperty(ocdItem, '$index', {
+				configurable: true,
+				get: function () {
+					return getIndexOcdItemMethod(ocdItem);
+				}
+			});
+
+			Object.defineProperty(ocdItem, '$alias', {
+				configurable: true,
+				get: function () {
+					return alias + '[' + ocdItem.$index + ']';
+				}
+			});
 		};
 
 		for (var i = 0; i < queryResults.length; i++) {
@@ -1755,21 +1827,7 @@
 			Array.prototype.push.call(resultOcd, ocdItem);
 
 			(function (ocdItem) {
-				createEasyMethods(ocdItem);
-
-				Object.defineProperty(ocdItem, '$remove', {
-					get: function () {
-						return function () {
-							removeOcdItemMethod(ocdItem);
-						};
-					}
-				});
-
-				Object.defineProperty(ocdItem, '$index', {
-					get: function () {
-						return getIndexOcdItemMethod(ocdItem);
-					}
-				});
+				declareOcdItemStds(ocdItem);
 
 				queues.push(function () {
 					oninit.call(ocdItem);
@@ -1814,14 +1872,21 @@
 				}
 			});
 
-			Object.defineProperty(resultOcd, '$parent', {
-				get: function () {
-					return parentOcd;
-				}
-			});
+			if (checkVariableIsArray(parentOcd) === true) {
+				Object.defineProperty(resultOcd, '$list', {
+					get: function () {
+						return parentOcd;
+					}
+				});
+			} else {
+				Object.defineProperty(resultOcd, '$parent', {
+					get: function () {
+						return parentOcd;
+					}
+				});
+			}
 
 			Object.defineProperty(resultOcd, '$set', {
-				configurable: true,
 				get: function () {
 					return function (value) {
 						recursiveFill(value, resultOcd);
@@ -1830,7 +1895,6 @@
 			});
 
 			Object.defineProperty(resultOcd, '$add', {
-				configurable: true,
 				get: function () {
 					return function (value) {
 						var ocdNewItem = createACloneOcd(value, function (el) {
@@ -1839,33 +1903,11 @@
 
 						Array.prototype.push.call(resultOcd, ocdNewItem.ocd);
 
-						createEasyMethods(ocdNewItem.ocd);
+						declareOcdItemStds(ocdNewItem.ocd);
 
-						Object.defineProperty(ocdNewItem.ocd, '$set', {
-							get: function () {
-								return function (value) {
-									recursiveFill(value, ocdNewItem.ocd);
-								};
-							}
+						consumeQueues(queues, function () {
+							oninit.call(ocdNewItem.ocd);
 						});
-
-						Object.defineProperty(ocdNewItem.ocd, '$remove', {
-							get: function () {
-								return function () {
-									removeOcdItemMethod(ocdNewItem.ocd);
-								};
-							}
-						});
-
-						Object.defineProperty(ocdNewItem.ocd, '$index', {
-							get: function () {
-								return getIndexOcdItemMethod(ocdNewItem.ocd);
-							}
-						});
-
-						consumeQueues(queues);
-
-						oninit.call(ocdNewItem.ocd);
 
 						return ocdNewItem.ocd;
 					};
@@ -1873,7 +1915,6 @@
 			});
 
 			Object.defineProperty(resultOcd, '$addRange', {
-				configurable: true,
 				get: function () {
 					return function (values) {
 						for (var i = 0; i < values.length; i++) {
@@ -1885,10 +1926,16 @@
 			});
 
 			Object.defineProperty(resultOcd, '$removeAt', {
-				configurable: true,
 				get: function () {
 					return function (index) {
 						var ocdItem = resultOcd[index];
+
+						var lastIndex = ocdItem.$index;
+						Object.defineProperty(ocdItem, '__index', {
+							get: function () {
+								return lastIndex;
+							}
+						});
 						ocdItem.$el.remove();
 
 						Array.prototype.splice.call(resultOcd, index, 1);
@@ -1899,7 +1946,6 @@
 			});
 
 			Object.defineProperty(resultOcd, '$clear', {
-				configurable: true,
 				get: function () {
 					return function () {
 						var len = resultOcd.length;
@@ -1911,7 +1957,6 @@
 			});
 
 			Object.defineProperty(resultOcd, '$insert', {
-				configurable: true,
 				get: function () {
 					return function (index, value) {
 						if (index >= resultOcd.length) {
@@ -1925,33 +1970,11 @@
 
 						Array.prototype.splice.call(resultOcd, index, 0, ocdNewItem.ocd);
 
-						createEasyMethods(ocdNewItem.ocd);
+						declareOcdItemStds(ocdNewItem.ocd);
 
-						Object.defineProperty(ocdNewItem.ocd, '$set', {
-							get: function () {
-								return function (value) {
-									recursiveFill(value, ocdNewItem.ocd);
-								};
-							}
+						consumeQueues(queues, function () {
+							oninit.call(ocdNewItem.ocd);
 						});
-
-						Object.defineProperty(ocdNewItem.ocd, '$remove', {
-							get: function () {
-								return function () {
-									removeOcdItemMethod(ocdNewItem.ocd);
-								};
-							}
-						});
-
-						Object.defineProperty(ocdNewItem.ocd, '$index', {
-							get: function () {
-								return getIndexOcdItemMethod(ocdNewItem.ocd);
-							}
-						});
-
-						consumeQueues(queues);
-
-						oninit.call(ocdNewItem.ocd);
 
 						return ocdNewItem.ocd;
 					};
@@ -1967,25 +1990,18 @@
 			}
 		});
 
-		for (var i = 0; i < resultOcd.length; i++) {
-			var resultOcdItem = resultOcd[i];
-
-			(function (resultOcdItem) {
-				Object.defineProperty(resultOcdItem, '$set', {
-					get: function () {
-						return function (value) {
-							recursiveFill(value, resultOcdItem);
-						};
-					}
-				});
-			})(resultOcdItem);
-		}
-
 		if (checkVariableIsNullOrUndefined(parentEl) === true) {
 			resultOcd = resultOcd[0];
 
 			delete resultOcd.$remove;
 			delete resultOcd.$index;
+
+			Object.defineProperty(resultOcd, '$alias', {
+				configurable: true,
+				get: function () {
+					return '$root';
+				}
+			});
 
 			return resultOcd;
 		} else {
@@ -1996,10 +2012,16 @@
 				delete resultOcd.$index;
 			}
 
+			Object.defineProperty(resultOcd, '$alias', {
+				configurable: true,
+				get: function () {
+					return alias;
+				}
+			});
+
 			var result = parentOcd;
 
 			Object.defineProperty(result, alias, {
-				configurable: true,
 				get: function () {
 					return resultOcd;
 				},
@@ -2016,11 +2038,23 @@
 	 * Consume queues from array.
 	 * @param {*} queues 
 	 */
-	function consumeQueues (queues) {
+	function consumeQueues (queues, fnc) {
 		var queuesClone = cloneObject(queues);
 		queues.length = 0;
 		for (var i = 0; i < queuesClone.length; i++) {
-			queuesClone[i]();
+			if (queuesClone[i].last !== true) {
+				queuesClone[i]();
+			}
+		}
+
+		if (checkVariableIsNullOrUndefined(fnc) === false) {
+			fnc();
+		}
+
+		for (var i = 0; i < queuesClone.length; i++) {
+			if (queuesClone[i].last === true) {
+				queuesClone[i].fnc();
+			}
 		}
 	}
 
@@ -2036,7 +2070,7 @@
 		{
 			query: <string|array|HTMLElement>,
 			get?: <function([this]$ocd):any>,
-			set?: <function([this]$ocd, value)>,
+			set?: <function([this]$ocd, value, auto)>,
 			data?: {
 				prop1: {
 					jobject?: <bool>,
@@ -2066,6 +2100,7 @@
 				clone?: ...,
 				mixins?: ...,
 				data?: ...,
+				watches?: ...,
 				on?: ...,
 				methods?: ...
 			}],
@@ -2075,7 +2110,7 @@
 				single: <bool>,
 				alias: <string>,
 				get?: <function([this]$ocd):any>,
-				set?: <function([this]$ocd, value)>,
+				set?: <function([this]$ocd, value, auto)>,
 				data?: {
 					prop1: {
 						jobject?: <bool>,
@@ -2101,6 +2136,7 @@
 					clone?: ...,
 					mixins?: ...,
 					data?: ...,
+					watches?: ...,
 					on?: ...,
 					methods?: ...
 				}],
@@ -2110,7 +2146,7 @@
 					single: <bool>,
 					alias: <string>,
 					get?: <function([this]$ocd):any>,
-					set?: <function([this]$ocd, value)>,
+					set?: <function([this]$ocd, value, auto)>,
 					data?: {
 						prop1: {
 							jobject?: <bool>,
@@ -2136,6 +2172,7 @@
 						clone?: ...,
 						mixins?: ...,
 						data?: ...,
+						watches?: ...,
 						on?: ...,
 						methods?: ...
 					}],

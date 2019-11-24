@@ -90,11 +90,11 @@
 									<br>
 									<h3>CDN</h3>
 									<div class="code-block">
-										<h6>Main Library</h6>
+										<h4>Main Library</h4>
 										<pre><code class="language-markup">&lt;script src=&quot;https://raw.githubusercontent.com/muhammet-kandemir-95/dmuka3.JS.Simple.OCD/master/js/dmuka3.JS.Simple.OCD.min.js&quot;&gt;&lt;/script&gt;</code></pre>
 									</div>
 									<div class="code-block">
-										<h6>UI Plugins</h6>
+										<h4>UI Plugins</h4>
 										<pre><code class="language-markup">&lt;script src=&quot;https://raw.githubusercontent.com/muhammet-kandemir-95/dmuka3.JS.Simple.OCD/master/js/dmuka3.JS.Simple.OCD.UI.min.js&quot;&gt;&lt;/script&gt;</code></pre>
 									</div>
 								</div>
@@ -108,11 +108,11 @@
 											href="javascript:void(0)">dmuka3.JS.Simple.OCD</a> kütüphanesinin veri
 										şemasını gösterelim.
 									</p>
-									<h6 id="ocd-schema">OCD Schema</h6>
+									<h3 id="ocd-schema">OCD Schema</h3>
 									<pre><code class="language-javascript">{
 	query: &lt;string|array|HTMLElement&gt;,
 	get?: &lt;function([this]$ocd):any&gt;,
-	set?: &lt;function([this]$ocd, value)&gt;,
+	set?: &lt;function([this]$ocd, value, auto)&gt;,
 	data?: {
 		prop1: {
 			jobject?: &lt;bool&gt;,
@@ -142,6 +142,7 @@
 		clone?: ...,
 		mixins?: ...,
 		data?: ...,
+		watches?: ...,
 		on?: ...,
 		methods?: ...
 	}],
@@ -151,7 +152,7 @@
 		single: &lt;bool&gt;,
 		alias: &lt;string&gt;,
 		get?: &lt;function([this]$ocd):any&gt;,
-		set?: &lt;function([this]$ocd, value)&gt;,
+		set?: &lt;function([this]$ocd, value, auto)&gt;,
 		data?: {
 			prop1: {
 				jobject?: &lt;bool&gt;,
@@ -177,6 +178,7 @@
 			clone?: ...,
 			mixins?: ...,
 			data?: ...,
+			watches?: ...,
 			on?: ...,
 			methods?: ...
 		}],
@@ -186,7 +188,7 @@
 			single: &lt;bool&gt;,
 			alias: &lt;string&gt;,
 			get?: &lt;function([this]$ocd):any&gt;,
-			set?: &lt;function([this]$ocd, value)&gt;,
+			set?: &lt;function([this]$ocd, value, auto)&gt;,
 			data?: {
 				prop1: {
 					jobject?: &lt;bool&gt;,
@@ -212,6 +214,7 @@
 				clone?: ...,
 				mixins?: ...,
 				data?: ...,
+				watches?: ...,
 				on?: ...,
 				methods?: ...
 			}],
@@ -235,7 +238,7 @@
 									</div>
 									<!--//callout-block-->
 
-									<h3 id="alias">alias</h3>
+									<h4 id="alias">alias</h4>
 									<p>
 										<b>alias</b> verinin takma adı.
 									</p>
@@ -264,7 +267,7 @@
 &lt;/script&gt;</code></pre>
 									<iframe src="examples/example-alias-01.html" style="height: 140px;"></iframe>
 									<p></p>
-									<h3 id="parentQuery">parentQuery</h3>
+									<h4 id="parentQuery">parentQuery</h4>
 									<p>
 										<b>parentQuery</b> eğer seçim yapılacak element birden fazla ise, kullanılması
 										gerekmektedir. Aşağıdaki örnekte de görüldüğü üzere <b>parentQuery</b> eğer
@@ -390,7 +393,7 @@
 										<!--//content-->
 									</div>
 									<!--//callout-block-->
-									<h3 id="clone">clone</h3>
+									<h4 id="clone">clone</h4>
 									<p>
 										<b>clone</b> <a href="#parentQuery" class="scrollto">parentQuery</a> kullanılan
 										yerlerde yeni bir satır oluşturulacağında kullanılan fonksiyon. Varsayılan
@@ -462,7 +465,7 @@
 &lt;/script&gt;</code></pre>
 									<iframe src="examples/example-clone-01.html" style="height: 140px;"></iframe>
 									<p></p>
-									<h3 id="single">single</h3>
+									<h4 id="single">single</h4>
 									<p>
 										<b>single</b> ilgili blokta yapılan aramanın sadece tek bir element için
 										olacağını göstermek içindir.
@@ -509,7 +512,7 @@
 										<!--//content-->
 									</div>
 									<!--//callout-block-->
-									<h3 id="query">query</h3>
+									<h4 id="query">query</h4>
 									<p>
 										<b>query</b> işlem yapılacak ana element'e ait bir bilgidir. Fakat burada önemli
 										olan <b>query</b> değeri <a class="scrollto" href="#parentQuery">parentQuery</a>
@@ -583,7 +586,7 @@
 										Sanki beğendiğinizi duyuyor gibiyiz. Buradan sonra işler çok daha eğlenceli bir
 										hale gelecek.
 									</p>
-									<h3 id="get">get</h3>
+									<h4 id="get">get</h4>
 									<p>
 										<b>get</b> sadece <a href="#single" class="scrollto">single</a> değeri
 										<b>true</b> iken çalışmaktadır. Amaç ise ilgili elementin değerinin alınmasını
@@ -629,13 +632,19 @@
 										bunu sağlayabiliriz. Örnek <a class="scrollto" href="#set">set</a> kısmında yer
 										alıyor.
 									</p>
-									<h3 id="set">set</h3>
+									<h4 id="set">set</h4>
 									<p>
 										<b>set</b> sadece <a href="#single" class="scrollto">single</a> değeri
 										<b>true</b> iken çalışmaktadır. Amaç ise ilgili elementin değerinin atamasını
 										sağlamakdır. Aşağıdaki tablo üzerinde varsayılan atanan değerler açıklanmıştır.
 										Bu fonksiyonu override işlemine sokarak kendi değerinizin atamasını
 										değiştirebilirsiniz.
+									</p>
+									<p>
+										Burada yer alan <b>auto</b> değeri <b>input</b> veya <b>change</b> gibi otomatik
+										yüklenen <b>event</b>'lerden dolayı bir değer ataması yapıldığı takdirde
+										kullanılmalıdır. Bu değişken daha çok <a href="#plugins"
+											class="scrollto">plugins</a> için kullanılmalıdır.
 									</p>
 									<div class="table-responsive">
 										<table class="table">
@@ -720,10 +729,16 @@
 &lt;/script&gt;</code></pre>
 									<iframe src="examples/example-get-set-01.html" style="height: 180px;"></iframe>
 									<p></p>
-									<h3 id="watches">watches</h3>
+									<h4 id="watches">watches</h4>
 									<p>
 										<b>watches</b> ilgili elemente değer atanması sırasında tetiklenen
 										<b>event</b>'tir. Böylece ilişkili verileri kolay bir şekilde yönetebiliriz.
+									</p>
+									<p>
+										Burada yer alan <b>auto</b> değeri <b>input</b> veya <b>change</b> gibi otomatik
+										yüklenen <b>event</b>'lerden dolayı bir değer ataması yapıldığı takdirde
+										kullanılmalıdır. Bu değişken daha çok <a href="#plugins"
+											class="scrollto">plugins</a> için kullanılmalıdır.
 									</p>
 									<pre><code class="language-markup">&lt;div id="app"&gt;
 	&lt;span&gt;&lt;/span&gt;
@@ -766,7 +781,7 @@
 										<!--//content-->
 									</div>
 									<!--//callout-block-->
-									<h3 id="data">data</h3>
+									<h4 id="data">data</h4>
 									<p>
 										<b>data</b> bir elemente ait birden fazla veri olabilmesini sağlamak amacıyla
 										kullanılmaktadır. Bir metin kutusunun metin değeri dışında yazı rengi, arka plan
@@ -1015,7 +1030,7 @@
 										<!--//content-->
 									</div>
 									<!--//callout-block-->
-									<h3 id="methods">methods</h3>
+									<h4 id="methods">methods</h4>
 									<p>
 										<b>methods</b> geçerli element üzerinde belli başlı metotları tanımlandığı
 										alandır.
@@ -1117,79 +1132,1017 @@
 	});
 &lt;/script&gt;</code></pre>
 									<iframe src="examples/example-methods-02.html" style="height: 220px;"></iframe>
-								</div>
-							</section>
-							<!--//doc-section-->
-							<section id="code-examples-section" class="doc-section">
-								<h2 class="section-title">Kod Örnekleri</h2>
-								<div class="callout-block callout-success">
-									<div class="icon-holder">
-										<i class="fas fa-thumbs-up"></i>
-									</div>
-									<!--//icon-holder-->
-									<div class="content">
-										<h4 class="callout-title">Bilgilendirme</h4>
-										<p>
-											Dökümanın <a class="scrollto" href="#code-schema-section">Kod Şeması</a>
-											kısmını okuayarak örnekleri çok daha rahat bir şekilde anlayabilirsiniz.
-										</p>
-									</div>
-									<!--//content-->
-								</div>
-								<!--//callout-block-->
-								<div class="code-block">
+									<h4 id="on">on</h4>
 									<p>
-										Burada <a href="javascript:void(0)">dmuka3.JS.Simple.OCD</a> kütüphanesini
-										anlamanızı sağlayacak örnekler yer almaktadır.
+										<b>on</b> element üzerinde çalışan <b>event</b>'leri saklamaktadır. Sadece <a
+											href="javascript:void(0)">dmuka3.JS.Simple.OCD</a> ile gelen 2 tane fazladan
+										<b>event</b> mevcuttur. Birincisi <b>$init</b> diğeri <b>$remove</b> dur.
 									</p>
-									<h3 id="example-basic-student-form">Basit Öğrenci Formu</h3>
 									<p>
-										Şimdi basit bir öğrenci formu ile başlayalım.
+										<b>$init</b> element ilk tanımlandığında çalışır. Yani element için sadece bir
+										kere çalışmaktadır. Sayfa ilk yüklendiği gibi algılamayın, <a
+											href="#parentQuery" class="scrollto">parentQuery</a> kullanılan yerde yeni
+										bir satır eklendiği zaman o eklenen satır içinde çalışacaktır.
 									</p>
-									<h6>Student Example</h6>
-									<pre><code class="language-markup">&lt;div id=&quot;app&quot;&gt;
+									<p>
+										<b>$remove</b> <a href="#parentQuery" class="scrollto">parentQuery</a> olan bir
+										yerde element silindiği zaman çalışan <b>event</b>'tir. <a href="#single"
+											class="scrollto">single</a> olan elementler için çalışmayacaktır.
+									</p>
+									<p>
+										Öncelikle <b>$init</b> örneği ile başlayalım.
+									</p>
+									<pre><code class="language-markup">&lt;style&gt;
+	#app input {
+		width: 100%;
+		margin-bottom: 5px;
+	}
+&lt;/style&gt;
+&lt;div id="app"&gt;
 	&lt;div&gt;
-		&lt;label&gt;Name : &lt;/label&gt;&lt;input name=&quot;Name&quot; type=&quot;text&quot; value=&quot;Muhammet&quot;&gt;
+		&lt;input ocd-clone type="text"&gt;
 	&lt;/div&gt;
-	&lt;br&gt;
-	&lt;div&gt;
-		&lt;label&gt;Surname : &lt;/label&gt;&lt;input name=&quot;Surname&quot; type=&quot;text&quot; value=&quot;Kandemir&quot;&gt;
-	&lt;/div&gt;
-	&lt;br&gt;
-	&lt;div&gt;
-		&lt;button&gt;Show Student Data&lt;/button&gt;
-	&lt;/div&gt;
+	&lt;button&gt;Add Row&lt;/button&gt;
 &lt;/div&gt;
 
-&lt;script src=&quot;dmuka3.JS.Simple.OCD.min.js&quot;&gt;&lt;/script&gt;
+&lt;script src="dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
 &lt;script&gt;
 	var $app = $d.ocd({
-		query: &#39;#app&#39;,
+		query: '#app',
 		sub: [{
-			alias: &#39;name&#39;,
-			single: true,
-			query: &#39;input[name=&quot;Name&quot;]&#39;
+			alias: 'inputs',
+			parentQuery: '&gt;div',
+			query: '&gt;input',
+			on: {
+				$init: function () {
+					this.value = new Date().toString();
+				}
+			}
 		}, {
-			alias: &#39;surname&#39;,
+			alias: 'button',
 			single: true,
-			query: &#39;input[name=&quot;Surname&quot;]&#39;
-		}, {
-			alias: &#39;showStudentData&#39;,
-			single: true,
-			query: &#39;button&#39;,
+			query: '&gt;button',
 			on: {
 				click: function (e) {
-					alert(this.$parent.name + &#39; &#39; + this.$parent.surname);
+					this.$parent.inputs.$add();
 				}
 			}
 		}]
 	});
 &lt;/script&gt;</code></pre>
-									<iframe src="examples/example-basic-student-form.html"
-										style="height: 215px;"></iframe>
+									<iframe src="examples/example-on-01.html" style="height: 270px;"></iframe>
 									<p>
-										Burada d
+										Örnekte de görüldüğü üzere <b>$init</b> her element için ayrı ayrı ilk yükleme
+										tamamlandığında bir kere çalışmaktadır.
 									</p>
+									<p>
+										Şimdi de <b>$remove</b> üzerinden bir örnek yapalım.
+									</p>
+									<pre><code class="language-markup">&lt;style&gt;
+	#app input {
+		width: 100%;
+		margin-bottom: 5px;
+	}
+&lt;/style&gt;
+&lt;div id="app"&gt;
+	&lt;div&gt;
+		&lt;input ocd-clone type="text"&gt;
+	&lt;/div&gt;
+	&lt;button class="add-row"&gt;Add Row&lt;/button&gt;
+	&lt;button class="remove-last-row"&gt;Remove Last Row&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;script src="dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+	var $app = $d.ocd({
+		query: '#app',
+		sub: [{
+			alias: 'inputs',
+			parentQuery: '&gt;div',
+			query: '&gt;input',
+			on: {
+				$init: function () {
+					this.value = new Date().toString();
+				},
+				$remove: function () {
+					alert('Removed : ' + this.value);
+				}
+			}
+		}, {
+			alias: 'addRow',
+			single: true,
+			query: '&gt;.add-row',
+			on: {
+				click: function (e) {
+					this.$parent.inputs.$add();
+				}
+			}
+		}, {
+			alias: 'removeLastRow',
+			single: true,
+			query: '&gt;.remove-last-row',
+			on: {
+				click: function (e) {
+					if (this.$parent.inputs.length &gt; 0) {
+						this.$parent.inputs[this.$parent.inputs.length - 1].$remove();
+					}
+				}
+			}
+		}]
+	});
+&lt;/script&gt;</code></pre>
+									<iframe src="examples/example-on-02.html" style="height: 270px;"></iframe>
+									<p>
+										Örnekte satırın silinmesi durumunda <b>$remove</b> <b>event</b>'i
+										tetiklenmiştir.
+									</p>
+									<div class="callout-block callout-warning">
+										<div class="icon-holder">
+											<i class="fas fa-exclamation-triangle"></i>
+										</div>
+										<!--//icon-holder-->
+										<div class="content">
+											<h4 class="callout-title">Önemli Bilgilendirme</h4>
+											<p>
+												<b>$remove</b> element silindikten sonra tetiklenmektedir. Fakat ileride
+												görülecek olan <b>$index</b> değeri son bulunduğu index değerini halen
+												döndürmektedir.
+											</p>
+										</div>
+										<!--//content-->
+									</div>
+									<!--//callout-block-->
+									<p>
+										Şimdi ise normal <b>event</b>'ler üzerinden basit bir örnek yapalım.
+									</p>
+									<pre><code class="language-markup">&lt;div id="app"&gt;
+	&lt;input type="text" placeholder="Please click or presskey"&gt;;
+	&lt;br&gt;
+	&lt;br&gt;
+	&lt;span&gt;&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;script src="dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+	var $app = $d.ocd({
+		query: '#app',
+		sub: [{
+			alias: 'input',
+			single: true,
+			query: '&gt;input',
+			on: {
+				click: function (e) {
+					this.$parent.span += ' click ';
+				},
+				focusin: function (e) {
+					this.$parent.span += ' focusin ';
+				},
+				focusout: function (e) {
+					this.$parent.span += ' focusout ';
+				},
+				keydown: function (e) {
+					this.$parent.span += ' keydown ';
+				},
+				keyup: function (e) {
+					this.$parent.span += ' keyup ';
+				}
+			}
+		}, {
+			alias: 'span',
+			single: true,
+			query: '&gt;span'
+		}]
+	});
+&lt;/script&gt;</code></pre>
+									<iframe src="examples/example-on-03.html" style="height: 160px;"></iframe>
+									<p>
+										Kütüphanenin büyük bir kısmını öğrendik. Buradan sonraki kısımlar çok daha basit
+										olacak.
+									</p>
+									<h4 id="mixins">mixins</h4>
+									<p>
+										<b>mixins</b> nesne tabanlı programlama olduğu gibi miras bırakma özelliği için
+										kullanılmaktadır.
+									</p>
+									<div class="callout-block callout-info">
+										<div class="icon-holder">
+											<i class="fas fa-info"></i>
+										</div>
+										<!--//icon-holder-->
+										<div class="content">
+											<h4 class="callout-title">Ayrıca</h4>
+											<p>
+												<b>mixins</b> üzerinde kullanabileceğiniz alanlar;
+												<ul>
+													<li>get</li>
+													<li>set</li>
+													<li>clone</li>
+													<li>mixins</li>
+													<li>data</li>
+													<li>watches</li>
+													<li>on</li>
+													<li>methods</li>
+												</ul>
+												Bunların dışındaki alanlar <b>kullanılamaz!</b>
+											</p>
+										</div>
+										<!--//content-->
+									</div>
+									<!--//callout-block-->
+									<pre><code class="language-markup">&lt;div id="app"&gt;
+	&lt;input class="textbox" type="text" placeholder="Click some thing"&gt;
+	&lt;br&gt;
+	&lt;br&gt;
+	&lt;input class="checkbox" type="checkbox"&gt;
+	&lt;br&gt;
+	&lt;br&gt;
+	&lt;select&gt;
+		&lt;option value="option1"&gt;Option 1&lt;/option&gt;
+		&lt;option value="option2"&gt;Option 2&lt;/option&gt;
+		&lt;option value="option3"&gt;Option 3&lt;/option&gt;
+	&lt;/select&gt;
+&lt;/div&gt;
+
+&lt;script src="dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+	var testMixin = {
+		on: {
+			$init: function () {
+				this.$el.$.css({
+					transitionDuration: '0.5s',
+					transformOrigin: '0px 0px'
+				});
+			},
+			click: function (e) {
+				this.$el.$.css({
+					backgroundColor: 'blue',
+					transform: 'scale(1.5)'
+				});
+
+				clearTimeout(this.$el.$.data('timer'));
+				var self = this;
+				this.$el.$.data('timer', setTimeout(function () {
+					self.$el.$.css({
+						backgroundColor: '',
+						transform: ''
+					});
+				}, 1000));
+			}
+		}
+	};
+
+	var $app = $d.ocd({
+		query: '#app',
+		sub: [{
+			alias: 'textbox',
+			single: true,
+			query: '&gt;.textbox',
+			mixins: [testMixin]
+		}, {
+			alias: 'checkbox',
+			single: true,
+			query: '&gt;.checkbox',
+			mixins: [testMixin]
+		}, {
+			alias: 'select',
+			single: true,
+			query: '&gt;select',
+			mixins: [testMixin]
+		}]
+	});
+&lt;/script&gt;</code></pre>
+									<iframe src="examples/example-mixins-01.html" style="height: 200px;"></iframe>
+									<p></p>
+									<h3 id="ocd-single-item">OCD Single Item</h3>
+									<p>
+										<b>OCD Single Item</b> <a href="javascript:void(0)">dmuka3.JS.Simple.OCD</a>
+										içerisinde en temel parçaya denilebilir. Burada <b>Single</b> diye
+										adlandırılmasının sebebi <a class="scrollto" href="#code-schema-section">Kod
+											Şeması</a> kısmında
+										da anlatıldığı üzere tekrarlayan elementler için <a class="scrollto"
+											href="#parentQuery">parentQuery</a> kullanmıştık. Bunlara <a
+											class="scrollto" href="#ocd-list">OCD List</a> diyoruz. Bu <b>list</b>
+										içerisindeki her bir
+										elemana <b>OCD Single Item</b> diyoruz.
+									</p>
+									<p>
+										<b>OCD Single Item</b> değeri illa bir <b>list</b> içerisinde olmasına gerek
+										yoktur. <a class="scrollto" href="#single">single</a> <b>true</b> atanmış ise
+										direk listeden
+										bağımsız olarakta saklanabilir.
+									</p>
+									<p>
+										Şimdi sıra sıra <b>OCD Single Item</b> değerinin kullanabildiğimiz özelliklerine
+										gelelim.
+									</p>
+									<h4 id="ocd-single-item-value">value</h4>
+									<p>
+										İlgili <a class="scrollto" href="#ocd-single-item">OCD Single Item</a> değerini
+										döndürür.
+									</p>
+									<pre><code class="language-markup">&lt;div id="app"&gt;
+	&lt;input type="text" placeholder="Type span html"&gt;
+	&lt;br&gt;
+	&lt;br&gt;
+	&lt;span&gt;&lt;/span&gt;
+&lt;/div&gt;
+
+&lt;script src="dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+	var $app = $d.ocd({
+		query: '#app',
+		sub: [{
+			alias: 'input',
+			single: true,
+			query: '&gt;input',
+			watches: [function (value) {
+				this.$parent.span.value = value;
+			}]
+		}, {
+			alias: 'span',
+			single: true,
+			query: '&gt;span'
+		}]
+	});
+&lt;/script&gt;</code></pre>
+									<iframe src="examples/example-ocd-single-item-value-01.html"
+										style="height: 140px;"></iframe>
+									<p></p>
+									<h4 id="ocd-single-item-alias">$alias</h4>
+									<p>
+										İlgili <a class="scrollto" href="#ocd-single-item">OCD Single Item</a>
+										<b>alias</b> değerini
+										döndürür.
+									</p>
+									<pre><code class="language-markup">&lt;div id="app"&gt;
+	&lt;button&gt;Show My Alias&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;script src="dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+	var $app = $d.ocd({
+		query: '#app',
+		sub: [{
+			alias: 'interestingTestAlias',
+			single: true,
+			query: '&gt;button',
+			on: {
+				click: function (e) {
+					alert('My Alias : ' + this.$alias);
+				}
+			}
+		}]
+	});
+&lt;/script&gt;</code></pre>
+									<iframe src="examples/example-ocd-single-item-alias-01.html"
+										style="height: 110px;"></iframe>
+									<p></p>
+									<h4 id="ocd-single-item-el">$el</h4>
+									<p>
+										<a class="scrollto" href="#query">query</a> sonucu dönen elementi döndürür.
+									</p>
+									<pre><code class="language-markup">&lt;div id="app"&gt;
+	&lt;input type="text" placeholder="Type text"&gt;
+&lt;/div&gt;
+
+&lt;script src="dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+	var $app = $d.ocd({
+		query: '#app',
+		sub: [{
+			alias: 'input',
+			single: true,
+			query: '&gt;input',
+			on: {
+				$init: function () {
+					this.$el.style.backgroundColor = 'green';
+					this.$el.style.color = 'white';
+				}
+			}
+		}]
+	});
+&lt;/script&gt;</code></pre>
+									<iframe src="examples/example-ocd-single-item-el-01.html"
+										style="height: 110px;"></iframe>
+									<p></p>
+									<h4 id="ocd-single-item-parent">$parent</h4>
+									<p>
+										Bir üst <b>OCD Single Item</b> değerini döndürür.
+									</p>
+									<pre><code class="language-markup">&lt;style&gt;
+	div {
+		padding: 20px;
+	}
+&lt;/style&gt;
+&lt;div id="app"&gt;
+	&lt;div&gt;
+		&lt;input type="text" placeholder="Type text"&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script src="dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+	var $app = $d.ocd({
+		query: '#app',
+		sub: [{
+			alias: 'div',
+			single: true,
+			query: '&gt;div',
+			sub: [{
+				alias: 'input',
+				single: true,
+				query: '&gt;input',
+				on: {
+					$init: function () {
+						this.$parent.$el.style.backgroundColor = 'green';
+						this.$parent.$el.style.color = 'white';
+					}
+				}
+			}]
+		}]
+	});
+&lt;/script&gt;</code></pre>
+									<iframe src="examples/example-ocd-single-item-parent-01.html"
+										style="height: 150px;"></iframe>
+									<p></p>
+									<h4 id="ocd-single-item-list">$list</h4>
+									<p>
+										Bir üst <a class="scrollto" href="#ocd-list">OCD List</a> değerini döndürür.
+									</p>
+									<pre><code class="language-markup">&lt;div id="app"&gt;
+	&lt;button ocd-clone&gt;&lt;/button&gt;
+	&lt;button&gt;Clone Me&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;script src="dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+	var $app = $d.ocd({
+		query: '#app',
+		sub: [{
+			alias: 'button',
+			parentQuery: '',
+			query: '&gt;button',
+			on: {
+				click: function (e) {
+					this.$list.$add('Clone Me(Was Cloned)');
+				}
+			}
+		}]
+	});
+&lt;/script&gt;</code></pre>
+									<iframe src="examples/example-ocd-single-item-list-01.html"
+										style="height: 150px;"></iframe>
+									<p></p>
+									<h4 id="ocd-single-item-remove">$remove</h4>
+									<p>
+										Eğer ilgili element bir <b>list</b> içerisindeyse, elementi listeleden silmeyi
+										sağlar.
+									</p>
+									<pre><code class="language-markup">&lt;div id="app"&gt;
+	&lt;button ocd-clone&gt;&lt;/button&gt;
+	&lt;button&gt;Remove Me 1&lt;/button&gt;
+	&lt;button&gt;Remove Me 2&lt;/button&gt;
+	&lt;button&gt;Remove Me 3&lt;/button&gt;
+	&lt;button&gt;Remove Me 4&lt;/button&gt;
+	&lt;button&gt;Remove Me 5&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;script src="dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+	var $app = $d.ocd({
+		query: '#app',
+		sub: [{
+			alias: 'button',
+			parentQuery: '',
+			query: '&gt;button',
+			on: {
+				click: function (e) {
+					this.$remove();
+				}
+			}
+		}]
+	});
+&lt;/script&gt;</code></pre>
+									<iframe src="examples/example-ocd-single-item-remove-01.html"
+										style="height: 110px;"></iframe>
+									<p></p>
+									<h4 id="ocd-single-item-index">$index</h4>
+									<p>
+										Eğer ilgili element bir <b>list</b> içerisindeyse, elementin listeledeki
+										<b>index</b> değerini verir.
+									</p>
+									<pre><code class="language-markup">&lt;div id="app"&gt;
+	&lt;button ocd-clone&gt;&lt;/button&gt;
+	&lt;button&gt;Remove Me 1&lt;/button&gt;
+	&lt;button&gt;Remove Me 2&lt;/button&gt;
+	&lt;button&gt;Remove Me 3&lt;/button&gt;
+	&lt;button&gt;Remove Me 4&lt;/button&gt;
+	&lt;button&gt;Remove Me 5&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;script src="dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+	var $app = $d.ocd({
+		query: '#app',
+		sub: [{
+			alias: 'button',
+			parentQuery: '',
+			query: '&gt;button',
+			on: {
+				click: function (e) {
+					this.$index();
+				}
+			}
+		}]
+	});
+&lt;/script&gt;</code></pre>
+									<iframe src="examples/example-ocd-single-item-index-01.html"
+										style="height: 110px;"></iframe>
+									<p></p>
+									<h4 id="ocd-single-item-jobject">jobject</h4>
+									<p>
+										Nesneyi <b>JSON</b> değere dönüştürür.
+									</p>
+									<pre><code class="language-markup">&lt;style&gt;
+	#app,
+	#app * {
+		cursor: pointer;
+		transition-duration: 0.5s;
+	}
+	
+	#app:hover,
+	#app div:hover,
+	#app span:hover {
+		transform: scale(1.015);
+	}
+
+	#app div {
+		border: 1px solid #000;
+		padding: 20px;
+	}
+	
+	#app div div {
+		border-color: blue;
+	}
+	
+	#app div span {
+		display: inline-block;
+		border: 1px solid purple;
+		padding: 20px;
+	}
+	
+	#app div div div {
+		border-color: green;
+	}
+&lt;/style&gt;
+
+&lt;div id="app"&gt;
+	Just Click
+	&lt;br&gt;
+	&lt;div&gt;
+		&lt;span&gt;
+			Hello World
+		&lt;/span&gt;
+
+		&lt;div&gt;
+			&lt;div ocd-clone&gt;&lt;/div&gt;
+			&lt;div&gt;Item 1&lt;/div&gt;
+			&lt;div&gt;Item 2&lt;/div&gt;
+			&lt;div&gt;Item 3&lt;/div&gt;
+			&lt;div&gt;Item 4&lt;/div&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script src="dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+	var testMixin = {
+		on: {
+			click: function (e) {
+				alert(this.$alias + ' = ' + JSON.stringify(this.jobject, null, 4));
+				e.stopPropagation();
+			}
+		}
+	};
+	var $app = $d.ocd({
+		query: '#app',
+		mixins: [testMixin],
+		sub: [{
+			alias: 'firstDiv',
+			single: true,
+			query: '&gt;div',
+			mixins: [testMixin],
+			sub: [{
+				alias: 'helloWorld',
+				single: true,
+				query: '&gt;span',
+				mixins: [testMixin]
+			}, {
+				alias: 'secondDiv',
+				single: true,
+				query: '&gt;div',
+				mixins: [testMixin],
+				sub: [{
+					alias: 'thirdDivs',
+					parentQuery: '',
+					query: '&gt;div',
+					mixins: [testMixin]
+				}]
+			}]
+		}]
+	});
+&lt;/script&gt;</code></pre>
+									<iframe src="examples/example-ocd-single-item-jobject-01.html"
+										style="height: 480px;"></iframe>
+									<p></p>
+									<h4 id="ocd-single-item-set">$set</h4>
+									<p>
+										Nesneyi <b>JSON</b> değere göre doldurur.
+									</p>
+									<pre><code class="language-markup">&lt;div id="app"&gt;
+	&lt;input type="text" placeholder="Type text"&gt;
+	&lt;div&gt;
+		&lt;br&gt;
+		&lt;span ocd-clone&gt;&lt;/span&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script src="dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+	var $app = $d.ocd({
+		query: '#app',
+		on: {
+			$init: function () {
+				this.$set({
+					input: 'Muhammet Kandemir',
+					spans: ['-Data 1-', '-Data 2-', '-Data 3-']
+				});
+			}
+		},
+		sub: [{
+			alias: 'input',
+			single: true,
+			query: '&gt;input'
+		}, {
+			alias: 'spans',
+			parentQuery: '&gt;div',
+			query: '&gt;span'
+		}]
+	});
+&lt;/script&gt;</code></pre>
+									<iframe src="examples/example-ocd-single-item-set-01.html"
+										style="height: 140px;"></iframe>
+									<p>
+										<b>$set</b> için gönderilen nesne reference olarak bağlanır. Aşağıdaki
+										örnekte ayrıca gösterilmiştir.
+									</p>
+									<pre><code class="language-markup">&lt;div id="app"&gt;
+	&lt;input type="text" placeholder="Type text"&gt;
+	&lt;div&gt;
+		&lt;br&gt;
+		&lt;span ocd-clone&gt;&lt;/span&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script src="dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+	var $app = $d.ocd({
+		query: '#app',
+		sub: [{
+			alias: 'input',
+			single: true,
+			query: '&gt;input'
+		}, {
+			alias: 'spans',
+			parentQuery: '&gt;div',
+			query: '&gt;span'
+		}]
+	});
+
+	var testObj = {
+		input: '',
+		spans: []
+	};
+
+	$app.$set(testObj);
+
+	testObj.input = 'Muhammet Kandemir';
+	testObj.spans = ['-Data 1-', '-Data 2-', '-Data 3-'];
+&lt;/script&gt;</code></pre>
+									<iframe src="examples/example-ocd-single-item-set-02.html"
+										style="height: 140px;"></iframe>
+									<div class="callout-block callout-info">
+										<div class="icon-holder">
+											<i class="fas fa-info"></i>
+										</div>
+										<!--//icon-holder-->
+										<div class="content">
+											<h4 class="callout-title">Ayrıca</h4>
+											<p>
+												<b>$set</b> içerisinde gönderilen değerde tüm alanlar doldurulmak
+												zorunda <b>değildir!</b>
+											</p>
+										</div>
+										<!--//content-->
+									</div>
+									<!--//callout-block-->
+									<h3 id="ocd-list">OCD List</h3>
+									<p>
+										<a href="#parentQuery" class="scrollto">parentQuery</a> içeren nesneler için
+										kullanılan <b>array</b> değişkenidir.
+									</p>
+									<h4 id="ocd-list-alias">$alias</h4>
+									<p>
+										İlgili <a class="scrollto" href="#ocd-list">OCD List</a>
+										<b>alias</b> değerini
+										döndürür.
+									</p>
+									<pre><code class="language-markup">&lt;div id="app"&gt;
+	&lt;button ocd-clone&gt;&lt;/button&gt;
+	&lt;button&gt;Show List's Alias&lt;/button&gt;
+	&lt;button&gt;Show List's Alias&lt;/button&gt;
+	&lt;button&gt;Show List's Alias&lt;/button&gt;
+	&lt;button&gt;Show List's Alias&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;script src="../js/dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+	var $app = $d.ocd({
+		query: '#app',
+		sub: [{
+			alias: 'interestingListAlias',
+			parentQuery: '',
+			query: '&gt;button',
+			on: {
+				click: function (e) {
+					alert('My Alias : ' + this.$list.$alias);
+				}
+			}
+		}]
+	});
+&lt;/script&gt;</code></pre>
+									<iframe src="examples/example-ocd-list-alias-01.html"
+										style="height: 110px;"></iframe>
+									<p></p>
+									<h4 id="ocd-list-el">$el</h4>
+									<p>
+										<a class="scrollto" href="#query">query</a> sonucu dönen elementi döndürür.
+									</p>
+									<pre><code class="language-markup">&lt;div id="app"&gt;
+	&lt;input type="text" placeholder="Type text"&gt;
+&lt;/div&gt;
+
+&lt;script src="dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+	var $app = $d.ocd({
+		query: '#app',
+		sub: [{
+			alias: 'input',
+			single: true,
+			query: '&gt;input',
+			on: {
+				$init: function () {
+					this.$el.style.backgroundColor = 'green';
+					this.$el.style.color = 'white';
+				}
+			}
+		}]
+	});
+&lt;/script&gt;</code></pre>
+									<iframe src="examples/example-ocd-list-el-01.html"
+										style="height: 110px;"></iframe>
+									<p></p>
+									<h4 id="ocd-list-parent">$parent</h4>
+									<p>
+										Bir üst <b>OCD Single Item</b> değerini döndürür.
+									</p>
+									<pre><code class="language-markup">&lt;style&gt;
+	div {
+		padding: 20px;
+	}
+&lt;/style&gt;
+&lt;div id="app"&gt;
+	&lt;div&gt;
+		&lt;input type="text" placeholder="Type text"&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script src="dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+	var $app = $d.ocd({
+		query: '#app',
+		sub: [{
+			alias: 'div',
+			single: true,
+			query: '&gt;div',
+			sub: [{
+				alias: 'input',
+				single: true,
+				query: '&gt;input',
+				on: {
+					$init: function () {
+						this.$parent.$el.style.backgroundColor = 'green';
+						this.$parent.$el.style.color = 'white';
+					}
+				}
+			}]
+		}]
+	});
+&lt;/script&gt;</code></pre>
+									<iframe src="examples/example-ocd-list-parent-01.html"
+										style="height: 150px;"></iframe>
+									<p></p>
+									<h4 id="ocd-list-jobject">jobject</h4>
+									<p>
+										Nesneyi <b>JSON</b> değere dönüştürür.
+									</p>
+									<pre><code class="language-markup">&lt;style&gt;
+	#app,
+	#app * {
+		cursor: pointer;
+		transition-duration: 0.5s;
+	}
+	
+	#app:hover,
+	#app div:hover,
+	#app span:hover {
+		transform: scale(1.015);
+	}
+
+	#app div {
+		border: 1px solid #000;
+		padding: 20px;
+	}
+	
+	#app div div {
+		border-color: blue;
+	}
+	
+	#app div span {
+		display: inline-block;
+		border: 1px solid purple;
+		padding: 20px;
+	}
+	
+	#app div div div {
+		border-color: green;
+	}
+&lt;/style&gt;
+
+&lt;div id="app"&gt;
+	Just Click
+	&lt;br&gt;
+	&lt;div&gt;
+		&lt;span&gt;
+			Hello World
+		&lt;/span&gt;
+
+		&lt;div&gt;
+			&lt;div ocd-clone&gt;&lt;/div&gt;
+			&lt;div&gt;Item 1&lt;/div&gt;
+			&lt;div&gt;Item 2&lt;/div&gt;
+			&lt;div&gt;Item 3&lt;/div&gt;
+			&lt;div&gt;Item 4&lt;/div&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script src="dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+	var testMixin = {
+		on: {
+			click: function (e) {
+				alert(this.$alias + ' = ' + JSON.stringify(this.jobject, null, 4));
+				e.stopPropagation();
+			}
+		}
+	};
+	var $app = $d.ocd({
+		query: '#app',
+		mixins: [testMixin],
+		sub: [{
+			alias: 'firstDiv',
+			single: true,
+			query: '&gt;div',
+			mixins: [testMixin],
+			sub: [{
+				alias: 'helloWorld',
+				single: true,
+				query: '&gt;span',
+				mixins: [testMixin]
+			}, {
+				alias: 'secondDiv',
+				single: true,
+				query: '&gt;div',
+				mixins: [testMixin],
+				sub: [{
+					alias: 'thirdDivs',
+					parentQuery: '',
+					query: '&gt;div',
+					mixins: [testMixin]
+				}]
+			}]
+		}]
+	});
+&lt;/script&gt;</code></pre>
+									<iframe src="examples/example-ocd-list-jobject-01.html"
+										style="height: 480px;"></iframe>
+									<p></p>
+									<h4 id="ocd-list-length">length</h4>
+									<p>
+										Nesnenin sahip olduğu satır sayısını döndürür.
+									</p>
+									<h4 id="ocd-list-set">$set</h4>
+									<p>
+										Nesneyi <b>JSON</b> değere göre doldurur.
+									</p>
+									<pre><code class="language-markup">&lt;div id="app"&gt;
+	&lt;input type="text" placeholder="Type text"&gt;
+	&lt;div&gt;
+		&lt;br&gt;
+		&lt;span ocd-clone&gt;&lt;/span&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script src="dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+	var $app = $d.ocd({
+		query: '#app',
+		on: {
+			$init: function () {
+				this.$set({
+					input: 'Muhammet Kandemir',
+					spans: ['-Data 1-', '-Data 2-', '-Data 3-']
+				});
+			}
+		},
+		sub: [{
+			alias: 'input',
+			single: true,
+			query: '&gt;input'
+		}, {
+			alias: 'spans',
+			parentQuery: '&gt;div',
+			query: '&gt;span'
+		}]
+	});
+&lt;/script&gt;</code></pre>
+									<iframe src="examples/example-ocd-list-set-01.html"
+										style="height: 140px;"></iframe>
+									<p>
+										<b>$set</b> için gönderilen nesne reference olarak bağlanır. Aşağıdaki
+										örnekte ayrıca gösterilmiştir.
+									</p>
+									<pre><code class="language-markup">&lt;div id="app"&gt;
+	&lt;input type="text" placeholder="Type text"&gt;
+	&lt;div&gt;
+		&lt;br&gt;
+		&lt;span ocd-clone&gt;&lt;/span&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script src="dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+	var $app = $d.ocd({
+		query: '#app',
+		sub: [{
+			alias: 'input',
+			single: true,
+			query: '&gt;input'
+		}, {
+			alias: 'spans',
+			parentQuery: '&gt;div',
+			query: '&gt;span'
+		}]
+	});
+
+	var testObj = {
+		input: '',
+		spans: []
+	};
+
+	$app.$set(testObj);
+
+	testObj.input = 'Muhammet Kandemir';
+	testObj.spans = ['-Data 1-', '-Data 2-', '-Data 3-'];
+&lt;/script&gt;</code></pre>
+									<iframe src="examples/example-ocd-list-set-02.html"
+										style="height: 140px;"></iframe>
+									<div class="callout-block callout-info">
+										<div class="icon-holder">
+											<i class="fas fa-info"></i>
+										</div>
+										<!--//icon-holder-->
+										<div class="content">
+											<h4 class="callout-title">Ayrıca</h4>
+											<p>
+												<b>$set</b> içerisinde gönderilen değerde tüm alanlar doldurulmak
+												zorunda <b>değildir!</b>
+											</p>
+										</div>
+										<!--//content-->
+									</div>
+									<!--//callout-block-->
 								</div>
 							</section>
 							<!--//doc-section-->
@@ -1206,23 +2159,46 @@
 								<a class="nav-link scrollto" href="#code-schema-section">Kod Şeması</a>
 								<nav class="doc-sub-menu nav flex-column">
 									<a class="nav-link scrollto" href="#ocd-schema">OCD Schema</a>
-									<a class="nav-link scrollto" href="#alias">alias</a>
-									<a class="nav-link scrollto" href="#parentQuery">parentQuery</a>
-									<a class="nav-link scrollto" href="#clone">clone</a>
-									<a class="nav-link scrollto" href="#single">single</a>
-									<a class="nav-link scrollto" href="#query">query</a>
-									<a class="nav-link scrollto" href="#get">get</a>
-									<a class="nav-link scrollto" href="#set">set</a>
-									<a class="nav-link scrollto" href="#watches">watches</a>
-									<a class="nav-link scrollto" href="#data">data</a>
-									<a class="nav-link scrollto" href="#methods">methods</a>
-									<a class="nav-link scrollto" href="#on">on</a>
-									<a class="nav-link scrollto" href="#mixins">mixins</a>
-								</nav>
-								<a class="nav-link scrollto" href="#code-examples-section">Kod Örnekleri</a>
-								<nav class="doc-sub-menu nav flex-column">
-									<a class="nav-link scrollto" href="#example-basic-student-form">Basit Öğrenci
-										Formu</a>
+									<nav class="doc-sub-menu nav flex-column">
+										<a class="nav-link scrollto" href="#alias">alias</a>
+										<a class="nav-link scrollto" href="#parentQuery">parentQuery</a>
+										<a class="nav-link scrollto" href="#clone">clone</a>
+										<a class="nav-link scrollto" href="#single">single</a>
+										<a class="nav-link scrollto" href="#query">query</a>
+										<a class="nav-link scrollto" href="#get">get</a>
+										<a class="nav-link scrollto" href="#set">set</a>
+										<a class="nav-link scrollto" href="#watches">watches</a>
+										<a class="nav-link scrollto" href="#data">data</a>
+										<a class="nav-link scrollto" href="#methods">methods</a>
+										<a class="nav-link scrollto" href="#on">on</a>
+										<a class="nav-link scrollto" href="#mixins">mixins</a>
+									</nav>
+									<a class="nav-link scrollto" href="#ocd-single-item">OCD Single Item</a>
+									<nav class="doc-sub-menu nav flex-column">
+										<a class="nav-link scrollto" href="#ocd-single-item-value">value</a>
+										<a class="nav-link scrollto" href="#ocd-single-item-alias">$alias</a>
+										<a class="nav-link scrollto" href="#ocd-single-item-el">$el</a>
+										<a class="nav-link scrollto" href="#ocd-single-item-parent">$parent</a>
+										<a class="nav-link scrollto" href="#ocd-single-item-list">$list</a>
+										<a class="nav-link scrollto" href="#ocd-single-item-remove">$remove</a>
+										<a class="nav-link scrollto" href="#ocd-single-item-index">$index</a>
+										<a class="nav-link scrollto" href="#ocd-single-item-jobject">jobject</a>
+										<a class="nav-link scrollto" href="#ocd-single-item-set">$set</a>
+									</nav>
+									<a class="nav-link scrollto" href="#ocd-list">OCD List</a>
+									<nav class="doc-sub-menu nav flex-column">
+										<a class="nav-link scrollto" href="#ocd-list-alias">$alias</a>
+										<a class="nav-link scrollto" href="#ocd-list-el">$el</a>
+										<a class="nav-link scrollto" href="#ocd-list-parent">$parent</a>
+										<a class="nav-link scrollto" href="#ocd-list-add">$add</a>
+										<a class="nav-link scrollto" href="#ocd-list-addRange">$addRange</a>
+										<a class="nav-link scrollto" href="#ocd-list-insert">$insert</a>
+										<a class="nav-link scrollto" href="#ocd-list-clear">$clear</a>
+										<a class="nav-link scrollto" href="#ocd-list-removeat">$removeAt</a>
+										<a class="nav-link scrollto" href="#ocd-list-jobject">jobject</a>
+										<a class="nav-link scrollto" href="#ocd-list-length">length</a>
+										<a class="nav-link scrollto" href="#ocd-list-set">$set</a>
+									</nav>
 								</nav>
 							</nav>
 							<!--//doc-menu-->
@@ -1300,9 +2276,15 @@
 			$(this).addClass('success');
 
 			clearTimeout(this.timeout);
-			this.timeout = setTimeout(() => {
+			this.timeout = setTimeout(function () {
 				$(this).removeClass('success');
 			}, 500);
+		});
+		$('a[href*="#"]').click(function (e) {
+			var hash = $(this).attr('href').substr(1);
+			setTimeout(function () {
+				location.hash = hash;
+			}, 1000);
 		});
 	</script>
 </body>

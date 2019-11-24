@@ -1,0 +1,45 @@
+<html>
+
+<head>
+	<title>dmuka3.JS.Simple.OCD</title>
+
+	<link rel="stylesheet" href="../assets/css/example.css">
+</head>
+
+<body>
+	<div id="app">
+		<input type="text" placeholder="Type text">
+		<div>
+			<br>
+			<span ocd-clone></span>
+		</div>
+	</div>
+
+	<script src="../js/dmuka3.JS.Simple.OCD.min.js"></script>
+	<script>
+		var $app = $d.ocd({
+			query: '#app',
+			sub: [{
+				alias: 'input',
+				single: true,
+				query: '>input'
+			}, {
+				alias: 'spans',
+				parentQuery: '>div',
+				query: '>span'
+			}]
+		});
+
+		var testObj = {
+			input: '',
+			spans: []
+		};
+
+		$app.$set(testObj);
+
+		testObj.input = 'Muhammet Kandemir';
+		testObj.spans = ['-Data 1-', '-Data 2-', '-Data 3-'];
+	</script>
+</body>
+
+</html>

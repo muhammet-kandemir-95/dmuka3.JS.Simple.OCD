@@ -36,7 +36,11 @@ $d.ocd.plugins.$add('mask', function ($options) {
 			this.__hide.mask.refreshInput();
 			return this.$el.value;
 		},
-		set: function (value) {
+		set: function (value, auto) {
+			if (auto === true) {
+				return;
+			}
+
 			this.$el.value = value;
 			this.__hide.mask.refreshInput();
 		},
