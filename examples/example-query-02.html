@@ -28,14 +28,14 @@
 				on: {
 					keydown: function (e) {
 						if (e.keyCode === 13/*ENTER*/) {
-							var $new = this.$parent.$insert(this.$index + 1, this.value);
+							var $new = this.$list.$insert(this.$index + 1, this.value);
 							$new.$el.focus();
-						} else if (e.keyCode === 8/*BACKSPACE*/ && this.value.length === 0 && this.$parent.length > 1) {
+						} else if (e.keyCode === 8/*BACKSPACE*/ && this.value.length === 0 && this.$list.length > 1) {
 							e.preventDefault();
 
 							var index = this.$index;
 							this.$remove();
-							this.$parent[Math.max(0, index - 1)].$el.focus();
+							this.$list[Math.max(0, index - 1)].$el.focus();
 						}
 					}
 				}
