@@ -1,0 +1,53 @@
+<html>
+
+<head>
+	<title>dmuka3.JS.Simple.OCD</title>
+
+	<link rel="stylesheet" href="../assets/css/example.css">
+</head>
+
+<body>
+	<div id="app">
+		<div>
+			<span ocd-clone></span>
+			<span>&nbsp;Row 1&nbsp;</span>
+			<span>&nbsp;Row 2&nbsp;</span>
+			<span>&nbsp;Row 3&nbsp;</span>
+		</div>
+		<br>
+		<button class="add-a-row">Add a Row</button>
+		<button class="clear">Clear</button>
+	</div>
+
+	<script src="../js/dmuka3.JS.Simple.OCD.min.js"></script>
+	<script>
+		var $app = $d.ocd({
+			query: '#app',
+			sub: [{
+				alias: 'spans',
+				parentQuery: '>div',
+				query: '>span'
+			}, {
+				alias: 'addARow',
+				single: true,
+				query: '>.add-a-row',
+				on: {
+					click: function (e) {
+						this.$parent.spans.$add(' Row ' + (this.$parent.spans.length + 1) + ' ');
+					}
+				}
+			}, {
+				alias: 'clear',
+				single: true,
+				query: '>.clear',
+				on: {
+					click: function (e) {
+						this.$parent.spans.$clear();
+					}
+				}
+			}]
+		});
+	</script>
+</body>
+
+</html>

@@ -7,16 +7,12 @@
 </head>
 
 <body>
-	<style>
-		div {
-			padding: 20px;
-		}
-	</style>
 	<div id="app">
 		<div>
-			<input ocd-clone type="text" placeholder="Type text">
-			<input type="text" placeholder="Type text">
+			<span ocd-clone></span>
 		</div>
+		<br>
+		<button>Add a Row</button>
 	</div>
 
 	<script src="../js/dmuka3.JS.Simple.OCD.min.js"></script>
@@ -24,13 +20,16 @@
 		var $app = $d.ocd({
 			query: '#app',
 			sub: [{
-				alias: 'input',
+				alias: 'spans',
 				parentQuery: '>div',
-				query: '>input',
+				query: '>span'
+			}, {
+				alias: 'addARow',
+				single: true,
+				query: '>button',
 				on: {
-					$init: function () {
-						this.$list.$parent.$el.style.backgroundColor = 'green';
-						this.$list.$parent.$el.style.color = 'white';
+					click: function (e) {
+						this.$parent.spans.$add(' Row ' + (this.$parent.spans.length + 1) + ' ');
 					}
 				}
 			}]

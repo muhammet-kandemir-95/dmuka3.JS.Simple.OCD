@@ -1865,7 +1865,7 @@
 	&lt;button&gt;Show List's Alias&lt;/button&gt;
 &lt;/div&gt;
 
-&lt;script src="../js/dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script src="dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
 &lt;script&gt;
 	var $app = $d.ocd({
 		query: '#app',
@@ -1889,6 +1889,9 @@
 										<a class="scrollto" href="#query">query</a> sonucu dönen elementi döndürür.
 									</p>
 									<pre><code class="language-markup">&lt;div id="app"&gt;
+	&lt;input ocd-clone type="text" placeholder="Type text"&gt;
+	&lt;input type="text" placeholder="Type text"&gt;
+	&lt;input type="text" placeholder="Type text"&gt;
 	&lt;input type="text" placeholder="Type text"&gt;
 &lt;/div&gt;
 
@@ -1898,7 +1901,7 @@
 		query: '#app',
 		sub: [{
 			alias: 'input',
-			single: true,
+			parentQuery: '',
 			query: '&gt;input',
 			on: {
 				$init: function () {
@@ -1910,7 +1913,7 @@
 	});
 &lt;/script&gt;</code></pre>
 									<iframe src="examples/example-ocd-list-el-01.html"
-										style="height: 110px;"></iframe>
+										style="height: 180px;"></iframe>
 									<p></p>
 									<h4 id="ocd-list-parent">$parent</h4>
 									<p>
@@ -1923,6 +1926,7 @@
 &lt;/style&gt;
 &lt;div id="app"&gt;
 	&lt;div&gt;
+		&lt;input ocd-clone type="text" placeholder="Type text"&gt;
 		&lt;input type="text" placeholder="Type text"&gt;
 	&lt;/div&gt;
 &lt;/div&gt;
@@ -1932,24 +1936,226 @@
 	var $app = $d.ocd({
 		query: '#app',
 		sub: [{
-			alias: 'div',
-			single: true,
-			query: '&gt;div',
-			sub: [{
-				alias: 'input',
-				single: true,
-				query: '&gt;input',
-				on: {
-					$init: function () {
-						this.$parent.$el.style.backgroundColor = 'green';
-						this.$parent.$el.style.color = 'white';
-					}
+			alias: 'input',
+			parentQuery: '&gt;div',
+			query: '&gt;input',
+			on: {
+				$init: function () {
+					this.$list.$parent.$el.style.backgroundColor = 'green';
+					this.$list.$parent.$el.style.color = 'white';
 				}
-			}]
+			}
 		}]
 	});
 &lt;/script&gt;</code></pre>
 									<iframe src="examples/example-ocd-list-parent-01.html"
+										style="height: 150px;"></iframe>
+									<p></p>
+									<h4 id="ocd-list-add">$add(any value)</h4>
+									<p>
+										Yeni bir satır eklemenizi sağlar.
+									</p>
+									<pre><code class="language-markup">&lt;div id="app"&gt;
+	&lt;div&gt;
+		&lt;span ocd-clone&gt;&lt;/span&gt;
+	&lt;/div&gt;
+	&lt;br&gt;
+	&lt;button&gt;Add a Row&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;script src="../js/dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+	var $app = $d.ocd({
+		query: '#app',
+		sub: [{
+			alias: 'spans',
+			parentQuery: '&gt;div',
+			query: '&gt;span'
+		}, {
+			alias: 'addARow',
+			single: true,
+			query: '&gt;button',
+			on: {
+				click: function (e) {
+					this.$parent.spans.$add(' Row ' + (this.$parent.spans.length + 1) + ' ');
+				}
+			}
+		}]
+	});
+&lt;/script&gt;</code></pre>
+									<iframe src="examples/example-ocd-list-add-01.html"
+										style="height: 160px;"></iframe>
+									<p></p>
+									<h4 id="ocd-list-addrange">$addRange(Array(any value))</h4>
+									<p>
+										Birden çok satır eklemenizi sağlar.
+									</p>
+									<pre><code class="language-markup">&lt;div id="app"&gt;
+	&lt;div&gt;
+		&lt;span ocd-clone&gt;&lt;/span&gt;
+	&lt;/div&gt;
+	&lt;br&gt;
+	&lt;button&gt;Add 3 Row&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;script src="../js/dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+	var $app = $d.ocd({
+		query: '#app',
+		sub: [{
+			alias: 'spans',
+			parentQuery: '&gt;div',
+			query: '&gt;span'
+		}, {
+			alias: 'addARow',
+			single: true,
+			query: '&gt;button',
+			on: {
+				click: function (e) {
+					this.$parent.spans.$addRange([
+						' Row ' + (this.$parent.spans.length + 1) + ' ',
+						' Row ' + (this.$parent.spans.length + 2) + ' ',
+						' Row ' + (this.$parent.spans.length + 3) + ' '
+					]);
+				}
+			}
+		}]
+	});
+&lt;/script&gt;</code></pre>
+									<iframe src="examples/example-ocd-list-addrange-01.html"
+										style="height: 150px;"></iframe>
+									<p></p>
+									<h4 id="ocd-list-insert">$insert(Number index, any value)</h4>
+									<p>
+										İlgili <b>index</b>'e yeni bir satır ekler.
+									</p>
+									<pre><code class="language-markup">&lt;div id="app"&gt;
+	&lt;div&gt;
+		&lt;span ocd-clone&gt;&lt;/span&gt;
+	&lt;/div&gt;
+	&lt;br&gt;
+	&lt;button&gt;Add a Row&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;script src="../js/dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+	var $app = $d.ocd({
+		query: '#app',
+		sub: [{
+			alias: 'spans',
+			parentQuery: '&gt;div',
+			query: '&gt;span'
+		}, {
+			alias: 'addARow',
+			single: true,
+			query: '&gt;button',
+			on: {
+				click: function (e) {
+					this.$parent.spans.$insert(0, ' Row ' + (this.$parent.spans.length + 1) + ' ');
+				}
+			}
+		}]
+	});
+&lt;/script&gt;</code></pre>
+									<iframe src="examples/example-ocd-list-insert-01.html"
+										style="height: 150px;"></iframe>
+									<p></p>
+									<h4 id="ocd-list-clear">$clear()</h4>
+									<p>
+										Listeyi temizler.
+									</p>
+									<pre><code class="language-markup">&lt;div id="app"&gt;
+	&lt;div&gt;
+		&lt;span ocd-clone&gt;&lt;/span&gt;
+		&lt;span&gt;&amp;nbsp;Row 1&amp;nbsp;&lt;/span&gt;
+		&lt;span&gt;&amp;nbsp;Row 2&amp;nbsp;&lt;/span&gt;
+		&lt;span&gt;&amp;nbsp;Row 3&amp;nbsp;&lt;/span&gt;
+	&lt;/div&gt;
+	&lt;br&gt;
+	&lt;button class="add-a-row"&gt;Add a Row&lt;/button&gt;
+	&lt;button class="clear"&gt;Clear&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;script src="../js/dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+	var $app = $d.ocd({
+		query: '#app',
+		sub: [{
+			alias: 'spans',
+			parentQuery: '&gt;div',
+			query: '&gt;span'
+		}, {
+			alias: 'addARow',
+			single: true,
+			query: '&gt;.add-a-row',
+			on: {
+				click: function (e) {
+					this.$parent.spans.$add(' Row ' + (this.$parent.spans.length + 1) + ' ');
+				}
+			}
+		}, {
+			alias: 'clear',
+			single: true,
+			query: '&gt;.clear',
+			on: {
+				click: function (e) {
+					this.$parent.spans.$clear();
+				}
+			}
+		}]
+	});
+&lt;/script&gt;</code></pre>
+									<iframe src="examples/example-ocd-list-clear-01.html"
+										style="height: 150px;"></iframe>
+									<p></p>
+									<h4 id="ocd-list-removeat">$removeAt(Number index)</h4>
+									<p>
+										İlgili <b>index</b>'e ait satırı siler.
+									</p>
+									<pre><code class="language-markup">&lt;div id="app"&gt;
+	&lt;div&gt;
+		&lt;span ocd-clone&gt;&lt;/span&gt;
+		&lt;span&gt;&amp;nbsp;Row 1&amp;nbsp;&lt;/span&gt;
+		&lt;span&gt;&amp;nbsp;Row 2&amp;nbsp;&lt;/span&gt;
+		&lt;span&gt;&amp;nbsp;Row 3&amp;nbsp;&lt;/span&gt;
+	&lt;/div&gt;
+	&lt;br&gt;
+	&lt;button class="add-a-row"&gt;Add a Row&lt;/button&gt;
+	&lt;button class="remove-at"&gt;Remove At 0&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;script src="../js/dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+	var $app = $d.ocd({
+		query: '#app',
+		sub: [{
+			alias: 'spans',
+			parentQuery: '&gt;div',
+			query: '&gt;span'
+		}, {
+			alias: 'addARow',
+			single: true,
+			query: '&gt;.add-a-row',
+			on: {
+				click: function (e) {
+					this.$parent.spans.$add(' Row ' + (this.$parent.spans.length + 1) + ' ');
+				}
+			}
+		}, {
+			alias: 'removeAt',
+			single: true,
+			query: '&gt;.remove-at',
+			on: {
+				click: function (e) {
+					if (this.$parent.spans.length &gt; 0) {
+						this.$parent.spans.$removeAt(0);
+					}
+				}
+			}
+		}]
+	});
+&lt;/script&gt;</code></pre>
+									<iframe src="examples/example-ocd-list-removeat-01.html"
 										style="height: 150px;"></iframe>
 									<p></p>
 									<h4 id="ocd-list-jobject">jobject</h4>
@@ -2191,7 +2397,7 @@
 										<a class="nav-link scrollto" href="#ocd-list-el">$el</a>
 										<a class="nav-link scrollto" href="#ocd-list-parent">$parent</a>
 										<a class="nav-link scrollto" href="#ocd-list-add">$add</a>
-										<a class="nav-link scrollto" href="#ocd-list-addRange">$addRange</a>
+										<a class="nav-link scrollto" href="#ocd-list-addrange">$addRange</a>
 										<a class="nav-link scrollto" href="#ocd-list-insert">$insert</a>
 										<a class="nav-link scrollto" href="#ocd-list-clear">$clear</a>
 										<a class="nav-link scrollto" href="#ocd-list-removeat">$removeAt</a>

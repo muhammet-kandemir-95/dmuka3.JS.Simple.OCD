@@ -8,6 +8,9 @@
 
 <body>
 	<div id="app">
+		<input ocd-clone type="text" placeholder="Type text">
+		<input type="text" placeholder="Type text">
+		<input type="text" placeholder="Type text">
 		<input type="text" placeholder="Type text">
 	</div>
 
@@ -17,7 +20,7 @@
 			query: '#app',
 			sub: [{
 				alias: 'input',
-				single: true,
+				parentQuery: '',
 				query: '>input',
 				on: {
 					$init: function () {
