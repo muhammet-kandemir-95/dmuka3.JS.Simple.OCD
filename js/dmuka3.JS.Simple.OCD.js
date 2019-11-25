@@ -18,6 +18,10 @@
 	var ocdElId = 1;
 	function ocdElIdProcess (el, fnc) {
 		ocdElId++;
+		if (el.parentNode == null) {
+			var elp = document.createElement('div');
+			elp.append(el);
+		}
 		el.setAttribute('ocd-el-id', ocdElId.toString());
 		fnc(ocdElId.toString());
 		el.removeAttribute('ocd-el-id');
@@ -304,7 +308,7 @@
 				},
 				get appendBegin () {
 					return function (el) {
-						el.insertAdjacentElement('afterbegin', self);
+						self.insertAdjacentElement('afterbegin', el);
 						return result;
 					};
 				},

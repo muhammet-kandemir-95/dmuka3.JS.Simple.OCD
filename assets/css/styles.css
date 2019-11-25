@@ -1591,7 +1591,7 @@ nav#doc-menu {
   display: none;
   cursor: pointer;
   position: fixed;
-  left: 10px;
+  right: 10px;
   top: 10px;
   background-color: #fff;
   width: 30px;
