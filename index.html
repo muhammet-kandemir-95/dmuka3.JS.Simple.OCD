@@ -1912,8 +1912,7 @@
 		}]
 	});
 &lt;/script&gt;</code></pre>
-									<iframe src="examples/example-ocd-list-el-01.html"
-										style="height: 180px;"></iframe>
+									<iframe src="examples/example-ocd-list-el-01.html" style="height: 180px;"></iframe>
 									<p></p>
 									<h4 id="ocd-list-parent">$parent</h4>
 									<p>
@@ -1983,8 +1982,7 @@
 		}]
 	});
 &lt;/script&gt;</code></pre>
-									<iframe src="examples/example-ocd-list-add-01.html"
-										style="height: 160px;"></iframe>
+									<iframe src="examples/example-ocd-list-add-01.html" style="height: 160px;"></iframe>
 									<p></p>
 									<h4 id="ocd-list-addrange">$addRange(Array(any value))</h4>
 									<p>
@@ -2293,8 +2291,7 @@
 		}]
 	});
 &lt;/script&gt;</code></pre>
-									<iframe src="examples/example-ocd-list-set-01.html"
-										style="height: 140px;"></iframe>
+									<iframe src="examples/example-ocd-list-set-01.html" style="height: 140px;"></iframe>
 									<p>
 										<b>$set</b> için gönderilen nesne reference olarak bağlanır. Aşağıdaki
 										örnekte ayrıca gösterilmiştir.
@@ -2332,8 +2329,7 @@
 	testObj.input = 'Muhammet Kandemir';
 	testObj.spans = ['-Data 1-', '-Data 2-', '-Data 3-'];
 &lt;/script&gt;</code></pre>
-									<iframe src="examples/example-ocd-list-set-02.html"
-										style="height: 140px;"></iframe>
+									<iframe src="examples/example-ocd-list-set-02.html" style="height: 140px;"></iframe>
 									<div class="callout-block callout-info">
 										<div class="icon-holder">
 											<i class="fas fa-info"></i>
@@ -2349,6 +2345,60 @@
 										<!--//content-->
 									</div>
 									<!--//callout-block-->
+									<h3 id="htmlelement-dollar">HTMLElement.$</h3>
+									<p>
+										Bütün <b>HTML Element</b>'lerinin üzerinde belli başlı bazı metotları kolay hale
+										getirmeyi sağlayan kısım.
+									</p>
+									<h4 id="htmlelement-dollar-el">$el</h4>
+									<p>
+										Elementi döndürür.
+									</p>
+									<h4 id="htmlelement-dollar-ocd">$ocd</h4>
+									<p>
+										Elemente ait olan <a class="scrollto" href="#ocd-single-item">OCD Single
+											Item</a> / <a class="scrollto" href="#ocd-list">OCD List</a> değerini
+										döndürür.
+									</p>
+									<h4 id="htmlelement-dollar-parentocd">$parentOcd</h4>
+									<p>
+										Elementin ait olduğu <b>parent</b> / <b>list</b> <a class="scrollto"
+											href="#ocd-single-item">OCD Single
+											Item</a> / <a class="scrollto" href="#ocd-list">OCD List</a> değerini
+										döndürür.
+									</p>
+									<h4 id="htmlelement-dollar-screen">screen</h4>
+									<p>
+										Elementin ekrandaki pozisyonunu ve boyutunu verir.
+									</p>
+									<h4 id="htmlelement-dollar-client">client</h4>
+									<p>
+										Elementin <b>client</b>'e göre pozisyonunu ve boyutunu verir.
+									</p>
+									<h4 id="htmlelement-dollar-addclass">addClass</h4>
+									<p>
+										Elemente sınıf ekler.
+									</p>
+									<h4 id="htmlelement-dollar-removeclass">removeClass</h4>
+									<p>
+										Elementten sınıf siler.
+									</p>
+									<h4 id="htmlelement-dollar-containsclass">containsClass</h4>
+									<p>
+										Element ilgili sınıfa sahip mi?
+									</p>
+									<h4 id="htmlelement-dollar-attr">attr</h4>
+									<p>
+										Elementin attribute değerini alır veya doldurur.
+									</p>
+									<h4 id="htmlelement-dollar-removeattr">removeAttr</h4>
+									<p>
+										Elementin attribute değerini siler.
+									</p>
+									<h4 id="htmlelement-dollar-computedcss">computedCss</h4>
+									<p>
+										Elementin css'ler dahil
+									</p>
 								</div>
 							</section>
 							<!--//doc-section-->
@@ -2356,6 +2406,7 @@
 						<!--//content-inner-->
 					</div>
 					<!--//doc-content-->
+					<div class="mobil-bar"><i class="fa fa-bars"></i></div>
 					<div class="doc-sidebar col-md-3 col-12 order-0 d-none d-md-flex">
 						<div id="doc-nav" class="doc-nav">
 							<nav id="doc-menu" class="nav doc-menu flex-column sticky">
@@ -2408,16 +2459,20 @@
 									<nav class="doc-sub-menu nav flex-column">
 										<a class="nav-link scrollto" href="#htmlelement-dollar-el">$el</a>
 										<a class="nav-link scrollto" href="#htmlelement-dollar-ocd">$ocd</a>
-										<a class="nav-link scrollto" href="#htmlelement-dollar-parentOcd">$parentOcd</a>
+										<a class="nav-link scrollto" href="#htmlelement-dollar-parentocd">$parentOcd</a>
 										<a class="nav-link scrollto" href="#htmlelement-dollar-screen">screen</a>
 										<a class="nav-link scrollto" href="#htmlelement-dollar-client">client</a>
 										<a class="nav-link scrollto" href="#htmlelement-dollar-addclass">addClass</a>
-										<a class="nav-link scrollto" href="#htmlelement-dollar-removeclass">removeClass</a>
-										<a class="nav-link scrollto" href="#htmlelement-dollar-containsclass">containsClass</a>
+										<a class="nav-link scrollto"
+											href="#htmlelement-dollar-removeclass">removeClass</a>
+										<a class="nav-link scrollto"
+											href="#htmlelement-dollar-containsclass">containsClass</a>
 										<a class="nav-link scrollto" href="#htmlelement-dollar-attr">attr</a>
-										<a class="nav-link scrollto" href="#htmlelement-dollar-removeattr">removeAttr</a>
+										<a class="nav-link scrollto"
+											href="#htmlelement-dollar-removeattr">removeAttr</a>
 										<a class="nav-link scrollto" href="#htmlelement-dollar-css">css</a>
-										<a class="nav-link scrollto" href="#htmlelement-dollar-computedcss">computedCss</a>
+										<a class="nav-link scrollto"
+											href="#htmlelement-dollar-computedcss">computedCss</a>
 										<a class="nav-link scrollto" href="#htmlelement-dollar-data">data</a>
 										<a class="nav-link scrollto" href="#htmlelement-dollar-val">val</a>
 										<a class="nav-link scrollto" href="#htmlelement-dollar-create">create</a>
@@ -2425,20 +2480,32 @@
 										<a class="nav-link scrollto" href="#htmlelement-dollar-text">text</a>
 										<a class="nav-link scrollto" href="#htmlelement-dollar-is">is</a>
 										<a class="nav-link scrollto" href="#htmlelement-dollar-on">on</a>
-										<a class="nav-link scrollto" href="#htmlelement-dollar-removeevent">removeEvent</a>
+										<a class="nav-link scrollto"
+											href="#htmlelement-dollar-removeevent">removeEvent</a>
 										<a class="nav-link scrollto" href="#htmlelement-dollar-find">find</a>
 										<a class="nav-link scrollto" href="#htmlelement-dollar-first">first</a>
 										<a class="nav-link scrollto" href="#htmlelement-dollar-append">append</a>
-										<a class="nav-link scrollto" href="#htmlelement-dollar-appendbegin">appendBegin</a>
-										<a class="nav-link scrollto" href="#htmlelement-dollar-insertbefore">insertBefore</a>
-										<a class="nav-link scrollto" href="#htmlelement-dollar-insertafter">insertAfter</a>
+										<a class="nav-link scrollto"
+											href="#htmlelement-dollar-appendbegin">appendBegin</a>
+										<a class="nav-link scrollto"
+											href="#htmlelement-dollar-insertbefore">insertBefore</a>
+										<a class="nav-link scrollto"
+											href="#htmlelement-dollar-insertafter">insertAfter</a>
 										<a class="nav-link scrollto" href="#htmlelement-dollar-has">has</a>
 									</nav>
 									<a class="nav-link scrollto" href="#htmldoc-window-dollar">HTMLDocument.$ / $q</a>
 									<nav class="doc-sub-menu nav flex-column">
-										<a class="nav-link scrollto" href="#htmldoc-window-dollar-el">$el</a>
-										<a class="nav-link scrollto" href="#htmldoc-window-dollar-ocd">$ocd</a>
-										<a class="nav-link scrollto" href="#htmldoc-window-dollar-parentOcd">$parentOcd</a>
+										<a class="nav-link scrollto" href="#htmldoc-window-dollar-create">create</a>
+										<a class="nav-link scrollto" href="#htmldoc-window-dollar-on">on</a>
+										<a class="nav-link scrollto"
+											href="#htmldoc-window-dollar-removeEvent">removeEvent</a>
+										<a class="nav-link scrollto" href="#htmldoc-window-dollar-find">find</a>
+										<a class="nav-link scrollto" href="#htmldoc-window-dollar-first">first</a>
+										<a class="nav-link scrollto" href="#htmldoc-window-dollar-seturl">seturl</a>
+										<a class="nav-link scrollto" href="#htmldoc-window-dollar-ajax">ajax</a>
+										<a class="nav-link scrollto" href="#htmldoc-window-dollar-cookie">cookie</a>
+										<a class="nav-link scrollto"
+											href="#htmldoc-window-dollar-queryString">queryString</a>
 									</nav>
 								</nav>
 							</nav>
@@ -2527,6 +2594,30 @@
 			setTimeout(function () {
 				location.hash = hash;
 			}, 1000);
+		});
+		window.addEventListener('hashchange', function (e) {
+			setTimeout(() => {
+				$('a.active[href*="#"]')[0].scrollIntoView();
+			}, 100);
+		});
+		window.addEventListener('scroll', function (e) {
+			setTimeout(() => {
+				$('a.active[href*="#"]')[0].scrollIntoView();
+			}, 100);
+		});
+		$('.mobil-bar').click(function (e) {
+			e.stopPropagation();
+			$('.mobil-bar').css('display', 'none');
+			$('.doc-sidebar').addClass('active');
+		});
+		$('.doc-sidebar').click(function (e) {
+			e.stopPropagation();
+			$('.mobil-bar').css('display', 'none');
+			$('.doc-sidebar').addClass('active');
+		});
+		$(document).click(function (e) {
+			$('.mobil-bar').css('display', 'block');
+			$('.doc-sidebar').removeClass('active');
 		});
 	</script>
 </body>

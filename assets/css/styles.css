@@ -1582,7 +1582,43 @@ pre {
 }
 
 nav#doc-menu {
-    height: 100vh;
-    overflow: auto;
+  height: 100vh;
+  overflow: auto;
+  display: block;
+}
+
+.mobil-bar {
+  display: none;
+  cursor: pointer;
+  position: fixed;
+  left: 10px;
+  top: 10px;
+  background-color: #fff;
+  width: 30px;
+  height: 30px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  text-align: center;
+  line-height: 30px;
+  font-size: 12px;
+}
+
+@media (max-width: 768px) {
+  .mobil-bar {
     display: block;
+  }
+
+  .doc-sidebar.active {
+    display: flex !important;
+  }
+
+  .doc-sidebar {
+    display: none !important;
+    position: fixed;
+    left: 0px;
+    top: 0px;
+    width: 180px;
+    height: 100%;
+    background-color: #fff;
+  }
 }
