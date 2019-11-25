@@ -2655,14 +2655,19 @@
 				location.hash = hash;
 			}, 1000);
 		});
+		var clearTimerActive = null;
 		window.addEventListener('hashchange', function (e) {
-			setTimeout(() => {
-				$('a.active[href*="#"]')[0].scrollIntoView();
+			clearTimeout(clearTimerActive);
+			clearTimerActive = setTimeout(() => {
+				var $actives = $('a.active[href*="#"]');
+				$('#doc-menu')[0].scrollTop = $actives[$actives.length - 1].offsetTop;
 			}, 100);
 		});
 		window.addEventListener('scroll', function (e) {
-			setTimeout(() => {
-				$('a.active[href*="#"]')[0].scrollIntoView();
+			clearTimeout(clearTimerActive);
+			clearTimerActive = setTimeout(() => {
+				var $actives = $('a.active[href*="#"]');
+				$('#doc-menu')[0].scrollTop = $actives[$actives.length - 1].offsetTop;
 			}, 100);
 		});
 		$('.mobil-bar').click(function (e) {
