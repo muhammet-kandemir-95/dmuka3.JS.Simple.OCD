@@ -36,6 +36,9 @@
 				get $el () {
 					return self;
 				},
+				get $ocd () {
+					return self.$ocd;
+				},
 				get $parentOcd () {
 					if (self.$ocd !== null && self.$ocd !== undefined) {
 						if (self.$ocd.$list !== null && self.$ocd.$list !== undefined) {
@@ -175,8 +178,43 @@
 				get val () {
 					return function () {
 						if (arguments.length === 0) {
+							switch (self.tagName) {
+								case 'INPUT': {
+									var type = ocdEl.getAttribute('type');
+									if (checkVariableIsNullOrUndefined(type) === true) {
+										type = 'text';
+									}
+									type = type.toLowerCase();
+
+									switch (type) {
+										case 'checkbox':
+										case 'radio':
+											return self.checked;
+									}
+								}
+									break;
+							}
+
 							return self.value;
 						} else if (arguments.length === 1) {
+							switch (self.tagName) {
+								case 'INPUT': {
+									var type = ocdEl.getAttribute('type');
+									if (checkVariableIsNullOrUndefined(type) === true) {
+										type = 'text';
+									}
+									type = type.toLowerCase();
+
+									switch (type) {
+										case 'checkbox':
+										case 'radio':
+											self.checked = arguments[0];
+											return result;
+									}
+								}
+									break;
+							}
+
 							self.value = arguments[0];
 							return result;
 						}
@@ -251,7 +289,7 @@
 							var result = null;
 							ocdElIdProcess(self, function (ocdElId) {
 								result = self.parentNode.querySelector('*[ocd-el-id="' + ocdElId + '"] ' + query);
-							})
+							});
 							return result;
 						}
 
@@ -300,14 +338,27 @@
 	_$ = {
 		get: function () {
 			var self = this;
-			if (self.__ocdElementData === null || self.__ocdElementData === undefined) {
-				self.__ocdElementData = {};
-			}
 
 			var result = null;
 			result = {
 				get create () {
 					return function (tagName) {
+						if (tagName.indexOf('<') >= 0) {
+							var elp = $q.create('div');
+							var el = $q.create('div');
+							el.innerHTML = tagName;
+							elp.$.append(el);
+
+							var result = null;
+							ocdElIdProcess(el, function (ocdElId) {
+								result = el.parentNode.querySelectorAll('*[ocd-el-id="' + ocdElId + '"]>*');
+							});
+							if (result.length === 1) {
+								result = result[0];
+							}
+							return result;
+						}
+
 						return document.createElement(tagName);
 					};
 				},
@@ -325,12 +376,12 @@
 				},
 				get find () {
 					return function (query) {
-						return self.querySelectorAll(query);
+						return document.querySelectorAll(query);
 					};
 				},
 				get first () {
 					return function (query) {
-						return self.querySelector(query);
+						return document.querySelector(query);
 					};
 				},
 				get seturl () {
@@ -344,6 +395,7 @@
 				},
 				get ajax () {
 					return function (options) {
+						var async = checkVariableIsNullOrUndefined(options.async) === false ? options.async : true;
 						var url = options.url;
 						var type = checkVariableIsNullOrUndefined(options.type) === false ? options.type : 'GET';
 						var data = checkVariableIsNullOrUndefined(options.data) === false ? options.data : '';
@@ -364,7 +416,7 @@
 						}
 
 						var xhr = new XMLHttpRequest();
-						xhr.open(type, url, true);
+						xhr.open(type, url, async);
 
 						if (responseType !== null && responseType !== undefined) {
 							xhr.responseType = responseType;
@@ -390,11 +442,11 @@
 						}
 
 						xhr.onprogress = function () {
-							onprogress.call(xhr);
+							onprogress.apply(xhr, arguments);
 						};
 
 						xhr.onabort = function () {
-							onabort.call(xhr);
+							onabort.apply(xhr, arguments);
 						};
 
 						xhr.send(data);

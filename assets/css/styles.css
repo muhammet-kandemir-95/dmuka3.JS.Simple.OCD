@@ -1580,3 +1580,9 @@ pre {
 .doc-sub-menu .doc-sub-menu .nav-link {
   padding-left: 50px;
 }
+
+nav#doc-menu {
+    height: 100vh;
+    overflow: auto;
+    display: block;
+}

@@ -2358,7 +2358,6 @@
 					<!--//doc-content-->
 					<div class="doc-sidebar col-md-3 col-12 order-0 d-none d-md-flex">
 						<div id="doc-nav" class="doc-nav">
-
 							<nav id="doc-menu" class="nav doc-menu flex-column sticky">
 								<a class="nav-link scrollto" href="#what-is-this-section">Nedir?</a>
 								<a class="nav-link scrollto" href="#download-section">İndir</a>
@@ -2404,6 +2403,42 @@
 										<a class="nav-link scrollto" href="#ocd-list-jobject">jobject</a>
 										<a class="nav-link scrollto" href="#ocd-list-length">length</a>
 										<a class="nav-link scrollto" href="#ocd-list-set">$set</a>
+									</nav>
+									<a class="nav-link scrollto" href="#htmlelement-dollar">HTMLElement.$</a>
+									<nav class="doc-sub-menu nav flex-column">
+										<a class="nav-link scrollto" href="#htmlelement-dollar-el">$el</a>
+										<a class="nav-link scrollto" href="#htmlelement-dollar-ocd">$ocd</a>
+										<a class="nav-link scrollto" href="#htmlelement-dollar-parentOcd">$parentOcd</a>
+										<a class="nav-link scrollto" href="#htmlelement-dollar-screen">screen</a>
+										<a class="nav-link scrollto" href="#htmlelement-dollar-client">client</a>
+										<a class="nav-link scrollto" href="#htmlelement-dollar-addclass">addClass</a>
+										<a class="nav-link scrollto" href="#htmlelement-dollar-removeclass">removeClass</a>
+										<a class="nav-link scrollto" href="#htmlelement-dollar-containsclass">containsClass</a>
+										<a class="nav-link scrollto" href="#htmlelement-dollar-attr">attr</a>
+										<a class="nav-link scrollto" href="#htmlelement-dollar-removeattr">removeAttr</a>
+										<a class="nav-link scrollto" href="#htmlelement-dollar-css">css</a>
+										<a class="nav-link scrollto" href="#htmlelement-dollar-computedcss">computedCss</a>
+										<a class="nav-link scrollto" href="#htmlelement-dollar-data">data</a>
+										<a class="nav-link scrollto" href="#htmlelement-dollar-val">val</a>
+										<a class="nav-link scrollto" href="#htmlelement-dollar-create">create</a>
+										<a class="nav-link scrollto" href="#htmlelement-dollar-html">html</a>
+										<a class="nav-link scrollto" href="#htmlelement-dollar-text">text</a>
+										<a class="nav-link scrollto" href="#htmlelement-dollar-is">is</a>
+										<a class="nav-link scrollto" href="#htmlelement-dollar-on">on</a>
+										<a class="nav-link scrollto" href="#htmlelement-dollar-removeevent">removeEvent</a>
+										<a class="nav-link scrollto" href="#htmlelement-dollar-find">find</a>
+										<a class="nav-link scrollto" href="#htmlelement-dollar-first">first</a>
+										<a class="nav-link scrollto" href="#htmlelement-dollar-append">append</a>
+										<a class="nav-link scrollto" href="#htmlelement-dollar-appendbegin">appendBegin</a>
+										<a class="nav-link scrollto" href="#htmlelement-dollar-insertbefore">insertBefore</a>
+										<a class="nav-link scrollto" href="#htmlelement-dollar-insertafter">insertAfter</a>
+										<a class="nav-link scrollto" href="#htmlelement-dollar-has">has</a>
+									</nav>
+									<a class="nav-link scrollto" href="#htmldoc-window-dollar">HTMLDocument.$ / $q</a>
+									<nav class="doc-sub-menu nav flex-column">
+										<a class="nav-link scrollto" href="#htmldoc-window-dollar-el">$el</a>
+										<a class="nav-link scrollto" href="#htmldoc-window-dollar-ocd">$ocd</a>
+										<a class="nav-link scrollto" href="#htmldoc-window-dollar-parentOcd">$parentOcd</a>
 									</nav>
 								</nav>
 							</nav>
@@ -2482,8 +2517,9 @@
 			$(this).addClass('success');
 
 			clearTimeout(this.timeout);
+			var self = this;
 			this.timeout = setTimeout(function () {
-				$(this).removeClass('success');
+				$(self).removeClass('success');
 			}, 500);
 		});
 		$('a[href*="#"]').click(function (e) {
