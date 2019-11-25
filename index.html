@@ -2660,15 +2660,27 @@
 			clearTimeout(clearTimerActive);
 			clearTimerActive = setTimeout(() => {
 				var $actives = $('a.active[href*="#"]');
-				$('#doc-menu')[0].scrollTop = $actives[$actives.length - 1].offsetTop;
-			}, 100);
+				if ($actives[$actives.length - 1].offsetTop < $('#doc-menu')[0].scrollTop || $actives[$actives.length - 1].offsetTop > $('#doc-menu')[0].scrollTop + window.innerHeight) {
+					if ($actives[$actives.length - 1].offsetTop < $('#doc-menu')[0].scrollTop) {
+						$('#doc-menu')[0].scrollTop = $actives[$actives.length - 1].offsetTop;
+					} else {
+						$('#doc-menu')[0].scrollTop = $actives[$actives.length - 1].offsetTop - window.innerHeight + $actives[$actives.length - 1].offsetHeight;
+					}
+				}
+			}, 1);
 		});
 		window.addEventListener('scroll', function (e) {
 			clearTimeout(clearTimerActive);
 			clearTimerActive = setTimeout(() => {
 				var $actives = $('a.active[href*="#"]');
-				$('#doc-menu')[0].scrollTop = $actives[$actives.length - 1].offsetTop;
-			}, 100);
+				if ($actives[$actives.length - 1].offsetTop < $('#doc-menu')[0].scrollTop || $actives[$actives.length - 1].offsetTop > $('#doc-menu')[0].scrollTop + window.innerHeight) {
+					if ($actives[$actives.length - 1].offsetTop < $('#doc-menu')[0].scrollTop) {
+						$('#doc-menu')[0].scrollTop = $actives[$actives.length - 1].offsetTop;
+					} else {
+						$('#doc-menu')[0].scrollTop = $actives[$actives.length - 1].offsetTop - window.innerHeight + $actives[$actives.length - 1].offsetHeight;
+					}
+				}
+			}, 1);
 		});
 		$('.mobil-bar').click(function (e) {
 			e.stopPropagation();
