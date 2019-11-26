@@ -1,0 +1,28 @@
+<html>
+
+<head>
+	<title>dmuka3.JS.Simple.OCD</title>
+
+	<link rel="stylesheet" href="../assets/css/example.css">
+</head>
+
+<body>
+	<button onclick="btnClick()" style="margin: 20px;">
+		Change Style
+	</button>
+
+	<script src="../js/dmuka3.JS.Simple.OCD.min.js"></script>
+	<script>
+		$q.first('button').$.css({
+			backgroundColor: 'red',
+			color: 'white'
+		});
+
+		function btnClick() {
+			$q.first('button').$.css('font-weight', 'bold');
+			alert('Button Color : ' + $q.first('button').$.css('color'));
+		}
+	</script>
+</body>
+
+</html>

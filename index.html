@@ -1962,7 +1962,7 @@
 	&lt;button&gt;Add a Row&lt;/button&gt;
 &lt;/div&gt;
 
-&lt;script src="../js/dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script src="dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
 &lt;script&gt;
 	var $app = $d.ocd({
 		query: '#app',
@@ -1996,7 +1996,7 @@
 	&lt;button&gt;Add 3 Row&lt;/button&gt;
 &lt;/div&gt;
 
-&lt;script src="../js/dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script src="dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
 &lt;script&gt;
 	var $app = $d.ocd({
 		query: '#app',
@@ -2035,7 +2035,7 @@
 	&lt;button&gt;Add a Row&lt;/button&gt;
 &lt;/div&gt;
 
-&lt;script src="../js/dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script src="dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
 &lt;script&gt;
 	var $app = $d.ocd({
 		query: '#app',
@@ -2074,7 +2074,7 @@
 	&lt;button class="clear"&gt;Clear&lt;/button&gt;
 &lt;/div&gt;
 
-&lt;script src="../js/dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script src="dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
 &lt;script&gt;
 	var $app = $d.ocd({
 		query: '#app',
@@ -2122,7 +2122,7 @@
 	&lt;button class="remove-at"&gt;Remove At 0&lt;/button&gt;
 &lt;/div&gt;
 
-&lt;script src="../js/dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script src="dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
 &lt;script&gt;
 	var $app = $d.ocd({
 		query: '#app',
@@ -2354,12 +2354,42 @@
 									<p>
 										Elementi döndürür.
 									</p>
+									<pre><code class="language-markup">&lt;button&gt;My Button&lt;/button&gt;
+
+&lt;script src="../js/dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+	var el = $q.first('button').$.$el;
+	el.setAttribute('style', 'margin:20px;background-color:green;color:white;');
+&lt;/script&gt;</code></pre>
+									<iframe src="examples/example-htmlelement-dollar-el.html"
+										style="height: 80px;"></iframe>
+									<p></p>
 									<h4 id="htmlelement-dollar-ocd">$ocd</h4>
 									<p>
 										Elemente ait olan <a class="scrollto" href="#ocd-single-item">OCD Single
 											Item</a> / <a class="scrollto" href="#ocd-list">OCD List</a> değerini
 										döndürür.
 									</p>
+									<pre><code class="language-markup">&lt;div id="app"&gt;
+	&lt;button&gt;My Button&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;script src="../js/dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+	var $app = $d.ocd({
+		query: '#app',
+		sub: [{
+			alias: 'myButton',
+			single: true,
+			query: '&gt;button'
+		}]
+	});
+
+	$q.first('button').$.$ocd.value = 'Hello World';
+&lt;/script&gt;</code></pre>
+									<iframe src="examples/example-htmlelement-dollar-ocd.html"
+										style="height: 110px;"></iframe>
+									<p></p>
 									<h4 id="htmlelement-dollar-parentocd">$parentOcd</h4>
 									<p>
 										Elementin ait olduğu <b>parent</b> / <b>list</b> <a class="scrollto"
@@ -2367,38 +2397,195 @@
 											Item</a> / <a class="scrollto" href="#ocd-list">OCD List</a> değerini
 										döndürür.
 									</p>
+									<pre><code class="language-markup">&lt;div id="app"&gt;
+	&lt;button&gt;My Button&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;script src="../js/dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+	var $app = $d.ocd({
+		query: '#app',
+		sub: [{
+			alias: 'myButton',
+			single: true,
+			query: '&gt;button'
+		}]
+	});
+
+	$q.first('button').$.$parentOcd.myButton.value = 'Hello World';
+&lt;/script&gt;</code></pre>
+									<iframe src="examples/example-htmlelement-dollar-parentocd.html"
+										style="height: 110px;"></iframe>
+									<p></p>
 									<h4 id="htmlelement-dollar-screen">screen</h4>
 									<p>
 										Elementin ekrandaki pozisyonunu ve boyutunu verir.
 									</p>
+									<pre><code class="language-markup">&lt;button onclick="alert(JSON.stringify(this.$.screen))" style="margin: 20px;"&gt;
+	Click Me to See My Screen Position
+&lt;/button&gt;
+
+&lt;script src="../js/dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;</code></pre>
+									<iframe src="examples/example-htmlelement-dollar-screen.html"
+										style="height:80px;"></iframe>
+									<p></p>
 									<h4 id="htmlelement-dollar-client">client</h4>
 									<p>
 										Elementin <b>client</b>'e göre pozisyonunu ve boyutunu verir.
 									</p>
-									<h4 id="htmlelement-dollar-addclass">addClass</h4>
+									<pre><code class="language-markup">&lt;button onclick="alert(JSON.stringify(this.$.client))" style="margin: 20px;"&gt;
+	Click Me to See My Client Position
+&lt;/button&gt;
+
+&lt;script src="../js/dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;</code></pre>
+									<iframe src="examples/example-htmlelement-dollar-client.html"
+										style="height:80px;"></iframe>
+									<p></p>
+									<h4 id="htmlelement-dollar-addclass">addClass(String className):HTMLElement.$</h4>
 									<p>
 										Elemente sınıf ekler.
 									</p>
-									<h4 id="htmlelement-dollar-removeclass">removeClass</h4>
+									<pre><code class="language-markup">&lt;style&gt;
+	.bg-blue {
+		background-color: blue;
+		color: white;
+	}
+&lt;/style&gt;
+
+&lt;button onclick="this.$.addClass('bg-blue')" style="margin: 20px;"&gt;
+	Add Class
+&lt;/button&gt;
+
+&lt;script src="../js/dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;</code></pre>
+									<iframe src="examples/example-htmlelement-dollar-addclass.html"
+										style="height:80px;"></iframe>
+									<p></p>
+									<h4 id="htmlelement-dollar-removeclass">removeClass(String className):HTMLElement.$
+									</h4>
 									<p>
 										Elementten sınıf siler.
 									</p>
-									<h4 id="htmlelement-dollar-containsclass">containsClass</h4>
+									<pre><code class="language-markup">&lt;style&gt;
+	.bg-blue {
+		background-color: blue;
+		color: white;
+	}
+&lt;/style&gt;
+
+&lt;button class="bg-blue" onclick="this.$.removeClass('bg-blue')" style="margin: 20px;"&gt;
+	Remove Class
+&lt;/button&gt;
+
+&lt;script src="../js/dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;</code></pre>
+									<iframe src="examples/example-htmlelement-dollar-removeclass.html"
+										style="height:80px;"></iframe>
+									<p></p>
+									<h4 id="htmlelement-dollar-containsclass">containsClass(String
+										className):HTMLElement.$</h4>
 									<p>
 										Element ilgili sınıfa sahip mi?
 									</p>
-									<h4 id="htmlelement-dollar-attr">attr</h4>
+									<pre><code class="language-markup">&lt;style&gt;
+	.bg-blue {
+		background-color: blue;
+		color: white;
+	}
+&lt;/style&gt;
+
+&lt;button class="bg-blue" onclick="alert('Contains Result : ' + this.$.containsClass('bg-blue'))" style="margin: 20px;"&gt;
+	Check Class 1
+&lt;/button&gt;
+
+&lt;button onclick="alert('Contains Result : ' + this.$.containsClass('bg-blue'))" style="margin: 20px;"&gt;
+	Check Class 2
+&lt;/button&gt;
+
+&lt;script src="../js/dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;</code></pre>
+									<iframe src="examples/example-htmlelement-dollar-containsclass.html"
+										style="height:80px;"></iframe>
+									<p></p>
+									<h4 id="htmlelement-dollar-attr">attr(String name):String <br> attr(String name,
+										String
+										value):HTMLElement.$</h4>
 									<p>
 										Elementin attribute değerini alır veya doldurur.
 									</p>
-									<h4 id="htmlelement-dollar-removeattr">removeAttr</h4>
+									<pre><code class="language-markup">&lt;button onclick="btnClick()" style="margin: 20px;"&gt;
+	Change Style Attribute
+&lt;/button&gt;
+
+&lt;script src="../js/dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+	function btnClick() {
+		$q.first('button').$.attr('style', 'background-color:green;color:white;margin: 20px;');
+		alert('Button Style : ' + $q.first('button').$.attr('style'));
+	}
+&lt;/script&gt;</code></pre>
+									<iframe src="examples/example-htmlelement-dollar-attr.html"
+										style="height:80px;"></iframe>
+									<p></p>
+									<h4 id="htmlelement-dollar-removeattr">removeAttr(String name):HTMLElement.$</h4>
 									<p>
 										Elementin attribute değerini siler.
 									</p>
-									<h4 id="htmlelement-dollar-computedcss">computedCss</h4>
+									<pre><code class="language-markup">&lt;div style="margin:20px;"&gt;
+	&lt;button onclick="this.$.attr('style', '')" style="background-color:green;color:white;"&gt;
+		Remove Style Attribute
+	&lt;/button&gt;
+&lt;/div&gt;
+
+&lt;script src="../js/dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;</code></pre>
+									<iframe src="examples/example-htmlelement-dollar-removeattr.html"
+										style="height:80px;"></iframe>
+									<p></p>
+									<h4 id="htmlelement-dollar-css">css(String name):any <br> css(String name, String
+										value):HTMLElement.$ <br>
+										css(Object value):HTMLElement.$</h4>
+									<p>
+										Elementin css değerlerini değiştirir veya döndürür.
+									</p>
+									<pre><code class="language-markup">&lt;button onclick="btnClick()" style="margin: 20px;"&gt;
+	Change Style
+&lt;/button&gt;
+
+&lt;script src="../js/dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+	$q.first('button').$.css({
+		backgroundColor: 'red',
+		color: 'white'
+	});
+
+	function btnClick() {
+		$q.first('button').$.css('font-weight', 'bold');
+		alert('Button Color : ' + $q.first('button').$.css('color'));
+	}
+&lt;/script&gt;</code></pre>
+									<iframe src="examples/example-htmlelement-dollar-css.html"
+										style="height:80px;"></iframe>
+									<p></p>
+									<h4 id="htmlelement-dollar-computedcss">computedCss():Object <br> computedCss(String name):any</h4>
 									<p>
 										Elementin css'ler dahil son style değerini döndürür.
 									</p>
+									<pre><code class="language-markup">&lt;button onclick="btnClick()" style="margin: 20px;"&gt;
+	Change Style
+&lt;/button&gt;
+
+&lt;script src="../js/dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+	$q.first('button').$.css({
+		backgroundColor: 'red',
+		color: 'white'
+	});
+
+	function btnClick() {
+		$q.first('button').$.css('font-weight', 'bold');
+		alert('Button Color : ' + $q.first('button').$.css('color'));
+	}
+&lt;/script&gt;</code></pre>
+									<iframe src="examples/example-htmlelement-dollar-computedcss.html"
+										style="height:80px;"></iframe>
+									<p></p>
 									<h4 id="htmlelement-dollar-data">data</h4>
 									<p>
 										Element üzerinde veri saklanmasını sağlar.
@@ -2693,8 +2880,10 @@
 			$('.doc-sidebar').addClass('active');
 		});
 		$(document).click(function (e) {
-			$('.mobil-bar').css('display', 'block');
-			$('.doc-sidebar').removeClass('active');
+			if (window.innerWidth < 768) {
+				$('.mobil-bar').css('display', 'block');
+				$('.doc-sidebar').removeClass('active');
+			}
 		});
 	</script>
 </body>

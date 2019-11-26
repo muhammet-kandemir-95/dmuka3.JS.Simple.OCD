@@ -1,0 +1,23 @@
+<html>
+
+<head>
+	<title>dmuka3.JS.Simple.OCD</title>
+
+	<link rel="stylesheet" href="../assets/css/example.css">
+</head>
+
+<body>
+	<button onclick="btnClick()" style="margin: 20px;">
+		Change Style Attribute
+	</button>
+
+	<script src="../js/dmuka3.JS.Simple.OCD.min.js"></script>
+	<script>
+		function btnClick() {
+			$q.first('button').$.attr('style', 'background-color:green;color:white;margin: 20px;');
+			alert('Button Style : ' + $q.first('button').$.attr('style'));
+		}
+	</script>
+</body>
+
+</html>

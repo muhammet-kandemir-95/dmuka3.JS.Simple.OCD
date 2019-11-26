@@ -123,7 +123,11 @@
 							if (checkVariableIsNullOrUndefined(classAttr) === true) {
 								classAttr = '';
 							}
-							return classAttr.trim() === value || classAttr.indexOf(' ' + value) >= 0 || classAttr.indexOf(value + ' ') >= 0;
+							classAttr = classAttr.trim();
+							while (classAttr.indexOf('  ') >= 0) {
+								classAttr = classAttr.split('  ').join(' ');
+							}
+							return classAttr.trim() === value || classAttr.indexOf(' ' + value + ' ') >= 0 || classAttr.indexOf(' ' + value) === classAttr.length - value.length - 1 || classAttr.indexOf(value + ' ') === 0;
 						}
 					};
 				},

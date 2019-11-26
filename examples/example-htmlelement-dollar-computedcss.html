@@ -1,0 +1,23 @@
+<html>
+
+<head>
+	<title>dmuka3.JS.Simple.OCD</title>
+
+	<link rel="stylesheet" href="../assets/css/example.css">
+</head>
+
+<body>
+	<button onclick="btnClick()" style="margin: 20px;">
+		Show My Computed Style
+	</button>
+
+	<script src="../js/dmuka3.JS.Simple.OCD.min.js"></script>
+	<script>
+		function btnClick() {
+			alert('Button Computed Style : ' + JSON.stringify($q.first('button').$.computedCss(), null, 4));
+			alert('Button Computed Color : ' + $q.first('button').$.computedCss('color'));
+		}
+	</script>
+</body>
+
+</html>
