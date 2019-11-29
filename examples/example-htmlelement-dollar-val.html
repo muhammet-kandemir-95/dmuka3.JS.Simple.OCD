@@ -1,0 +1,25 @@
+<html>
+
+<head>
+	<title>dmuka3.JS.Simple.OCD</title>
+
+	<link rel="stylesheet" href="../assets/css/example.css">
+</head>
+
+<body>
+	<input type="text" placeholder="Please fill here" style="margin: 20px;">
+	<br>
+	<button onclick="btnClick()" style="margin: 0px 20px;">
+		Show Input Value
+	</button>
+
+	<script src="../js/dmuka3.JS.Simple.OCD.min.js"></script>
+	<script>
+		function btnClick() {
+			alert('Input Value : ' + $q.first('input').$.val());
+			$q.first('input').$.val('');
+		}
+	</script>
+</body>
+
+</html>

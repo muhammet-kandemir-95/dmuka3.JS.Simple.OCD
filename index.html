@@ -15,8 +15,8 @@
 		rel='stylesheet' type='text/css'>
 	<!-- FontAwesome JS -->
 	<script defer src="https://use.fontawesome.com/releases/v5.8.2/js/all.js"
-		integrity="sha384-DJ25uNYET2XCl5ZF++U8eNxPWqcKohUUBUpKGlNLMchM7q4Wjg2CUpjHLaL8yYPH"
-		crossorigin="anonymous"></script>
+		integrity="sha384-DJ25uNYET2XCl5ZF++U8eNxPWqcKohUUBUpKGlNLMchM7q4Wjg2CUpjHLaL8yYPH" crossorigin="anonymous">
+	</script>
 	<!-- Global CSS -->
 	<link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.min.css">
 	<!-- Plugins CSS -->
@@ -91,11 +91,13 @@
 									<h3>CDN</h3>
 									<div class="code-block">
 										<h4>Main Library</h4>
-										<pre><code class="language-markup">&lt;script src=&quot;https://muhammet-kandemir-95.github.io/dmuka3.JS.Simple.OCD/js/dmuka3.JS.Simple.OCD.min.js&quot;&gt;&lt;/script&gt;</code></pre>
+										<pre
+											class='code-shower'><code class="language-markup">&lt;script src=&quot;https://muhammet-kandemir-95.github.io/dmuka3.JS.Simple.OCD/js/dmuka3.JS.Simple.OCD.min.js&quot;&gt;&lt;/script&gt;</code></pre>
 									</div>
 									<div class="code-block">
 										<h4>UI Plugins</h4>
-										<pre><code class="language-markup">&lt;script src=&quot;https://muhammet-kandemir-95.github.io/dmuka3.JS.Simple.OCD/js/dmuka3.JS.Simple.OCD.UI.min.js&quot;&gt;&lt;/script&gt;</code></pre>
+										<pre
+											class='code-shower'><code class="language-markup">&lt;script src=&quot;https://muhammet-kandemir-95.github.io/dmuka3.JS.Simple.OCD/js/dmuka3.JS.Simple.OCD.UI.min.js&quot;&gt;&lt;/script&gt;</code></pre>
 									</div>
 								</div>
 							</section>
@@ -109,7 +111,7 @@
 										şemasını gösterelim.
 									</p>
 									<h3 id="ocd-schema">OCD Schema</h3>
-									<pre><code class="language-javascript">{
+									<pre class='code-shower'><code class="language-javascript">{
 	query: &lt;string|array|HTMLElement&gt;,
 	get?: &lt;function([this]$ocd):any&gt;,
 	set?: &lt;function([this]$ocd, value, auto)&gt;,
@@ -128,7 +130,7 @@
 		method2: ...,
 		...
 	},
-	watches?: &lt;Array(function([this]$ocd, value))&gt;,
+	watches?: &lt;Array(function([this]$ocd, value, auto))&gt;,
 	on?: {
 		$init?: &lt;function([this]$ocd)&gt;,
 		$remove?: &lt;function([this]$ocd)&gt;,
@@ -164,7 +166,7 @@
 			...
 		},
 		clone?: &lt;function([this]$parentOcd, value):el&gt;,
-		watches?: &lt;Array(function([this]$ocd, value))&gt;,
+		watches?: &lt;Array(function([this]$ocd, value, auto))&gt;,
 		on?: {
 			$init?: &lt;function([this]$ocd)&gt;,
 			$remove?: &lt;function([this]$ocd)&gt;,
@@ -200,7 +202,7 @@
 				...
 			},
 			clone?: &lt;function([this]$parentOcd, value):el&gt;,
-			watches?: &lt;Array(function([this]$ocd, value))&gt;,
+			watches?: &lt;Array(function([this]$ocd, value, auto))&gt;,
 			on?: {
 				$init?: &lt;function([this]$ocd)&gt;,
 				$remove?: &lt;function([this]$ocd)&gt;,
@@ -242,7 +244,7 @@
 									<p>
 										<b>alias</b> verinin takma adı.
 									</p>
-									<pre><code class="language-markup">&lt;div id=&quot;app&quot;&gt;
+									<pre class='code-shower'><code class="language-markup">&lt;div id=&quot;app&quot;&gt;
 	&lt;input type=&quot;text&quot; class=&quot;name&quot;&gt;
 	&lt;input type=&quot;text&quot; class=&quot;surname&quot;&gt;
 &lt;/div&gt;
@@ -265,7 +267,7 @@
 	$app.name = &#39;Muhammet&#39;;
 	$app.surname = &#39;Kandemir&#39;;
 &lt;/script&gt;</code></pre>
-									<iframe src="examples/example-alias-01.html" style="height: 140px;"></iframe>
+									<iframe osrc="examples/example-alias-01.html" style="height: 140px;"></iframe>
 									<p></p>
 									<h4 id="parentQuery">parentQuery</h4>
 									<p>
@@ -273,7 +275,7 @@
 										gerekmektedir. Aşağıdaki örnekte de görüldüğü üzere <b>parentQuery</b> eğer
 										element ilgili bloğun hemen altında yer almıyorsa oldukça iş görmektedir.
 									</p>
-									<pre><code class="language-markup">&lt;style&gt;
+									<pre class='code-shower'><code class="language-markup">&lt;style&gt;
 	span {
 		display: inline-block;
 		margin-right: 10px;
@@ -310,7 +312,7 @@
 		}]
 	});
 &lt;/script&gt;</code></pre>
-									<iframe src="examples/example-parentquery-01.html" style="height: 170px;"></iframe>
+									<iframe osrc="examples/example-parentquery-01.html" style="height: 170px;"></iframe>
 									<div class="callout-block callout-warning">
 										<div class="icon-holder">
 											<i class="fas fa-exclamation-triangle"></i>
@@ -335,7 +337,7 @@
 										Peki eğer <b>parentQuery</b> için ayrı bir elementimiz yok ise? Hemen başka bir
 										örneğe geçelim.
 									</p>
-									<pre><code class="language-markup">&lt;style&gt;
+									<pre class='code-shower'><code class="language-markup">&lt;style&gt;
 	span {
 		display: inline-block;
 		margin-right: 10px;
@@ -371,7 +373,7 @@
 		}]
 	});
 &lt;/script&gt;</code></pre>
-									<iframe src="examples/example-parentquery-02.html" style="height: 170px;"></iframe>
+									<iframe osrc="examples/example-parentquery-02.html" style="height: 170px;"></iframe>
 									<p>
 										Aslında görüldüğü üzere sadece <b>parentQuery</b> değerine <b>''</b> değerini
 										atamamız başka bir element için olan zorunluluğu ortadan kaldırıyor. Yukarıdaki
@@ -401,7 +403,7 @@
 										alan <b>ocd-clone</b> attribute değerini taşıyan elemente göre çalışmaktadır.
 										Aşağıdaki örnekte yeni oluşturulacak olan elementi manuel olarak oluşturuyoruz.
 									</p>
-									<pre><code class="language-markup">&lt;style&gt;
+									<pre class='code-shower'><code class="language-markup">&lt;style&gt;
 	.red {
 		background-color: red;
 	}
@@ -463,14 +465,14 @@
 		}]
 	});
 &lt;/script&gt;</code></pre>
-									<iframe src="examples/example-clone-01.html" style="height: 140px;"></iframe>
+									<iframe osrc="examples/example-clone-01.html" style="height: 140px;"></iframe>
 									<p></p>
 									<h4 id="single">single</h4>
 									<p>
 										<b>single</b> ilgili blokta yapılan aramanın sadece tek bir element için
 										olacağını göstermek içindir.
 									</p>
-									<pre><code class="language-markup">&lt;div id=&quot;app&quot;&gt;
+									<pre class='code-shower'><code class="language-markup">&lt;div id=&quot;app&quot;&gt;
 	&lt;button&gt;Click Me&lt;/button&gt;
 &lt;/div&gt;
 
@@ -490,7 +492,7 @@
 		}]
 	});
 &lt;/script&gt;</code></pre>
-									<iframe src="examples/example-single-01.html" style="height: 110px;"></iframe>
+									<iframe osrc="examples/example-single-01.html" style="height: 110px;"></iframe>
 									<div class="callout-block callout-info">
 										<div class="icon-holder">
 											<i class="fas fa-info"></i>
@@ -525,7 +527,7 @@
 									<p>
 										İlk önce <a class="scrollto" href="#single">single</a> örneğine bakalım.
 									</p>
-									<pre><code class="language-markup">&lt;div id=&quot;app&quot;&gt;
+									<pre class='code-shower'><code class="language-markup">&lt;div id=&quot;app&quot;&gt;
 	&lt;input type=&quot;text&quot;&gt;
 &lt;/div&gt;
 
@@ -542,11 +544,11 @@
 
 	$app.input = &#39;Muhammet Kandemir&#39;;
 &lt;/script&gt;</code></pre>
-									<iframe src="examples/example-query-01.html" style="height: 110px;"></iframe>
+									<iframe osrc="examples/example-query-01.html" style="height: 110px;"></iframe>
 									<p>
 										Şimdi <a class="scrollto" href="#parentQuery">parentQuery</a> örneğine bakalım.
 									</p>
-									<pre><code class="language-markup">&lt;style&gt;
+									<pre class='code-shower'><code class="language-markup">&lt;style&gt;
 	#app input {
 		width: 100%;
 	}
@@ -581,7 +583,7 @@
 		}]
 	});
 &lt;/script&gt;</code></pre>
-									<iframe src="examples/example-query-02.html" style="height: 250px;"></iframe>
+									<iframe osrc="examples/example-query-02.html" style="height: 250px;"></iframe>
 									<p>
 										Sanki beğendiğinizi duyuyor gibiyiz. Buradan sonra işler çok daha eğlenceli bir
 										hale gelecek.
@@ -684,7 +686,7 @@
 										atanması sırasında başka bir işlem yapılacak ise override yaparak bunu
 										sağlayabiliriz. Örneğe bakalım.
 									</p>
-									<pre><code class="language-markup">&lt;div id="app"&gt;
+									<pre class='code-shower'><code class="language-markup">&lt;div id="app"&gt;
 	&lt;span&gt;
 		SPAN
 	&lt;/span&gt;
@@ -727,7 +729,7 @@
 		}]
 	});
 &lt;/script&gt;</code></pre>
-									<iframe src="examples/example-get-set-01.html" style="height: 180px;"></iframe>
+									<iframe osrc="examples/example-get-set-01.html" style="height: 180px;"></iframe>
 									<p></p>
 									<h4 id="watches">watches</h4>
 									<p>
@@ -740,7 +742,7 @@
 										kullanılmalıdır. Bu değişken daha çok <a href="#plugins"
 											class="scrollto">plugins</a> için kullanılmalıdır.
 									</p>
-									<pre><code class="language-markup">&lt;div id="app"&gt;
+									<pre class='code-shower'><code class="language-markup">&lt;div id="app"&gt;
 	&lt;span&gt;&lt;/span&gt;
 	&lt;br&gt;
 	&lt;br&gt;
@@ -765,7 +767,7 @@
 		}]
 	});
 &lt;/script&gt;</code></pre>
-									<iframe src="examples/example-watches-01.html" style="height: 140px;"></iframe>
+									<iframe osrc="examples/example-watches-01.html" style="height: 140px;"></iframe>
 									<div class="callout-block callout-info">
 										<div class="icon-holder">
 											<i class="fas fa-info"></i>
@@ -804,7 +806,7 @@
 										değişmesi isteniyorsa <b>set</b> fonksiyonu içerisinde <i>return</i> ile değer
 										döndürülmelidir.
 									</p>
-									<pre><code class="language-markup">&lt;div id="app"&gt;
+									<pre class='code-shower'><code class="language-markup">&lt;div id="app"&gt;
 	&lt;input type="text" value="Muhammet Kandemir"&gt;
 	&lt;br&gt;
 	&lt;br&gt;
@@ -879,7 +881,7 @@
 		}]
 	});
 &lt;/script&gt;</code></pre>
-									<iframe src="examples/example-data-01.html" style="height: 160px;"></iframe>
+									<iframe osrc="examples/example-data-01.html" style="height: 160px;"></iframe>
 									<p>
 										<b>get</b> fonksiyonunu yazmamız şu noktada çok önemli; eğer değer element
 										üzerindeki <i>attribute</i> veya <i>html</i> verisinden okunacak ise bunu
@@ -888,7 +890,7 @@
 										çalışmış oluruz. Bunu ileri seviye örneklerde çok daha iyi bir şekilde
 										göreceğiz. Şimdi <b>get</b> olmadan aynı örneği yapalım.
 									</p>
-									<pre><code class="language-markup">&lt;div id="app"&gt;
+									<pre class='code-shower'><code class="language-markup">&lt;div id="app"&gt;
 	&lt;input type="text" value="Muhammet Kandemir"&gt;
 	&lt;br&gt;
 	&lt;br&gt;
@@ -921,12 +923,12 @@
 			}
 		}, ...
 &lt;/script&gt;</code></pre>
-									<iframe src="examples/example-data-02.html" style="height: 160px;"></iframe>
+									<iframe osrc="examples/example-data-02.html" style="height: 160px;"></iframe>
 									<p>
 										Bir fark yok değil mi? Peki ya bu değeri element üzerinden okumak isteseydik ne
 										olacak tı?
 									</p>
-									<pre><code class="language-markup">&lt;div id="app"&gt;
+									<pre class='code-shower'><code class="language-markup">&lt;div id="app"&gt;
 	&lt;input type="text" style="background-color:blue;color:white;" value="Muhammet Kandemir"&gt;
 	&lt;br&gt;
 	&lt;br&gt;
@@ -959,12 +961,12 @@
 			}
 		}, ...
 &lt;/script&gt;</code></pre>
-									<iframe src="examples/example-data-03.html" style="height: 160px;"></iframe>
+									<iframe osrc="examples/example-data-03.html" style="height: 160px;"></iframe>
 									<p>
 										Buradaki sorun element üzerinde yazmış olduğumuz değerlerin hiçbir öneminin
 										kalmamış olması. Bu durumu önlemek için <b>get</b> fonksiyonunu kullanalım.
 									</p>
-									<pre><code class="language-markup">&lt;div id="app"&gt;
+									<pre class='code-shower'><code class="language-markup">&lt;div id="app"&gt;
 	&lt;input type="text" style="background-color:blue;color:white;" value="Muhammet Kandemir"&gt;
 	&lt;br&gt;
 	&lt;br&gt;
@@ -1003,7 +1005,7 @@
 			}
 		}, ...
 &lt;/script&gt;</code></pre>
-									<iframe src="examples/example-data-04.html" style="height: 160px;"></iframe>
+									<iframe osrc="examples/example-data-04.html" style="height: 160px;"></iframe>
 									<p>
 										Görüldüğü üzere bir başlangıç başlangıç değerlerini bu sefer elementin
 										üzerindeki değerlere göre doldurdu ve ona göre devam etti.
@@ -1035,7 +1037,7 @@
 										<b>methods</b> geçerli element üzerinde belli başlı metotları tanımlandığı
 										alandır.
 									</p>
-									<pre><code class="language-markup">&lt;div id="app"&gt;
+									<pre class='code-shower'><code class="language-markup">&lt;div id="app"&gt;
 	&lt;input name="name" type="text" value="Muhammet" placeholder="Name"&gt;
 	&lt;br&gt;
 	&lt;br&gt;
@@ -1085,13 +1087,13 @@
 		}]
 	});
 &lt;/script&gt;</code></pre>
-									<iframe src="examples/example-methods-01.html" style="height: 270px;"></iframe>
+									<iframe osrc="examples/example-methods-01.html" style="height: 270px;"></iframe>
 									<p>
 										Örnekte de görüldüğü üzere <b>methods</b> kullanılabilir. <i>clearForm</i>
 										içerisinde <i>arguments</i> veya <i>return</i> kullanılabilir. Başka bir örnekte
 										bunu inceleyelim.
 									</p>
-									<pre><code class="language-markup">&lt;div id="app"&gt;
+									<pre class='code-shower'><code class="language-markup">&lt;div id="app"&gt;
 	&lt;input name="number1" type="text" value="20" placeholder="Number 1"&gt;
 	&lt;br&gt;
 	&lt;br&gt;
@@ -1131,7 +1133,7 @@
 		}]
 	});
 &lt;/script&gt;</code></pre>
-									<iframe src="examples/example-methods-02.html" style="height: 220px;"></iframe>
+									<iframe osrc="examples/example-methods-02.html" style="height: 220px;"></iframe>
 									<h4 id="on">on</h4>
 									<p>
 										<b>on</b> element üzerinde çalışan <b>event</b>'leri saklamaktadır. Sadece <a
@@ -1152,7 +1154,7 @@
 									<p>
 										Öncelikle <b>$init</b> örneği ile başlayalım.
 									</p>
-									<pre><code class="language-markup">&lt;style&gt;
+									<pre class='code-shower'><code class="language-markup">&lt;style&gt;
 	#app input {
 		width: 100%;
 		margin-bottom: 5px;
@@ -1190,7 +1192,7 @@
 		}]
 	});
 &lt;/script&gt;</code></pre>
-									<iframe src="examples/example-on-01.html" style="height: 270px;"></iframe>
+									<iframe osrc="examples/example-on-01.html" style="height: 270px;"></iframe>
 									<p>
 										Örnekte de görüldüğü üzere <b>$init</b> her element için ayrı ayrı ilk yükleme
 										tamamlandığında bir kere çalışmaktadır.
@@ -1198,7 +1200,7 @@
 									<p>
 										Şimdi de <b>$remove</b> üzerinden bir örnek yapalım.
 									</p>
-									<pre><code class="language-markup">&lt;style&gt;
+									<pre class='code-shower'><code class="language-markup">&lt;style&gt;
 	#app input {
 		width: 100%;
 		margin-bottom: 5px;
@@ -1251,7 +1253,7 @@
 		}]
 	});
 &lt;/script&gt;</code></pre>
-									<iframe src="examples/example-on-02.html" style="height: 270px;"></iframe>
+									<iframe osrc="examples/example-on-02.html" style="height: 270px;"></iframe>
 									<p>
 										Örnekte satırın silinmesi durumunda <b>$remove</b> <b>event</b>'i
 										tetiklenmiştir.
@@ -1275,7 +1277,7 @@
 									<p>
 										Şimdi ise normal <b>event</b>'ler üzerinden basit bir örnek yapalım.
 									</p>
-									<pre><code class="language-markup">&lt;div id="app"&gt;
+									<pre class='code-shower'><code class="language-markup">&lt;div id="app"&gt;
 	&lt;input type="text" placeholder="Please click or presskey"&gt;;
 	&lt;br&gt;
 	&lt;br&gt;
@@ -1314,7 +1316,7 @@
 		}]
 	});
 &lt;/script&gt;</code></pre>
-									<iframe src="examples/example-on-03.html" style="height: 160px;"></iframe>
+									<iframe osrc="examples/example-on-03.html" style="height: 160px;"></iframe>
 									<p>
 										Kütüphanenin büyük bir kısmını öğrendik. Buradan sonraki kısımlar çok daha basit
 										olacak.
@@ -1349,7 +1351,7 @@
 										<!--//content-->
 									</div>
 									<!--//callout-block-->
-									<pre><code class="language-markup">&lt;div id="app"&gt;
+									<pre class='code-shower'><code class="language-markup">&lt;div id="app"&gt;
 	&lt;input class="textbox" type="text" placeholder="Click some thing"&gt;
 	&lt;br&gt;
 	&lt;br&gt;
@@ -1411,7 +1413,7 @@
 		}]
 	});
 &lt;/script&gt;</code></pre>
-									<iframe src="examples/example-mixins-01.html" style="height: 200px;"></iframe>
+									<iframe osrc="examples/example-mixins-01.html" style="height: 200px;"></iframe>
 									<p></p>
 									<h3 id="ocd-single-item">OCD Single Item</h3>
 									<p>
@@ -1440,7 +1442,7 @@
 										İlgili <a class="scrollto" href="#ocd-single-item">OCD Single Item</a> değerini
 										döndürür.
 									</p>
-									<pre><code class="language-markup">&lt;div id="app"&gt;
+									<pre class='code-shower'><code class="language-markup">&lt;div id="app"&gt;
 	&lt;input type="text" placeholder="Type span html"&gt;
 	&lt;br&gt;
 	&lt;br&gt;
@@ -1465,7 +1467,7 @@
 		}]
 	});
 &lt;/script&gt;</code></pre>
-									<iframe src="examples/example-ocd-single-item-value-01.html"
+									<iframe osrc="examples/example-ocd-single-item-value-01.html"
 										style="height: 140px;"></iframe>
 									<p></p>
 									<h4 id="ocd-single-item-alias">$alias</h4>
@@ -1474,7 +1476,7 @@
 										<b>alias</b> değerini
 										döndürür.
 									</p>
-									<pre><code class="language-markup">&lt;div id="app"&gt;
+									<pre class='code-shower'><code class="language-markup">&lt;div id="app"&gt;
 	&lt;button&gt;Show My Alias&lt;/button&gt;
 &lt;/div&gt;
 
@@ -1494,14 +1496,14 @@
 		}]
 	});
 &lt;/script&gt;</code></pre>
-									<iframe src="examples/example-ocd-single-item-alias-01.html"
+									<iframe osrc="examples/example-ocd-single-item-alias-01.html"
 										style="height: 110px;"></iframe>
 									<p></p>
 									<h4 id="ocd-single-item-el">$el</h4>
 									<p>
 										<a class="scrollto" href="#query">query</a> sonucu dönen elementi döndürür.
 									</p>
-									<pre><code class="language-markup">&lt;div id="app"&gt;
+									<pre class='code-shower'><code class="language-markup">&lt;div id="app"&gt;
 	&lt;input type="text" placeholder="Type text"&gt;
 &lt;/div&gt;
 
@@ -1522,14 +1524,14 @@
 		}]
 	});
 &lt;/script&gt;</code></pre>
-									<iframe src="examples/example-ocd-single-item-el-01.html"
+									<iframe osrc="examples/example-ocd-single-item-el-01.html"
 										style="height: 110px;"></iframe>
 									<p></p>
 									<h4 id="ocd-single-item-parent">$parent</h4>
 									<p>
 										Bir üst <b>OCD Single Item</b> değerini döndürür.
 									</p>
-									<pre><code class="language-markup">&lt;style&gt;
+									<pre class='code-shower'><code class="language-markup">&lt;style&gt;
 	div {
 		padding: 20px;
 	}
@@ -1562,14 +1564,14 @@
 		}]
 	});
 &lt;/script&gt;</code></pre>
-									<iframe src="examples/example-ocd-single-item-parent-01.html"
+									<iframe osrc="examples/example-ocd-single-item-parent-01.html"
 										style="height: 150px;"></iframe>
 									<p></p>
 									<h4 id="ocd-single-item-list">$list</h4>
 									<p>
 										Bir üst <a class="scrollto" href="#ocd-list">OCD List</a> değerini döndürür.
 									</p>
-									<pre><code class="language-markup">&lt;div id="app"&gt;
+									<pre class='code-shower'><code class="language-markup">&lt;div id="app"&gt;
 	&lt;button ocd-clone&gt;&lt;/button&gt;
 	&lt;button&gt;Clone Me&lt;/button&gt;
 &lt;/div&gt;
@@ -1590,7 +1592,7 @@
 		}]
 	});
 &lt;/script&gt;</code></pre>
-									<iframe src="examples/example-ocd-single-item-list-01.html"
+									<iframe osrc="examples/example-ocd-single-item-list-01.html"
 										style="height: 150px;"></iframe>
 									<p></p>
 									<h4 id="ocd-single-item-remove">$remove</h4>
@@ -1598,7 +1600,7 @@
 										Eğer ilgili element bir <b>list</b> içerisindeyse, elementi listeleden silmeyi
 										sağlar.
 									</p>
-									<pre><code class="language-markup">&lt;div id="app"&gt;
+									<pre class='code-shower'><code class="language-markup">&lt;div id="app"&gt;
 	&lt;button ocd-clone&gt;&lt;/button&gt;
 	&lt;button&gt;Remove Me 1&lt;/button&gt;
 	&lt;button&gt;Remove Me 2&lt;/button&gt;
@@ -1623,7 +1625,7 @@
 		}]
 	});
 &lt;/script&gt;</code></pre>
-									<iframe src="examples/example-ocd-single-item-remove-01.html"
+									<iframe osrc="examples/example-ocd-single-item-remove-01.html"
 										style="height: 110px;"></iframe>
 									<p></p>
 									<h4 id="ocd-single-item-index">$index</h4>
@@ -1631,7 +1633,7 @@
 										Eğer ilgili element bir <b>list</b> içerisindeyse, elementin listeledeki
 										<b>index</b> değerini verir.
 									</p>
-									<pre><code class="language-markup">&lt;div id="app"&gt;
+									<pre class='code-shower'><code class="language-markup">&lt;div id="app"&gt;
 	&lt;button ocd-clone&gt;&lt;/button&gt;
 	&lt;button&gt;Remove Me 1&lt;/button&gt;
 	&lt;button&gt;Remove Me 2&lt;/button&gt;
@@ -1656,14 +1658,14 @@
 		}]
 	});
 &lt;/script&gt;</code></pre>
-									<iframe src="examples/example-ocd-single-item-index-01.html"
+									<iframe osrc="examples/example-ocd-single-item-index-01.html"
 										style="height: 110px;"></iframe>
 									<p></p>
 									<h4 id="ocd-single-item-jobject">jobject</h4>
 									<p>
 										Nesneyi <b>JSON</b> değere dönüştürür.
 									</p>
-									<pre><code class="language-markup">&lt;style&gt;
+									<pre class='code-shower'><code class="language-markup">&lt;style&gt;
 	#app,
 	#app * {
 		cursor: pointer;
@@ -1752,14 +1754,14 @@
 		}]
 	});
 &lt;/script&gt;</code></pre>
-									<iframe src="examples/example-ocd-single-item-jobject-01.html"
+									<iframe osrc="examples/example-ocd-single-item-jobject-01.html"
 										style="height: 480px;"></iframe>
 									<p></p>
 									<h4 id="ocd-single-item-set">$set</h4>
 									<p>
 										Nesneyi <b>JSON</b> değere göre doldurur.
 									</p>
-									<pre><code class="language-markup">&lt;div id="app"&gt;
+									<pre class='code-shower'><code class="language-markup">&lt;div id="app"&gt;
 	&lt;input type="text" placeholder="Type text"&gt;
 	&lt;div&gt;
 		&lt;br&gt;
@@ -1790,13 +1792,13 @@
 		}]
 	});
 &lt;/script&gt;</code></pre>
-									<iframe src="examples/example-ocd-single-item-set-01.html"
+									<iframe osrc="examples/example-ocd-single-item-set-01.html"
 										style="height: 140px;"></iframe>
 									<p>
 										<b>$set</b> için gönderilen nesne reference olarak bağlanır. Aşağıdaki
 										örnekte ayrıca gösterilmiştir.
 									</p>
-									<pre><code class="language-markup">&lt;div id="app"&gt;
+									<pre class='code-shower'><code class="language-markup">&lt;div id="app"&gt;
 	&lt;input type="text" placeholder="Type text"&gt;
 	&lt;div&gt;
 		&lt;br&gt;
@@ -1829,7 +1831,7 @@
 	testObj.input = 'Muhammet Kandemir';
 	testObj.spans = ['-Data 1-', '-Data 2-', '-Data 3-'];
 &lt;/script&gt;</code></pre>
-									<iframe src="examples/example-ocd-single-item-set-02.html"
+									<iframe osrc="examples/example-ocd-single-item-set-02.html"
 										style="height: 140px;"></iframe>
 									<div class="callout-block callout-info">
 										<div class="icon-holder">
@@ -1857,7 +1859,7 @@
 										<b>alias</b> değerini
 										döndürür.
 									</p>
-									<pre><code class="language-markup">&lt;div id="app"&gt;
+									<pre class='code-shower'><code class="language-markup">&lt;div id="app"&gt;
 	&lt;button ocd-clone&gt;&lt;/button&gt;
 	&lt;button&gt;Show List's Alias&lt;/button&gt;
 	&lt;button&gt;Show List's Alias&lt;/button&gt;
@@ -1881,14 +1883,14 @@
 		}]
 	});
 &lt;/script&gt;</code></pre>
-									<iframe src="examples/example-ocd-list-alias-01.html"
+									<iframe osrc="examples/example-ocd-list-alias-01.html"
 										style="height: 110px;"></iframe>
 									<p></p>
 									<h4 id="ocd-list-el">$el</h4>
 									<p>
 										<a class="scrollto" href="#query">query</a> sonucu dönen elementi döndürür.
 									</p>
-									<pre><code class="language-markup">&lt;div id="app"&gt;
+									<pre class='code-shower'><code class="language-markup">&lt;div id="app"&gt;
 	&lt;input ocd-clone type="text" placeholder="Type text"&gt;
 	&lt;input type="text" placeholder="Type text"&gt;
 	&lt;input type="text" placeholder="Type text"&gt;
@@ -1912,13 +1914,13 @@
 		}]
 	});
 &lt;/script&gt;</code></pre>
-									<iframe src="examples/example-ocd-list-el-01.html" style="height: 180px;"></iframe>
+									<iframe osrc="examples/example-ocd-list-el-01.html" style="height: 180px;"></iframe>
 									<p></p>
 									<h4 id="ocd-list-parent">$parent</h4>
 									<p>
 										Bir üst <b>OCD Single Item</b> değerini döndürür.
 									</p>
-									<pre><code class="language-markup">&lt;style&gt;
+									<pre class='code-shower'><code class="language-markup">&lt;style&gt;
 	div {
 		padding: 20px;
 	}
@@ -1947,14 +1949,14 @@
 		}]
 	});
 &lt;/script&gt;</code></pre>
-									<iframe src="examples/example-ocd-list-parent-01.html"
+									<iframe osrc="examples/example-ocd-list-parent-01.html"
 										style="height: 150px;"></iframe>
 									<p></p>
 									<h4 id="ocd-list-add">$add(any value)</h4>
 									<p>
 										Yeni bir satır eklemenizi sağlar.
 									</p>
-									<pre><code class="language-markup">&lt;div id="app"&gt;
+									<pre class='code-shower'><code class="language-markup">&lt;div id="app"&gt;
 	&lt;div&gt;
 		&lt;span ocd-clone&gt;&lt;/span&gt;
 	&lt;/div&gt;
@@ -1982,13 +1984,14 @@
 		}]
 	});
 &lt;/script&gt;</code></pre>
-									<iframe src="examples/example-ocd-list-add-01.html" style="height: 160px;"></iframe>
+									<iframe osrc="examples/example-ocd-list-add-01.html"
+										style="height: 160px;"></iframe>
 									<p></p>
 									<h4 id="ocd-list-addrange">$addRange(Array(any value))</h4>
 									<p>
 										Birden çok satır eklemenizi sağlar.
 									</p>
-									<pre><code class="language-markup">&lt;div id="app"&gt;
+									<pre class='code-shower'><code class="language-markup">&lt;div id="app"&gt;
 	&lt;div&gt;
 		&lt;span ocd-clone&gt;&lt;/span&gt;
 	&lt;/div&gt;
@@ -2020,14 +2023,14 @@
 		}]
 	});
 &lt;/script&gt;</code></pre>
-									<iframe src="examples/example-ocd-list-addrange-01.html"
+									<iframe osrc="examples/example-ocd-list-addrange-01.html"
 										style="height: 150px;"></iframe>
 									<p></p>
 									<h4 id="ocd-list-insert">$insert(Number index, any value)</h4>
 									<p>
 										İlgili <b>index</b>'e yeni bir satır ekler.
 									</p>
-									<pre><code class="language-markup">&lt;div id="app"&gt;
+									<pre class='code-shower'><code class="language-markup">&lt;div id="app"&gt;
 	&lt;div&gt;
 		&lt;span ocd-clone&gt;&lt;/span&gt;
 	&lt;/div&gt;
@@ -2055,14 +2058,14 @@
 		}]
 	});
 &lt;/script&gt;</code></pre>
-									<iframe src="examples/example-ocd-list-insert-01.html"
+									<iframe osrc="examples/example-ocd-list-insert-01.html"
 										style="height: 150px;"></iframe>
 									<p></p>
 									<h4 id="ocd-list-clear">$clear()</h4>
 									<p>
 										Listeyi temizler.
 									</p>
-									<pre><code class="language-markup">&lt;div id="app"&gt;
+									<pre class='code-shower'><code class="language-markup">&lt;div id="app"&gt;
 	&lt;div&gt;
 		&lt;span ocd-clone&gt;&lt;/span&gt;
 		&lt;span&gt;&amp;nbsp;Row 1&amp;nbsp;&lt;/span&gt;
@@ -2103,14 +2106,14 @@
 		}]
 	});
 &lt;/script&gt;</code></pre>
-									<iframe src="examples/example-ocd-list-clear-01.html"
+									<iframe osrc="examples/example-ocd-list-clear-01.html"
 										style="height: 150px;"></iframe>
 									<p></p>
 									<h4 id="ocd-list-removeat">$removeAt(Number index)</h4>
 									<p>
 										İlgili <b>index</b>'e ait satırı siler.
 									</p>
-									<pre><code class="language-markup">&lt;div id="app"&gt;
+									<pre class='code-shower'><code class="language-markup">&lt;div id="app"&gt;
 	&lt;div&gt;
 		&lt;span ocd-clone&gt;&lt;/span&gt;
 		&lt;span&gt;&amp;nbsp;Row 1&amp;nbsp;&lt;/span&gt;
@@ -2153,14 +2156,14 @@
 		}]
 	});
 &lt;/script&gt;</code></pre>
-									<iframe src="examples/example-ocd-list-removeat-01.html"
+									<iframe osrc="examples/example-ocd-list-removeat-01.html"
 										style="height: 150px;"></iframe>
 									<p></p>
 									<h4 id="ocd-list-jobject">jobject</h4>
 									<p>
 										Nesneyi <b>JSON</b> değere dönüştürür.
 									</p>
-									<pre><code class="language-markup">&lt;style&gt;
+									<pre class='code-shower'><code class="language-markup">&lt;style&gt;
 	#app,
 	#app * {
 		cursor: pointer;
@@ -2249,7 +2252,7 @@
 		}]
 	});
 &lt;/script&gt;</code></pre>
-									<iframe src="examples/example-ocd-list-jobject-01.html"
+									<iframe osrc="examples/example-ocd-list-jobject-01.html"
 										style="height: 480px;"></iframe>
 									<p></p>
 									<h4 id="ocd-list-length">length</h4>
@@ -2260,7 +2263,7 @@
 									<p>
 										Nesneyi <b>JSON</b> değere göre doldurur.
 									</p>
-									<pre><code class="language-markup">&lt;div id="app"&gt;
+									<pre class='code-shower'><code class="language-markup">&lt;div id="app"&gt;
 	&lt;input type="text" placeholder="Type text"&gt;
 	&lt;div&gt;
 		&lt;br&gt;
@@ -2291,12 +2294,13 @@
 		}]
 	});
 &lt;/script&gt;</code></pre>
-									<iframe src="examples/example-ocd-list-set-01.html" style="height: 140px;"></iframe>
+									<iframe osrc="examples/example-ocd-list-set-01.html"
+										style="height: 140px;"></iframe>
 									<p>
 										<b>$set</b> için gönderilen nesne reference olarak bağlanır. Aşağıdaki
 										örnekte ayrıca gösterilmiştir.
 									</p>
-									<pre><code class="language-markup">&lt;div id="app"&gt;
+									<pre class='code-shower'><code class="language-markup">&lt;div id="app"&gt;
 	&lt;input type="text" placeholder="Type text"&gt;
 	&lt;div&gt;
 		&lt;br&gt;
@@ -2329,7 +2333,8 @@
 	testObj.input = 'Muhammet Kandemir';
 	testObj.spans = ['-Data 1-', '-Data 2-', '-Data 3-'];
 &lt;/script&gt;</code></pre>
-									<iframe src="examples/example-ocd-list-set-02.html" style="height: 140px;"></iframe>
+									<iframe osrc="examples/example-ocd-list-set-02.html"
+										style="height: 140px;"></iframe>
 									<div class="callout-block callout-info">
 										<div class="icon-holder">
 											<i class="fas fa-info"></i>
@@ -2354,14 +2359,14 @@
 									<p>
 										Elementi döndürür.
 									</p>
-									<pre><code class="language-markup">&lt;button&gt;My Button&lt;/button&gt;
+									<pre class='code-shower'><code class="language-markup">&lt;button&gt;My Button&lt;/button&gt;
 
-&lt;script src="../js/dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script src="dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
 &lt;script&gt;
 	var el = $q.first('button').$.$el;
 	el.setAttribute('style', 'margin:20px;background-color:green;color:white;');
 &lt;/script&gt;</code></pre>
-									<iframe src="examples/example-htmlelement-dollar-el.html"
+									<iframe osrc="examples/example-htmlelement-dollar-el.html"
 										style="height: 80px;"></iframe>
 									<p></p>
 									<h4 id="htmlelement-dollar-ocd">$ocd</h4>
@@ -2370,11 +2375,11 @@
 											Item</a> / <a class="scrollto" href="#ocd-list">OCD List</a> değerini
 										döndürür.
 									</p>
-									<pre><code class="language-markup">&lt;div id="app"&gt;
+									<pre class='code-shower'><code class="language-markup">&lt;div id="app"&gt;
 	&lt;button&gt;My Button&lt;/button&gt;
 &lt;/div&gt;
 
-&lt;script src="../js/dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script src="dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
 &lt;script&gt;
 	var $app = $d.ocd({
 		query: '#app',
@@ -2387,7 +2392,7 @@
 
 	$q.first('button').$.$ocd.value = 'Hello World';
 &lt;/script&gt;</code></pre>
-									<iframe src="examples/example-htmlelement-dollar-ocd.html"
+									<iframe osrc="examples/example-htmlelement-dollar-ocd.html"
 										style="height: 110px;"></iframe>
 									<p></p>
 									<h4 id="htmlelement-dollar-parentocd">$parentOcd</h4>
@@ -2397,11 +2402,11 @@
 											Item</a> / <a class="scrollto" href="#ocd-list">OCD List</a> değerini
 										döndürür.
 									</p>
-									<pre><code class="language-markup">&lt;div id="app"&gt;
+									<pre class='code-shower'><code class="language-markup">&lt;div id="app"&gt;
 	&lt;button&gt;My Button&lt;/button&gt;
 &lt;/div&gt;
 
-&lt;script src="../js/dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script src="dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
 &lt;script&gt;
 	var $app = $d.ocd({
 		query: '#app',
@@ -2414,38 +2419,56 @@
 
 	$q.first('button').$.$parentOcd.myButton.value = 'Hello World';
 &lt;/script&gt;</code></pre>
-									<iframe src="examples/example-htmlelement-dollar-parentocd.html"
+									<iframe osrc="examples/example-htmlelement-dollar-parentocd.html"
 										style="height: 110px;"></iframe>
+									<p></p>
+									<h4 id="htmlelement-dollar-parent">parent</h4>
+									<p>
+										Elementin ait olduğu <b>ParentNode</b> / <b>ParentElement</b> değerini
+										döndürür.
+									</p>
+									<pre class='code-shower'><code class="language-markup">&lt;button onclick="btnClick()" style="margin: 20px;"&gt;
+	Show My Parent's Tag Name
+&lt;/button&gt;
+
+&lt;script src="dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+	function btnClick() {
+		alert('Parent\'s Tag Name : ' + $q.first('button').$.parent.tagName);
+	}
+&lt;/script&gt;</code></pre>
+									<iframe osrc="examples/example-htmlelement-dollar-parent.html"
+										style="height: 80px;"></iframe>
 									<p></p>
 									<h4 id="htmlelement-dollar-screen">screen</h4>
 									<p>
 										Elementin ekrandaki pozisyonunu ve boyutunu verir.
 									</p>
-									<pre><code class="language-markup">&lt;button onclick="alert(JSON.stringify(this.$.screen))" style="margin: 20px;"&gt;
+									<pre class='code-shower'><code class="language-markup">&lt;button onclick="alert(JSON.stringify(this.$.screen))" style="margin: 20px;"&gt;
 	Click Me to See My Screen Position
 &lt;/button&gt;
 
-&lt;script src="../js/dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;</code></pre>
-									<iframe src="examples/example-htmlelement-dollar-screen.html"
+&lt;script src="dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;</code></pre>
+									<iframe osrc="examples/example-htmlelement-dollar-screen.html"
 										style="height:80px;"></iframe>
 									<p></p>
 									<h4 id="htmlelement-dollar-client">client</h4>
 									<p>
 										Elementin <b>client</b>'e göre pozisyonunu ve boyutunu verir.
 									</p>
-									<pre><code class="language-markup">&lt;button onclick="alert(JSON.stringify(this.$.client))" style="margin: 20px;"&gt;
+									<pre class='code-shower'><code class="language-markup">&lt;button onclick="alert(JSON.stringify(this.$.client))" style="margin: 20px;"&gt;
 	Click Me to See My Client Position
 &lt;/button&gt;
 
-&lt;script src="../js/dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;</code></pre>
-									<iframe src="examples/example-htmlelement-dollar-client.html"
+&lt;script src="dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;</code></pre>
+									<iframe osrc="examples/example-htmlelement-dollar-client.html"
 										style="height:80px;"></iframe>
 									<p></p>
 									<h4 id="htmlelement-dollar-addclass">addClass(String className):HTMLElement.$</h4>
 									<p>
 										Elemente sınıf ekler.
 									</p>
-									<pre><code class="language-markup">&lt;style&gt;
+									<pre class='code-shower'><code class="language-markup">&lt;style&gt;
 	.bg-blue {
 		background-color: blue;
 		color: white;
@@ -2456,8 +2479,8 @@
 	Add Class
 &lt;/button&gt;
 
-&lt;script src="../js/dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;</code></pre>
-									<iframe src="examples/example-htmlelement-dollar-addclass.html"
+&lt;script src="dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;</code></pre>
+									<iframe osrc="examples/example-htmlelement-dollar-addclass.html"
 										style="height:80px;"></iframe>
 									<p></p>
 									<h4 id="htmlelement-dollar-removeclass">removeClass(String className):HTMLElement.$
@@ -2465,7 +2488,7 @@
 									<p>
 										Elementten sınıf siler.
 									</p>
-									<pre><code class="language-markup">&lt;style&gt;
+									<pre class='code-shower'><code class="language-markup">&lt;style&gt;
 	.bg-blue {
 		background-color: blue;
 		color: white;
@@ -2476,8 +2499,8 @@
 	Remove Class
 &lt;/button&gt;
 
-&lt;script src="../js/dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;</code></pre>
-									<iframe src="examples/example-htmlelement-dollar-removeclass.html"
+&lt;script src="dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;</code></pre>
+									<iframe osrc="examples/example-htmlelement-dollar-removeclass.html"
 										style="height:80px;"></iframe>
 									<p></p>
 									<h4 id="htmlelement-dollar-containsclass">containsClass(String
@@ -2485,7 +2508,7 @@
 									<p>
 										Element ilgili sınıfa sahip mi?
 									</p>
-									<pre><code class="language-markup">&lt;style&gt;
+									<pre class='code-shower'><code class="language-markup">&lt;style&gt;
 	.bg-blue {
 		background-color: blue;
 		color: white;
@@ -2500,8 +2523,8 @@
 	Check Class 2
 &lt;/button&gt;
 
-&lt;script src="../js/dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;</code></pre>
-									<iframe src="examples/example-htmlelement-dollar-containsclass.html"
+&lt;script src="dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;</code></pre>
+									<iframe osrc="examples/example-htmlelement-dollar-containsclass.html"
 										style="height:80px;"></iframe>
 									<p></p>
 									<h4 id="htmlelement-dollar-attr">attr(String name):String <br> attr(String name,
@@ -2510,32 +2533,32 @@
 									<p>
 										Elementin attribute değerini alır veya doldurur.
 									</p>
-									<pre><code class="language-markup">&lt;button onclick="btnClick()" style="margin: 20px;"&gt;
+									<pre class='code-shower'><code class="language-markup">&lt;button onclick="btnClick()" style="margin: 20px;"&gt;
 	Change Style Attribute
 &lt;/button&gt;
 
-&lt;script src="../js/dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script src="dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
 &lt;script&gt;
 	function btnClick() {
 		$q.first('button').$.attr('style', 'background-color:green;color:white;margin: 20px;');
 		alert('Button Style : ' + $q.first('button').$.attr('style'));
 	}
 &lt;/script&gt;</code></pre>
-									<iframe src="examples/example-htmlelement-dollar-attr.html"
+									<iframe osrc="examples/example-htmlelement-dollar-attr.html"
 										style="height:80px;"></iframe>
 									<p></p>
 									<h4 id="htmlelement-dollar-removeattr">removeAttr(String name):HTMLElement.$</h4>
 									<p>
 										Elementin attribute değerini siler.
 									</p>
-									<pre><code class="language-markup">&lt;div style="margin:20px;"&gt;
+									<pre class='code-shower'><code class="language-markup">&lt;div style="margin:20px;"&gt;
 	&lt;button onclick="this.$.attr('style', '')" style="background-color:green;color:white;"&gt;
 		Remove Style Attribute
 	&lt;/button&gt;
 &lt;/div&gt;
 
-&lt;script src="../js/dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;</code></pre>
-									<iframe src="examples/example-htmlelement-dollar-removeattr.html"
+&lt;script src="dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;</code></pre>
+									<iframe osrc="examples/example-htmlelement-dollar-removeattr.html"
 										style="height:80px;"></iframe>
 									<p></p>
 									<h4 id="htmlelement-dollar-css">css(String name):any <br> css(String name, String
@@ -2544,11 +2567,11 @@
 									<p>
 										Elementin css değerlerini değiştirir veya döndürür.
 									</p>
-									<pre><code class="language-markup">&lt;button onclick="btnClick()" style="margin: 20px;"&gt;
+									<pre class='code-shower'><code class="language-markup">&lt;button onclick="btnClick()" style="margin: 20px;"&gt;
 	Change Style
 &lt;/button&gt;
 
-&lt;script src="../js/dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script src="dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
 &lt;script&gt;
 	$q.first('button').$.css({
 		backgroundColor: 'red',
@@ -2560,60 +2583,164 @@
 		alert('Button Color : ' + $q.first('button').$.css('color'));
 	}
 &lt;/script&gt;</code></pre>
-									<iframe src="examples/example-htmlelement-dollar-css.html"
+									<iframe osrc="examples/example-htmlelement-dollar-css.html"
 										style="height:80px;"></iframe>
 									<p></p>
-									<h4 id="htmlelement-dollar-computedcss">computedCss():Object <br> computedCss(String name):any</h4>
+									<h4 id="htmlelement-dollar-computedcss">computedCss():Object <br> computedCss(String
+										name):any</h4>
 									<p>
 										Elementin css'ler dahil son style değerini döndürür.
 									</p>
-									<pre><code class="language-markup">&lt;button onclick="btnClick()" style="margin: 20px;"&gt;
-	Change Style
+									<pre class='code-shower'><code class="language-markup">&lt;button onclick="btnClick()" style="margin: 20px;"&gt;
+	Show My Computed Style
 &lt;/button&gt;
 
-&lt;script src="../js/dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script src="dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
 &lt;script&gt;
-	$q.first('button').$.css({
-		backgroundColor: 'red',
-		color: 'white'
-	});
-
 	function btnClick() {
-		$q.first('button').$.css('font-weight', 'bold');
-		alert('Button Color : ' + $q.first('button').$.css('color'));
+		alert('Button Computed Style : ' + JSON.stringify($q.first('button').$.computedCss(), null, 4));
+		alert('Button Computed Color : ' + $q.first('button').$.computedCss('color'));
 	}
 &lt;/script&gt;</code></pre>
-									<iframe src="examples/example-htmlelement-dollar-computedcss.html"
+									<iframe osrc="examples/example-htmlelement-dollar-computedcss.html"
 										style="height:80px;"></iframe>
 									<p></p>
-									<h4 id="htmlelement-dollar-data">data</h4>
+									<h4 id="htmlelement-dollar-data">data(String name):any <br> data(String name, any
+										value):HTMLElement.$</h4>
 									<p>
 										Element üzerinde veri saklanmasını sağlar.
 									</p>
-									<h4 id="htmlelement-dollar-val">val</h4>
+									<pre class='code-shower'><code class="language-markup">&lt;button onclick="btnClick()" style="margin: 20px;"&gt;
+	Show My Test Data
+&lt;/button&gt;
+
+&lt;script src="dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+	$q.first('button').$.data('test-data', 'Hello World');
+
+	function btnClick() {
+		alert('Button Test Data : ' + $q.first('button').$.data('test-data'));
+	}
+&lt;/script&gt;</code></pre>
+									<iframe osrc="examples/example-htmlelement-dollar-data.html"
+										style="height:80px;"></iframe>
+									<p></p>
+									<h4 id="htmlelement-dollar-val">val():any <br> val(any value):HTMLElement.$</h4>
 									<p>
-										Elementin değerini döndürür.
+										Elementin değerini döndürür veya doldurur.
 									</p>
-									<h4 id="htmlelement-dollar-create">create</h4>
+									<pre class='code-shower'><code class="language-markup">&lt;input type="text" placeholder="Please fill here" style="margin: 20px;"&gt;
+&lt;br&gt;
+&lt;button onclick="btnClick()" style="margin: 0px 20px;"&gt;
+	Show Input Value
+&lt;/button&gt;
+
+&lt;script src="dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+	function btnClick() {
+		alert('Input Value : ' + $q.first('input').$.val());
+		$q.first('input').$.val('');
+	}
+&lt;/script&gt;</code></pre>
+									<iframe osrc="examples/example-htmlelement-dollar-val.html"
+										style="height:130px;"></iframe>
+									<p></p>
+									<h4 id="htmlelement-dollar-create">create(String tagName):HTMLElement <br>
+										create(String html):HTMLElement <br> create(String html):HTMLElement[]</h4>
 									<p>
 										Yeni bir veya birden fazla elementin oluşturulmasını sağlar.
 									</p>
-									<h4 id="htmlelement-dollar-html">html</h4>
+									<pre class='code-shower'><code class="language-markup">&lt;button onclick="btnClick()" style="margin: 20px;"&gt;
+	Add A Line
+&lt;/button&gt;
+&lt;div id="lines" style="padding: 0px 0px 0px 20px;"&gt;&lt;/div&gt;
+
+&lt;script src="dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+	function btnClick() {
+		var newLine = $q.create('&lt;div&gt;I am a line.&lt;/div&gt;');
+		// or -&gt;
+		// var newLine = $q.create('div');
+		// newLine.$.text('I am a line.');
+		$q.first('#lines').$.append(newLine);
+	}
+&lt;/script&gt;</code></pre>
+									<iframe osrc="examples/example-htmlelement-dollar-create.html"
+										style="height:170px;"></iframe>
+									<p></p>
+									<h4 id="htmlelement-dollar-html">html():String <br> html(String value):HTMLElement.$</h4>
 									<p>
 										Elementin <b>HTML</b> içeriğini döndürür veya doldurur.
 									</p>
-									<h4 id="htmlelement-dollar-text">text</h4>
+									<pre class='code-shower'><code class="language-markup">&lt;button onclick="btnClick()" style="margin: 20px;"&gt;
+	Change HTML
+&lt;/button&gt;
+&lt;div id="lines" style="padding: 0px 0px 0px 20px;"&gt;&lt;/div&gt;
+
+&lt;script src="dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+	function btnClick() {
+		$q.first('#lines').$.html('&lt;b&gt;Hello World&lt;/b&gt;');
+		alert($q.first('#lines').$.html());
+	}
+&lt;/script&gt;</code></pre>
+									<iframe osrc="examples/example-htmlelement-dollar-html.html"
+										style="height:110px;"></iframe>
+									<p></p>
+									<h4 id="htmlelement-dollar-text">text():String <br> text(String value):HTMLElement.$</h4>
 									<p>
 										Elementin <b>text</b> içeriğini döndürür veya doldurur.
 									</p>
-									<h4 id="htmlelement-dollar-is">is</h4>
+									<pre class='code-shower'><code class="language-markup">&lt;button onclick="btnClick()" style="margin: 20px;"&gt;
+	Change HTML
+&lt;/button&gt;
+&lt;div id="lines" style="padding: 0px 0px 0px 20px;"&gt;&lt;/div&gt;
+
+&lt;script src="dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+	function btnClick() {
+		$q.first('#lines').$.text('&lt;b&gt;Hello World&lt;/b&gt;');
+		alert($q.first('#lines').$.text());
+	}
+&lt;/script&gt;</code></pre>
+									<iframe osrc="examples/example-htmlelement-dollar-text.html"
+										style="height:110px;"></iframe>
+									<p></p>
+									<h4 id="htmlelement-dollar-is">is(String query):Boolean</h4>
 									<p>
 										Element belirtilen <b>css</b> özelliğini taşıyor mu?
 									</p>
+									<pre class='code-shower'><code class="language-markup">&lt;button onclick="btnClick()" style="margin: 20px;"&gt;
+	Check My CSS
+&lt;/button&gt;
+
+&lt;script src="dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+	function btnClick() {
+		alert('"html&gt;body&gt;button" : ' + $q.first('button').$.is('html&gt;body&gt;button'));
+	}
+&lt;/script&gt;</code></pre>
+									<iframe osrc="examples/example-htmlelement-dollar-is.html"
+										style="height:80px;"></iframe>
+									<p></p>
 									<h4 id="htmlelement-dollar-on">on</h4>
 									<p>
 										Element <b>event</b> eklemeyi sağlar.
 									</p>
+									<pre class='code-shower'><code class="language-markup">&lt;button style="margin: 20px;"&gt;
+	Click Me
+&lt;/button&gt;
+
+&lt;script src="dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+	$q.first('button').$.on('click', function (e) {
+		alert('Hello World');
+		this.$.text('Thank you. You can click again');
+	});
+&lt;/script&gt;</code></pre>
+									<iframe osrc="examples/example-htmlelement-dollar-on.html"
+										style="height:80px;"></iframe>
+									<p></p>
 									<h4 id="htmlelement-dollar-removeevent">removeEvent</h4>
 									<p>
 										Element üzerinden <b>event</b> silmeyi sağlar.
@@ -2707,6 +2834,7 @@
 										<a class="nav-link scrollto" href="#htmlelement-dollar-el">$el</a>
 										<a class="nav-link scrollto" href="#htmlelement-dollar-ocd">$ocd</a>
 										<a class="nav-link scrollto" href="#htmlelement-dollar-parentocd">$parentOcd</a>
+										<a class="nav-link scrollto" href="#htmlelement-dollar-parent">parent</a>
 										<a class="nav-link scrollto" href="#htmlelement-dollar-screen">screen</a>
 										<a class="nav-link scrollto" href="#htmlelement-dollar-client">client</a>
 										<a class="nav-link scrollto" href="#htmlelement-dollar-addclass">addClass</a>
@@ -2793,7 +2921,7 @@
 		function fallbackCopyTextToClipboard(text) {
 			var textArea = document.createElement("textarea");
 			textArea.value = text;
-			textArea.style.position = "fixed";  //avoid scrolling to bottom
+			textArea.style.position = "fixed"; //avoid scrolling to bottom
 			document.body.appendChild(textArea);
 			textArea.focus();
 			textArea.select();
@@ -2807,13 +2935,13 @@
 
 			document.body.removeChild(textArea);
 		}
+
 		function copyTextToClipboard(text) {
 			if (!navigator.clipboard) {
 				fallbackCopyTextToClipboard(text);
 				return;
 			}
-			navigator.clipboard.writeText(text).then(function () {
-			}, function (err) {
+			navigator.clipboard.writeText(text).then(function () {}, function (err) {
 				console.error('Async: Could not copy text: ', err);
 			});
 		}
@@ -2847,11 +2975,23 @@
 			clearTimeout(clearTimerActive);
 			clearTimerActive = setTimeout(() => {
 				var $actives = $('a.active[href*="#"]');
-				if ($actives[$actives.length - 1].offsetTop < $('#doc-menu')[0].scrollTop || $actives[$actives.length - 1].offsetTop > $('#doc-menu')[0].scrollTop + window.innerHeight) {
+				var hash = ($($actives[$actives.length - 1]).attr('href') || '#').substr(1).replace(/^#/, '');
+				if (hash === '') return;
+				var node = $('#' + hash);
+				if (node.length) {
+					node.attr('id', '');
+				}
+				location.hash = hash;
+				if (node.length) {
+					node.attr('id', hash);
+				}
+				if ($actives[$actives.length - 1].offsetTop < $('#doc-menu')[0].scrollTop || $actives[$actives
+						.length - 1].offsetTop > $('#doc-menu')[0].scrollTop + window.innerHeight) {
 					if ($actives[$actives.length - 1].offsetTop < $('#doc-menu')[0].scrollTop) {
 						$('#doc-menu')[0].scrollTop = $actives[$actives.length - 1].offsetTop;
 					} else {
-						$('#doc-menu')[0].scrollTop = $actives[$actives.length - 1].offsetTop - window.innerHeight + $actives[$actives.length - 1].offsetHeight;
+						$('#doc-menu')[0].scrollTop = $actives[$actives.length - 1].offsetTop - window
+							.innerHeight + $actives[$actives.length - 1].offsetHeight;
 					}
 				}
 			}, 300);
@@ -2860,11 +3000,23 @@
 			clearTimeout(clearTimerActive);
 			clearTimerActive = setTimeout(() => {
 				var $actives = $('a.active[href*="#"]');
-				if ($actives[$actives.length - 1].offsetTop < $('#doc-menu')[0].scrollTop || $actives[$actives.length - 1].offsetTop > $('#doc-menu')[0].scrollTop + window.innerHeight) {
+				var hash = ($($actives[$actives.length - 1]).attr('href') || '#').substr(1).replace(/^#/, '');
+				if (hash === '') return;
+				var node = $('#' + hash);
+				if (node.length) {
+					node.attr('id', '');
+				}
+				location.hash = hash;
+				if (node.length) {
+					node.attr('id', hash);
+				}
+				if ($actives[$actives.length - 1].offsetTop < $('#doc-menu')[0].scrollTop || $actives[$actives
+						.length - 1].offsetTop > $('#doc-menu')[0].scrollTop + window.innerHeight) {
 					if ($actives[$actives.length - 1].offsetTop < $('#doc-menu')[0].scrollTop) {
 						$('#doc-menu')[0].scrollTop = $actives[$actives.length - 1].offsetTop;
 					} else {
-						$('#doc-menu')[0].scrollTop = $actives[$actives.length - 1].offsetTop - window.innerHeight + $actives[$actives.length - 1].offsetHeight;
+						$('#doc-menu')[0].scrollTop = $actives[$actives.length - 1].offsetTop - window
+							.innerHeight + $actives[$actives.length - 1].offsetHeight;
 					}
 				}
 			}, 300);
@@ -2885,6 +3037,37 @@
 				$('.doc-sidebar').removeClass('active');
 			}
 		});
+
+		var preiframes = $('pre.code-shower,pre.code-shower + iframe');
+		for (var i = 0; i + 1 < preiframes.length; i += 2) {
+			var elementPre = preiframes[i];
+			var elementIFrame = preiframes[i + 1];
+
+			if (elementIFrame.tagName !== 'IFRAME') {
+				i--;
+				continue;
+			}
+
+			(function (elementPre, elementIFrame) {
+				elementPre.style.display = 'none';
+				elementIFrame.style.display = 'none';
+				var $button = $('<button class="btn btn-blue show-example" style="margin-bottom:15px;">Show Example</button>');
+				$button.click(function (e) {
+					if ($(this).text() === 'Show Example') {
+						$(this).text('Hide Example');
+						elementPre.style.display = 'block';
+						elementIFrame.style.display = 'block';
+						elementIFrame.setAttribute('src', '');
+						elementIFrame.setAttribute('src', elementIFrame.getAttribute('osrc'));
+					} else {
+						$(this).text('Show Example');
+						elementPre.style.display = 'none';
+						elementIFrame.style.display = 'none';
+					}
+				});
+				$button.insertBefore(elementPre);
+			})(elementPre, elementIFrame);
+		}
 	</script>
 </body>
 
