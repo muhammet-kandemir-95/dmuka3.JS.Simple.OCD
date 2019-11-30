@@ -59,6 +59,9 @@
 						return el.$ocd;
 					}
 				},
+				get parent () {
+					return self.parentNode;
+				},
 				get screen () {
 					return self.getClientRects()[0];
 				},
@@ -188,7 +191,7 @@
 						if (arguments.length === 0) {
 							switch (self.tagName) {
 								case 'INPUT': {
-									var type = ocdEl.getAttribute('type');
+									var type = self.getAttribute('type');
 									if (checkVariableIsNullOrUndefined(type) === true) {
 										type = 'text';
 									}
@@ -207,7 +210,7 @@
 						} else if (arguments.length === 1) {
 							switch (self.tagName) {
 								case 'INPUT': {
-									var type = ocdEl.getAttribute('type');
+									var type = self.getAttribute('type');
 									if (checkVariableIsNullOrUndefined(type) === true) {
 										type = 'text';
 									}
@@ -229,8 +232,8 @@
 					};
 				},
 				get create () {
-					return function (tagName) {
-						return document.createElement(tagName);
+					return function (tagNameOrHtml) {
+						return window.$q.create(tagNameOrHtml);
 					};
 				},
 				get html () {
@@ -280,7 +283,7 @@
 							var result = [];
 							ocdElIdProcess(self, function (ocdElId) {
 								result = self.parentNode.querySelectorAll('*[ocd-el-id="' + ocdElId + '"] ' + query);
-							})
+							});
 							return result;
 						}
 
@@ -350,11 +353,11 @@
 			var result = null;
 			result = {
 				get create () {
-					return function (tagName) {
-						if (tagName.indexOf('<') >= 0) {
+					return function (tagNameOrHtml) {
+						if (tagNameOrHtml.indexOf('<') >= 0) {
 							var elp = $q.create('div');
 							var el = $q.create('div');
-							el.innerHTML = tagName;
+							el.innerHTML = tagNameOrHtml;
 							elp.$.append(el);
 
 							var result = null;
@@ -367,7 +370,7 @@
 							return result;
 						}
 
-						return document.createElement(tagName);
+						return document.createElement(tagNameOrHtml);
 					};
 				},
 				get on () {
@@ -1395,7 +1398,7 @@
 					ocdSet.call(ocdItem, value);
 
 					for (var i = 0; i < watches.length; i++) {
-						watches[i].call(ocdItem, value);
+						watches[i].call(ocdItem, value, false);
 					}
 				}
 			};
@@ -2146,7 +2149,7 @@
 				method2: ...,
 				...
 			},
-			watches?: <Array(function([this]$ocd, value))>,
+			watches?: <Array(function([this]$ocd, value, auto))>,
 			on?: {
 				$init?: <function([this]$ocd)>,
 				$remove?: <function([this]$ocd)>,
@@ -2182,7 +2185,7 @@
 					...
 				},
 				clone?: <function([this]$parentOcd, value):el>,
-				watches?: <Array(function([this]$ocd, value))>,
+				watches?: <Array(function([this]$ocd, value, auto))>,
 				on?: {
 					$init?: <function([this]$ocd)>,
 					$remove?: <function([this]$ocd)>,
@@ -2218,7 +2221,7 @@
 						...
 					},
 					clone?: <function([this]$parentOcd, value):el>,
-					watches?: <Array(function([this]$ocd, value))>,
+					watches?: <Array(function([this]$ocd, value, auto))>,
 					on?: {
 						$init?: <function([this]$ocd)>,
 						$remove?: <function([this]$ocd)>,

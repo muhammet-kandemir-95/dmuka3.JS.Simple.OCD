@@ -1,0 +1,24 @@
+<html>
+
+<head>
+	<title>dmuka3.JS.Simple.OCD</title>
+
+	<link rel="stylesheet" href="../assets/css/example.css">
+</head>
+
+<body>
+	<button onclick="btnClick()" style="margin: 20px;">
+		Show My Test Data
+	</button>
+
+	<script src="../js/dmuka3.JS.Simple.OCD.min.js"></script>
+	<script>
+		$q.first('button').$.data('test-data', 'Hello World');
+
+		function btnClick() {
+			alert('Button Test Data : ' + $q.first('button').$.data('test-data'));
+		}
+	</script>
+</body>
+
+</html>

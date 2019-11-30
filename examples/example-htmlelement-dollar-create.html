@@ -1,0 +1,27 @@
+<html>
+
+<head>
+	<title>dmuka3.JS.Simple.OCD</title>
+
+	<link rel="stylesheet" href="../assets/css/example.css">
+</head>
+
+<body>
+	<button onclick="btnClick()" style="margin: 20px;">
+		Add A Line
+	</button>
+	<div id="lines" style="padding: 0px 0px 0px 20px;"></div>
+
+	<script src="../js/dmuka3.JS.Simple.OCD.min.js"></script>
+	<script>
+		function btnClick() {
+			var newLine = $q.create('<div>I am a line.</div>');
+			// or ->
+			// var newLine = $q.create('div');
+			// newLine.$.text('I am a line.');
+			$q.first('#lines').$.append(newLine);
+		}
+	</script>
+</body>
+
+</html>

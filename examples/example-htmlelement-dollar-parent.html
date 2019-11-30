@@ -1,0 +1,22 @@
+<html>
+
+<head>
+	<title>dmuka3.JS.Simple.OCD</title>
+
+	<link rel="stylesheet" href="../assets/css/example.css">
+</head>
+
+<body>
+	<button onclick="btnClick()" style="margin: 20px;">
+		Show My Parent's Tag Name
+	</button>
+
+	<script src="../js/dmuka3.JS.Simple.OCD.min.js"></script>
+	<script>
+		function btnClick() {
+			alert('Parent\'s Tag Name : ' + $q.first('button').$.parent.tagName);
+		}
+	</script>
+</body>
+
+</html>

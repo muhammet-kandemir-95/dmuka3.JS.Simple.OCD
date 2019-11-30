@@ -1,0 +1,24 @@
+<html>
+
+<head>
+	<title>dmuka3.JS.Simple.OCD</title>
+
+	<link rel="stylesheet" href="../assets/css/example.css">
+</head>
+
+<body>
+	<button onclick="btnClick()" style="margin: 20px;">
+		Change Text
+	</button>
+	<div id="lines" style="padding: 0px 0px 0px 20px;"></div>
+
+	<script src="../js/dmuka3.JS.Simple.OCD.min.js"></script>
+	<script>
+		function btnClick() {
+			$q.first('#lines').$.text('<b>Hello World</b>');
+			alert($q.first('#lines').$.text());
+		}
+	</script>
+</body>
+
+</html>
