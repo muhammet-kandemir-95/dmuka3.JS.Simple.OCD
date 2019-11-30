@@ -380,6 +380,8 @@ $d.ocd.plugins.$add('datetime', function ($options) {
 					 * Get value as date.
 					 */
 					getDate: function () {
+						self.__hide.datetime.checkMaxDay();
+
 						var dtStr = ($options.year === false ? '2000' : yearCb.value) + '-' + ($options.month === false ? '01' : monthCb.value) + '-' + ($options.day === false ? '01' : dayCb.value) + ' ' + ($options.hour !== true ? '00' : hourCb.value) + ':' + ($options.minute !== true ? '00' : minuteCb.value) + ':' + ($options.second !== true ? '00' : secondCb.value);
 						var result = new Date(dtStr);
 						result.toString = function () {
