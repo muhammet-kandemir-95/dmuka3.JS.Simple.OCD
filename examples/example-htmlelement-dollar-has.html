@@ -1,0 +1,28 @@
+<html>
+
+<head>
+	<title>dmuka3.JS.Simple.OCD</title>
+
+	<link rel="stylesheet" href="../assets/css/example.css">
+</head>
+
+<body>
+	<button onclick="btnClick()" style="margin:20px">Check</button>
+	<div id="div1">
+		<span>Hello I'm a span!</span>
+	</div>
+	<div id="div2">
+		<b>Hello I'm a b!</b>
+	</div>
+
+	<script src="../js/dmuka3.JS.Simple.OCD.min.js"></script>
+	<script>
+		function btnClick() {
+			var div1HasSpan = $q.first('#div1').$.has('span');
+			var div2HasSpan = $q.first('#div2').$.has('span');
+			alert('"#div1 span" : ' + div1HasSpan + ', "#div2 span" : ' + div2HasSpan);
+		}
+	</script>
+</body>
+
+</html>

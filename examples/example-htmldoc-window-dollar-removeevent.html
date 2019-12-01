@@ -1,0 +1,32 @@
+<html>
+
+<head>
+	<title>dmuka3.JS.Simple.OCD</title>
+
+	<link rel="stylesheet" href="../assets/css/example.css">
+</head>
+
+<body>
+	<div style="margin:20px;">Click Anywhere</div>
+
+	<script src="../js/dmuka3.JS.Simple.OCD.min.js"></script>
+	<script>
+		var mousedownEventFnc = function (e) {
+			$q.first('div').$.text('onmousedown');
+		};
+		var mouseupEventFnc = function (e) {
+			$q.first('div').$.text('onmouseup');
+
+			doc.$.removeEvent('mousedown', mousedownEventFnc);
+			doc.$.removeEvent('mouseup', mouseupEventFnc);
+
+			setTimeout(function () {
+				$q.first('div').$.text('Thank you');
+			}, 1000);
+		};
+		doc.$.on('mousedown', mousedownEventFnc);
+		doc.$.on('mouseup', mouseupEventFnc);
+	</script>
+</body>
+
+</html>

@@ -1,0 +1,26 @@
+<html>
+
+<head>
+	<title>dmuka3.JS.Simple.OCD</title>
+
+	<link rel="stylesheet" href="../assets/css/example.css">
+</head>
+
+<body>
+	<button style="margin: 20px;">
+		Click Me
+	</button>
+
+	<script src="../js/dmuka3.JS.Simple.OCD.min.js"></script>
+	<script>
+		var clickEventFnc = function (e) {
+			alert('Hello World');
+			this.$.text('Thank you.');
+
+			this.$.removeEvent('click', clickEventFnc);
+		};
+		$q.first('button').$.on('click', clickEventFnc);
+	</script>
+</body>
+
+</html>

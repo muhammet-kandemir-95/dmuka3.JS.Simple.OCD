@@ -1,0 +1,26 @@
+<html>
+
+<head>
+	<title>dmuka3.JS.Simple.OCD</title>
+
+	<link rel="stylesheet" href="../assets/css/example.css">
+</head>
+
+<body>
+	<button onclick="btnClick()" style="margin:20px">Remove</button>
+	<div>
+		<span>Hello I'm a span!</span>
+	</div>
+	<div>
+		<b>Hello I'm a b!</b>
+	</div>
+
+	<script src="../js/dmuka3.JS.Simple.OCD.min.js"></script>
+	<script>
+		function btnClick() {
+			$q.find('span, b').$.remove();
+		}
+	</script>
+</body>
+
+</html>

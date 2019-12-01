@@ -1,0 +1,21 @@
+<html>
+
+<head>
+	<title>dmuka3.JS.Simple.OCD</title>
+
+	<link rel="stylesheet" href="../assets/css/example.css">
+</head>
+
+<body>
+	<button onclick="btnClick()" style="margin:20px">Show My Text</button>
+
+	<script src="../js/dmuka3.JS.Simple.OCD.min.js"></script>
+	<script>
+		function btnClick() {
+			alert('Text : ' + $q.first('button').$.prop('innerText'));
+			$q.first('button').$.prop('innerText', 'Thank you. You can click again');
+		}
+	</script>
+</body>
+
+</html>

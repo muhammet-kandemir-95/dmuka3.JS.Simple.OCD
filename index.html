@@ -16,7 +16,7 @@
 	<!-- FontAwesome JS -->
 	<script defer src="https://use.fontawesome.com/releases/v5.8.2/js/all.js"
 		integrity="sha384-DJ25uNYET2XCl5ZF++U8eNxPWqcKohUUBUpKGlNLMchM7q4Wjg2CUpjHLaL8yYPH" crossorigin="anonymous">
-	</script>
+		</script>
 	<!-- Global CSS -->
 	<link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.min.css">
 	<!-- Plugins CSS -->
@@ -2350,14 +2350,14 @@
 										<!--//content-->
 									</div>
 									<!--//callout-block-->
-									<h3 id="htmlelement-dollar">HTMLElement.$</h3>
+									<h3 id="htmlelement-dollar">HTMLElement.$ / HTMLElement[].$</h3>
 									<p>
 										Bütün <b>HTML Element</b>'lerinin üzerinde belli başlı bazı metotları kolay hale
 										getirmeyi sağlayan kısım.
 									</p>
-									<h4 id="htmlelement-dollar-el">$el</h4>
+									<h4 id="htmlelement-dollar-el">$el / $arr</h4>
 									<p>
-										Elementi döndürür.
+										Elementi veya elementleri döndürür.
 									</p>
 									<pre class='code-shower'><code class="language-markup">&lt;button&gt;My Button&lt;/button&gt;
 
@@ -2668,7 +2668,8 @@
 									<iframe osrc="examples/example-htmlelement-dollar-create.html"
 										style="height:170px;"></iframe>
 									<p></p>
-									<h4 id="htmlelement-dollar-html">html():String <br> html(String value):HTMLElement.$</h4>
+									<h4 id="htmlelement-dollar-html">html():String <br> html(String value):HTMLElement.$
+									</h4>
 									<p>
 										Elementin <b>HTML</b> içeriğini döndürür veya doldurur.
 									</p>
@@ -2687,7 +2688,8 @@
 									<iframe osrc="examples/example-htmlelement-dollar-html.html"
 										style="height:110px;"></iframe>
 									<p></p>
-									<h4 id="htmlelement-dollar-text">text():String <br> text(String value):HTMLElement.$</h4>
+									<h4 id="htmlelement-dollar-text">text():String <br> text(String value):HTMLElement.$
+									</h4>
 									<p>
 										Elementin <b>text</b> içeriğini döndürür veya doldurur.
 									</p>
@@ -2723,7 +2725,7 @@
 									<iframe osrc="examples/example-htmlelement-dollar-is.html"
 										style="height:80px;"></iframe>
 									<p></p>
-									<h4 id="htmlelement-dollar-on">on</h4>
+									<h4 id="htmlelement-dollar-on">on(String name, Function callback, any options)</h4>
 									<p>
 										Element <b>event</b> eklemeyi sağlar.
 									</p>
@@ -2741,37 +2743,443 @@
 									<iframe osrc="examples/example-htmlelement-dollar-on.html"
 										style="height:80px;"></iframe>
 									<p></p>
-									<h4 id="htmlelement-dollar-removeevent">removeEvent</h4>
+									<h4 id="htmlelement-dollar-removeevent">removeEvent(String name, Function callback,
+										any options)</h4>
 									<p>
 										Element üzerinden <b>event</b> silmeyi sağlar.
 									</p>
-									<h4 id="htmlelement-dollar-find">find</h4>
+									<pre class='code-shower'><code class="language-markup">&lt;button style="margin: 20px;"&gt;
+	Click Me
+&lt;/button&gt;
+
+&lt;script src="dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+	var clickEventFnc = function (e) {
+		alert('Hello World');
+		this.$.text('Thank you.');
+
+		this.$.removeEvent('click', clickEventFnc);
+	};
+	$q.first('button').$.on('click', clickEventFnc);
+&lt;/script&gt;</code></pre>
+									<iframe osrc="examples/example-htmlelement-dollar-removeevent.html"
+										style="height:80px;"></iframe>
+									<p></p>
+									<h4 id="htmlelement-dollar-find">find(String query):HTMLElement[]</h4>
 									<p>
 										Element içerisinde elementler aramayı sağlar.
 									</p>
-									<h4 id="htmlelement-dollar-first">first</h4>
+									<pre class='code-shower'><code class="language-markup">&lt;div&gt;
+	&lt;span&gt;&lt;/span&gt;
+&lt;/div&gt;
+&lt;span&gt;&lt;/span&gt;
+
+&lt;script src="dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+	$q.find('span').$.html('Hello, I am a span!');
+&lt;/script&gt;</code></pre>
+									<iframe osrc="examples/example-htmlelement-dollar-find.html"
+										style="height:80px;"></iframe>
+									<p></p>
+									<h4 id="htmlelement-dollar-first">first(String query):HTMLElement</h4>
 									<p>
 										Element içerisinde tek bir element aramayı sağlar.
 									</p>
-									<h4 id="htmlelement-dollar-append">append</h4>
+									<pre class='code-shower'><code class="language-markup">&lt;div&gt;
+	&lt;span&gt;&lt;/span&gt;
+&lt;/div&gt;
+&lt;span&gt;&lt;/span&gt;
+
+&lt;script src="dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+	$q.first('span').$.html('Hello, I am a span and I am not alone!');
+&lt;/script&gt;</code></pre>
+									<iframe osrc="examples/example-htmlelement-dollar-first.html"
+										style="height:80px;"></iframe>
+									<p></p>
+									<h4 id="htmlelement-dollar-append">append(String html):HTMLElement.$ <br>
+										append(HTMLElement element):HTMLElement.$ <br> append(HTMLElement[]
+										element):HTMLElement.$</h4>
 									<p>
 										Element içerisinde sona bir element eklemeyi sağlar.
 									</p>
-									<h4 id="htmlelement-dollar-appendbegin">appendBegin</h4>
+									<pre class='code-shower'><code class="language-markup">&lt;div&gt;
+	&lt;hr&gt;
+	&lt;hr&gt;
+	&lt;hr&gt;
+&lt;/div&gt;
+
+&lt;script src="dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+	$q.find('div').$.append('Hello, I am a span! I have just been added by you.');
+&lt;/script&gt;</code></pre>
+									<iframe osrc="examples/example-htmlelement-dollar-append.html"
+										style="height:80px;"></iframe>
+									<p></p>
+									<h4 id="htmlelement-dollar-prepend">prepend(String html):HTMLElement.$ <br>
+										prepend(HTMLElement element):HTMLElement.$ <br> prepend(HTMLElement[]
+										element):HTMLElement.$</h4>
 									<p>
 										Element içerisinde başa bir element eklemeyi sağlar.
 									</p>
-									<h4 id="htmlelement-dollar-insertbefore">insertBefore</h4>
+									<pre class='code-shower'><code class="language-markup">&lt;div&gt;
+	&lt;hr&gt;
+	&lt;hr&gt;
+	&lt;hr&gt;
+&lt;/div&gt;
+
+&lt;script src="dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+	$q.find('div').$.prepend('Hello, I am a span! I have just been added by you.');
+&lt;/script&gt;</code></pre>
+									<iframe osrc="examples/example-htmlelement-dollar-prepend.html"
+										style="height:80px;"></iframe>
+									<p></p>
+									<h4 id="htmlelement-dollar-insertbefore">insertBefore(HTMLElement
+										refElement):HTMLElement.$ <br> insertBefore(HTMLElement[]
+										refElement):HTMLElement.$</h4>
 									<p>
 										Elementi başka bir elementin öncesine eklemeyi sağlar.
 									</p>
-									<h4 id="htmlelement-dollar-insertafter">insertAfter</h4>
+									<pre class='code-shower'><code class="language-markup">&lt;div&gt;
+	&lt;hr&gt;
+	&lt;hr&gt;
+	&lt;hr&gt;
+&lt;/div&gt;
+
+&lt;script src="dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+	$q.create('&lt;b&gt;Hello World&lt;/b&gt;').$.insertBefore($q.first('div'));
+&lt;/script&gt;</code></pre>
+									<iframe osrc="examples/example-htmlelement-dollar-insertbefore.html"
+										style="height:80px;"></iframe>
+									<p></p>
+									<h4 id="htmlelement-dollar-insertafter">insertAfter(HTMLElement
+										refElement):HTMLElement <br> insertAfter(HTMLElement[] refElement):HTMLElement.$
+									</h4>
 									<p>
 										Elementi başka bir elementin sonrasına eklemeyi sağlar.
 									</p>
+									<pre class='code-shower'><code class="language-markup">&lt;div&gt;
+	&lt;hr&gt;
+	&lt;hr&gt;
+	&lt;hr&gt;
+&lt;/div&gt;
+
+&lt;script src="dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+	$q.create('&lt;b&gt;Hello World&lt;/b&gt;').$.insertAfter($q.first('div'));
+&lt;/script&gt;</code></pre>
+									<iframe osrc="examples/example-htmlelement-dollar-insertafter.html"
+										style="height:80px;"></iframe>
+									<p></p>
 									<h4 id="htmlelement-dollar-has">has</h4>
 									<p>
 										Element ilgili elementi barındırıyor mu?
+									</p>
+									<pre class='code-shower'><code class="language-markup">&lt;button onclick="btnClick()" style="margin:20px"&gt;Check&lt;/button&gt;
+&lt;div id="div1"&gt;
+	&lt;span&gt;Hello I'm a span!&lt;/span&gt;
+&lt;/div&gt;
+&lt;div id="div2"&gt;
+	&lt;b&gt;Hello I'm a b!&lt;/b&gt;
+&lt;/div&gt;
+
+&lt;script src="dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+	function btnClick() {
+		var div1HasSpan = $q.first('#div1').$.has('span');
+		var div2HasSpan = $q.first('#div2').$.has('span');
+		alert('"#div1 span" : ' + div1HasSpan + ', "#div2 span" : ' + div2HasSpan);
+	}
+&lt;/script&gt;</code></pre>
+									<iframe osrc="examples/example-htmlelement-dollar-has.html"
+										style="height:130px;"></iframe>
+									<p></p>
+									<h4 id="htmlelement-dollar-remove">remove():HTMLElement.$</h4>
+									<p>
+										Elementi <b>parentNode</b> üzerinden siler.
+									</p>
+									<pre class='code-shower'><code class="language-markup">&lt;button onclick="btnClick()" style="margin:20px"&gt;Remove&lt;/button&gt;
+&lt;div&gt;
+	&lt;span&gt;Hello I'm a span!&lt;/span&gt;
+&lt;/div&gt;
+&lt;div&gt;
+	&lt;b&gt;Hello I'm a b!&lt;/b&gt;
+&lt;/div&gt;
+
+&lt;script src="dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+	function btnClick() {
+		$q.find('span, b').$.remove();
+	}
+&lt;/script&gt;</code></pre>
+									<iframe osrc="examples/example-htmlelement-dollar-remove.html"
+										style="height:130px;"></iframe>
+									<p></p>
+									<h4 id="htmlelement-dollar-prop">prop(String name):any <br> prop(String name, any
+										value):HTMLElement.$ <br> prop(any obj):HTMLElement.$</h4>
+									<p>
+										Element'in istenilen <b>property</b> değerini döndürür veya doldurur.
+									</p>
+									<pre class='code-shower'><code class="language-markup">&lt;button onclick="btnClick()" style="margin:20px"&gt;Show My Text&lt;/button&gt;
+
+&lt;script src="dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+	function btnClick() {
+		alert('Text : ' + $q.first('button').$.prop('innerText'));
+		$q.first('button').$.prop('innerText', 'Thank you. You can click again');
+	}
+&lt;/script&gt;</code></pre>
+									<iframe osrc="examples/example-htmlelement-dollar-prop.html"
+										style="height:80px;"></iframe>
+									<p></p>
+									<h3 id="htmldoc-window-dollar">doc.$ / $q</h3>
+									<p>
+										<b>HTMLDocument</b> veya <b>Window</b> üzerinde yapılabilecek işlemlerin yer
+										aldığı kısım.
+									</p>
+									<h4 id="htmldoc-window-dollar-create">create(String tagName):HTMLElement <br>
+										create(String html):HTMLElement <br> create(String html):HTMLElement[]</h4>
+									<p>
+										Yeni bir veya birden fazla elementin oluşturulmasını sağlar.
+									</p>
+									<pre class='code-shower'><code class="language-markup">&lt;button onclick="btnClick()" style="margin: 20px;"&gt;
+	Add A Line
+&lt;/button&gt;
+&lt;div id="lines" style="padding: 0px 0px 0px 20px;"&gt;&lt;/div&gt;
+
+&lt;script src="dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+	function btnClick() {
+		var newLine = $q.create('&lt;div&gt;I am a line.&lt;/div&gt;');
+		// or -&gt;
+		// var newLine = $q.create('div');
+		// newLine.$.text('I am a line.');
+		$q.first('#lines').$.append(newLine);
+	}
+&lt;/script&gt;</code></pre>
+									<iframe osrc="examples/example-htmlelement-dollar-create.html"
+										style="height:170px;"></iframe>
+									<p></p>
+									<h4 id="htmldoc-window-dollar-on">on(String name, Function callback, any options):doc.$/$q</h4>
+									<p>
+										Yeni bir veya birden fazla elementin oluşturulmasını sağlar.
+									</p>
+									<pre class='code-shower'><code class="language-markup">&lt;div style="margin:20px;"&gt;Click Anywhere&lt;/div&gt;
+
+&lt;script src="dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+	doc.$.on('mousedown', function (e) {
+		$q.first('div').$.text('onmousedown');
+	});
+	doc.$.on('mouseup', function (e) {
+		$q.first('div').$.text('onmouseup');
+	});
+&lt;/script&gt;</code></pre>
+									<iframe osrc="examples/example-htmldoc-window-dollar-on.html"
+										style="height:80px;"></iframe>
+									<p></p>
+									<h4 id="htmldoc-window-dollar-removeevent">removeEvent(String name, Function callback, any options):doc.$/$q</h4>
+									<p>
+										Yeni bir veya birden fazla elementin oluşturulmasını sağlar.
+									</p>
+									<pre class='code-shower'><code class="language-markup">&lt;div style="margin:20px;"&gt;Click Anywhere&lt;/div&gt;
+
+&lt;script src="dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+	var mousedownEventFnc = function (e) {
+		$q.first('div').$.text('onmousedown');
+	};
+	var mouseupEventFnc = function (e) {
+		$q.first('div').$.text('onmouseup');
+
+		doc.$.removeEvent('mousedown', mousedownEventFnc);
+		doc.$.removeEvent('mouseup', mouseupEventFnc);
+
+		setTimeout(function () {
+			$q.first('div').$.text('Thank you');
+		}, 1000);
+	};
+	doc.$.on('mousedown', mousedownEventFnc);
+	doc.$.on('mouseup', mouseupEventFnc);
+&lt;/script&gt;</code></pre>
+									<iframe osrc="examples/example-htmldoc-window-dollar-removeevent.html"
+										style="height:80px;"></iframe>
+									<p></p>
+									<h4 id="htmldoc-window-dollar-find">find(String query):HTMLElement[]</h4>
+									<p>
+										Element içerisinde elementler aramayı sağlar.
+									</p>
+									<pre class='code-shower'><code class="language-markup">&lt;div&gt;
+	&lt;span&gt;&lt;/span&gt;
+&lt;/div&gt;
+&lt;span&gt;&lt;/span&gt;
+
+&lt;script src="dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+	$q.find('span').$.html('Hello, I am a span!');
+&lt;/script&gt;</code></pre>
+									<iframe osrc="examples/example-htmlelement-dollar-find.html"
+										style="height:80px;"></iframe>
+									<p></p>
+									<h4 id="htmldoc-window-dollar-first">first(String query):HTMLElement</h4>
+									<p>
+										Element içerisinde tek bir element aramayı sağlar.
+									</p>
+									<pre class='code-shower'><code class="language-markup">&lt;div&gt;
+	&lt;span&gt;&lt;/span&gt;
+&lt;/div&gt;
+&lt;span&gt;&lt;/span&gt;
+
+&lt;script src="dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+	$q.first('span').$.html('Hello, I am a span and I am not alone!');
+&lt;/script&gt;</code></pre>
+									<iframe osrc="examples/example-htmlelement-dollar-first.html"
+										style="height:80px;"></iframe>
+									<p></p>
+									<h4 id="htmldoc-window-dollar-seturl">seturl(String pathname):doc.$/$q</h4>
+									<p>
+										Sayfa yenilenmeden <b>URL</b> değiştirilmesini sağlar.
+									</p>
+									<pre class='code-shower'><code class="language-markup">&lt;div style="margin:20px;"&gt;Click Anywhere&lt;/div&gt;
+
+&lt;script src="dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+	var urlIndex = 0;
+	doc.$.on('click', function (e) {
+		$q.seturl('/test' + (++urlIndex));
+		$q.first('div').$.text('Path : ' + location.pathname);
+	});
+&lt;/script&gt;</code></pre>
+									<iframe osrc="examples/example-htmldoc-window-dollar-seturl.html"
+										style="height:80px;"></iframe>
+									<p></p>
+									<h4 id="htmldoc-window-dollar-ajax">ajax(Object options):ajaxResult</h4>
+									<p>
+										<b>XHR</b> bağlantıları için kullanılmaktadır.
+									</p>
+									<h5>options</h5>
+									<div class="table-responsive">
+										<table class="table">
+											<thead>
+												<tr>
+													<th>Name</th>
+													<th>Description</th>
+													<th>Type</th>
+													<th>Default Value</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>async</td>
+													<td>İstek asenkron olarak atılsın.</td>
+													<td>Boolean</td>
+													<td>true</td>
+												</tr>
+												<tr>
+													<td>url</td>
+													<td>İstek nereye atılacak bilgisi.</td>
+													<td>String</td>
+													<td>Must be filled!</td>
+												</tr>
+												<tr>
+													<td>type</td>
+													<td>İstek method'u bilgisi.</td>
+													<td>String</td>
+													<td>'GET'</td>
+												</tr>
+												<tr>
+													<td>data</td>
+													<td>İstek sırasında gönderilecek olan bilgi.</td>
+													<td>any</td>
+													<td>''</td>
+												</tr>
+												<tr>
+													<td>callback</td>
+													<td>İstek sonucu çalışan fonksiyon.</td>
+													<td>function([this]XHR, any response, Number status)</td>
+													<td>function ( ) { }</td>
+												</tr>
+												<tr>
+													<td>success</td>
+													<td>İstek sonucu <b>HTTP Status Code</b> değeri 200'den büyük eşit ve 300'den küçük ise çalışan fonksiyon.</td>
+													<td>function([this]XHR, any response, Number status)</td>
+													<td>function ( ) { }</td>
+												</tr>
+												<tr>
+													<td>error</td>
+													<td>İstek sonucu <b>HTTP Status Code</b> değeri 200'den küçük ve 300'den büyük eşit ise çalışan fonksiyon.</td>
+													<td>function([this]XHR, any response, Number status)</td>
+													<td>function ( ) { }</td>
+												</tr>
+												<tr>
+													<td>progress</td>
+													<td>XHR.onprogress <b>event</b>'i.</td>
+													<td>function([this]XHR, any event)</td>
+													<td>function ( ) { }</td>
+												</tr>
+												<tr>
+													<td>abort</td>
+													<td>XHR.onabort <b>event</b>'i.</td>
+													<td>function([this]XHR, any event)</td>
+													<td>function ( ) { }</td>
+												</tr>
+												<tr>
+													<td>contentType</td>
+													<td>İstek atılırken <b>headers</b> kısmında gönderilecek olan <b>contentType</b> değeri.</td>
+													<td>String</td>
+													<td>if (data.type === 'Object' || data.type === 'Array') contentType = 'application/json; charset=utf-8'</td>
+												</tr>
+												<tr>
+													<td>headers</td>
+													<td>İstek atılırken <b>headers</b> kısmında gönderilecek olan bilgiler.</td>
+													<td>Object</td>
+													<td>{ }</td>
+												</tr>
+												<tr>
+													<td>responseType</td>
+													<td>İstek sonucu türü.</td>
+													<td>String</td>
+													<td>''</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<pre class='code-shower'><code class="language-markup">&lt;div style="margin:20px;"&gt;Click Anywhere&lt;/div&gt;
+
+&lt;script src="dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+	var loading = false;
+	doc.$.on('click', function (e) {
+		if (loading === true) {
+			return;
+		}
+
+		$q.first('div').$.text('Loading...');
+		loading = true;
+		$q.ajax({
+			url: '/examples/example-data.json',
+			type: 'GET',
+			success: function (res) {
+				loading = false;
+				$q.first('div').$.text('Click Anywhere');
+
+				alert('Response : ' + res);
+			}
+		});
+	});
+&lt;/script&gt;</code></pre>
+									<iframe osrc="examples/example-htmldoc-window-dollar-ajax.html"
+										style="height:80px;"></iframe>
+									<h4 id="htmldoc-window-dollar-cookie">cookie():Object <br> cookie(String name):String <br> cookie(String name, String value):doc.$/$q</h4>
+									<p>
+										Çerezleri almayı veya dolduramayı sağlar.
+									</p>
+									<h4 id="htmldoc-window-dollar-querystring">querystring():Object <br> querystring(String name):String</h4>
+									<p>
+										Url parametrelerini almayı sağlar.
 									</p>
 								</div>
 							</section>
@@ -2829,9 +3237,10 @@
 										<a class="nav-link scrollto" href="#ocd-list-length">length</a>
 										<a class="nav-link scrollto" href="#ocd-list-set">$set</a>
 									</nav>
-									<a class="nav-link scrollto" href="#htmlelement-dollar">HTMLElement.$</a>
+									<a class="nav-link scrollto" href="#htmlelement-dollar">HTMLElement.$ /
+										HTMLElement[].$</a>
 									<nav class="doc-sub-menu nav flex-column">
-										<a class="nav-link scrollto" href="#htmlelement-dollar-el">$el</a>
+										<a class="nav-link scrollto" href="#htmlelement-dollar-el">$el / $arr</a>
 										<a class="nav-link scrollto" href="#htmlelement-dollar-ocd">$ocd</a>
 										<a class="nav-link scrollto" href="#htmlelement-dollar-parentocd">$parentOcd</a>
 										<a class="nav-link scrollto" href="#htmlelement-dollar-parent">parent</a>
@@ -2860,15 +3269,16 @@
 										<a class="nav-link scrollto" href="#htmlelement-dollar-find">find</a>
 										<a class="nav-link scrollto" href="#htmlelement-dollar-first">first</a>
 										<a class="nav-link scrollto" href="#htmlelement-dollar-append">append</a>
-										<a class="nav-link scrollto"
-											href="#htmlelement-dollar-appendbegin">appendBegin</a>
+										<a class="nav-link scrollto" href="#htmlelement-dollar-prepend">prepend</a>
 										<a class="nav-link scrollto"
 											href="#htmlelement-dollar-insertbefore">insertBefore</a>
 										<a class="nav-link scrollto"
 											href="#htmlelement-dollar-insertafter">insertAfter</a>
 										<a class="nav-link scrollto" href="#htmlelement-dollar-has">has</a>
+										<a class="nav-link scrollto" href="#htmlelement-dollar-remove">remove</a>
+										<a class="nav-link scrollto" href="#htmlelement-dollar-prop">prop</a>
 									</nav>
-									<a class="nav-link scrollto" href="#htmldoc-window-dollar">HTMLDocument.$ / $q</a>
+									<a class="nav-link scrollto" href="#htmldoc-window-dollar">doc.$ / $q</a>
 									<nav class="doc-sub-menu nav flex-column">
 										<a class="nav-link scrollto" href="#htmldoc-window-dollar-create">create</a>
 										<a class="nav-link scrollto" href="#htmldoc-window-dollar-on">on</a>
@@ -2880,7 +3290,7 @@
 										<a class="nav-link scrollto" href="#htmldoc-window-dollar-ajax">ajax</a>
 										<a class="nav-link scrollto" href="#htmldoc-window-dollar-cookie">cookie</a>
 										<a class="nav-link scrollto"
-											href="#htmldoc-window-dollar-queryString">queryString</a>
+											href="#htmldoc-window-dollar-querystring">queryString</a>
 									</nav>
 								</nav>
 							</nav>
@@ -2941,7 +3351,7 @@
 				fallbackCopyTextToClipboard(text);
 				return;
 			}
-			navigator.clipboard.writeText(text).then(function () {}, function (err) {
+			navigator.clipboard.writeText(text).then(function () { }, function (err) {
 				console.error('Async: Could not copy text: ', err);
 			});
 		}
@@ -2986,7 +3396,7 @@
 					node.attr('id', hash);
 				}
 				if ($actives[$actives.length - 1].offsetTop < $('#doc-menu')[0].scrollTop || $actives[$actives
-						.length - 1].offsetTop > $('#doc-menu')[0].scrollTop + window.innerHeight) {
+					.length - 1].offsetTop > $('#doc-menu')[0].scrollTop + window.innerHeight) {
 					if ($actives[$actives.length - 1].offsetTop < $('#doc-menu')[0].scrollTop) {
 						$('#doc-menu')[0].scrollTop = $actives[$actives.length - 1].offsetTop;
 					} else {
@@ -3011,7 +3421,7 @@
 					node.attr('id', hash);
 				}
 				if ($actives[$actives.length - 1].offsetTop < $('#doc-menu')[0].scrollTop || $actives[$actives
-						.length - 1].offsetTop > $('#doc-menu')[0].scrollTop + window.innerHeight) {
+					.length - 1].offsetTop > $('#doc-menu')[0].scrollTop + window.innerHeight) {
 					if ($actives[$actives.length - 1].offsetTop < $('#doc-menu')[0].scrollTop) {
 						$('#doc-menu')[0].scrollTop = $actives[$actives.length - 1].offsetTop;
 					} else {

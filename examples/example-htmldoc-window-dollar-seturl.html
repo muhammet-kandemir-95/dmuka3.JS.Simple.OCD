@@ -1,0 +1,22 @@
+<html>
+
+<head>
+	<title>dmuka3.JS.Simple.OCD</title>
+
+	<link rel="stylesheet" href="../assets/css/example.css">
+</head>
+
+<body>
+	<div style="margin:20px;">Click Anywhere</div>
+
+	<script src="../js/dmuka3.JS.Simple.OCD.min.js"></script>
+	<script>
+		var urlIndex = 0;
+		doc.$.on('click', function (e) {
+			$q.seturl('/test' + (++urlIndex));
+			$q.first('div').$.text('Path : ' + location.pathname);
+		});
+	</script>
+</body>
+
+</html>
