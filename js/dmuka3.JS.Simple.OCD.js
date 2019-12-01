@@ -2943,6 +2943,11 @@
 			if (checkVariableIsNullOrUndefined(schema.query) === false) {
 				throw alias + currentAlias + ' "query" cannot be used on a mixin!';
 			}
+
+			// Checking sub...
+			if (checkVariableIsNullOrUndefined(schema.sub) === false) {
+				throw alias + currentAlias + ' "sub" cannot be used on a mixin!';
+			}
 		}
 
 		// Checking get...

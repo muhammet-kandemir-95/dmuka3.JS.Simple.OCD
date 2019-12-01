@@ -2873,7 +2873,8 @@
 									<iframe osrc="examples/example-htmlelement-dollar-insertafter.html"
 										style="height:80px;"></iframe>
 									<p></p>
-									<h4 id="htmlelement-dollar-has">has</h4>
+									<h4 id="htmlelement-dollar-has">has(String query):Boolean <br> has(HTMLElement
+										element):Boolean <br> has(HTMLElement[] elements):Boolean</h4>
 									<p>
 										Element ilgili elementi barındırıyor mu?
 									</p>
@@ -2962,7 +2963,8 @@
 									<iframe osrc="examples/example-htmlelement-dollar-create.html"
 										style="height:170px;"></iframe>
 									<p></p>
-									<h4 id="htmldoc-window-dollar-on">on(String name, Function callback, any options):doc.$/$q</h4>
+									<h4 id="htmldoc-window-dollar-on">on(String name, Function callback, any
+										options):doc.$/$q</h4>
 									<p>
 										Yeni bir veya birden fazla elementin oluşturulmasını sağlar.
 									</p>
@@ -2980,7 +2982,8 @@
 									<iframe osrc="examples/example-htmldoc-window-dollar-on.html"
 										style="height:80px;"></iframe>
 									<p></p>
-									<h4 id="htmldoc-window-dollar-removeevent">removeEvent(String name, Function callback, any options):doc.$/$q</h4>
+									<h4 id="htmldoc-window-dollar-removeevent">removeEvent(String name, Function
+										callback, any options):doc.$/$q</h4>
 									<p>
 										Yeni bir veya birden fazla elementin oluşturulmasını sağlar.
 									</p>
@@ -3104,13 +3107,15 @@
 												</tr>
 												<tr>
 													<td>success</td>
-													<td>İstek sonucu <b>HTTP Status Code</b> değeri 200'den büyük eşit ve 300'den küçük ise çalışan fonksiyon.</td>
+													<td>İstek sonucu <b>HTTP Status Code</b> değeri 200'den büyük eşit
+														ve 300'den küçük ise çalışan fonksiyon.</td>
 													<td>function([this]XHR, any response, Number status)</td>
 													<td>function ( ) { }</td>
 												</tr>
 												<tr>
 													<td>error</td>
-													<td>İstek sonucu <b>HTTP Status Code</b> değeri 200'den küçük ve 300'den büyük eşit ise çalışan fonksiyon.</td>
+													<td>İstek sonucu <b>HTTP Status Code</b> değeri 200'den küçük ve
+														300'den büyük eşit ise çalışan fonksiyon.</td>
 													<td>function([this]XHR, any response, Number status)</td>
 													<td>function ( ) { }</td>
 												</tr>
@@ -3128,13 +3133,16 @@
 												</tr>
 												<tr>
 													<td>contentType</td>
-													<td>İstek atılırken <b>headers</b> kısmında gönderilecek olan <b>contentType</b> değeri.</td>
+													<td>İstek atılırken <b>headers</b> kısmında gönderilecek olan
+														<b>contentType</b> değeri.</td>
 													<td>String</td>
-													<td>if (data.type === 'Object' || data.type === 'Array') contentType = 'application/json; charset=utf-8'</td>
+													<td>if (data.type === 'Object' || data.type === 'Array') contentType
+														= 'application/json; charset=utf-8'</td>
 												</tr>
 												<tr>
 													<td>headers</td>
-													<td>İstek atılırken <b>headers</b> kısmında gönderilecek olan bilgiler.</td>
+													<td>İstek atılırken <b>headers</b> kısmında gönderilecek olan
+														bilgiler.</td>
 													<td>Object</td>
 													<td>{ }</td>
 												</tr>
@@ -3173,14 +3181,242 @@
 &lt;/script&gt;</code></pre>
 									<iframe osrc="examples/example-htmldoc-window-dollar-ajax.html"
 										style="height:80px;"></iframe>
-									<h4 id="htmldoc-window-dollar-cookie">cookie():Object <br> cookie(String name):String <br> cookie(String name, String value):doc.$/$q</h4>
+									<h4 id="htmldoc-window-dollar-cookie">cookie():Object <br> cookie(String
+										name):String <br> cookie(String name, String value):doc.$/$q</h4>
 									<p>
 										Çerezleri almayı veya dolduramayı sağlar.
 									</p>
-									<h4 id="htmldoc-window-dollar-querystring">querystring():Object <br> querystring(String name):String</h4>
+									<h4 id="htmldoc-window-dollar-querystring">querystring():Object <br>
+										querystring(String name):String</h4>
 									<p>
 										Url parametrelerini almayı sağlar.
 									</p>
+								</div>
+							</section>
+							<!--//doc-section-->
+							<section id="plugins-section" class="doc-section">
+								<h2 class="section-title">Eklentiler</h2>
+								<div class="section-block">
+									<p>
+										<a href="javascript:void(0)"><b>dmuka3.JS.Simple.OCD</b></a> kullanarak kendi
+										eklentilerinizi yazabilirsiniz. Aynı zamanda varolanları kullanabilirsiniz.
+									</p>
+									<h3 id="plugin-create">Eklenti Yazmak</h3>
+									<p>
+										Yazılan eklenti bir <a href="#mixins" class="scrollto">mixins</a> olarak veya
+										direk bir <b>OCD</b> olarak kullanılabilir.
+									</p>
+									<pre class='code-shower'><code class="language-markup">&lt;div id="app" style="padding: 20px;"&gt;
+	&lt;div&gt;
+		&lt;h1&gt;&lt;/h1&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script src="dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+	$d.ocd.plugins.$add('testMixinPlugin', function ($options) {
+		var mixin = {
+			data: {
+				backgroundColor: {
+					default: '#cec',
+					get: function () {
+						return this.$el.$.css('background-color');
+					},
+					set: function (value) {
+						this.$el.$.css('background-color', value);
+					}
+				}
+			}
+		};
+
+		return mixin;
+	});
+	$d.ocd.plugins.$add('testOcdPlugin', function ($options) {
+		var ocd = {
+			query: $options.query,
+			single: true,
+			alias: $options.alias,
+			sub: [{
+				query: 'h1',
+				single: true,
+				alias: 'title'
+			}],
+			on: {
+				$init: function () {
+					this.title = $options.title;
+				}
+			}
+		};
+
+		return ocd;
+	});
+	var $app = $d.ocd({
+		query: '#app',
+		mixins: [$d.ocd.plugins.testMixinPlugin()],
+		sub: [$d.ocd.plugins.testOcdPlugin({
+			query: 'div',
+			alias: 'testDiv',
+			title: 'Test OCD Plugin'
+		})]
+	});
+&lt;/script&gt;</code></pre>
+									<iframe osrc="examples/example-plugin-create.html" style="height:150px;"></iframe>
+									<h3 id="plugin-contextmenu">ContextMenu</h3>
+									<p>
+										<b>ContextMenu</b> <b>event</b>'ine yüklenmiş bir <b>mixin</b>'dir.
+									</p>
+									<p>
+										İlk önce parametreleri inceleyelim;
+									</p>
+									<div class="table-responsive">
+										<table class="table">
+											<thead>
+												<tr>
+													<th>Name</th>
+													<th>Description</th>
+													<th>Type</th>
+													<th>Default</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>contextEl</td>
+													<td>Hangi element menü olarak kullanılacak.</td>
+													<td>String | HTMLElement | function([this]$ocd)</td>
+													<td>Must be filled!</td>
+												</tr>
+												<tr>
+													<td>zIndex</td>
+													<td>Elementin z-index değeri.</td>
+													<td>Number</td>
+													<td>999999</td>
+												</tr>
+												<tr>
+													<td>onShow</td>
+													<td>Menü element üzerinde ilk görüntülendiği zaman çalışan
+														<b>event</b>.</td>
+													<td>function([this]$ocd)</td>
+													<td>function ( ) { }</td>
+												</tr>
+												<tr>
+													<td>onHide</td>
+													<td>Menü gizlendiği zaman çalışan <b>event</b>.</td>
+													<td>function([this]$ocd)</td>
+													<td>function ( ) { }</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<!--//table-responsive-->
+									<p>
+										Aynı zaman <b>contextMenu</b> olarak belirlenen elementin <a
+											href="#htmlelement-dollar-data">data</a> kısmına eklenen değerler vardır.
+										Bunlar;
+									</p>
+									<div class="table-responsive">
+										<table class="table">
+											<thead>
+												<tr>
+													<th>Name</th>
+													<th>Description</th>
+													<th>Type</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>contextMenuShow</td>
+													<td>Menüyü görünür hale getirir.</td>
+													<td>function(x, y)</td>
+												</tr>
+												<tr>
+													<td>contextMenuHide</td>
+													<td>Menüyü gizlemeyi sağlar.</td>
+													<td>function()</td>
+												</tr>
+												<tr>
+													<td>contextMenuOcd</td>
+													<td>Menü enson hangi <b>OCD</b> üzerinde çalıştı.</td>
+													<td>OCD</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<!--//table-responsive-->
+									<pre class='code-shower'><code class="language-markup">&lt;div id="app" style="padding: 20px;"&gt;
+	&lt;span id="span1"&gt;Right Click 1&lt;/span&gt;
+	&lt;br&gt;
+	&lt;br&gt;
+	&lt;br&gt;
+	&lt;span id="span2"&gt;Right Click 2&lt;/span&gt;
+	&lt;div id="context-menu-el" style="background-color:#fff;border: 1px solid #000;padding: 10px;"&gt;
+		&lt;div style="cursor:pointer;margin-bottom: 10px;"&gt;Red&lt;/div&gt;
+		&lt;div style="cursor:pointer;margin-bottom: 10px;"&gt;Green&lt;/div&gt;
+		&lt;div style="cursor:pointer;"&gt;Blue&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script src="dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script src="dmuka3.JS.Simple.OCD.UI.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+	var $contextMenu = $d.ocd({
+		query: '#context-menu-el',
+		data: {
+			activeOcd: {}
+		},
+		sub: [{
+			query: 'div:nth-child(1)',
+			single: true,
+			alias: 'red',
+			on: {
+				click: function (e) {
+					this.$parent.$el.$.data('contextMenuOcd').$el.$.css('background-color', 'red');
+					this.$parent.$el.$.data('contextMenuHide')();
+				}
+			}
+		}, {
+			query: 'div:nth-child(2)',
+			single: true,
+			alias: 'green',
+			on: {
+				click: function (e) {
+					this.$parent.$el.$.data('contextMenuOcd').$el.$.css('background-color', 'green');
+					this.$parent.$el.$.data('contextMenuHide')();
+				}
+			}
+		}, {
+			query: 'div:nth-child(3)',
+			single: true,
+			alias: 'blue',
+			on: {
+				click: function (e) {
+					this.$parent.$el.$.data('contextMenuOcd').$el.$.css('background-color', 'blue');
+					this.$parent.$el.$.data('contextMenuHide')();
+				}
+			}
+		}]
+	});
+
+	var $app = $d.ocd({
+		query: '#app',
+		sub: [{
+			query: '#span1',
+			single: true,
+			alias: 'span1',
+			mixins: [$d.ocd.plugins.contextMenu({
+				contextEl: '#context-menu-el'
+			})]
+		}, {
+			query: '#span2',
+			single: true,
+			alias: 'span2',
+			mixins: [$d.ocd.plugins.contextMenu({
+				contextEl: '#context-menu-el'
+			})]
+		}]
+	});
+&lt;/script&gt;</code></pre>
+									<iframe osrc="examples/example-plugin-contextmenu.html"
+										style="height:200px;"></iframe>
 								</div>
 							</section>
 							<!--//doc-section-->
@@ -3293,6 +3529,17 @@
 											href="#htmldoc-window-dollar-querystring">queryString</a>
 									</nav>
 								</nav>
+								<a class="nav-link scrollto" href="#plugins-section">Eklentiler</a>
+								<nav class="doc-sub-menu nav flex-column">
+									<a class="nav-link scrollto" href="#plugin-create">Eklenti Yazmak</a>
+									<a class="nav-link scrollto" href="#plugin-contextmenu">ContextMenu</a>
+									<a class="nav-link scrollto" href="#plugin-datetime">DateTime</a>
+									<a class="nav-link scrollto" href="#plugin-draggable">Draggable</a>
+									<a class="nav-link scrollto" href="#plugin-mask">Mask</a>
+									<a class="nav-link scrollto" href="#plugin-number">Number</a>
+									<a class="nav-link scrollto" href="#plugin-resizable">Resizable</a>
+									<a class="nav-link scrollto" href="#plugin-validation">Validation</a>
+								</nav>
 							</nav>
 							<!--//doc-menu-->
 
@@ -3384,26 +3631,12 @@
 		window.addEventListener('hashchange', function (e) {
 			clearTimeout(clearTimerActive);
 			clearTimerActive = setTimeout(() => {
-				var $actives = $('a.active[href*="#"]');
-				var hash = ($($actives[$actives.length - 1]).attr('href') || '#').substr(1).replace(/^#/, '');
+				var hash = location.hash.substring(1);
 				if (hash === '') return;
-				var node = $('#' + hash);
-				if (node.length) {
-					node.attr('id', '');
+				if ($('a[href="#' + hash + '"]').is('.active') === true) {
+					return;
 				}
-				location.hash = hash;
-				if (node.length) {
-					node.attr('id', hash);
-				}
-				if ($actives[$actives.length - 1].offsetTop < $('#doc-menu')[0].scrollTop || $actives[$actives
-					.length - 1].offsetTop > $('#doc-menu')[0].scrollTop + window.innerHeight) {
-					if ($actives[$actives.length - 1].offsetTop < $('#doc-menu')[0].scrollTop) {
-						$('#doc-menu')[0].scrollTop = $actives[$actives.length - 1].offsetTop;
-					} else {
-						$('#doc-menu')[0].scrollTop = $actives[$actives.length - 1].offsetTop - window
-							.innerHeight + $actives[$actives.length - 1].offsetHeight;
-					}
-				}
+				$('a[href="#' + hash + '"]').click();
 			}, 300);
 		});
 		window.addEventListener('scroll', function (e) {

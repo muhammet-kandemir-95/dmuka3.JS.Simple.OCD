@@ -1,7 +1,7 @@
 /**
  * dmuka3.JS.Simple.OCD.Plugin.ContextMenu
  * {
- * 	contextEl: <String>,
+ * 	contextEl: <String | HTMLElement | Function>,
  * 	zIndex?(999999): <Number>,
  * 	onShow?: <Function([this]$ocd)>,
  * 	onHide?: <Function([this]$ocd)>
@@ -39,6 +39,18 @@ $d.ocd.plugins.$add('contextMenu', function ($options) {
 	//#endregion
 
 	var mixin = {
+		data: {
+			contextMenuEl: {
+				get: function () {
+					return this.__hide.contextMenu.el;
+				}
+			},
+			contextMenuOcd: {
+				get: function () {
+					return this.__hide.contextMenu.el.$.$ocd;
+				}
+			}
+		},
 		methods: {
 			contextMenuShow: function (x, y) {
 				this.__hide.contextMenu.show(x, y);
@@ -71,95 +83,105 @@ $d.ocd.plugins.$add('contextMenu', function ($options) {
 					throw self.$alias + ' "contextEl"\'s result must not be null!';
 				}
 
-				contextEl.$.css({
-					position: 'fixed',
-					zIndex: zIndex
-				});
+				var firstLoadForContextEl = contextEl.$.data('dmuka3.JS.Simple.OCD.Plugin.ContextMenu-loaded') === true;
+				contextEl.$.data('dmuka3.JS.Simple.OCD.Plugin.ContextMenu-loaded', true);
 
-				self.__hide.contextMenu = {
-					/**
-					 * Context menu's situation.
-					 */
-					enable: false,
-					/**
-					 * Hide context menu.
-					 */
-					hide: function () {
-						contextEl.$.css('display', 'none');
-						if (self.__hide.contextMenu.enable === true && self.__isNullOrUndefined($options.onHide) === false) {
-							$options.onHide.call(self);
-						}
-						self.__hide.contextMenu.enable = false;
-					},
-					/**
-					 * Show context menu.
-					 * @param {Number} x 
-					 * @param {Number} y 
-					 */
-					show: function (x, y) {
-						contextEl.$.css('display', 'block');
+				if (firstLoadForContextEl === false) {
+					contextEl.$.css({
+						position: 'fixed',
+						zIndex: zIndex
+					});
+					contextEl.__hide = {};
 
-						if (self.__isNullOrUndefined(x) === false) {
-							contextEl.$.css({
-								left: x + 'px',
-								right: 'auto'
-							});
-							if (contextEl.$.screen.left + contextEl.$.screen.width > Math.min(window.innerWidth, bodyEl.$.client.width)) {
-								contextEl.$.css({
-									left: 'auto',
-									right: (Math.min(window.innerWidth, bodyEl.$.client.width) - x) + 'px'
-								});
+					contextEl.__hide.contextMenu = {
+						el: contextEl,
+						/**
+						 * Context menu's situation.
+						 */
+						enable: false,
+						/**
+						 * Hide context menu.
+						 */
+						hide: function () {
+							contextEl.$.css('display', 'none');
+							if (contextEl.__hide.contextMenu.enable === true) {
+								if (self.__isNullOrUndefined(contextEl.__hide.contextMenu.lastOcd.__hide.contextMenuOnHide) === false) {
+									contextEl.__hide.contextMenu.lastOcd.__hide.contextMenuOnHide.call(self);
+								}
 							}
-						}
-						if (self.__isNullOrUndefined(y) === false) {
-							contextEl.$.css({
-								top: y + 'px',
-								bottom: 'auto'
-							});
-							if (contextEl.$.screen.top + contextEl.$.screen.height > Math.min(window.innerHeight, bodyEl.$.client.height)) {
+							contextEl.__hide.contextMenu.enable = false;
+						},
+						/**
+						 * Show context menu.
+						 * @param {Number} x 
+						 * @param {Number} y 
+						 */
+						show: function (x, y) {
+							contextEl.$.css('display', 'block');
+
+							if (self.__isNullOrUndefined(x) === false) {
 								contextEl.$.css({
-									top: 'auto',
-									bottom: (Math.min(window.innerHeight, bodyEl.$.client.height) - y) + 'px'
+									left: x + 'px',
+									right: 'auto'
 								});
+								if (contextEl.$.screen.left + contextEl.$.screen.width > Math.min(window.innerWidth, bodyEl.$.client.width)) {
+									contextEl.$.css({
+										left: 'auto',
+										right: (Math.min(window.innerWidth, bodyEl.$.client.width) - x) + 'px'
+									});
+								}
 							}
-						}
+							if (self.__isNullOrUndefined(y) === false) {
+								contextEl.$.css({
+									top: y + 'px',
+									bottom: 'auto'
+								});
+								if (contextEl.$.screen.top + contextEl.$.screen.height > Math.min(window.innerHeight, bodyEl.$.client.height)) {
+									contextEl.$.css({
+										top: 'auto',
+										bottom: (Math.min(window.innerHeight, bodyEl.$.client.height) - y) + 'px'
+									});
+								}
+							}
 
-						if (self.__isNullOrUndefined($options.onShow) === false) {
-							$options.onShow.call(self);
+							contextEl.__hide.contextMenu.enable = true;
 						}
-						self.__hide.contextMenu.enable = true;
-					}
-				};
-				contextEl.$.css('display', 'none');
+					};
 
-				contextEl.$contextMenu = {
-					hide: self.__hide.contextMenu.hide,
-					show: self.__hide.contextMenu.show
-				};
+					contextEl.$.data('contextMenuHide', contextEl.__hide.contextMenu.hide);
+					contextEl.$.data('contextMenuShow', contextEl.__hide.contextMenu.show);
+
+					contextEl.$.css('display', 'none');
+					contextEl.$.on('contextmenu', function (e) {
+						e.preventDefault();
+					});
+
+					$d.q.on('click', function (e) {
+						if (contextEl !== e.target && contextEl.$.has(e.target) === false) {
+							contextEl.__hide.contextMenu.hide();
+						}
+					});
+	
+					window.$q.on('scroll', function () {
+						contextEl.__hide.contextMenu.hide();
+					}, true);
+	
+					window.$q.on('resize', function () {
+						contextEl.__hide.contextMenu.hide();
+					});
+				}
+				self.__hide.contextMenu = contextEl.__hide.contextMenu;
+				self.__hide.contextMenuOnHide = $options.onHide;
 
 				self.$el.$.on('contextmenu', function (e) {
 					e.preventDefault();
+					contextEl.$.data('contextMenuOcd', self);
+					self.__hide.contextMenu.lastOcd = self;
 					self.__hide.contextMenu.show(e.clientX, e.clientY);
-				});
 
-				$d.q.on('contextmenu', function (e) {
-					if (self.$el !== e.target && self.$el.$.has(e.target) === false && contextEl !== e.target && contextEl.$.has(e.target) === false) {
-						self.__hide.contextMenu.hide();
+					if (self.__isNullOrUndefined($options.onShow) === false) {
+						$options.onShow.call(self);
 					}
-				});
-
-				$d.q.on('click', function (e) {
-					if (contextEl !== e.target && contextEl.$.has(e.target) === false) {
-						self.__hide.contextMenu.hide();
-					}
-				});
-
-				window.$q.on('scroll', function () {
-					self.__hide.contextMenu.hide();
-				}, true);
-
-				window.$q.on('resize', function () {
-					self.__hide.contextMenu.hide();
 				});
 			}
 		}

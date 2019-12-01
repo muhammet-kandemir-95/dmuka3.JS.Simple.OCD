@@ -1,0 +1,85 @@
+<html>
+
+<head>
+	<title>dmuka3.JS.Simple.OCD</title>
+
+	<link rel="stylesheet" href="../assets/css/example.css">
+</head>
+
+<body>
+	<div id="app" style="padding: 20px;">
+		<span id="span1">Right Click 1</span>
+		<br>
+		<br>
+		<br>
+		<span id="span2">Right Click 2</span>
+		<div id="context-menu-el" style="background-color:#fff;border: 1px solid #000;padding: 10px;">
+			<div style="cursor:pointer;margin-bottom: 10px;">Red</div>
+			<div style="cursor:pointer;margin-bottom: 10px;">Green</div>
+			<div style="cursor:pointer;">Blue</div>
+		</div>
+	</div>
+
+	<script src="../js/dmuka3.JS.Simple.OCD.min.js"></script>
+	<script src="../js/dmuka3.JS.Simple.OCD.UI.min.js"></script>
+	<script>
+		var $contextMenu = $d.ocd({
+			query: '#context-menu-el',
+			data: {
+				activeOcd: {}
+			},
+			sub: [{
+				query: 'div:nth-child(1)',
+				single: true,
+				alias: 'red',
+				on: {
+					click: function (e) {
+						this.$parent.$el.$.data('contextMenuOcd').$el.$.css('background-color', 'red');
+						this.$parent.$el.$.data('contextMenuHide')();
+					}
+				}
+			}, {
+				query: 'div:nth-child(2)',
+				single: true,
+				alias: 'green',
+				on: {
+					click: function (e) {
+						this.$parent.$el.$.data('contextMenuOcd').$el.$.css('background-color', 'green');
+						this.$parent.$el.$.data('contextMenuHide')();
+					}
+				}
+			}, {
+				query: 'div:nth-child(3)',
+				single: true,
+				alias: 'blue',
+				on: {
+					click: function (e) {
+						this.$parent.$el.$.data('contextMenuOcd').$el.$.css('background-color', 'blue');
+						this.$parent.$el.$.data('contextMenuHide')();
+					}
+				}
+			}]
+		});
+
+		var $app = $d.ocd({
+			query: '#app',
+			sub: [{
+				query: '#span1',
+				single: true,
+				alias: 'span1',
+				mixins: [$d.ocd.plugins.contextMenu({
+					contextEl: '#context-menu-el'
+				})]
+			}, {
+				query: '#span2',
+				single: true,
+				alias: 'span2',
+				mixins: [$d.ocd.plugins.contextMenu({
+					contextEl: '#context-menu-el'
+				})]
+			}]
+		});
+	</script>
+</body>
+
+</html>

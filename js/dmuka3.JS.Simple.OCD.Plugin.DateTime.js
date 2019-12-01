@@ -1,4 +1,10 @@
 window.$d.$global.datetime = {
+	day: true,
+	month: true,
+	year: true,
+	hour: false,
+	minute: false,
+	second: false,
 	label: {
 		day: 'Day&nbsp;:&nbsp;',
 		month: 'Month&nbsp;:&nbsp;',
@@ -130,6 +136,31 @@ $d.ocd.plugins.$add('datetime', function ($options) {
 		on: {
 			$init: function () {
 				var self = this;
+
+				if (self.__isNullOrUndefined($options.day) === true) {
+					$options.day = window.$d.$global.datetime.day;
+				}
+
+				if (self.__isNullOrUndefined($options.month) === true) {
+					$options.month = window.$d.$global.datetime.month;
+				}
+
+				if (self.__isNullOrUndefined($options.year) === true) {
+					$options.year = window.$d.$global.datetime.year;
+				}
+
+				if (self.__isNullOrUndefined($options.hour) === true) {
+					$options.hour = window.$d.$global.datetime.hour;
+				}
+
+				if (self.__isNullOrUndefined($options.minute) === true) {
+					$options.minute = window.$d.$global.datetime.minute;
+				}
+
+				if (self.__isNullOrUndefined($options.second) === true) {
+					$options.second = window.$d.$global.datetime.second;
+				}
+
 				var label = window.$d.$global.datetime.label;
 				if (self.__isNullOrUndefined($options.label) === false) {
 					label = $options.label;
@@ -382,7 +413,16 @@ $d.ocd.plugins.$add('datetime', function ($options) {
 					getDate: function () {
 						self.__hide.datetime.checkMaxDay();
 
-						var dtStr = ($options.year === false ? '2000' : yearCb.value) + '-' + ($options.month === false ? '01' : monthCb.value) + '-' + ($options.day === false ? '01' : dayCb.value) + ' ' + ($options.hour !== true ? '00' : hourCb.value) + ':' + ($options.minute !== true ? '00' : minuteCb.value) + ':' + ($options.second !== true ? '00' : secondCb.value);
+						var dtStr = '';
+						if ($options.year === true || $options.month === true || $options.day === true) {
+							dtStr += ($options.year === false ? '2000' : yearCb.value) + '-' + ($options.month === false ? '01' : monthCb.value) + '-' + ($options.day === false ? '01' : dayCb.value);
+						}
+						if ($options.hour === true || $options.minute === true || $options.second === true) {
+							if (dtStr !== '') {
+								dtStr += ' ';
+							}
+							dtStr += ($options.hour !== true ? '00' : hourCb.value) + ':' + ($options.minute !== true ? '00' : minuteCb.value) + ':' + ($options.second !== true ? '00' : secondCb.value);
+						}
 						var result = new Date(dtStr);
 						result.toString = function () {
 							return dtStr;
