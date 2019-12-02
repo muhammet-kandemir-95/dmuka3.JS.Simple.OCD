@@ -25,7 +25,7 @@
 			methods: {
 				refreshJson: function () {
 					this.$runOnce(function () {
-						var json = JSON.stringify(this.$root.jobject, null, 4);
+						var json = JSON.stringify(this.$root.jobject(), null, 4);
 						if (json !== $d.q.first('pre').$.html()) {
 							$d.q.first('pre').$.html(json);
 						}

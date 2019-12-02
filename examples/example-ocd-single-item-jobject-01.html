@@ -63,7 +63,7 @@
 		var testMixin = {
 			on: {
 				click: function (e) {
-					alert(this.$alias + ' = ' + JSON.stringify(this.jobject, null, 4));
+					alert(this.$alias + ' = ' + JSON.stringify(this.jobject(), null, 4));
 					e.stopPropagation();
 				}
 			}

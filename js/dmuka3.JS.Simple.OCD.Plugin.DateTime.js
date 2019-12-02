@@ -266,7 +266,7 @@ $d.ocd.plugins.$add('datetime', function ($options) {
 				var hourCbOptions = [];
 				for (var i = 0; i <= 23; i++) {
 					var hourCbOption = $d.q.create('option');
-					hourCbOption.$.attr('value', i.toString());
+					hourCbOption.$.attr('value', i.toString().padStart(2, '0'));
 					hourCbOption.$.text(i.toString().padStart(2, '0'));
 					hourCb.$.append(hourCbOption);
 					hourCbOptions.push(hourCbOption);
@@ -290,7 +290,7 @@ $d.ocd.plugins.$add('datetime', function ($options) {
 				var minuteCbOptions = [];
 				for (var i = 0; i <= 59; i++) {
 					var minuteCbOption = $d.q.create('option');
-					minuteCbOption.$.attr('value', i.toString());
+					minuteCbOption.$.attr('value', i.toString().padStart(2, '0'));
 					minuteCbOption.$.text(i.toString().padStart(2, '0'));
 					minuteCb.$.append(minuteCbOption);
 					minuteCbOptions.push(minuteCbOption);
@@ -314,7 +314,7 @@ $d.ocd.plugins.$add('datetime', function ($options) {
 				var secondCbOptions = [];
 				for (var i = 0; i <= 59; i++) {
 					var secondCbOption = $d.q.create('option');
-					secondCbOption.$.attr('value', i.toString());
+					secondCbOption.$.attr('value', i.toString().padStart(2, '0'));
 					secondCbOption.$.text(i.toString().padStart(2, '0'));
 					secondCb.$.append(secondCbOption);
 					secondCbOptions.push(secondCbOption);
@@ -401,9 +401,9 @@ $d.ocd.plugins.$add('datetime', function ($options) {
 						dayCb.value = date.getDate();
 						monthCb.value = date.getMonth() + 1;
 						yearCb.value = date.getFullYear();
-						hourCb.value = date.getHours();
-						minuteCb.value = date.getMinutes();
-						secondCb.value = date.getSeconds();
+						hourCb.value = date.getHours().toString().padStart(2, '0');
+						minuteCb.value = date.getMinutes().toString().padStart(2, '0');
+						secondCb.value = date.getSeconds().toString().padStart(2, '0');
 
 						self.__hide.datetime.checkMaxDay();
 					},
@@ -414,16 +414,22 @@ $d.ocd.plugins.$add('datetime', function ($options) {
 						self.__hide.datetime.checkMaxDay();
 
 						var dtStr = '';
+						var dtStrFull = '';
+						dtStrFull += ($options.year === false ? '2000' : yearCb.value) + '-' + ($options.month === false ? '01' : monthCb.value) + '-' + ($options.day === false ? '01' : dayCb.value);
 						if ($options.year === true || $options.month === true || $options.day === true) {
 							dtStr += ($options.year === false ? '2000' : yearCb.value) + '-' + ($options.month === false ? '01' : monthCb.value) + '-' + ($options.day === false ? '01' : dayCb.value);
 						}
+						if (dtStrFull !== '') {
+							dtStrFull += ' ';
+						}
+						dtStrFull += ($options.hour !== true ? '00' : hourCb.value) + ':' + ($options.minute !== true ? '00' : minuteCb.value) + ':' + ($options.second !== true ? '00' : secondCb.value);
 						if ($options.hour === true || $options.minute === true || $options.second === true) {
 							if (dtStr !== '') {
 								dtStr += ' ';
 							}
 							dtStr += ($options.hour !== true ? '00' : hourCb.value) + ':' + ($options.minute !== true ? '00' : minuteCb.value) + ':' + ($options.second !== true ? '00' : secondCb.value);
 						}
-						var result = new Date(dtStr);
+						var result = new Date(dtStrFull);
 						result.toString = function () {
 							return dtStr;
 						}

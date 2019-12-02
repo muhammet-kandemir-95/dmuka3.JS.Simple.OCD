@@ -1661,7 +1661,7 @@
 									<iframe osrc="examples/example-ocd-single-item-index-01.html"
 										style="height: 110px;"></iframe>
 									<p></p>
-									<h4 id="ocd-single-item-jobject">jobject</h4>
+									<h4 id="ocd-single-item-jobject">jobject():any</h4>
 									<p>
 										Nesneyi <b>JSON</b> değere dönüştürür.
 									</p>
@@ -1721,7 +1721,7 @@
 	var testMixin = {
 		on: {
 			click: function (e) {
-				alert(this.$alias + ' = ' + JSON.stringify(this.jobject, null, 4));
+				alert(this.$alias + ' = ' + JSON.stringify(this.jobject(), null, 4));
 				e.stopPropagation();
 			}
 		}
@@ -2159,7 +2159,7 @@
 									<iframe osrc="examples/example-ocd-list-removeat-01.html"
 										style="height: 150px;"></iframe>
 									<p></p>
-									<h4 id="ocd-list-jobject">jobject</h4>
+									<h4 id="ocd-list-jobject">jobject():any</h4>
 									<p>
 										Nesneyi <b>JSON</b> değere dönüştürür.
 									</p>
@@ -2219,7 +2219,7 @@
 	var testMixin = {
 		on: {
 			click: function (e) {
-				alert(this.$alias + ' = ' + JSON.stringify(this.jobject, null, 4));
+				alert(this.$alias + ' = ' + JSON.stringify(this.jobject(), null, 4));
 				e.stopPropagation();
 			}
 		}
