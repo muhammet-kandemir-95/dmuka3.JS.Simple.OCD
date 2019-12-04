@@ -2014,6 +2014,7 @@
 		item.__hide = hide;
 
 		item.__getPropAsObject = getPropAsObject;
+		item.__cloneObject = cloneObject;
 		item.__isNullOrUndefined = checkVariableIsNullOrUndefined;
 		item.__isDate = checkVariableIsDate;
 		item.__isString = checkVariableIsString;

@@ -3181,6 +3181,7 @@
 &lt;/script&gt;</code></pre>
 									<iframe osrc="examples/example-htmldoc-window-dollar-ajax.html"
 										style="height:80px;"></iframe>
+									<p></p>
 									<h4 id="htmldoc-window-dollar-cookie">cookie():Object <br> cookie(String
 										name):String <br> cookie(String name, String value):doc.$/$q</h4>
 									<p>
@@ -3261,6 +3262,7 @@
 	});
 &lt;/script&gt;</code></pre>
 									<iframe osrc="examples/example-plugin-create.html" style="height:150px;"></iframe>
+									<p></p>
 									<h3 id="plugin-contextmenu">ContextMenu</h3>
 									<p>
 										<b>ContextMenu</b> <b>event</b>'ine yüklenmiş bir <b>mixin</b>'dir.
@@ -3310,7 +3312,8 @@
 									<!--//table-responsive-->
 									<p>
 										Aynı zaman <b>contextMenu</b> olarak belirlenen elementin <a
-											href="#htmlelement-dollar-data">data</a> kısmına eklenen değerler vardır.
+											href="#htmlelement-dollar-data" class="scrollto">HTMLElement.$.data</a>
+										kısmına eklenen değerler vardır.
 										Bunlar;
 									</p>
 									<div class="table-responsive">
@@ -3342,6 +3345,35 @@
 										</table>
 									</div>
 									<!--//table-responsive-->
+									<p>
+										Bunların dışında <b>contextMenu</b> kullananılan <b>OCD</b> için eklenen <a
+											href="#methods" class="scrollto">methods</a> değerleri vardır.
+										Bunlar;
+									</p>
+									<div class="table-responsive">
+										<table class="table">
+											<thead>
+												<tr>
+													<th>Name</th>
+													<th>Description</th>
+													<th>Type</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>contextMenuShow</td>
+													<td>Menüyü görünür hale getirir.</td>
+													<td>function(x, y)</td>
+												</tr>
+												<tr>
+													<td>contextMenuHide</td>
+													<td>Menüyü gizlemeyi sağlar.</td>
+													<td>function()</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<!--//table-responsive-->
 									<pre class='code-shower'><code class="language-markup">&lt;div id="app" style="padding: 20px;"&gt;
 	&lt;span id="span1"&gt;Right Click 1&lt;/span&gt;
 	&lt;br&gt;
@@ -3360,9 +3392,6 @@
 &lt;script&gt;
 	var $contextMenu = $d.ocd({
 		query: '#context-menu-el',
-		data: {
-			activeOcd: {}
-		},
 		sub: [{
 			query: 'div:nth-child(1)',
 			single: true,
@@ -3417,6 +3446,913 @@
 &lt;/script&gt;</code></pre>
 									<iframe osrc="examples/example-plugin-contextmenu.html"
 										style="height:200px;"></iframe>
+									<p></p>
+									<h3 id="plugin-datetime">DateTime</h3>
+									<p>
+										<b>DateTime</b> tarih ve saat girilmesi kolaylaştıran bir eklentidir.
+									</p>
+									<p>
+										İlk önce parametreleri inceleyelim;
+									</p>
+									<div class="table-responsive">
+										<table class="table">
+											<thead>
+												<tr>
+													<th>Name</th>
+													<th>Description</th>
+													<th>Type</th>
+													<th>Default</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>day</td>
+													<td>Gün verisi aktif mi?</td>
+													<td>Boolean</td>
+													<td>true</td>
+												</tr>
+												<tr>
+													<td>month</td>
+													<td>Ay verisi aktif mi?</td>
+													<td>Boolean</td>
+													<td>true</td>
+												</tr>
+												<tr>
+													<td>year</td>
+													<td>Yıl verisi aktif mi?</td>
+													<td>Boolean</td>
+													<td>true</td>
+												</tr>
+												<tr>
+													<td>hour</td>
+													<td>Saat verisi aktif mi?</td>
+													<td>Boolean</td>
+													<td>false</td>
+												</tr>
+												<tr>
+													<td>minute</td>
+													<td>Dakika verisi aktif mi?</td>
+													<td>Boolean</td>
+													<td>false</td>
+												</tr>
+												<tr>
+													<td>second</td>
+													<td>Saniye verisi aktif mi?</td>
+													<td>Boolean</td>
+													<td>false</td>
+												</tr>
+												<tr>
+													<td>label.day</td>
+													<td>Gün verisinin metini.</td>
+													<td>String</td>
+													<td>'Day : '</td>
+												</tr>
+												<tr>
+													<td>label.month</td>
+													<td>Ay verisinin metini.</td>
+													<td>String</td>
+													<td>'Month : '</td>
+												</tr>
+												<tr>
+													<td>label.year</td>
+													<td>Yıl verisinin metini.</td>
+													<td>String</td>
+													<td>'Year : '</td>
+												</tr>
+												<tr>
+													<td>label.hour</td>
+													<td>Saat verisinin metini.</td>
+													<td>String</td>
+													<td>'Hour : 'e</td>
+												</tr>
+												<tr>
+													<td>label.minute</td>
+													<td>Dakika verisinin metini.</td>
+													<td>String</td>
+													<td>'Minute : '</td>
+												</tr>
+												<tr>
+													<td>label.second</td>
+													<td>Saniye verisinin metini.</td>
+													<td>String</td>
+													<td>'Second : '</td>
+												</tr>
+												<tr>
+													<td>order</td>
+													<td>Verilerin sırası.</td>
+													<td>Array(String)</td>
+													<td>['day', 'month', 'year', 'hour', 'minute', 'second']</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<!--//table-responsive-->
+									<p>
+										<b>$d.$global.datetime</b> kullanarak <b>default</b> değerleri
+										değiştirebilirsiniz.
+									</p>
+									<pre class='code-shower'><code class="language-markup">&lt;div id="app" style="padding-left:10px;"&gt;
+	&lt;br /&gt;
+	&lt;b&gt;Just Date(Default)&lt;/b&gt;
+	&lt;br /&gt;
+	&lt;br /&gt;
+	&lt;div class="datetime1"&gt;&lt;/div&gt;
+	&lt;br /&gt;
+	&lt;b&gt;Just Time&lt;/b&gt;
+	&lt;br /&gt;
+	&lt;br /&gt;
+	&lt;div class="datetime2"&gt;&lt;/div&gt;
+	&lt;br /&gt;
+	&lt;b&gt;Date Time&lt;/b&gt;
+	&lt;br /&gt;
+	&lt;br /&gt;
+	&lt;div class="datetime3"&gt;&lt;/div&gt;
+	&lt;br /&gt;
+	&lt;b&gt;Different Order&lt;/b&gt;
+	&lt;br /&gt;
+	&lt;br /&gt;
+	&lt;div class="datetime4"&gt;&lt;/div&gt;
+	&lt;br /&gt;
+	&lt;b&gt;Different Label&lt;/b&gt;
+	&lt;br /&gt;
+	&lt;br /&gt;
+	&lt;div class="datetime5"&gt;&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script src="dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script src="dmuka3.JS.Simple.OCD.UI.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+	var $app = $d.ocd({
+		query: '#app',
+		sub: [{
+			single: true,
+			query: '&gt;.datetime1',
+			alias: 'datetime1',
+			mixins: [$d.ocd.plugins.datetime()]
+		}, {
+			single: true,
+			query: '&gt;.datetime2',
+			alias: 'datetime2',
+			mixins: [$d.ocd.plugins.datetime({
+				day: false,
+				month: false,
+				year: false,
+				hour: true,
+				minute: true,
+				second: true
+			})]
+		}, {
+			single: true,
+			query: '&gt;.datetime3',
+			alias: 'datetime3',
+			mixins: [$d.ocd.plugins.datetime({
+				hour: true,
+				minute: true,
+				second: true
+			})]
+		}, {
+			single: true,
+			query: '&gt;.datetime4',
+			alias: 'datetime4',
+			mixins: [$d.ocd.plugins.datetime({
+				hour: true,
+				minute: true,
+				second: true,
+				order: ['hour', 'minute', 'second', 'month', 'day', 'year']
+			})]
+		}, {
+			single: true,
+			query: '&gt;.datetime5',
+			alias: 'datetime5',
+			mixins: [$d.ocd.plugins.datetime({
+				hour: true,
+				minute: true,
+				second: true,
+				label: {
+					day: 'dd : ',
+					month: 'mm : ',
+					year: 'yyyy : ',
+					hour: 'HH : ',
+					minute: 'MM : ',
+					second: 'ss : '
+				}
+			})]
+		}]
+	});
+&lt;/script&gt;</code></pre>
+									<iframe osrc="examples/example-plugin-datetime.html" style="height:420px;"></iframe>
+									<p></p>
+									<h3 id="plugin-draggable">Draggable</h3>
+									<p>
+										<b>Draggable</b> sürükle bırak özelliği sağlayan bir eklentidir.
+									</p>
+									<p>
+										İlk önce parametreleri inceleyelim;
+									</p>
+									<div class="table-responsive">
+										<table class="table">
+											<thead>
+												<tr>
+													<th>Name</th>
+													<th>Description</th>
+													<th>Type</th>
+													<th>Default</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>timeout</td>
+													<td>İlk etkileşimden ne kadar süre sonra aktifleşecek?</td>
+													<td>Number</td>
+													<td>0</td>
+												</tr>
+												<tr>
+													<td>content</td>
+													<td>Sınırlar hangi elemente belirlenecek.</td>
+													<td>String | HTMLElement</td>
+													<td>parentElement</td>
+												</tr>
+												<tr>
+													<td>contentX</td>
+													<td>X ekseni için sınır geçerli mi?</td>
+													<td>Boolean</td>
+													<td>false</td>
+												</tr>
+												<tr>
+													<td>contentY</td>
+													<td>Y ekseni için sınır geçerli mi?</td>
+													<td>Boolean</td>
+													<td>false</td>
+												</tr>
+												<tr>
+													<td>moveX</td>
+													<td>X ekseni için hareketlilik aktif mi?</td>
+													<td>Boolean</td>
+													<td>true</td>
+												</tr>
+												<tr>
+													<td>moveY</td>
+													<td>Y ekseni için hareketlilik aktif mi?</td>
+													<td>Boolean</td>
+													<td>true</td>
+												</tr>
+												<tr>
+													<td>onDown</td>
+													<td>Mouse Down / Touch Start <b>event</b>'inde tetiklenen
+														<b>event</b>.</td>
+													<td>function([this]$ocd)</td>
+													<td>function ( ) { }</td>
+												</tr>
+												<tr>
+													<td>onUp</td>
+													<td>Mouse Up / Touch End <b>event</b>'inde tetiklenen <b>event</b>.
+													</td>
+													<td>function([this]$ocd)</td>
+													<td>function ( ) { }</td>
+												</tr>
+												<tr>
+													<td>onBegin</td>
+													<td>Draggable özelliği aktifleştirildiği zaman tetiklenen
+														<b>event</b>.</td>
+													<td>function([this]$ocd)</td>
+													<td>function ( ) { }</td>
+												</tr>
+												<tr>
+													<td>onMove</td>
+													<td>Draggable özelliği sırasında hareket olduğu zaman tetiklenen
+														<b>event</b>.</td>
+													<td>function([this]$ocd, pos)</td>
+													<td>function ( ) { }</td>
+												</tr>
+												<tr>
+													<td>onEnd</td>
+													<td>Draggable özelliği sonlandığı zaman tetiklenen <b>event</b>.
+													</td>
+													<td>function([this]$ocd)</td>
+													<td>function ( ) { }</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<!--//table-responsive-->
+									<pre class='code-shower'><code class="language-markup">&lt;div id="app"&gt;
+	&lt;div id="content" style="width:100%;height:500px;border:1px solid #ccc;"&gt;
+		&lt;div id="drag-me" style="width:100px;height:100px;background-color:rgb(0, 0, 0);color:#fff;transition-duration:0.5s;transition-property: transform;opacity:0.7;left:50px;top:50px;"&gt;
+			&lt;ul style="margin:0px;padding:0px;list-style-type:none;"&gt;
+				&lt;li&gt;Drag Me(2 Sec)&lt;/li&gt;
+			&lt;/ul&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script src="dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script src="dmuka3.JS.Simple.OCD.UI.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+	var $app = $d.ocd({
+		query: '#app',
+		sub: [{
+			single: true,
+			query: '&gt;#content&gt;#drag-me',
+			alias: 'dragMe',
+			mixins: [$d.ocd.plugins.draggable({
+				moveX: true,
+				moveY: true,
+				timeout: 2000,
+				contentX: true,
+				contentY: true,
+				onDown: function () {
+					this.$el.$.css({
+						transform: 'scale(1.1)'
+					});
+				},
+				onUp: function () {
+					this.$el.$.css({
+						transform: null,
+						opacity: '0.7'
+					});
+				},
+				onBegin: function () {
+					this.$el.$.css({
+						transform: 'scale(1.2)',
+						opacity: '1'
+					});
+				}
+			})]
+		}]
+	});
+&lt;/script&gt;</code></pre>
+									<iframe osrc="examples/example-plugin-draggable.html"
+										style="height:570px;"></iframe>
+									<p></p>
+									<h3 id="plugin-mask">Mask</h3>
+									<p>
+										<b>Mask</b> maske özelliğini sağlar.
+									</p>
+									<p>
+										İlk önce parametreleri inceleyelim;
+									</p>
+									<div class="table-responsive">
+										<table class="table">
+											<thead>
+												<tr>
+													<th>Name</th>
+													<th>Description</th>
+													<th>Type</th>
+													<th>Default</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>mask</td>
+													<td>
+														Maske;
+														<ul style="list-style: none;">
+															<li><b>?</b> : All characters.</li>
+															<li><b>9</b> : Only number.</li>
+															<li><b>A, a</b> : Only letter insensitive.</li>
+															<li><b>l</b> : Only lower letter.</li>
+															<li><b>L</b> : Only upper letter.</li>
+														</ul>
+													</td>
+													<td>String</td>
+													<td>Must be filled!</td>
+												</tr>
+												<tr>
+													<td>fill</td>
+													<td>
+														Tamamiyle doldurulmadığı takdirde boşaltılsın mı?
+													</td>
+													<td>Boolean</td>
+													<td>false</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<!--//table-responsive-->
+									<pre class='code-shower'><code class="language-markup">&lt;div id="app"&gt;
+	&lt;input id="mask1" placeholder="99.99.9999 99:99(fill:true)" type="text" value="" style="width:100%;"&gt;
+	&lt;input id="mask2" placeholder="99.99.9999 99:99(fill:false)" type="text" value="" style="width:100%;"&gt;
+	&lt;input id="mask3" placeholder="AAAAAA(fill:false)" type="text" value="" style="width:100%;"&gt;
+	&lt;input id="mask4" placeholder="llllll(fill:false)" type="text" value="" style="width:100%;"&gt;
+	&lt;input id="mask5" placeholder="LLLLLL(fill:false)" type="text" value="" style="width:100%;"&gt;
+	&lt;input id="mask6" placeholder="99--AA__ll**LL(fill:false)" type="text" value="" style="width:100%;"&gt;
+	&lt;input id="mask7" placeholder="?????(fill:false)" type="text" value="" style="width:100%;"&gt;
+&lt;/div&gt;
+
+&lt;script src="dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script src="dmuka3.JS.Simple.OCD.UI.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+	var $app = $d.ocd({
+		query: '#app',
+		sub: [{
+			single: true,
+			query: '&gt;#mask1',
+			alias: 'mask1',
+			mixins: [$d.ocd.plugins.mask({
+				mask: '99.99.9999 99:99',
+				fill: true
+			})]
+		}, {
+			single: true,
+			query: '&gt;#mask2',
+			alias: 'mask2',
+			mixins: [$d.ocd.plugins.mask({
+				mask: '99.99.9999 99:99'
+			})]
+		}, {
+			single: true,
+			query: '&gt;#mask3',
+			alias: 'mask3',
+			mixins: [$d.ocd.plugins.mask({
+				mask: 'AAAAAA'
+			})]
+		}, {
+			single: true,
+			query: '&gt;#mask4',
+			alias: 'mask4',
+			mixins: [$d.ocd.plugins.mask({
+				mask: 'llllll'
+			})]
+		}, {
+			single: true,
+			query: '&gt;#mask5',
+			alias: 'mask5',
+			mixins: [$d.ocd.plugins.mask({
+				mask: 'LLLLLL'
+			})]
+		}, {
+			single: true,
+			query: '&gt;#mask6',
+			alias: 'mask6',
+			mixins: [$d.ocd.plugins.mask({
+				mask: '99--AA__ll**LL'
+			})]
+		}, {
+			single: true,
+			query: '&gt;#mask7',
+			alias: 'mask7',
+			mixins: [$d.ocd.plugins.mask({
+				mask: '?????'
+			})]
+		}]
+	});
+&lt;/script&gt;</code></pre>
+									<iframe osrc="examples/example-plugin-mask.html" style="height:330px;"></iframe>
+									<p></p>
+									<h3 id="plugin-number">Number</h3>
+									<p>
+										<b>Number</b> sadece sayı girilmesini sağlayan bir eklentidir.
+									</p>
+									<p>
+										İlk önce parametreleri inceleyelim;
+									</p>
+									<div class="table-responsive">
+										<table class="table">
+											<thead>
+												<tr>
+													<th>Name</th>
+													<th>Description</th>
+													<th>Type</th>
+													<th>Default</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>precision</td>
+													<td>Virgülden sonraki hane sayısını belirtir.</td>
+													<td>Number</td>
+													<td>2</td>
+												</tr>
+												<tr>
+													<td>format</td>
+													<td>Metin şekillendirilsin mi?</td>
+													<td>Boolean</td>
+													<td>true</td>
+												</tr>
+												<tr>
+													<td>formatChars</td>
+													<td>Virgülden öncesi için binlik hane ayracı ve virgün yerine kullanılacak karakter.</td>
+													<td>Array(String)</td>
+													<td>[',', '.']</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<!--//table-responsive-->
+									<pre class='code-shower'><code class="language-markup">&lt;div id="app"&gt;
+	&lt;input id="number1" placeholder="...999,999.00(default)" type="text" value="" style="width:100%;"&gt;
+	&lt;input id="number2" placeholder="...999.999,00" type="text" value="" style="width:100%;"&gt;
+	&lt;input id="number3" placeholder="...999.999,0000" type="text" value="" style="width:100%;"&gt;
+	&lt;input id="number4" placeholder="...999.999" type="text" value="" style="width:100%;"&gt;
+	&lt;input id="number5" placeholder="...999999,00" type="text" value="" style="width:100%;"&gt;
+	&lt;input id="number6" placeholder="...999999.00" type="text" value="" style="width:100%;"&gt;
+&lt;/div&gt;
+
+&lt;script src="dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script src="dmuka3.JS.Simple.OCD.UI.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+	var $app = $d.ocd({
+		query: '#app',
+		sub: [{
+			single: true,
+			query: '&gt;#number1',
+			alias: 'number1',
+			mixins: [$d.ocd.plugins.number()]
+		}, {
+			single: true,
+			query: '&gt;#number2',
+			alias: 'number2',
+			mixins: [$d.ocd.plugins.number({
+				formatChars: ['.', ',']
+			})]
+		}, {
+			single: true,
+			query: '&gt;#number3',
+			alias: 'number3',
+			mixins: [$d.ocd.plugins.number({
+				precision: 4,
+				formatChars: ['.', ',']
+			})]
+		}, {
+			single: true,
+			query: '&gt;#number4',
+			alias: 'number4',
+			mixins: [$d.ocd.plugins.number({
+				precision: 0,
+				formatChars: ['.', ',']
+			})]
+		}, {
+			single: true,
+			query: '&gt;#number5',
+			alias: 'number5',
+			mixins: [$d.ocd.plugins.number({
+				formatChars: ['', ',']
+			})]
+		}, {
+			single: true,
+			query: '&gt;#number6',
+			alias: 'number6',
+			mixins: [$d.ocd.plugins.number({
+				format: false
+			})]
+		}]
+	});
+&lt;/script&gt;</code></pre>
+									<iframe osrc="examples/example-plugin-number.html" style="height:290px;"></iframe>
+									<p></p>
+									<h3 id="plugin-resizable">Resizable</h3>
+									<p>
+										<b>Resizable</b> elementin boyutlandırılmasını sağlayan bir eklentidir.
+									</p>
+									<p>
+										İlk önce parametreleri inceleyelim;
+									</p>
+									<div class="table-responsive">
+										<table class="table">
+											<thead>
+												<tr>
+													<th>Name</th>
+													<th>Description</th>
+													<th>Type</th>
+													<th>Default</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>resizeX</td>
+													<td>X ekseninde uzatılabilsin mi?</td>
+													<td>Boolean</td>
+													<td>true</td>
+												</tr>
+												<tr>
+													<td>resizeY</td>
+													<td>Y ekseninde uzatılabilsin mi?</td>
+													<td>Boolean</td>
+													<td>true</td>
+												</tr>
+												<tr>
+													<td>resizeBarWidth</td>
+													<td>Geniişlik için olan uzatma bar'ının genişliği.</td>
+													<td>Number(px)</td>
+													<td>10</td>
+												</tr>
+												<tr>
+													<td>resizeBarHeight</td>
+													<td>Yükseklik için olan uzatma bar'ının yüksekliği.</td>
+													<td>Number(px)</td>
+													<td>10</td>
+												</tr>
+												<tr>
+													<td>onBegin</td>
+													<td>Boyutlandırma başladığı zaman tetiklenen <b>event</b>.</td>
+													<td>function([this]$ocd)</td>
+													<td>function ( ) { }</td>
+												</tr>
+												<tr>
+													<td>onResize</td>
+													<td>Boyutlandırma yapıldığı zaman tetiklenen <b>event</b>.</td>
+													<td>function([this]$ocd, size)</td>
+													<td>function ( ) { }</td>
+												</tr>
+												<tr>
+													<td>onEnd</td>
+													<td>Boyutlandırma bittiği zaman tetiklenen <b>event</b>.</td>
+													<td>function([this]$ocd)</td>
+													<td>function ( ) { }</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<!--//table-responsive-->
+									<pre class='code-shower'><code class="language-markup">&lt;div id="app"&gt;
+	&lt;div id="content" style="width:100%;height:500px;border:1px solid #ccc;"&gt;
+		&lt;div id="resize-me" style="width:100px;height:100px;background-color:rgb(0, 0, 0);color:#fff;min-width:50px;min-height:50px;max-width:100%;max-height:100%;"&gt;
+			&lt;ul style="margin:0px;padding:0px;list-style-type:none;"&gt;
+				&lt;li&gt;Resize Me&lt;/li&gt;
+			&lt;/ul&gt;
+		&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script src="dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script src="dmuka3.JS.Simple.OCD.UI.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+	var $app = $d.ocd({
+		query: '#app',
+		sub: [{
+			single: true,
+			query: '&gt;#content&gt;#resize-me',
+			alias: 'resizeMe',
+			mixins: [$d.ocd.plugins.resizable({ })]
+		}]
+	});
+&lt;/script&gt;</code></pre>
+									<iframe osrc="examples/example-plugin-resizable.html" style="height:570px;"></iframe>
+									<p></p>
+									<h3 id="plugin-validation">Validation</h3>
+									<p>
+										<b>Validation</b> belli kuralların girilmesinin kontrol edilmesini sağlayan bir eklentidir.
+									</p>
+									<p>
+										İlk önce parametreleri inceleyelim;
+									</p>
+									<div class="table-responsive">
+										<table class="table">
+											<thead>
+												<tr>
+													<th>Name</th>
+													<th>Description</th>
+													<th>Type</th>
+													<th>Default</th>
+												</tr>
+											</thead>
+											<tbody>
+												<tr>
+													<td>$callback</td>
+													<td>Tüm değerlerin sonuçlarının döndürüldüğü <b>event</b>.</td>
+													<td>function([this]$ocd, result)</td>
+													<td>function ( ) { }</td>
+												</tr>
+												<tr>
+													<td>&lt;alias&gt;.maxlen</td>
+													<td>Maksimum karakter uzunluğu.</td>
+													<td>Number</td>
+													<td>null</td>
+												</tr>
+												<tr>
+													<td>&lt;alias&gt;.minlen</td>
+													<td>Minimum karakter uzunluğu.</td>
+													<td>Number</td>
+													<td>null</td>
+												</tr>
+												<tr>
+													<td>&lt;alias&gt;.max</td>
+													<td>Maksimum sayı değeri.</td>
+													<td>Number</td>
+													<td>null</td>
+												</tr>
+												<tr>
+													<td>&lt;alias&gt;.min</td>
+													<td>Minimum sayı değeri.</td>
+													<td>Number</td>
+													<td>null</td>
+												</tr>
+												<tr>
+													<td>&lt;alias&gt;.regex</td>
+													<td>Regex ile kontrol.</td>
+													<td>Regex</td>
+													<td>null</td>
+												</tr>
+												<tr>
+													<td>&lt;alias&gt;.email</td>
+													<td>Değerin mail olma zorunluluğu.</td>
+													<td>Boolean</td>
+													<td>null</td>
+												</tr>
+												<tr>
+													<td>&lt;alias&gt;.required</td>
+													<td>Değerin dolu olma zorunluluğu.</td>
+													<td>Boolean</td>
+													<td>null</td>
+												</tr>
+												<tr>
+													<td>&lt;alias&gt;.check</td>
+													<td>Manuel olarak kontrol edilmesi için kullanılır.</td>
+													<td>function([this]$ocd)</td>
+													<td>null</td>
+												</tr>
+												<tr>
+													<td>&lt;alias&gt;.callback</td>
+													<td>Bir <b>alias</b> için geçerli kontrollerin sonucunu gösteren <b>event</b>.</td>
+													<td>function([this]$ocd, result)</td>
+													<td>null</td>
+												</tr>
+											</tbody>
+										</table>
+									</div>
+									<!--//table-responsive-->
+									<pre class='code-shower'><code class="language-markup">&lt;div id="app"&gt;
+	&lt;input id="input1" placeholder="maxlen:10" type="text" value=""&gt;
+	&lt;input id="input2" placeholder="minlen:10" type="text" value=""&gt;
+	&lt;input id="input3" placeholder="max:10" type="text" value=""&gt;
+	&lt;input id="input4" placeholder="min:10" type="text" value=""&gt;
+	&lt;input id="input5" placeholder="regex" type="text" value=""&gt;
+	&lt;input id="input6" placeholder="email" type="text" value=""&gt;
+	&lt;input id="input7" placeholder="required" type="text" value=""&gt;
+	&lt;input id="input8" placeholder="check" type="text" value=""&gt;
+
+	&lt;hr&gt;
+
+	&lt;div&gt;
+		&lt;span ocd-clone&gt;&lt;/span&gt;
+
+		&lt;span&gt;
+			&lt;input ocd-clone placeholder="minlen:2, maxlen: 10, required: true" type="text" value=""&gt;
+			&lt;input placeholder="minlen:2, maxlen: 10, required: true" type="text" value=""&gt;
+			&lt;input placeholder="minlen:2, maxlen: 10, required: true" type="text" value=""&gt;
+		&lt;/span&gt;
+
+		&lt;span&gt;
+			&lt;input ocd-clone placeholder="minlen:2, maxlen: 10, required: true" type="text" value=""&gt;
+			&lt;input placeholder="minlen:2, maxlen: 10, required: true" type="text" value=""&gt;
+		&lt;/span&gt;
+
+		&lt;span&gt;
+			&lt;input ocd-clone placeholder="minlen:2, maxlen: 10, required: true" type="text" value=""&gt;
+			&lt;input placeholder="minlen:2, maxlen: 10, required: true" type="text" value=""&gt;
+			&lt;input placeholder="minlen:2, maxlen: 10, required: true" type="text" value=""&gt;
+			&lt;input placeholder="minlen:2, maxlen: 10, required: true" type="text" value=""&gt;
+		&lt;/span&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;hr&gt;
+
+&lt;pre&gt;&lt;/pre&gt;
+
+&lt;script src="dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script src="dmuka3.JS.Simple.OCD.UI.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+	var $app = $d.ocd({
+		query: '#app',
+		mixins: [$d.ocd.plugins.validation({
+			$callback: function (value) {
+				if (value.ok === true) {
+					this.$el.$.css('background-color', null);
+				} else {
+					this.$el.$.css('background-color', 'red');
+				}
+			},
+			input1: {
+				maxlen: 10,
+				message: {
+					maxlen: 'Max len err!'
+				}
+			},
+			input2: {
+				minlen: 10,
+				message: {
+					minlen: 'Min len err!'
+				}
+			},
+			input3: {
+				max: 10,
+				message: {
+					max: 'Max err!'
+				}
+			},
+			input4: {
+				min: 10,
+				message: {
+					min: 'Min err!'
+				}
+			},
+			input5: {
+				regex: /^([a-z0-9]{5,})$/,
+				message: {
+					regex: 'Regex err!'
+				}
+			},
+			input6: {
+				email: true,
+				message: {
+					email: 'Email err!'
+				}
+			},
+			input7: {
+				required: true,
+				message: {
+					required: 'Required err!'
+				}
+			},
+			input8: {
+				check: function () {
+					return this.value === 'MUHAMMET';
+				},
+				message: {
+					check: 'Check err!'
+				}
+			},
+			'divel.spanel.inputel': {
+				required: true,
+				minlen: 2,
+				maxlen: 10,
+				message: {
+					required: 'Required suberr!',
+					minlen: 'Min len suberr!',
+					maxlen: 'Max len suberr!'
+				}
+			}
+		})],
+		methods: {
+			refreshJson: function () {
+				this.$runOnce(function () {
+					var json = JSON.stringify(this.valid(), null, 4);
+					if (json !== $d.q.first('pre').$.html()) {
+						$d.q.first('pre').$.html(json);
+					}
+				});
+			}
+		},
+		on: {
+			input: function (e) {
+				this.refreshJson();
+			}
+		},
+		sub: [{
+			single: true,
+			query: '#input1',
+			alias: 'input1'
+		}, {
+			single: true,
+			query: '#input2',
+			alias: 'input2'
+		}, {
+			single: true,
+			query: '#input3',
+			alias: 'input3',
+			mixins: [$d.ocd.plugins.number()]
+		}, {
+			single: true,
+			query: '#input4',
+			alias: 'input4',
+			mixins: [$d.ocd.plugins.number()]
+		}, {
+			single: true,
+			query: '#input5',
+			alias: 'input5'
+		}, {
+			single: true,
+			query: '#input6',
+			alias: 'input6'
+		}, {
+			single: true,
+			query: '#input7',
+			alias: 'input7'
+		}, {
+			single: true,
+			query: '#input8',
+			alias: 'input8'
+		}, {
+			single: true,
+			query: '&gt;div',
+			alias: 'divel',
+			sub: [{
+				alias: 'spanel',
+				parentQuery: '',
+				query: '&gt;span',
+				sub:[{
+					alias: 'inputel',
+					parentQuery: '',
+					query: '&gt;input'
+				}]
+			}]
+		}]
+	});
+
+	$app.refreshJson();
+&lt;/script&gt;</code></pre>
+									<iframe osrc="examples/example-plugin-validation.html" style="height:570px;"></iframe>
 								</div>
 							</section>
 							<!--//doc-section-->

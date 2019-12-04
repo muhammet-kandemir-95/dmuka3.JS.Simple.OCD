@@ -3,7 +3,7 @@
 <head>
 	<title>dmuka3.JS.Simple.OCD</title>
 
-	<link rel="stylesheet" href="assets/css/example.css">
+	<link rel="stylesheet" href="../assets/css/example.css">
 </head>
 
 <body>
@@ -35,8 +35,8 @@
 		<div class="datetime5"></div>
 	</div>
 
-	<script src="js/dmuka3.JS.Simple.OCD.min.js"></script>
-	<script src="js/dmuka3.JS.Simple.OCD.UI.min.js"></script>
+	<script src="../js/dmuka3.JS.Simple.OCD.min.js"></script>
+	<script src="../js/dmuka3.JS.Simple.OCD.UI.min.js"></script>
 	<script>
 		var $app = $d.ocd({
 			query: '#app',
@@ -55,8 +55,7 @@
 					year: false,
 					hour: true,
 					minute: true,
-					second: true,
-					millisecond: true
+					second: true
 				})]
 			}, {
 				single: true,
@@ -65,8 +64,7 @@
 				mixins: [$d.ocd.plugins.datetime({
 					hour: true,
 					minute: true,
-					second: true,
-					millisecond: true
+					second: true
 				})]
 			}, {
 				single: true,
@@ -76,8 +74,7 @@
 					hour: true,
 					minute: true,
 					second: true,
-					millisecond: true,
-					order: ['hour', 'minute', 'second', 'millisecond', 'month', 'day', 'year']
+					order: ['hour', 'minute', 'second', 'month', 'day', 'year']
 				})]
 			}, {
 				single: true,
@@ -87,15 +84,13 @@
 					hour: true,
 					minute: true,
 					second: true,
-					millisecond: true,
 					label: {
 						day: 'dd : ',
 						month: 'mm : ',
 						year: 'yyyy : ',
 						hour: 'HH : ',
 						minute: 'MM : ',
-						second: 'ss : ',
-						millisecond: 'fff : '
+						second: 'ss : '
 					}
 				})]
 			}]

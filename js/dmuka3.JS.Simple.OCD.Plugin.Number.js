@@ -46,8 +46,8 @@ $d.ocd.plugins.$add('number', function ($options) {
 		throw '"$options.formatChars[1]" must be String!';
 	}
 
-	if (this.__isNullOrUndefined($options.formatChars) === false && $options.formatChars[0].length !== 1) {
-		throw '"$options.formatChars[0].length" must be 1!';
+	if (this.__isNullOrUndefined($options.formatChars) === false && $options.formatChars[0].length > 1) {
+		throw '"$options.formatChars[0].length" must be less equal than 1!';
 	}
 
 	if (this.__isNullOrUndefined($options.formatChars) === false && $options.formatChars[1].length !== 1) {
@@ -60,8 +60,10 @@ $d.ocd.plugins.$add('number', function ($options) {
 			this.__hide.number.refreshInput();
 
 			var val = this.$el.value;
-			val = val.split(this.__hide.number.formatChars[0]).join('');
-			val = val.split(this.__hide.number.formatChars[1]).join('.');
+			if (this.__hide.number.format !== false) {
+				val = val.split(this.__hide.number.formatChars[0]).join('');
+				val = val.split(this.__hide.number.formatChars[1]).join('.');
+			}
 			return parseFloat(val);
 		},
 		set: function (value, auto) {
@@ -91,7 +93,7 @@ $d.ocd.plugins.$add('number', function ($options) {
 				}
 
 				var format = window.$d.$global.number.format;
-				if (this.__isNullOrUndefined($options.format) === true) {
+				if (this.__isNullOrUndefined($options.format) === false) {
 					format = $options.format;
 				}
 
@@ -126,6 +128,13 @@ $d.ocd.plugins.$add('number', function ($options) {
 									newVal += c;
 								} else if (i <= cursorIndex) {
 									cursorIndex = Math.max(0, cursorIndex - 1);;
+								}
+								dotExist = true;
+							}
+						} else {
+							if (c === '.') {
+								if (dotExist === false) {
+									newVal += c;
 								}
 								dotExist = true;
 							}
@@ -197,6 +206,10 @@ $d.ocd.plugins.$add('number', function ($options) {
 				self.$el.$.on('input', inputEvent);
 
 				self.__hide.number = {
+					/**
+					 * $options.format
+					 */
+					format: format,
 					/**
 					 * $options.formatChars
 					 */
