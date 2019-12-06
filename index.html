@@ -1761,6 +1761,42 @@
 									<p>
 										<b>Root OCD</b> değerini döndürür.
 									</p>
+									<pre class='code-shower'><code class="language-markup">&lt;div id="app"&gt;
+	&lt;span&gt;&lt;/span&gt;
+	&lt;div&gt;
+		&lt;div&gt;&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script src="dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+	var $app = $d.ocd({
+		query: '#app',
+		sub: [{
+			alias: 'spanEl',
+			single: true,
+			query: '&gt;span',
+		}, {
+			alias: 'div1',
+			single: true,
+			query: '&gt;div',
+			sub: [{
+				alias: 'div2',
+				single: true,
+				query: '&gt;div',
+				on: {
+					$init: function () {
+						this.$root.spanEl = 'Hello World';
+						this.value = 'Hi, I have just set this value using $root';
+					}
+				}
+			}]
+		}]
+	});
+&lt;/script&gt;</code></pre>
+									<iframe osrc="examples/example-ocd-single-item-root-01.html"
+										style="height: 100px;"></iframe>
+									<p></p>
 									<h4 id="ocd-single-item-runonce">$runOnce(function fnc):none</h4>
 									<p>
 										Fonksiyonu <b>setTimeout</b> çalışana kadar sadece bir kere tetiklenmesini sağlar.
@@ -2171,14 +2207,6 @@
 									<p>
 										Nesneyi <b>JSON</b> değere dönüştürür.
 									</p>
-									<h4 id="ocd-list-root">$root</h4>
-									<p>
-										<b>Root OCD</b> değerini döndürür.
-									</p>
-									<h4 id="ocd-list-runonce">$runOnce(function fnc):none</h4>
-									<p>
-										Fonksiyonu <b>setTimeout</b> çalışana kadar sadece bir kere tetiklenmesini sağlar.
-									</p>
 									<pre class='code-shower'><code class="language-markup">&lt;style&gt;
 	#app,
 	#app * {
@@ -2271,6 +2299,50 @@
 									<iframe osrc="examples/example-ocd-list-jobject-01.html"
 										style="height: 480px;"></iframe>
 									<p></p>
+									<h4 id="ocd-list-root">$root</h4>
+									<p>
+										<b>Root OCD</b> değerini döndürür.
+									</p>
+									<pre class='code-shower'><code class="language-markup">&lt;div id="app"&gt;
+	&lt;span&gt;&lt;/span&gt;
+	&lt;div&gt;
+		&lt;div&gt;&lt;/div&gt;
+	&lt;/div&gt;
+&lt;/div&gt;
+
+&lt;script src="dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
+&lt;script&gt;
+	var $app = $d.ocd({
+		query: '#app',
+		sub: [{
+			alias: 'spanEl',
+			single: true,
+			query: '&gt;span',
+		}, {
+			alias: 'div1',
+			single: true,
+			query: '&gt;div',
+			sub: [{
+				alias: 'div2',
+					parentQuery: '',
+				query: '&gt;div',
+				on: {
+					$init: function () {
+						this.$list.$root.spanEl = 'Hello World';
+						this.value = 'Hi, I have just set this value using $root';
+					}
+				}
+			}]
+		}]
+	});
+&lt;/script&gt;</code></pre>
+									<iframe osrc="examples/example-ocd-list-root-01.html"
+										style="height: 100px;"></iframe>
+									<p></p>
+									<h4 id="ocd-list-runonce">$runOnce(function fnc):none</h4>
+									<p>
+										Fonksiyonu <b>setTimeout</b> çalışana kadar sadece bir kere tetiklenmesini sağlar.
+									</p>
 									<h4 id="ocd-list-length">length</h4>
 									<p>
 										Nesnenin sahip olduğu satır sayısını döndürür.
@@ -4495,10 +4567,6 @@
 									<a class="nav-link scrollto" href="#plugin-number">Number</a>
 									<a class="nav-link scrollto" href="#plugin-resizable">Resizable</a>
 									<a class="nav-link scrollto" href="#plugin-validation">Validation</a>
-								</nav>
-								<a class="nav-link scrollto" href="#examples-section">Örnekler</a>
-								<nav class="doc-sub-menu nav flex-column">
-									<a class="nav-link scrollto" href="#example-">Eklenti Yazmak</a>
 								</nav>
 							</nav>
 							<!--//doc-menu-->

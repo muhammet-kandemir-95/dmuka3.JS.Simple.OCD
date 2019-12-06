@@ -10,6 +10,7 @@
 	<div id="app">
 		<span></span>
 		<div>
+			<div ocd-clone></div>
 			<div></div>
 		</div>
 	</div>
@@ -28,11 +29,11 @@
 				query: '>div',
 				sub: [{
 					alias: 'div2',
-					single: true,
+					parentQuery: '',
 					query: '>div',
 					on: {
 						$init: function () {
-							this.$root.spanEl = 'Hello World';
+							this.$list.$root.spanEl = 'Hello World';
 							this.value = 'Hi, I have just set this value using $root';
 						}
 					}
