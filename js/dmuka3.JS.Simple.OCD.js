@@ -2382,6 +2382,7 @@
 			};
 
 			resultOcd.$el = queryParentEl;
+			resultOcd.$root = rootOcd;
 
 			if (checkVariableIsArray(parentOcd) === true) {
 				resultOcd.$list = parentOcd;

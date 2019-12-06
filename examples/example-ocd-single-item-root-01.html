@@ -1,0 +1,101 @@
+<html>
+
+<head>
+	<title>dmuka3.JS.Simple.OCD</title>
+
+	<link rel="stylesheet" href="../assets/css/example.css">
+</head>
+
+<body>
+	<style>
+		#app,
+		#app * {
+			cursor: pointer;
+			transition-duration: 0.5s;
+		}
+		
+		#app:hover,
+		#app div:hover,
+		#app span:hover {
+			transform: scale(1.015);
+		}
+
+		#app div {
+			border: 1px solid #000;
+			padding: 20px;
+		}
+		
+		#app div div {
+			border-color: blue;
+		}
+		
+		#app div span {
+			display: inline-block;
+			border: 1px solid purple;
+			padding: 20px;
+		}
+		
+		#app div div div {
+			border-color: green;
+		}
+	</style>
+
+	<div id="app">
+		Just Click
+		<br>
+		<div>
+			<span>
+				Hello World
+			</span>
+
+			<div>
+				<div ocd-clone></div>
+				<div>Item 1</div>
+				<div>Item 2</div>
+				<div>Item 3</div>
+				<div>Item 4</div>
+			</div>
+		</div>
+	</div>
+
+	<script src="../js/dmuka3.JS.Simple.OCD.min.js"></script>
+	<script>
+		var testMixin = {
+			on: {
+				click: function (e) {
+					alert(this.$alias + ' = ' + JSON.stringify(this.jobject(), null, 4));
+					e.stopPropagation();
+				}
+			}
+		};
+		var $app = $d.ocd({
+			query: '#app',
+			mixins: [testMixin],
+			sub: [{
+				alias: 'firstDiv',
+				single: true,
+				query: '>div',
+				mixins: [testMixin],
+				sub: [{
+					alias: 'helloWorld',
+					single: true,
+					query: '>span',
+					mixins: [testMixin]
+				}, {
+					alias: 'secondDiv',
+					single: true,
+					query: '>div',
+					mixins: [testMixin],
+					sub: [{
+						alias: 'thirdDivs',
+						parentQuery: '',
+						query: '>div',
+						mixins: [testMixin]
+					}]
+				}]
+			}]
+		});
+	</script>
+</body>
+
+</html>
