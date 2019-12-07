@@ -1263,20 +1263,30 @@
 							var name = arguments[0];
 							var value = arguments[1];
 							var days = arguments[2];
+							var path = arguments[3];
+							var domain = arguments[4];
 							if (checkVariableIsNullOrUndefined(days) === true) {
 								days = 365;
+							}
+							if (checkVariableIsNullOrUndefined(path) === true) {
+								path = '/';
+							}
+							if (checkVariableIsNullOrUndefined(domain) === false) {
+								domain = ' domain=' + domain + ';';
+							} else {
+								domain = '';
 							}
 
 							if (checkVariableIsNullOrUndefined(value) === true) {
 								// REMOVE
-								document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 GMT; path=/';
+								document.cookie = name + '=; expires=Thu, 01 Jan 1970 00:00:00 GMT;' + domain + ' path=' + path;
 							} else {
 								// SET
 								var expires = "";
 								var date = new Date();
 								date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
 								expires = "; expires=" + date.toUTCString();
-								document.cookie = name + "=" + (value || "") + expires + "; path=/";
+								document.cookie = name + "=" + (value || "") + expires + ";" + domain + " path=" + path;
 							}
 
 							return result;
