@@ -1852,6 +1852,12 @@
 						};
 					}
 						break;
+					case 'TEXTAREA': {
+						ocdGet = function () {
+							return this.$el.value;
+						};
+					}
+						break;
 					case 'OPTION': {
 						ocdGet = function () {
 							return this.$el.getAttribute('value');
@@ -1893,6 +1899,12 @@
 					}
 						break;
 					case 'SELECT': {
+						ocdSet = function (value) {
+							this.$el.value = value;
+						};
+					}
+						break;
+					case 'TEXTAREA': {
 						ocdSet = function (value) {
 							this.$el.value = value;
 						};
@@ -1974,6 +1986,12 @@
 						break;
 					case 'SELECT': {
 						ocdEl.addEventListener('change', function () {
+							triggerWatches();
+						});
+					}
+						break;
+					case 'TEXTAREA': {
+						ocdEl.addEventListener('input', function () {
 							triggerWatches();
 						});
 					}
