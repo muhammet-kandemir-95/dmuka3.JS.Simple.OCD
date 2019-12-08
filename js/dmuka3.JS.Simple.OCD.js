@@ -347,11 +347,19 @@
 								return self.style[arguments[0]];
 							} else {
 								for (var key in arguments[0]) {
-									self.style[key] = arguments[0][key];
+									if (checkVariableIsNullOrUndefined(arguments[0][key]) == false && arguments[0][key].indexOf('!important') === arguments[0][key].length - '!important'.length) {
+										self.style.setProperty(key, arguments[0][key].substr(0, arguments[0][key].length - '!important'.length), 'important');
+									} else {
+										self.style[key] = arguments[0][key];
+									}
 								}
 							}
 						} else if (arguments.length === 2) {
-							self.style[arguments[0]] = arguments[1];
+							if (checkVariableIsNullOrUndefined(arguments[1][key]) == false && arguments[1][key].indexOf('!important') === arguments[1][key].length - '!important'.length) {
+								self.style.setProperty(arguments[0], arguments[1][key].substr(0, arguments[1][key].length - '!important'.length), 'important');
+							} else {
+								self.style[arguments[0]] = arguments[1];
+							}
 							return result;
 						}
 					};
