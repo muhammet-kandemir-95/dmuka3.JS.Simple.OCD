@@ -355,8 +355,8 @@
 								}
 							}
 						} else if (arguments.length === 2) {
-							if (checkVariableIsNullOrUndefined(arguments[1][key]) == false && arguments[1][key].indexOf('!important') === arguments[1][key].length - '!important'.length) {
-								self.style.setProperty(arguments[0], arguments[1][key].substr(0, arguments[1][key].length - '!important'.length), 'important');
+							if (checkVariableIsNullOrUndefined(arguments[1]) == false && arguments[1].indexOf('!important') === arguments[1].length - '!important'.length) {
+								self.style.setProperty(arguments[0], arguments[1].substr(0, arguments[1].length - '!important'.length), 'important');
 							} else {
 								self.style[arguments[0]] = arguments[1];
 							}
