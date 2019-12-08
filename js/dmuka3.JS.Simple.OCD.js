@@ -1838,6 +1838,11 @@
 									return this.$el.checked;
 								};
 								break;
+							case 'file':
+								ocdGet = function () {
+									return this.$el.files;
+								};
+								break;
 							default:
 								ocdGet = function () {
 									return this.$el.value;
