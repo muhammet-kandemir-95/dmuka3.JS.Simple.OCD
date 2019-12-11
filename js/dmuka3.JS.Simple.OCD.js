@@ -2232,8 +2232,12 @@
 			if ($oldBrowser === false) {
 				var cloneEl = queryParentEl.querySelector(':scope>*[ocd-clone]');
 				if (checkVariableIsNullOrUndefined(cloneEl) === true) {
-					console.error('Clone element("' + query + '") was not found in "' + parentQuery + '"', queryParentEl);
-					throw 'Clone element("' + query + '") was not found in "' + parentQuery + '"';
+					if((function () {
+						window['console']['error']('Clone element("' + query + '") was not found in "' + parentQuery + '"', queryParentEl);
+						return true;
+					})() === true){
+						throw 'Clone element("' + query + '") was not found in "' + parentQuery + '"';
+					}
 				}
 				var cloneElClone = cloneEl.cloneNode(true);
 				cloneElClone.removeAttribute('ocd-clone');
@@ -2245,7 +2249,9 @@
 				ocdElIdProcess(queryParentEl, function (ocdElId) {
 					var cloneEl = queryParentEl.parentNode.querySelector('*[ocd-el-id="' + ocdElId + '"]>*[ocd-clone]');
 					if (checkVariableIsNullOrUndefined(cloneEl) === true) {
-						console.error('Clone element("' + query + '") was not found in "' + parentQuery + '"', queryParentEl);
+						(function () {
+							window['console']['error']('Clone element("' + query + '") was not found in "' + parentQuery + '"', queryParentEl);
+						})();
 						throw 'Clone element("' + query + '") was not found in "' + parentQuery + '"';
 					}
 					var cloneElClone = cloneEl.cloneNode(true);
