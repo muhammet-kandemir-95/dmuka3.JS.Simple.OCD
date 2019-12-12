@@ -14,12 +14,12 @@
 		<br />
 		<div class="datetime1"></div>
 		<br />
-		<b>Just Time</b>
+		<b>Just Time - Readonly</b>
 		<br />
 		<br />
 		<div class="datetime2"></div>
 		<br />
-		<b>Date Time</b>
+		<b>Date Time - Readonly</b>
 		<br />
 		<br />
 		<div class="datetime3"></div>
@@ -50,6 +50,7 @@
 				query: '>.datetime2',
 				alias: 'datetime2',
 				mixins: [$d.ocd.plugins.datetime({
+					readonly: true,
 					day: false,
 					month: false,
 					year: false,
@@ -62,6 +63,7 @@
 				query: '>.datetime3',
 				alias: 'datetime3',
 				mixins: [$d.ocd.plugins.datetime({
+					readonly: true,
 					hour: true,
 					minute: true,
 					second: true
