@@ -1752,8 +1752,36 @@
 						};
 					}
 
+					var loadDefaultCheck = false;
+					var loadDefault = function () {
+						if (loadDefaultCheck === true) {
+							return;
+						}
+						loadDefaultCheck = true;
+
+						if (checkVariableIsNullOrUndefined(data[key].default) === false) {
+							if (checkVariableIsNullOrUndefined(get) === false) {
+								var value = dataGet(ocdEl, key);
+
+								if (checkVariableIsNullOrUndefined(value) === false && value !== '') {
+									dataSet(ocdEl, value, key);
+									return;
+								}
+							}
+
+							if (checkVariableIsFunction(data[key].default) === true) {
+								dataSet(ocdEl, data[key].default(ocdItem), key);
+							} else {
+								dataSet(ocdEl, data[key].default, key);
+							}
+						} else if (checkVariableIsNullOrUndefined(dataGet) === false) {
+							dataSet(ocdEl, dataGet(ocdEl, key), key);
+						}
+					};
+
 					Object.defineProperty(ocdItem, key, {
 						get: function () {
+							loadDefault();
 							return dataGet(ocdEl, key);
 						},
 						set: function (value) {
@@ -1763,26 +1791,7 @@
 
 					queues.push({
 						last: true,
-						fnc: function () {
-							if (checkVariableIsNullOrUndefined(data[key].default) === false) {
-								if (checkVariableIsNullOrUndefined(get) === false) {
-									var value = dataGet(ocdEl, key);
-
-									if (checkVariableIsNullOrUndefined(value) === false && value !== '') {
-										dataSet(ocdEl, value, key);
-										return;
-									}
-								}
-
-								if (checkVariableIsFunction(data[key].default) === true) {
-									dataSet(ocdEl, data[key].default(ocdItem), key);
-								} else {
-									dataSet(ocdEl, data[key].default, key);
-								}
-							} else if (checkVariableIsNullOrUndefined(dataGet) === false) {
-								dataSet(ocdEl, dataGet(ocdEl, key), key);
-							}
-						}
+						fnc: loadDefault
 					});
 				})(key);
 			}
