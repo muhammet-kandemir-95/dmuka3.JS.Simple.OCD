@@ -19,6 +19,7 @@ window.$d.$global.datetime = {
 /**
  * dmuka3.JS.Simple.OCD.Plugin.DateTime
  * {
+ * 	readonly(default:false): <Boolean>,
  * 	day(default: true): <Boolean>,
  * 	month(default: true): <Boolean>,
  * 	year(default: true): <Boolean>,
@@ -44,6 +45,10 @@ $d.ocd.plugins.$add('datetime', function ($options) {
 
 	if (this.__isObject($options) === false) {
 		throw '"$options" must be Object!';
+	}
+
+	if (this.__isNullOrUndefined($options.readonly) === false && this.__isBool($options.readonly) === false) {
+		throw '"$options.readonly" must be Boolean!';
 	}
 
 	if (this.__isNullOrUndefined($options.day) === false && this.__isBool($options.day) === false) {
@@ -124,6 +129,16 @@ $d.ocd.plugins.$add('datetime', function ($options) {
 	//#endregion
 
 	var mixin = {
+		data: {
+			readonly: {
+				get: function () {
+					return this.__hide.datetime.readonly;
+				},
+				set: function (value) {
+					this.__hide.datetime.readonly = value;
+				}
+			}
+		},
 		get: function () {
 			return this.__hide.datetime.getDate();
 		},
@@ -136,6 +151,10 @@ $d.ocd.plugins.$add('datetime', function ($options) {
 		on: {
 			$init: function () {
 				var self = this;
+
+				if (self.__isNullOrUndefined($options.readonly) === true) {
+					$options.readonly = false;
+				}
 
 				if (self.__isNullOrUndefined($options.day) === true) {
 					$options.day = window.$d.$global.datetime.day;
@@ -369,7 +388,29 @@ $d.ocd.plugins.$add('datetime', function ($options) {
 					topParent.$.append(secondParent);
 				}
 
+				var readonly = $options.readonly;
 				self.__hide.datetime = {
+					get readonly() {
+						return readonly;
+					},
+					set readonly(value) {
+						readonly = value === true;
+						if (readonly === true) {
+							dayCb.$.attr('disabled', '');
+							monthCb.$.attr('disabled', '');
+							yearCb.$.attr('disabled', '');
+							hourCb.$.attr('disabled', '');
+							minuteCb.$.attr('disabled', '');
+							secondCb.$.attr('disabled', '');
+						} else {
+							dayCb.$.removeAttr('disabled');
+							monthCb.$.removeAttr('disabled');
+							yearCb.$.removeAttr('disabled');
+							hourCb.$.removeAttr('disabled');
+							minuteCb.$.removeAttr('disabled');
+							secondCb.$.removeAttr('disabled');
+						}
+					},
 					/**
 					 * Check max day count by be selected month and year.
 					 */
@@ -480,6 +521,7 @@ $d.ocd.plugins.$add('datetime', function ($options) {
 						}
 					}
 				};
+				self.__hide.datetime.readonly = readonly;
 
 				if (defaultValue === '') {
 					self.__hide.datetime.setDate(new Date());

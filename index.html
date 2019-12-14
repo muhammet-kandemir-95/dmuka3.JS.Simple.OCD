@@ -16,7 +16,7 @@
 	<!-- FontAwesome JS -->
 	<script defer src="https://use.fontawesome.com/releases/v5.8.2/js/all.js"
 		integrity="sha384-DJ25uNYET2XCl5ZF++U8eNxPWqcKohUUBUpKGlNLMchM7q4Wjg2CUpjHLaL8yYPH" crossorigin="anonymous">
-		</script>
+	</script>
 	<!-- Global CSS -->
 	<link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.min.css">
 	<!-- Plugins CSS -->
@@ -1799,7 +1799,8 @@
 									<p></p>
 									<h4 id="ocd-single-item-runonce">$runOnce(function fnc):none</h4>
 									<p>
-										Fonksiyonu <b>setTimeout</b> çalışana kadar sadece bir kere tetiklenmesini sağlar.
+										Fonksiyonu <b>setTimeout</b> çalışana kadar sadece bir kere tetiklenmesini
+										sağlar.
 									</p>
 									<h4 id="ocd-single-item-set">$set</h4>
 									<p>
@@ -2341,7 +2342,8 @@
 									<p></p>
 									<h4 id="ocd-list-runonce">$runOnce(function fnc):none</h4>
 									<p>
-										Fonksiyonu <b>setTimeout</b> çalışana kadar sadece bir kere tetiklenmesini sağlar.
+										Fonksiyonu <b>setTimeout</b> çalışana kadar sadece bir kere tetiklenmesini
+										sağlar.
 									</p>
 									<h4 id="ocd-list-length">length</h4>
 									<p>
@@ -3271,7 +3273,8 @@
 										style="height:80px;"></iframe>
 									<p></p>
 									<h4 id="htmldoc-window-dollar-cookie">cookie():Object <br> cookie(String
-										name):String <br> cookie(String name, String value, Number? days, String? path, String? domain):doc.$/$q</h4>
+										name):String <br> cookie(String name, String value, Number? days, String? path,
+										String? domain):doc.$/$q</h4>
 									<p>
 										Çerezleri almayı veya dolduramayı sağlar.
 									</p>
@@ -3554,6 +3557,12 @@
 											</thead>
 											<tbody>
 												<tr>
+													<td>readonly</td>
+													<td>Sadece okunabilir mi?</td>
+													<td>Boolean</td>
+													<td>true</td>
+												</tr>
+												<tr>
 													<td>day</td>
 													<td>Gün verisi aktif mi?</td>
 													<td>Boolean</td>
@@ -3636,6 +3645,9 @@
 									</div>
 									<!--//table-responsive-->
 									<p>
+										Aynı zamanda <b>readonly</b> adında bir <a href="#data" class="scrollto">data</a> değeri eklemektedir. Bu değer kullanılarak okunailir olma durumu değiştirilebilir.
+									</p>
+									<p>
 										<b>$d.$global.datetime</b> kullanarak <b>default</b> değerleri
 										değiştirebilirsiniz.
 									</p>
@@ -3646,12 +3658,12 @@
 	&lt;br /&gt;
 	&lt;div class="datetime1"&gt;&lt;/div&gt;
 	&lt;br /&gt;
-	&lt;b&gt;Just Time&lt;/b&gt;
+	&lt;b&gt;Just Time - Readonly&lt;/b&gt;
 	&lt;br /&gt;
 	&lt;br /&gt;
 	&lt;div class="datetime2"&gt;&lt;/div&gt;
 	&lt;br /&gt;
-	&lt;b&gt;Date Time&lt;/b&gt;
+	&lt;b&gt;Date Time - Readonly&lt;/b&gt;
 	&lt;br /&gt;
 	&lt;br /&gt;
 	&lt;div class="datetime3"&gt;&lt;/div&gt;
@@ -3682,6 +3694,7 @@
 			query: '&gt;.datetime2',
 			alias: 'datetime2',
 			mixins: [$d.ocd.plugins.datetime({
+				readonly: true,
 				day: false,
 				month: false,
 				year: false,
@@ -3694,6 +3707,7 @@
 			query: '&gt;.datetime3',
 			alias: 'datetime3',
 			mixins: [$d.ocd.plugins.datetime({
+				readonly: true,
 				hour: true,
 				minute: true,
 				second: true
@@ -4019,7 +4033,8 @@
 												</tr>
 												<tr>
 													<td>formatChars</td>
-													<td>Virgülden öncesi için binlik hane ayracı ve virgün yerine kullanılacak karakter.</td>
+													<td>Virgülden öncesi için binlik hane ayracı ve virgün yerine
+														kullanılacak karakter.</td>
 													<td>Array(String)</td>
 													<td>[',', '.']</td>
 												</tr>
@@ -4175,11 +4190,13 @@
 		}]
 	});
 &lt;/script&gt;</code></pre>
-									<iframe osrc="examples/example-plugin-resizable.html" style="height:570px;"></iframe>
+									<iframe osrc="examples/example-plugin-resizable.html"
+										style="height:570px;"></iframe>
 									<p></p>
 									<h3 id="plugin-validation">Validation</h3>
 									<p>
-										<b>Validation</b> belli kuralların girilmesinin kontrol edilmesini sağlayan bir eklentidir.
+										<b>Validation</b> belli kuralların girilmesinin kontrol edilmesini sağlayan bir
+										eklentidir.
 									</p>
 									<p>
 										İlk önce parametreleri inceleyelim;
@@ -4251,7 +4268,8 @@
 												</tr>
 												<tr>
 													<td>&lt;alias&gt;.callback</td>
-													<td>Bir <b>alias</b> için geçerli kontrollerin sonucunu gösteren <b>event</b>.</td>
+													<td>Bir <b>alias</b> için geçerli kontrollerin sonucunu gösteren
+														<b>event</b>.</td>
 													<td>function([this]$ocd, result)</td>
 													<td>null</td>
 												</tr>
@@ -4440,7 +4458,8 @@
 
 	$app.refreshJson();
 &lt;/script&gt;</code></pre>
-									<iframe osrc="examples/example-plugin-validation.html" style="height:570px;"></iframe>
+									<iframe osrc="examples/example-plugin-validation.html"
+										style="height:570px;"></iframe>
 								</div>
 							</section>
 							<!--//doc-section-->
@@ -4626,7 +4645,7 @@
 				fallbackCopyTextToClipboard(text);
 				return;
 			}
-			navigator.clipboard.writeText(text).then(function () { }, function (err) {
+			navigator.clipboard.writeText(text).then(function () {}, function (err) {
 				console.error('Async: Could not copy text: ', err);
 			});
 		}
@@ -4682,7 +4701,7 @@
 					node.attr('id', hash);
 				}
 				if ($actives[$actives.length - 1].offsetTop < $('#doc-menu')[0].scrollTop || $actives[$actives
-					.length - 1].offsetTop > $('#doc-menu')[0].scrollTop + window.innerHeight) {
+						.length - 1].offsetTop > $('#doc-menu')[0].scrollTop + window.innerHeight) {
 					if ($actives[$actives.length - 1].offsetTop < $('#doc-menu')[0].scrollTop) {
 						$('#doc-menu')[0].scrollTop = $actives[$actives.length - 1].offsetTop;
 					} else {
@@ -4722,7 +4741,8 @@
 			(function (elementPre, elementIFrame) {
 				elementPre.style.display = 'none';
 				elementIFrame.style.display = 'none';
-				var $button = $('<button class="btn btn-blue show-example" style="margin-bottom:15px;">Show Example</button>');
+				var $button = $(
+					'<button class="btn btn-blue show-example" style="margin-bottom:15px;">Show Example</button>');
 				$button.click(function (e) {
 					if ($(this).text() === 'Show Example') {
 						$(this).text('Hide Example');
