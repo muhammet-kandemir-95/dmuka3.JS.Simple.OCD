@@ -16,7 +16,7 @@
 	<!-- FontAwesome JS -->
 	<script defer src="https://use.fontawesome.com/releases/v5.8.2/js/all.js"
 		integrity="sha384-DJ25uNYET2XCl5ZF++U8eNxPWqcKohUUBUpKGlNLMchM7q4Wjg2CUpjHLaL8yYPH" crossorigin="anonymous">
-	</script>
+		</script>
 	<!-- Global CSS -->
 	<link rel="stylesheet" href="assets/plugins/bootstrap/css/bootstrap.min.css">
 	<!-- Plugins CSS -->
@@ -54,34 +54,32 @@
 		<div class="doc-wrapper">
 			<div class="container">
 				<div id="doc-header" class="doc-header text-center">
-					<h1 class="doc-title"><i class="icon fa fa-paper-plane"></i> Dökümantasyon</h1>
-					<div class="meta"><i class="far fa-clock"></i> Son Güncelleme: 22 Kasım 2019</div>
+					<h1 class="doc-title"><i class="icon fa fa-paper-plane"></i> Documentation</h1>
+					<div class="meta"><i class="far fa-clock"></i> Last Update : 15.12.2019</div>
 				</div>
 				<!--//doc-header-->
 				<div class="doc-body row">
 					<div class="doc-content col-md-9 col-12 order-1">
 						<div class="content-inner">
 							<section id="what-is-this-section" class="doc-section">
-								<h2 class="section-title">dmuka3.JS.Simple.OCD Nedir?</h2>
+								<h2 class="section-title">What is dmuka3.JS.Simple.OCD?</h2>
 								<div class="section-block">
 									<p>
-										&nbsp;<a href="javascript:void(0)"><b>dmuka3.JS.Simple.OCD</b></a> kütüphanesi
-										sizin SEO ile tamamen entegre sitelerinizi kolay bir şekilde kodlamanızı
-										sağlayan bir <i>JavaScript</i> kütüphanesidir.
+										&nbsp;<a href="javascript:void(0)"><b>dmuka3.JS.Simple.OCD</b></a> is a
+										<i>JavaScript</i> library to make somethings on website compatible with SEO.
 									</p>
 									<p>
-										&nbsp;Dökümanın ilerleyen kısımlarında yer alan örneklerde de görüleceği üzere
-										<i>HTML</i> verisine göre kodlar şekillenmektedir. <i>Server Side Render</i> ile
-										kullanılması önerilmektedir.
+										&nbsp;Codes are written according to <i>HTML</i>.
+										It is recommended to use with <i>Server Side Render</i>.
 									</p>
 								</div>
 							</section>
 							<!--//doc-section-->
 							<section id="download-section" class="doc-section">
-								<h2 class="section-title">İndir</h2>
+								<h2 class="section-title">Download</h2>
 								<div class="section-block">
 									<p>
-										Proje ile alakalı dosyaları indirebileceğiz kaynaklar bu kısımda yer almaktadır.
+										You can download project's files using this section.
 									</p>
 									<a href="https://github.com/muhammet-kandemir-95/dmuka3.JS.Simple.OCD/archive/master.zip"
 										class="btn btn-green" target="_blank"><i class="fas fa-download"></i>Source
@@ -103,12 +101,10 @@
 							</section>
 							<!--//doc-section-->
 							<section id="code-schema-section" class="doc-section">
-								<h2 class="section-title">Kod Şeması</h2>
+								<h2 class="section-title">Code Schema</h2>
 								<div class="code-block">
 									<p>
-										Buraya kadar geldiyseniz ne mutlu. Size öncelikle <a
-											href="javascript:void(0)">dmuka3.JS.Simple.OCD</a> kütüphanesinin veri
-										şemasını gösterelim.
+										Let's see what <a href="javascript:void(0)">dmuka3.JS.Simple.OCD</a>'s schema.
 									</p>
 									<h3 id="ocd-schema">OCD Schema</h3>
 									<pre class='code-shower'><code class="language-javascript">{
@@ -230,11 +226,9 @@
 										</div>
 										<!--//icon-holder-->
 										<div class="content">
-											<h4 class="callout-title">Önemli Not</h4>
-											<p>Şemadaki <b>root</b> dışındaki tüm alt katmanlar aynı şemayı
-												kullanmaktadır. <b>root</b> ise diğerlerinden farklı olarak
-												<i>parentQuery</i>, <i>single</i> ve <i>jobject</i> parametrelerini
-												kullanılamaz!</p>
+											<h4 class="callout-title">Warning</h4>
+											<p>All of objects except <b>root</b> use same schema. <b>root</b> never use
+												<i>parentQuery</i>, <i>single</i> and <i>jobject</i></p>
 										</div>
 										<!--//content-->
 									</div>
@@ -242,7 +236,7 @@
 
 									<h4 id="alias">alias</h4>
 									<p>
-										<b>alias</b> verinin takma adı.
+										<b>alias</b> is name of OCD.
 									</p>
 									<pre class='code-shower'><code class="language-markup">&lt;div id=&quot;app&quot;&gt;
 	&lt;input type=&quot;text&quot; class=&quot;name&quot;&gt;
@@ -271,9 +265,7 @@
 									<p></p>
 									<h4 id="parentQuery">parentQuery</h4>
 									<p>
-										<b>parentQuery</b> eğer seçim yapılacak element birden fazla ise, kullanılması
-										gerekmektedir. Aşağıdaki örnekte de görüldüğü üzere <b>parentQuery</b> eğer
-										element ilgili bloğun hemen altında yer almıyorsa oldukça iş görmektedir.
+										If you have to use multiple element, you use <b>parentQuery</b>.
 									</p>
 									<pre class='code-shower'><code class="language-markup">&lt;style&gt;
 	span {
@@ -319,23 +311,19 @@
 										</div>
 										<!--//icon-holder-->
 										<div class="content">
-											<h4 class="callout-title">Uyarı</h4>
+											<h4 class="callout-title">Warning</h4>
 											<p>
-												<b>parentQuery</b> kullanılan yerde mutlaka klonlanacak olan element
-												<i>ocd-clone</i> attribute'ü ile beraber bir tane olacak şekilde yer
-												almalıdır. Örnekteki <b>"&lt;span ocd-clone&gt;</span>"</b> gibi. Tabi
-												dökümanın ilerleyen kısımlarında yer alan <a class="scrollto"
-													href="#clone">clone</a> özelliğini
-												<i>override</i> ederek bu durum değiştirilebilir. Fakat varsayılan
-												durumda bu kural geçerlidir.
+												It is necessary to be an element which has <i>ocd-clone</i> attribute in
+												<b>parentQuery</b> if you don't override the <a class="scrollto"
+													href="#clone">clone</a>.
 											</p>
 										</div>
 										<!--//content-->
 									</div>
 									<!--//callout-block-->
 									<p>
-										Peki eğer <b>parentQuery</b> için ayrı bir elementimiz yok ise? Hemen başka bir
-										örneğe geçelim.
+										What if we don't have an invidual parent element for <b>parentQuery</b>? Let's
+										check.
 									</p>
 									<pre class='code-shower'><code class="language-markup">&lt;style&gt;
 	span {
@@ -375,9 +363,9 @@
 &lt;/script&gt;</code></pre>
 									<iframe osrc="examples/example-parentquery-02.html" style="height: 170px;"></iframe>
 									<p>
-										Aslında görüldüğü üzere sadece <b>parentQuery</b> değerine <b>''</b> değerini
-										atamamız başka bir element için olan zorunluluğu ortadan kaldırıyor. Yukarıdaki
-										örnekte <b>parentQuery</b> artık <b>'#app'</b> olarak kabul edilmektedir.
+										As you see, we don't have to have an invidual parent element after we set
+										<b>parentQuery</b> to <b>''</b>. <b>parentQuery</b> is <b>'#app'</b> at above
+										example.
 									</p>
 									<div class="callout-block callout-info">
 										<div class="icon-holder">
@@ -385,11 +373,10 @@
 										</div>
 										<!--//icon-holder-->
 										<div class="content">
-											<h4 class="callout-title">Ayrıca</h4>
+											<h4 class="callout-title">Also</h4>
 											<p>
-												<b>parentQuery</b> için ayrı bir elementin olması ve sadece içerisinde
-												tekrar eden elementlerin bulunması önerilir. Yani ilk örnekteki yapı
-												temiz projeler için daha uygun olmaktadır.
+												We recommend to use <b>parentQuery</b> with invidual parent elements
+												like first example. Otherwise, you might have some problems.
 											</p>
 										</div>
 										<!--//content-->
@@ -397,11 +384,10 @@
 									<!--//callout-block-->
 									<h4 id="clone">clone</h4>
 									<p>
-										<b>clone</b> <a href="#parentQuery" class="scrollto">parentQuery</a> kullanılan
-										yerlerde yeni bir satır oluşturulacağında kullanılan fonksiyon. Varsayılan
-										değerinde <a href="#parentQuery" class="scrollto">parentQuery</a> içerisinde yer
-										alan <b>ocd-clone</b> attribute değerini taşıyan elemente göre çalışmaktadır.
-										Aşağıdaki örnekte yeni oluşturulacak olan elementi manuel olarak oluşturuyoruz.
+										<b>clone</b> is used in <a href="#parentQuery" class="scrollto">parentQuery</a>
+										to create a clone item. As default value, it uses an element which has
+										<b>ocd-clone</b> attribute in <a href="#parentQuery"
+											class="scrollto">parentQuery</a>.
 									</p>
 									<pre class='code-shower'><code class="language-markup">&lt;style&gt;
 	.red {
@@ -469,8 +455,7 @@
 									<p></p>
 									<h4 id="single">single</h4>
 									<p>
-										<b>single</b> ilgili blokta yapılan aramanın sadece tek bir element için
-										olacağını göstermek içindir.
+										If element is <b>single</b>, it won't have a clone.
 									</p>
 									<pre class='code-shower'><code class="language-markup">&lt;div id=&quot;app&quot;&gt;
 	&lt;button&gt;Click Me&lt;/button&gt;
@@ -499,16 +484,16 @@
 										</div>
 										<!--//icon-holder-->
 										<div class="content">
-											<h4 class="callout-title">Ayrıca</h4>
+											<h4 class="callout-title">Also</h4>
 											<p>
-												İleride daha da iyi görüleceği üzere <a class="scrollto"
-													href="#parentQuery">parentQuery</a> ve <b>single</b> verinin
-												çıktısını <b>Array</b> ve
-												<b>Object</b> olacak şekilde değiştirmektedir.
+												<a class="scrollto" href="#parentQuery">parentQuery</a> and
+												<b>single</b> have different outputs
+												as <b>Array</b> and <b>Object</b>.
 											</p>
 											<p>
-												Aynı zamanda eğer <b>single</b> değeri <b>true</b> değil ise o zaman
-												yazılan tüm komutlar her bir row için ayrı ayrı geçerli olacaktır.
+												At the same time, unless <b>single</b> is <b>true</b>, commands which is
+												written for <a class="scrollto" href="#parentQuery">parentQuery</a> will
+												be used by each item(Clones) in parent.
 											</p>
 										</div>
 										<!--//content-->
@@ -516,16 +501,10 @@
 									<!--//callout-block-->
 									<h4 id="query">query</h4>
 									<p>
-										<b>query</b> işlem yapılacak ana element'e ait bir bilgidir. Fakat burada önemli
-										olan <b>query</b> değeri <a class="scrollto" href="#parentQuery">parentQuery</a>
-										veya <a class="scrollto" href="#single">single</a> ile doğrudan ilişkilidir.
-										Çünkü eğer <a class="scrollto" href="#single">single</a> değeri <b>true</b> ise
-										tek bir element, <a class="scrollto" href="#parentQuery">parentQuery</a> değeri
-										dolu ise birden fazla elementi
-										temsil etmektedir. Aşağıda her iki örneği de inceleyeceğiz.
+										CSS Selector or HTMLElement.
 									</p>
 									<p>
-										İlk önce <a class="scrollto" href="#single">single</a> örneğine bakalım.
+										Let's see <a class="scrollto" href="#single">single</a> example.
 									</p>
 									<pre class='code-shower'><code class="language-markup">&lt;div id=&quot;app&quot;&gt;
 	&lt;input type=&quot;text&quot;&gt;
@@ -546,7 +525,7 @@
 &lt;/script&gt;</code></pre>
 									<iframe osrc="examples/example-query-01.html" style="height: 110px;"></iframe>
 									<p>
-										Şimdi <a class="scrollto" href="#parentQuery">parentQuery</a> örneğine bakalım.
+										It's turn <a class="scrollto" href="#parentQuery">parentQuery</a> example.
 									</p>
 									<pre class='code-shower'><code class="language-markup">&lt;style&gt;
 	#app input {
@@ -584,16 +563,10 @@
 	});
 &lt;/script&gt;</code></pre>
 									<iframe osrc="examples/example-query-02.html" style="height: 250px;"></iframe>
-									<p>
-										Sanki beğendiğinizi duyuyor gibiyiz. Buradan sonra işler çok daha eğlenceli bir
-										hale gelecek.
-									</p>
 									<h4 id="get">get</h4>
 									<p>
-										<b>get</b> sadece <a href="#single" class="scrollto">single</a> değeri
-										<b>true</b> iken çalışmaktadır. Amaç ise ilgili elementin değerinin alınmasını
-										sağlamakdır. Aşağıdaki tablo üzerinde varsayılan değerler açıklanmıştır. Bu
-										fonksiyonu override işlemine sokarak kendi değerinizi elde edebilirsiniz.
+										<b>get</b> only work if <a href="#single" class="scrollto">single</a> is
+										<b>true</b>. It provides to get a value from element.
 									</p>
 									<div class="table-responsive">
 										<table class="table">
@@ -613,6 +586,10 @@
 													<td>$el.checked</td>
 												</tr>
 												<tr>
+													<td>TEXTAREA</td>
+													<td>$el.value</td>
+												</tr>
+												<tr>
 													<td>INPUT</td>
 													<td>$el.value</td>
 												</tr>
@@ -628,25 +605,14 @@
 										</table>
 									</div>
 									<!--//table-responsive-->
-									<p>
-										<b>ANY</b> denilen kısım bunların dışında manasına gelmektedir. Eğer verinin
-										kaynağı elementin sahip olduğu başka bir veriden gelecek ise override yaparak
-										bunu sağlayabiliriz. Örnek <a class="scrollto" href="#set">set</a> kısmında yer
-										alıyor.
-									</p>
 									<h4 id="set">set</h4>
 									<p>
-										<b>set</b> sadece <a href="#single" class="scrollto">single</a> değeri
-										<b>true</b> iken çalışmaktadır. Amaç ise ilgili elementin değerinin atamasını
-										sağlamakdır. Aşağıdaki tablo üzerinde varsayılan atanan değerler açıklanmıştır.
-										Bu fonksiyonu override işlemine sokarak kendi değerinizin atamasını
-										değiştirebilirsiniz.
+										<b>set</b> only work if <a href="#single" class="scrollto">single</a> is
+										<b>true</b>. It provides to set a value to element.
 									</p>
 									<p>
-										Burada yer alan <b>auto</b> değeri <b>input</b> veya <b>change</b> gibi otomatik
-										yüklenen <b>event</b>'lerden dolayı bir değer ataması yapıldığı takdirde
-										kullanılmalıdır. Bu değişken daha çok <a href="#plugins"
-											class="scrollto">plugins</a> için kullanılmalıdır.
+										<b>auto</b> is true when <b>input</b> or <b>change</b> is triggered. It is
+										mostly used for <a href="#plugins" class="scrollto">plugins</a>.
 									</p>
 									<div class="table-responsive">
 										<table class="table">
@@ -670,6 +636,10 @@
 													<td>$el.value</td>
 												</tr>
 												<tr>
+													<td>TEXTAREA</td>
+													<td>$el.value</td>
+												</tr>
+												<tr>
 													<td>SELECT</td>
 													<td>$el.value</td>
 												</tr>
@@ -681,11 +651,6 @@
 										</table>
 									</div>
 									<!--//table-responsive-->
-									<p>
-										<b>ANY</b> denilen kısım bunların dışında manasına gelmektedir. Eğer verinin
-										atanması sırasında başka bir işlem yapılacak ise override yaparak bunu
-										sağlayabiliriz. Örneğe bakalım.
-									</p>
 									<pre class='code-shower'><code class="language-markup">&lt;div id="app"&gt;
 	&lt;span&gt;
 		SPAN
@@ -733,14 +698,12 @@
 									<p></p>
 									<h4 id="watches">watches</h4>
 									<p>
-										<b>watches</b> ilgili elemente değer atanması sırasında tetiklenen
-										<b>event</b>'tir. Böylece ilişkili verileri kolay bir şekilde yönetebiliriz.
+										<b>watches</b> is used when OCD is set a value. Thus, we can manage relational
+										variables.
 									</p>
 									<p>
-										Burada yer alan <b>auto</b> değeri <b>input</b> veya <b>change</b> gibi otomatik
-										yüklenen <b>event</b>'lerden dolayı bir değer ataması yapıldığı takdirde
-										kullanılmalıdır. Bu değişken daha çok <a href="#plugins"
-											class="scrollto">plugins</a> için kullanılmalıdır.
+										<b>auto</b> is true when <b>input</b> or <b>change</b> is triggered. It is
+										mostly used for <a href="#plugins" class="scrollto">plugins</a>.
 									</p>
 									<pre class='code-shower'><code class="language-markup">&lt;div id="app"&gt;
 	&lt;span&gt;&lt;/span&gt;
@@ -776,8 +739,8 @@
 										<div class="content">
 											<h4 class="callout-title">Ayrıca</h4>
 											<p>
-												<b>watches</b> <b>event</b>'i <a href="#set" class="scrollto">set</a>
-												işleminden sonra tetiklenmektedir.
+												<b>watches</b> is triggered after <a href="#set"
+													class="scrollto">set</a>.
 											</p>
 										</div>
 										<!--//content-->
@@ -785,26 +748,15 @@
 									<!--//callout-block-->
 									<h4 id="data">data</h4>
 									<p>
-										<b>data</b> bir elemente ait birden fazla veri olabilmesini sağlamak amacıyla
-										kullanılmaktadır. Bir metin kutusunun metin değeri dışında yazı rengi, arka plan
-										rengi gibi ekstra özellikleri olmasını istiyorsanız <b>data</b> kullanmanız
-										gerekmektedir.
+										<b>data</b> is used to have multiple values on element.
 									</p>
 									<p>
-										<b>data</b> verisinde <b>default</b> yani varsayılan değer, değerin
-										alınması için <b>get</b> fonksiyonu ve değerin doldurulması durumu için
-										<b>set</b> fonksiyonu gerekmektedir.
+										<b>default</b> is default value, <b>get</b> is to get value and <b>set</b> is to
+										set value.
 									</p>
 									<p>
-										<b>default</b>, <b>get</b> ve <b>set</b> değerlerinin varsayılan değerleri
-										mevcuttur. Fakat hiçbiri olmadığında <b>data</b> sadece
-										element üzerinde veri saklamak için olmuş olacaktır. O zaman veri sadece anlık
-										sayfa için <i>RAM</i> üzerinde saklanacaktır.
-									</p>
-									<p>
-										<b>data</b> arka planda element üzerinde veri saklamaktadır. Fakat bu değerin
-										değişmesi isteniyorsa <b>set</b> fonksiyonu içerisinde <i>return</i> ile değer
-										döndürülmelidir.
+										<b>data</b> is stored on element. If you don't want this, you must have return
+										end the <b>set</b> method.
 									</p>
 									<pre class='code-shower'><code class="language-markup">&lt;div id="app"&gt;
 	&lt;input type="text" value="Muhammet Kandemir"&gt;
@@ -883,12 +835,7 @@
 &lt;/script&gt;</code></pre>
 									<iframe osrc="examples/example-data-01.html" style="height: 160px;"></iframe>
 									<p>
-										<b>get</b> fonksiyonunu yazmamız şu noktada çok önemli; eğer değer element
-										üzerindeki <i>attribute</i> veya <i>html</i> verisinden okunacak ise bunu
-										başlangıçta alabilmenin tek yolu <b>get</b> fonksiyonunu yazmamız. Aksi takdirde
-										element üzerinden okumadan sadece <b>default</b> ile <i>RAM</i> üzerinde
-										çalışmış oluruz. Bunu ileri seviye örneklerde çok daha iyi bir şekilde
-										göreceğiz. Şimdi <b>get</b> olmadan aynı örneği yapalım.
+										Example without <b>get</b>.
 									</p>
 									<pre class='code-shower'><code class="language-markup">&lt;div id="app"&gt;
 	&lt;input type="text" value="Muhammet Kandemir"&gt;
@@ -924,118 +871,10 @@
 		}, ...
 &lt;/script&gt;</code></pre>
 									<iframe osrc="examples/example-data-02.html" style="height: 160px;"></iframe>
-									<p>
-										Bir fark yok değil mi? Peki ya bu değeri element üzerinden okumak isteseydik ne
-										olacak tı?
-									</p>
-									<pre class='code-shower'><code class="language-markup">&lt;div id="app"&gt;
-	&lt;input type="text" style="background-color:blue;color:white;" value="Muhammet Kandemir"&gt;
-	&lt;br&gt;
-	&lt;br&gt;
-	&lt;button class="change-value"&gt;Change Value&lt;/button&gt;
-	&lt;button class="change-data-background-color"&gt;Change Background Color&lt;/button&gt;
-	&lt;button class="change-data-color"&gt;Change Color&lt;/button&gt;
-&lt;/div&gt;
-
-&lt;script src="dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
-&lt;script&gt;
-	var $app = $d.ocd({
-		query: '#app',
-		sub: [{
-			alias: 'input',
-			single: true,
-			query: '&gt;input',
-			data: {
-				backgroundColor: {
-					default: 'green',
-					set: function (value, key) {
-						this.$el.$.css('background-color', value);
-					}
-				},
-				color: {
-					default: 'black',
-					set: function (value, key) {
-						this.$el.$.css('color', value);
-					}
-				}
-			}
-		}, ...
-&lt;/script&gt;</code></pre>
-									<iframe osrc="examples/example-data-03.html" style="height: 160px;"></iframe>
-									<p>
-										Buradaki sorun element üzerinde yazmış olduğumuz değerlerin hiçbir öneminin
-										kalmamış olması. Bu durumu önlemek için <b>get</b> fonksiyonunu kullanalım.
-									</p>
-									<pre class='code-shower'><code class="language-markup">&lt;div id="app"&gt;
-	&lt;input type="text" style="background-color:blue;color:white;" value="Muhammet Kandemir"&gt;
-	&lt;br&gt;
-	&lt;br&gt;
-	&lt;button class="change-value"&gt;Change Value&lt;/button&gt;
-	&lt;button class="change-data-background-color"&gt;Change Background Color&lt;/button&gt;
-	&lt;button class="change-data-color"&gt;Change Color&lt;/button&gt;
-&lt;/div&gt;
-
-&lt;script src="dmuka3.JS.Simple.OCD.min.js"&gt;&lt;/script&gt;
-&lt;script&gt;
-	var $app = $d.ocd({
-		query: '#app',
-		sub: [{
-			alias: 'input',
-			single: true,
-			query: '&gt;input',
-			data: {
-				backgroundColor: {
-					default: 'green',
-					get: function (key, currentValue) {
-						return this.$el.$.css('background-color');
-					},
-					set: function (value, key) {
-						this.$el.$.css('background-color', value);
-					}
-				},
-				color: {
-					default: 'black',
-					get: function (key, currentValue) {
-						return this.$el.$.css('color');
-					},
-					set: function (value, key) {
-						this.$el.$.css('color', value);
-					}
-				}
-			}
-		}, ...
-&lt;/script&gt;</code></pre>
-									<iframe osrc="examples/example-data-04.html" style="height: 160px;"></iframe>
-									<p>
-										Görüldüğü üzere bir başlangıç başlangıç değerlerini bu sefer elementin
-										üzerindeki değerlere göre doldurdu ve ona göre devam etti.
-									</p>
-									<div class="callout-block callout-info">
-										<div class="icon-holder">
-											<i class="fas fa-info"></i>
-										</div>
-										<!--//icon-holder-->
-										<div class="content">
-											<h4 class="callout-title">Ayrıca</h4>
-											<p>
-												<b>default</b> ve <b>get</b> birlikte kullanıldığında ilk önce
-												<b>get</b> çalıştırılır. Sonrasında gelen değer <i>null</i>,
-												<i>undefined</i> veya <i>''</i> ise <b>set</b> fonksiyonuna
-												<b>default</b> değer gönderilir. Değil ise <b>get</b> fonksiyonundan
-												gelen değer <b>set</b> fonksiyonuna gönderilir.
-											</p>
-											<p>
-												Bu durumda şunu anlamamız gerekmektedir; ilk yüklemede <b>set</b>
-												mutlaka, <b>get</b> ve <b>default</b> duruma bağlı çalışmaktadır.
-											</p>
-										</div>
-										<!--//content-->
-									</div>
 									<!--//callout-block-->
 									<h4 id="methods">methods</h4>
 									<p>
-										<b>methods</b> geçerli element üzerinde belli başlı metotları tanımlandığı
-										alandır.
+										<b>methods</b> provides to store methods on OCD.
 									</p>
 									<pre class='code-shower'><code class="language-markup">&lt;div id="app"&gt;
 	&lt;input name="name" type="text" value="Muhammet" placeholder="Name"&gt;
@@ -1089,9 +928,8 @@
 &lt;/script&gt;</code></pre>
 									<iframe osrc="examples/example-methods-01.html" style="height: 270px;"></iframe>
 									<p>
-										Örnekte de görüldüğü üzere <b>methods</b> kullanılabilir. <i>clearForm</i>
-										içerisinde <i>arguments</i> veya <i>return</i> kullanılabilir. Başka bir örnekte
-										bunu inceleyelim.
+										<b>methods</b> can be used like the example. <b>methods</b> can also have
+										parameters and return.
 									</p>
 									<pre class='code-shower'><code class="language-markup">&lt;div id="app"&gt;
 	&lt;input name="number1" type="text" value="20" placeholder="Number 1"&gt;
@@ -1136,23 +974,19 @@
 									<iframe osrc="examples/example-methods-02.html" style="height: 220px;"></iframe>
 									<h4 id="on">on</h4>
 									<p>
-										<b>on</b> element üzerinde çalışan <b>event</b>'leri saklamaktadır. Sadece <a
-											href="javascript:void(0)">dmuka3.JS.Simple.OCD</a> ile gelen 2 tane fazladan
-										<b>event</b> mevcuttur. Birincisi <b>$init</b> diğeri <b>$remove</b> dur.
+										You can add event to element. <a
+											href="javascript:void(0)">dmuka3.JS.Simple.OCD</a> gives you 2 <b>event</b>.
+										First is <b>$init</b> and second is <b>$remove</b>.
 									</p>
 									<p>
-										<b>$init</b> element ilk tanımlandığında çalışır. Yani element için sadece bir
-										kere çalışmaktadır. Sayfa ilk yüklendiği gibi algılamayın, <a
-											href="#parentQuery" class="scrollto">parentQuery</a> kullanılan yerde yeni
-										bir satır eklendiği zaman o eklenen satır içinde çalışacaktır.
+										<b>$init</b> is triggered when element load.
 									</p>
 									<p>
-										<b>$remove</b> <a href="#parentQuery" class="scrollto">parentQuery</a> olan bir
-										yerde element silindiği zaman çalışan <b>event</b>'tir. <a href="#single"
-											class="scrollto">single</a> olan elementler için çalışmayacaktır.
+										<b>$remove</b> is triggered when element is removed. So it means that it just
+										works on clone items.
 									</p>
 									<p>
-										Öncelikle <b>$init</b> örneği ile başlayalım.
+										Let's check <b>$init</b> example.
 									</p>
 									<pre class='code-shower'><code class="language-markup">&lt;style&gt;
 	#app input {
@@ -1194,11 +1028,7 @@
 &lt;/script&gt;</code></pre>
 									<iframe osrc="examples/example-on-01.html" style="height: 270px;"></iframe>
 									<p>
-										Örnekte de görüldüğü üzere <b>$init</b> her element için ayrı ayrı ilk yükleme
-										tamamlandığında bir kere çalışmaktadır.
-									</p>
-									<p>
-										Şimdi de <b>$remove</b> üzerinden bir örnek yapalım.
+										It's turn <b>$remove</b> example.
 									</p>
 									<pre class='code-shower'><code class="language-markup">&lt;style&gt;
 	#app input {
@@ -1254,28 +1084,23 @@
 	});
 &lt;/script&gt;</code></pre>
 									<iframe osrc="examples/example-on-02.html" style="height: 270px;"></iframe>
-									<p>
-										Örnekte satırın silinmesi durumunda <b>$remove</b> <b>event</b>'i
-										tetiklenmiştir.
-									</p>
 									<div class="callout-block callout-warning">
 										<div class="icon-holder">
 											<i class="fas fa-exclamation-triangle"></i>
 										</div>
 										<!--//icon-holder-->
 										<div class="content">
-											<h4 class="callout-title">Önemli Bilgilendirme</h4>
+											<h4 class="callout-title">Important Notice</h4>
 											<p>
-												<b>$remove</b> element silindikten sonra tetiklenmektedir. Fakat ileride
-												görülecek olan <b>$index</b> değeri son bulunduğu index değerini halen
-												döndürmektedir.
+												<b>$remove</b> is triggered after element is removed. But you can still
+												use <b>$index</b>.
 											</p>
 										</div>
 										<!--//content-->
 									</div>
 									<!--//callout-block-->
 									<p>
-										Şimdi ise normal <b>event</b>'ler üzerinden basit bir örnek yapalım.
+										Let's check javascript events.
 									</p>
 									<pre class='code-shower'><code class="language-markup">&lt;div id="app"&gt;
 	&lt;input type="text" placeholder="Please click or presskey"&gt;;
@@ -1317,14 +1142,9 @@
 	});
 &lt;/script&gt;</code></pre>
 									<iframe osrc="examples/example-on-03.html" style="height: 160px;"></iframe>
-									<p>
-										Kütüphanenin büyük bir kısmını öğrendik. Buradan sonraki kısımlar çok daha basit
-										olacak.
-									</p>
 									<h4 id="mixins">mixins</h4>
 									<p>
-										<b>mixins</b> nesne tabanlı programlama olduğu gibi miras bırakma özelliği için
-										kullanılmaktadır.
+										<b>mixins</b> has features to use on OCD.
 									</p>
 									<div class="callout-block callout-info">
 										<div class="icon-holder">
@@ -1332,9 +1152,9 @@
 										</div>
 										<!--//icon-holder-->
 										<div class="content">
-											<h4 class="callout-title">Ayrıca</h4>
+											<h4 class="callout-title">Also</h4>
 											<p>
-												<b>mixins</b> üzerinde kullanabileceğiniz alanlar;
+												<b>mixins</b> properties;
 												<ul>
 													<li>get</li>
 													<li>set</li>
@@ -1345,7 +1165,6 @@
 													<li>on</li>
 													<li>methods</li>
 												</ul>
-												Bunların dışındaki alanlar <b>kullanılamaz!</b>
 											</p>
 										</div>
 										<!--//content-->
@@ -1417,30 +1236,11 @@
 									<p></p>
 									<h3 id="ocd-single-item">OCD Single Item</h3>
 									<p>
-										<b>OCD Single Item</b> <a href="javascript:void(0)">dmuka3.JS.Simple.OCD</a>
-										içerisinde en temel parçaya denilebilir. Burada <b>Single</b> diye
-										adlandırılmasının sebebi <a class="scrollto" href="#code-schema-section">Kod
-											Şeması</a> kısmında
-										da anlatıldığı üzere tekrarlayan elementler için <a class="scrollto"
-											href="#parentQuery">parentQuery</a> kullanmıştık. Bunlara <a
-											class="scrollto" href="#ocd-list">OCD List</a> diyoruz. Bu <b>list</b>
-										içerisindeki her bir
-										elemana <b>OCD Single Item</b> diyoruz.
-									</p>
-									<p>
-										<b>OCD Single Item</b> değeri illa bir <b>list</b> içerisinde olmasına gerek
-										yoktur. <a class="scrollto" href="#single">single</a> <b>true</b> atanmış ise
-										direk listeden
-										bağımsız olarakta saklanabilir.
-									</p>
-									<p>
-										Şimdi sıra sıra <b>OCD Single Item</b> değerinin kullanabildiğimiz özelliklerine
-										gelelim.
+										<b>OCD Single Item</b> is a single item.
 									</p>
 									<h4 id="ocd-single-item-value">value</h4>
 									<p>
-										İlgili <a class="scrollto" href="#ocd-single-item">OCD Single Item</a> değerini
-										döndürür.
+										<a class="scrollto" href="#ocd-single-item">OCD Single Item</a>'s value.
 									</p>
 									<pre class='code-shower'><code class="language-markup">&lt;div id="app"&gt;
 	&lt;input type="text" placeholder="Type span html"&gt;
@@ -1472,9 +1272,7 @@
 									<p></p>
 									<h4 id="ocd-single-item-alias">$alias</h4>
 									<p>
-										İlgili <a class="scrollto" href="#ocd-single-item">OCD Single Item</a>
-										<b>alias</b> değerini
-										döndürür.
+										<a class="scrollto" href="#ocd-single-item">OCD Single Item</a>'s <b>alias</b>.
 									</p>
 									<pre class='code-shower'><code class="language-markup">&lt;div id="app"&gt;
 	&lt;button&gt;Show My Alias&lt;/button&gt;
@@ -1501,7 +1299,8 @@
 									<p></p>
 									<h4 id="ocd-single-item-el">$el</h4>
 									<p>
-										<a class="scrollto" href="#query">query</a> sonucu dönen elementi döndürür.
+										<a class="scrollto" href="#ocd-single-item">OCD Single Item</a>'s
+										<b>element</b>.
 									</p>
 									<pre class='code-shower'><code class="language-markup">&lt;div id="app"&gt;
 	&lt;input type="text" placeholder="Type text"&gt;
@@ -1529,7 +1328,8 @@
 									<p></p>
 									<h4 id="ocd-single-item-parent">$parent</h4>
 									<p>
-										Bir üst <b>OCD Single Item</b> değerini döndürür.
+										<a class="scrollto" href="#ocd-single-item">OCD Single Item</a>'s parent <a
+											class="scrollto" href="#ocd-single-item">OCD Single Item</a>.
 									</p>
 									<pre class='code-shower'><code class="language-markup">&lt;style&gt;
 	div {
@@ -1569,7 +1369,8 @@
 									<p></p>
 									<h4 id="ocd-single-item-list">$list</h4>
 									<p>
-										Bir üst <a class="scrollto" href="#ocd-list">OCD List</a> değerini döndürür.
+										<a class="scrollto" href="#ocd-single-item">OCD Single Item</a>'s parent <a
+											class="scrollto" href="#ocd-list">OCD List</a>.
 									</p>
 									<pre class='code-shower'><code class="language-markup">&lt;div id="app"&gt;
 	&lt;button ocd-clone&gt;&lt;/button&gt;
@@ -1597,8 +1398,7 @@
 									<p></p>
 									<h4 id="ocd-single-item-remove">$remove</h4>
 									<p>
-										Eğer ilgili element bir <b>list</b> içerisindeyse, elementi listeleden silmeyi
-										sağlar.
+										To remove element from <a class="scrollto" href="#ocd-list">OCD List</a>.
 									</p>
 									<pre class='code-shower'><code class="language-markup">&lt;div id="app"&gt;
 	&lt;button ocd-clone&gt;&lt;/button&gt;
@@ -1630,8 +1430,7 @@
 									<p></p>
 									<h4 id="ocd-single-item-index">$index</h4>
 									<p>
-										Eğer ilgili element bir <b>list</b> içerisindeyse, elementin listeledeki
-										<b>index</b> değerini verir.
+										What is index in <a class="scrollto" href="#ocd-list">OCD List</a>.
 									</p>
 									<pre class='code-shower'><code class="language-markup">&lt;div id="app"&gt;
 	&lt;button ocd-clone&gt;&lt;/button&gt;
@@ -1663,7 +1462,7 @@
 									<p></p>
 									<h4 id="ocd-single-item-jobject">jobject():any</h4>
 									<p>
-										Nesneyi <b>JSON</b> değere dönüştürür.
+										To convert <b>JSON</b>.
 									</p>
 									<pre class='code-shower'><code class="language-markup">&lt;style&gt;
 	#app,
@@ -1759,7 +1558,7 @@
 									<p></p>
 									<h4 id="ocd-single-item-root">$root</h4>
 									<p>
-										<b>Root OCD</b> değerini döndürür.
+										<b>Root OCD</b>.
 									</p>
 									<pre class='code-shower'><code class="language-markup">&lt;div id="app"&gt;
 	&lt;span&gt;&lt;/span&gt;
@@ -1799,12 +1598,11 @@
 									<p></p>
 									<h4 id="ocd-single-item-runonce">$runOnce(function fnc):none</h4>
 									<p>
-										Fonksiyonu <b>setTimeout</b> çalışana kadar sadece bir kere tetiklenmesini
-										sağlar.
+										It prevents to execute multiple time till next setTimeout.
 									</p>
 									<h4 id="ocd-single-item-set">$set</h4>
 									<p>
-										Nesneyi <b>JSON</b> değere göre doldurur.
+										Fill the value according to <b>JSON</b> value.
 									</p>
 									<pre class='code-shower'><code class="language-markup">&lt;div id="app"&gt;
 	&lt;input type="text" placeholder="Type text"&gt;
@@ -1840,8 +1638,7 @@
 									<iframe osrc="examples/example-ocd-single-item-set-01.html"
 										style="height: 140px;"></iframe>
 									<p>
-										<b>$set</b> için gönderilen nesne reference olarak bağlanır. Aşağıdaki
-										örnekte ayrıca gösterilmiştir.
+										<b>$set</b> also makes a reference.
 									</p>
 									<pre class='code-shower'><code class="language-markup">&lt;div id="app"&gt;
 	&lt;input type="text" placeholder="Type text"&gt;
@@ -1884,10 +1681,9 @@
 										</div>
 										<!--//icon-holder-->
 										<div class="content">
-											<h4 class="callout-title">Ayrıca</h4>
+											<h4 class="callout-title">Also</h4>
 											<p>
-												<b>$set</b> içerisinde gönderilen değerde tüm alanlar doldurulmak
-												zorunda <b>değildir!</b>
+												<b>$set</b> doesn't have to have all properties.
 											</p>
 										</div>
 										<!--//content-->
@@ -1900,9 +1696,7 @@
 									</p>
 									<h4 id="ocd-list-alias">$alias</h4>
 									<p>
-										İlgili <a class="scrollto" href="#ocd-list">OCD List</a>
-										<b>alias</b> değerini
-										döndürür.
+										<a class="scrollto" href="#ocd-list">OCD List</a>'s value.
 									</p>
 									<pre class='code-shower'><code class="language-markup">&lt;div id="app"&gt;
 	&lt;button ocd-clone&gt;&lt;/button&gt;
@@ -1933,7 +1727,7 @@
 									<p></p>
 									<h4 id="ocd-list-el">$el</h4>
 									<p>
-										<a class="scrollto" href="#query">query</a> sonucu dönen elementi döndürür.
+										<a class="scrollto" href="#ocd-list">OCD List</a>'s <b>element</b>.
 									</p>
 									<pre class='code-shower'><code class="language-markup">&lt;div id="app"&gt;
 	&lt;input ocd-clone type="text" placeholder="Type text"&gt;
@@ -1963,7 +1757,8 @@
 									<p></p>
 									<h4 id="ocd-list-parent">$parent</h4>
 									<p>
-										Bir üst <b>OCD Single Item</b> değerini döndürür.
+										<a class="scrollto" href="#ocd-list">OCD List</a>'s parent <a class="scrollto"
+											href="#ocd-single-item">OCD Single Item</a>.
 									</p>
 									<pre class='code-shower'><code class="language-markup">&lt;style&gt;
 	div {
@@ -1999,7 +1794,7 @@
 									<p></p>
 									<h4 id="ocd-list-add">$add(any value)</h4>
 									<p>
-										Yeni bir satır eklemenizi sağlar.
+										To add a new value.
 									</p>
 									<pre class='code-shower'><code class="language-markup">&lt;div id="app"&gt;
 	&lt;div&gt;
@@ -2034,7 +1829,7 @@
 									<p></p>
 									<h4 id="ocd-list-addrange">$addRange(Array(any value))</h4>
 									<p>
-										Birden çok satır eklemenizi sağlar.
+										To add multiple items.
 									</p>
 									<pre class='code-shower'><code class="language-markup">&lt;div id="app"&gt;
 	&lt;div&gt;
@@ -2073,7 +1868,7 @@
 									<p></p>
 									<h4 id="ocd-list-insert">$insert(Number index, any value)</h4>
 									<p>
-										İlgili <b>index</b>'e yeni bir satır ekler.
+										To add an item by index.
 									</p>
 									<pre class='code-shower'><code class="language-markup">&lt;div id="app"&gt;
 	&lt;div&gt;
@@ -2108,7 +1903,7 @@
 									<p></p>
 									<h4 id="ocd-list-clear">$clear()</h4>
 									<p>
-										Listeyi temizler.
+										To clear the list.
 									</p>
 									<pre class='code-shower'><code class="language-markup">&lt;div id="app"&gt;
 	&lt;div&gt;
@@ -2156,7 +1951,7 @@
 									<p></p>
 									<h4 id="ocd-list-removeat">$removeAt(Number index)</h4>
 									<p>
-										İlgili <b>index</b>'e ait satırı siler.
+										To remove an item by index.
 									</p>
 									<pre class='code-shower'><code class="language-markup">&lt;div id="app"&gt;
 	&lt;div&gt;
@@ -2206,7 +2001,7 @@
 									<p></p>
 									<h4 id="ocd-list-jobject">jobject():any</h4>
 									<p>
-										Nesneyi <b>JSON</b> değere dönüştürür.
+										To convert <b>JSON</b>.
 									</p>
 									<pre class='code-shower'><code class="language-markup">&lt;style&gt;
 	#app,
@@ -2302,7 +2097,7 @@
 									<p></p>
 									<h4 id="ocd-list-root">$root</h4>
 									<p>
-										<b>Root OCD</b> değerini döndürür.
+										<b>Root OCD</b>.
 									</p>
 									<pre class='code-shower'><code class="language-markup">&lt;div id="app"&gt;
 	&lt;span&gt;&lt;/span&gt;
@@ -2342,16 +2137,15 @@
 									<p></p>
 									<h4 id="ocd-list-runonce">$runOnce(function fnc):none</h4>
 									<p>
-										Fonksiyonu <b>setTimeout</b> çalışana kadar sadece bir kere tetiklenmesini
-										sağlar.
+										It prevents to execute multiple time till next setTimeout.
 									</p>
 									<h4 id="ocd-list-length">length</h4>
 									<p>
-										Nesnenin sahip olduğu satır sayısını döndürür.
+										Items length.
 									</p>
 									<h4 id="ocd-list-set">$set</h4>
 									<p>
-										Nesneyi <b>JSON</b> değere göre doldurur.
+										Fill the value according to <b>JSON</b> value.
 									</p>
 									<pre class='code-shower'><code class="language-markup">&lt;div id="app"&gt;
 	&lt;input type="text" placeholder="Type text"&gt;
@@ -2387,8 +2181,7 @@
 									<iframe osrc="examples/example-ocd-list-set-01.html"
 										style="height: 140px;"></iframe>
 									<p>
-										<b>$set</b> için gönderilen nesne reference olarak bağlanır. Aşağıdaki
-										örnekte ayrıca gösterilmiştir.
+										<b>$set</b> also makes a reference.
 									</p>
 									<pre class='code-shower'><code class="language-markup">&lt;div id="app"&gt;
 	&lt;input type="text" placeholder="Type text"&gt;
@@ -2431,10 +2224,9 @@
 										</div>
 										<!--//icon-holder-->
 										<div class="content">
-											<h4 class="callout-title">Ayrıca</h4>
+											<h4 class="callout-title">Also</h4>
 											<p>
-												<b>$set</b> içerisinde gönderilen değerde tüm alanlar doldurulmak
-												zorunda <b>değildir!</b>
+												<b>$set</b> doesn't have to have all properties.
 											</p>
 										</div>
 										<!--//content-->
@@ -2442,12 +2234,11 @@
 									<!--//callout-block-->
 									<h3 id="htmlelement-dollar">HTMLElement.$ / HTMLElement[].$</h3>
 									<p>
-										Bütün <b>HTML Element</b>'lerinin üzerinde belli başlı bazı metotları kolay hale
-										getirmeyi sağlayan kısım.
+										It adds some methods on <b>HTML Element</b>;
 									</p>
 									<h4 id="htmlelement-dollar-el">$el / $arr</h4>
 									<p>
-										Elementi veya elementleri döndürür.
+										To get element/elements.
 									</p>
 									<pre class='code-shower'><code class="language-markup">&lt;button&gt;My Button&lt;/button&gt;
 
@@ -2461,9 +2252,8 @@
 									<p></p>
 									<h4 id="htmlelement-dollar-ocd">$ocd</h4>
 									<p>
-										Elemente ait olan <a class="scrollto" href="#ocd-single-item">OCD Single
-											Item</a> / <a class="scrollto" href="#ocd-list">OCD List</a> değerini
-										döndürür.
+										To get element's <a class="scrollto" href="#ocd-single-item">OCD Single
+											Item</a> / <a class="scrollto" href="#ocd-list">OCD List</a>.
 									</p>
 									<pre class='code-shower'><code class="language-markup">&lt;div id="app"&gt;
 	&lt;button&gt;My Button&lt;/button&gt;
@@ -2487,10 +2277,9 @@
 									<p></p>
 									<h4 id="htmlelement-dollar-parentocd">$parentOcd</h4>
 									<p>
-										Elementin ait olduğu <b>parent</b> / <b>list</b> <a class="scrollto"
+										To get element's <b>parent</b> / <b>list</b> <a class="scrollto"
 											href="#ocd-single-item">OCD Single
-											Item</a> / <a class="scrollto" href="#ocd-list">OCD List</a> değerini
-										döndürür.
+											Item</a> / <a class="scrollto" href="#ocd-list">OCD List</a>.
 									</p>
 									<pre class='code-shower'><code class="language-markup">&lt;div id="app"&gt;
 	&lt;button&gt;My Button&lt;/button&gt;
@@ -2514,8 +2303,7 @@
 									<p></p>
 									<h4 id="htmlelement-dollar-parent">parent</h4>
 									<p>
-										Elementin ait olduğu <b>ParentNode</b> / <b>ParentElement</b> değerini
-										döndürür.
+										To get element's <b>ParentNode</b> / <b>ParentElement</b>.
 									</p>
 									<pre class='code-shower'><code class="language-markup">&lt;button onclick="btnClick()" style="margin: 20px;"&gt;
 	Show My Parent's Tag Name
@@ -2532,7 +2320,7 @@
 									<p></p>
 									<h4 id="htmlelement-dollar-screen">screen</h4>
 									<p>
-										Elementin ekrandaki pozisyonunu ve boyutunu verir.
+										To get element <b>screen</b> position and size.
 									</p>
 									<pre class='code-shower'><code class="language-markup">&lt;button onclick="alert(JSON.stringify(this.$.screen))" style="margin: 20px;"&gt;
 	Click Me to See My Screen Position
@@ -2544,7 +2332,7 @@
 									<p></p>
 									<h4 id="htmlelement-dollar-client">client</h4>
 									<p>
-										Elementin <b>client</b>'e göre pozisyonunu ve boyutunu verir.
+										To get element <b>client</b> position and size.
 									</p>
 									<pre class='code-shower'><code class="language-markup">&lt;button onclick="alert(JSON.stringify(this.$.client))" style="margin: 20px;"&gt;
 	Click Me to See My Client Position
@@ -2556,7 +2344,7 @@
 									<p></p>
 									<h4 id="htmlelement-dollar-addclass">addClass(String className):HTMLElement.$</h4>
 									<p>
-										Elemente sınıf ekler.
+										To add a class to element.
 									</p>
 									<pre class='code-shower'><code class="language-markup">&lt;style&gt;
 	.bg-blue {
@@ -2576,7 +2364,7 @@
 									<h4 id="htmlelement-dollar-removeclass">removeClass(String className):HTMLElement.$
 									</h4>
 									<p>
-										Elementten sınıf siler.
+										To remove a class from element.
 									</p>
 									<pre class='code-shower'><code class="language-markup">&lt;style&gt;
 	.bg-blue {
@@ -2596,7 +2384,7 @@
 									<h4 id="htmlelement-dollar-containsclass">containsClass(String
 										className):HTMLElement.$</h4>
 									<p>
-										Element ilgili sınıfa sahip mi?
+										Does element have the class?
 									</p>
 									<pre class='code-shower'><code class="language-markup">&lt;style&gt;
 	.bg-blue {
@@ -2621,7 +2409,7 @@
 										String
 										value):HTMLElement.$</h4>
 									<p>
-										Elementin attribute değerini alır veya doldurur.
+										To manage element's attributes.
 									</p>
 									<pre class='code-shower'><code class="language-markup">&lt;button onclick="btnClick()" style="margin: 20px;"&gt;
 	Change Style Attribute
@@ -2655,7 +2443,7 @@
 										value):HTMLElement.$ <br>
 										css(Object value):HTMLElement.$</h4>
 									<p>
-										Elementin css değerlerini değiştirir veya döndürür.
+										To manage element's css.
 									</p>
 									<pre class='code-shower'><code class="language-markup">&lt;button onclick="btnClick()" style="margin: 20px;"&gt;
 	Change Style
@@ -2679,7 +2467,7 @@
 									<h4 id="htmlelement-dollar-computedcss">computedCss():Object <br> computedCss(String
 										name):any</h4>
 									<p>
-										Elementin css'ler dahil son style değerini döndürür.
+										To get element's computed css.
 									</p>
 									<pre class='code-shower'><code class="language-markup">&lt;button onclick="btnClick()" style="margin: 20px;"&gt;
 	Show My Computed Style
@@ -2698,7 +2486,7 @@
 									<h4 id="htmlelement-dollar-data">data(String name):any <br> data(String name, any
 										value):HTMLElement.$</h4>
 									<p>
-										Element üzerinde veri saklanmasını sağlar.
+										To store datas on element.
 									</p>
 									<pre class='code-shower'><code class="language-markup">&lt;button onclick="btnClick()" style="margin: 20px;"&gt;
 	Show My Test Data
@@ -2717,7 +2505,7 @@
 									<p></p>
 									<h4 id="htmlelement-dollar-val">val():any <br> val(any value):HTMLElement.$</h4>
 									<p>
-										Elementin değerini döndürür veya doldurur.
+										To get element's value.
 									</p>
 									<pre class='code-shower'><code class="language-markup">&lt;input type="text" placeholder="Please fill here" style="margin: 20px;"&gt;
 &lt;br&gt;
@@ -2738,7 +2526,7 @@
 									<h4 id="htmlelement-dollar-create">create(String tagName):HTMLElement <br>
 										create(String html):HTMLElement <br> create(String html):HTMLElement[]</h4>
 									<p>
-										Yeni bir veya birden fazla elementin oluşturulmasını sağlar.
+										To create a element/elements.
 									</p>
 									<pre class='code-shower'><code class="language-markup">&lt;button onclick="btnClick()" style="margin: 20px;"&gt;
 	Add A Line
@@ -2761,7 +2549,7 @@
 									<h4 id="htmlelement-dollar-html">html():String <br> html(String value):HTMLElement.$
 									</h4>
 									<p>
-										Elementin <b>HTML</b> içeriğini döndürür veya doldurur.
+										To manage element's <b>HTML</b>.
 									</p>
 									<pre class='code-shower'><code class="language-markup">&lt;button onclick="btnClick()" style="margin: 20px;"&gt;
 	Change HTML
@@ -2781,7 +2569,7 @@
 									<h4 id="htmlelement-dollar-text">text():String <br> text(String value):HTMLElement.$
 									</h4>
 									<p>
-										Elementin <b>text</b> içeriğini döndürür veya doldurur.
+										To manage element's <b>text</b>.
 									</p>
 									<pre class='code-shower'><code class="language-markup">&lt;button onclick="btnClick()" style="margin: 20px;"&gt;
 	Change HTML
@@ -2800,7 +2588,7 @@
 									<p></p>
 									<h4 id="htmlelement-dollar-is">is(String query):Boolean</h4>
 									<p>
-										Element belirtilen <b>css</b> özelliğini taşıyor mu?
+										Does element have the css?
 									</p>
 									<pre class='code-shower'><code class="language-markup">&lt;button onclick="btnClick()" style="margin: 20px;"&gt;
 	Check My CSS
@@ -2817,7 +2605,7 @@
 									<p></p>
 									<h4 id="htmlelement-dollar-on">on(String name, Function callback, any options)</h4>
 									<p>
-										Element <b>event</b> eklemeyi sağlar.
+										To add an event to element.
 									</p>
 									<pre class='code-shower'><code class="language-markup">&lt;button style="margin: 20px;"&gt;
 	Click Me
@@ -2836,7 +2624,7 @@
 									<h4 id="htmlelement-dollar-removeevent">removeEvent(String name, Function callback,
 										any options)</h4>
 									<p>
-										Element üzerinden <b>event</b> silmeyi sağlar.
+										To remove an event from element.
 									</p>
 									<pre class='code-shower'><code class="language-markup">&lt;button style="margin: 20px;"&gt;
 	Click Me
@@ -2857,7 +2645,7 @@
 									<p></p>
 									<h4 id="htmlelement-dollar-find">find(String query):HTMLElement[]</h4>
 									<p>
-										Element içerisinde elementler aramayı sağlar.
+										To search elements.
 									</p>
 									<pre class='code-shower'><code class="language-markup">&lt;div&gt;
 	&lt;span&gt;&lt;/span&gt;
@@ -2873,7 +2661,7 @@
 									<p></p>
 									<h4 id="htmlelement-dollar-first">first(String query):HTMLElement</h4>
 									<p>
-										Element içerisinde tek bir element aramayı sağlar.
+										To search an element.
 									</p>
 									<pre class='code-shower'><code class="language-markup">&lt;div&gt;
 	&lt;span&gt;&lt;/span&gt;
@@ -2891,7 +2679,7 @@
 										append(HTMLElement element):HTMLElement.$ <br> append(HTMLElement[]
 										element):HTMLElement.$</h4>
 									<p>
-										Element içerisinde sona bir element eklemeyi sağlar.
+										To add an element/elements at the end.
 									</p>
 									<pre class='code-shower'><code class="language-markup">&lt;div&gt;
 	&lt;hr&gt;
@@ -2910,7 +2698,7 @@
 										prepend(HTMLElement element):HTMLElement.$ <br> prepend(HTMLElement[]
 										element):HTMLElement.$</h4>
 									<p>
-										Element içerisinde başa bir element eklemeyi sağlar.
+										To add an element/elements at the beginning.
 									</p>
 									<pre class='code-shower'><code class="language-markup">&lt;div&gt;
 	&lt;hr&gt;
@@ -2929,7 +2717,7 @@
 										refElement):HTMLElement.$ <br> insertBefore(HTMLElement[]
 										refElement):HTMLElement.$</h4>
 									<p>
-										Elementi başka bir elementin öncesine eklemeyi sağlar.
+										To add an element/elements before reference element's.
 									</p>
 									<pre class='code-shower'><code class="language-markup">&lt;div&gt;
 	&lt;hr&gt;
@@ -2948,7 +2736,7 @@
 										refElement):HTMLElement <br> insertAfter(HTMLElement[] refElement):HTMLElement.$
 									</h4>
 									<p>
-										Elementi başka bir elementin sonrasına eklemeyi sağlar.
+										To add an element/elements after reference element's.
 									</p>
 									<pre class='code-shower'><code class="language-markup">&lt;div&gt;
 	&lt;hr&gt;
@@ -2966,7 +2754,7 @@
 									<h4 id="htmlelement-dollar-has">has(String query):Boolean <br> has(HTMLElement
 										element):Boolean <br> has(HTMLElement[] elements):Boolean</h4>
 									<p>
-										Element ilgili elementi barındırıyor mu?
+										Does element has the element/elements?
 									</p>
 									<pre class='code-shower'><code class="language-markup">&lt;button onclick="btnClick()" style="margin:20px"&gt;Check&lt;/button&gt;
 &lt;div id="div1"&gt;
@@ -2989,7 +2777,7 @@
 									<p></p>
 									<h4 id="htmlelement-dollar-remove">remove():HTMLElement.$</h4>
 									<p>
-										Elementi <b>parentNode</b> üzerinden siler.
+										To remove the element.
 									</p>
 									<pre class='code-shower'><code class="language-markup">&lt;button onclick="btnClick()" style="margin:20px"&gt;Remove&lt;/button&gt;
 &lt;div&gt;
@@ -3011,7 +2799,7 @@
 									<h4 id="htmlelement-dollar-prop">prop(String name):any <br> prop(String name, any
 										value):HTMLElement.$ <br> prop(any obj):HTMLElement.$</h4>
 									<p>
-										Element'in istenilen <b>property</b> değerini döndürür veya doldurur.
+										To get element's property.
 									</p>
 									<pre class='code-shower'><code class="language-markup">&lt;button onclick="btnClick()" style="margin:20px"&gt;Show My Text&lt;/button&gt;
 
@@ -3027,13 +2815,12 @@
 									<p></p>
 									<h3 id="htmldoc-window-dollar">doc.$ / $q</h3>
 									<p>
-										<b>HTMLDocument</b> veya <b>Window</b> üzerinde yapılabilecek işlemlerin yer
-										aldığı kısım.
+										<b>HTMLDocument</b> or <b>Window</b> methods.
 									</p>
 									<h4 id="htmldoc-window-dollar-create">create(String tagName):HTMLElement <br>
 										create(String html):HTMLElement <br> create(String html):HTMLElement[]</h4>
 									<p>
-										Yeni bir veya birden fazla elementin oluşturulmasını sağlar.
+										To create an element/elements.
 									</p>
 									<pre class='code-shower'><code class="language-markup">&lt;button onclick="btnClick()" style="margin: 20px;"&gt;
 	Add A Line
@@ -3056,7 +2843,7 @@
 									<h4 id="htmldoc-window-dollar-on">on(String name, Function callback, any
 										options):doc.$/$q</h4>
 									<p>
-										Yeni bir veya birden fazla elementin oluşturulmasını sağlar.
+										To add an event.
 									</p>
 									<pre class='code-shower'><code class="language-markup">&lt;div style="margin:20px;"&gt;Click Anywhere&lt;/div&gt;
 
@@ -3075,7 +2862,7 @@
 									<h4 id="htmldoc-window-dollar-removeevent">removeEvent(String name, Function
 										callback, any options):doc.$/$q</h4>
 									<p>
-										Yeni bir veya birden fazla elementin oluşturulmasını sağlar.
+										To remove an event.
 									</p>
 									<pre class='code-shower'><code class="language-markup">&lt;div style="margin:20px;"&gt;Click Anywhere&lt;/div&gt;
 
@@ -3102,7 +2889,7 @@
 									<p></p>
 									<h4 id="htmldoc-window-dollar-find">find(String query):HTMLElement[]</h4>
 									<p>
-										Element içerisinde elementler aramayı sağlar.
+										To search elements.
 									</p>
 									<pre class='code-shower'><code class="language-markup">&lt;div&gt;
 	&lt;span&gt;&lt;/span&gt;
@@ -3118,7 +2905,7 @@
 									<p></p>
 									<h4 id="htmldoc-window-dollar-first">first(String query):HTMLElement</h4>
 									<p>
-										Element içerisinde tek bir element aramayı sağlar.
+										To search an element.
 									</p>
 									<pre class='code-shower'><code class="language-markup">&lt;div&gt;
 	&lt;span&gt;&lt;/span&gt;
@@ -3134,7 +2921,7 @@
 									<p></p>
 									<h4 id="htmldoc-window-dollar-seturl">seturl(String pathname):doc.$/$q</h4>
 									<p>
-										Sayfa yenilenmeden <b>URL</b> değiştirilmesini sağlar.
+										To change URL without reload.
 									</p>
 									<pre class='code-shower'><code class="language-markup">&lt;div style="margin:20px;"&gt;Click Anywhere&lt;/div&gt;
 
@@ -3151,7 +2938,7 @@
 									<p></p>
 									<h4 id="htmldoc-window-dollar-ajax">ajax(Object options):ajaxResult</h4>
 									<p>
-										<b>XHR</b> bağlantıları için kullanılmaktadır.
+										<b>XHR</b>.
 									</p>
 									<h5>options</h5>
 									<div class="table-responsive">
@@ -3167,45 +2954,43 @@
 											<tbody>
 												<tr>
 													<td>async</td>
-													<td>İstek asenkron olarak atılsın.</td>
+													<td>Is request async?</td>
 													<td>Boolean</td>
 													<td>true</td>
 												</tr>
 												<tr>
 													<td>url</td>
-													<td>İstek nereye atılacak bilgisi.</td>
+													<td>What is URL?</td>
 													<td>String</td>
 													<td>Must be filled!</td>
 												</tr>
 												<tr>
 													<td>type</td>
-													<td>İstek method'u bilgisi.</td>
+													<td>GET, POST, PUT, DELETE, ...</td>
 													<td>String</td>
 													<td>'GET'</td>
 												</tr>
 												<tr>
 													<td>data</td>
-													<td>İstek sırasında gönderilecek olan bilgi.</td>
+													<td>Request's body.</td>
 													<td>any</td>
 													<td>''</td>
 												</tr>
 												<tr>
 													<td>callback</td>
-													<td>İstek sonucu çalışan fonksiyon.</td>
+													<td>Request result callback.</td>
 													<td>function([this]XHR, any response, Number status)</td>
 													<td>function ( ) { }</td>
 												</tr>
 												<tr>
 													<td>success</td>
-													<td>İstek sonucu <b>HTTP Status Code</b> değeri 200'den büyük eşit
-														ve 300'den küçük ise çalışan fonksiyon.</td>
+													<td>Request result callback if status is success.</td>
 													<td>function([this]XHR, any response, Number status)</td>
 													<td>function ( ) { }</td>
 												</tr>
 												<tr>
 													<td>error</td>
-													<td>İstek sonucu <b>HTTP Status Code</b> değeri 200'den küçük ve
-														300'den büyük eşit ise çalışan fonksiyon.</td>
+													<td>Request result callback if status is fail.</td>
 													<td>function([this]XHR, any response, Number status)</td>
 													<td>function ( ) { }</td>
 												</tr>
@@ -3217,28 +3002,26 @@
 												</tr>
 												<tr>
 													<td>abort</td>
-													<td>XHR.onabort <b>event</b>'i.</td>
+													<td>XHR.onabort</td>
 													<td>function([this]XHR, any event)</td>
 													<td>function ( ) { }</td>
 												</tr>
 												<tr>
 													<td>contentType</td>
-													<td>İstek atılırken <b>headers</b> kısmında gönderilecek olan
-														<b>contentType</b> değeri.</td>
+													<td>Request's content type.</td>
 													<td>String</td>
 													<td>if (data.type === 'Object' || data.type === 'Array') contentType
 														= 'application/json; charset=utf-8'</td>
 												</tr>
 												<tr>
 													<td>headers</td>
-													<td>İstek atılırken <b>headers</b> kısmında gönderilecek olan
-														bilgiler.</td>
+													<td>Request's headers.</td>
 													<td>Object</td>
 													<td>{ }</td>
 												</tr>
 												<tr>
 													<td>responseType</td>
-													<td>İstek sonucu türü.</td>
+													<td>What is response type?</td>
 													<td>String</td>
 													<td>''</td>
 												</tr>
@@ -3276,27 +3059,26 @@
 										name):String <br> cookie(String name, String value, Number? days, String? path,
 										String? domain):doc.$/$q</h4>
 									<p>
-										Çerezleri almayı veya dolduramayı sağlar.
+										To manage cookies.
 									</p>
 									<h4 id="htmldoc-window-dollar-querystring">querystring():Object <br>
 										querystring(String name):String</h4>
 									<p>
-										Url parametrelerini almayı sağlar.
+										To get querystring parameters.
 									</p>
 								</div>
 							</section>
 							<!--//doc-section-->
 							<section id="plugins-section" class="doc-section">
-								<h2 class="section-title">Eklentiler</h2>
+								<h2 class="section-title">Plugins</h2>
 								<div class="section-block">
 									<p>
-										<a href="javascript:void(0)"><b>dmuka3.JS.Simple.OCD</b></a> kullanarak kendi
-										eklentilerinizi yazabilirsiniz. Aynı zamanda varolanları kullanabilirsiniz.
+										You can create a plugin using <a
+											href="javascript:void(0)"><b>dmuka3.JS.Simple.OCD</b></a>.
 									</p>
-									<h3 id="plugin-create">Eklenti Yazmak</h3>
+									<h3 id="plugin-create">How To Make a Plugin</h3>
 									<p>
-										Yazılan eklenti bir <a href="#mixins" class="scrollto">mixins</a> olarak veya
-										direk bir <b>OCD</b> olarak kullanılabilir.
+										Plugin can be a <a href="#mixins" class="scrollto">mixin</a> or <b>OCD</b>.
 									</p>
 									<pre class='code-shower'><code class="language-markup">&lt;div id="app" style="padding: 20px;"&gt;
 	&lt;div&gt;
@@ -3356,10 +3138,10 @@
 									<p></p>
 									<h3 id="plugin-contextmenu">ContextMenu</h3>
 									<p>
-										<b>ContextMenu</b> <b>event</b>'ine yüklenmiş bir <b>mixin</b>'dir.
+										<b>ContextMenu</b> is a <b>mixin</b>.
 									</p>
 									<p>
-										İlk önce parametreleri inceleyelim;
+										Parameters;
 									</p>
 									<div class="table-responsive">
 										<table class="table">
@@ -3374,26 +3156,25 @@
 											<tbody>
 												<tr>
 													<td>contextEl</td>
-													<td>Hangi element menü olarak kullanılacak.</td>
+													<td>Which element will be used as context menu?</td>
 													<td>String | HTMLElement | function([this]$ocd)</td>
 													<td>Must be filled!</td>
 												</tr>
 												<tr>
 													<td>zIndex</td>
-													<td>Elementin z-index değeri.</td>
+													<td>ContextMenu's z-index</td>
 													<td>Number</td>
 													<td>999999</td>
 												</tr>
 												<tr>
 													<td>onShow</td>
-													<td>Menü element üzerinde ilk görüntülendiği zaman çalışan
-														<b>event</b>.</td>
+													<td>When context menu is shown, triggered.</td>
 													<td>function([this]$ocd)</td>
 													<td>function ( ) { }</td>
 												</tr>
 												<tr>
 													<td>onHide</td>
-													<td>Menü gizlendiği zaman çalışan <b>event</b>.</td>
+													<td>When context menu is hidden, triggered.</td>
 													<td>function([this]$ocd)</td>
 													<td>function ( ) { }</td>
 												</tr>
@@ -3402,10 +3183,8 @@
 									</div>
 									<!--//table-responsive-->
 									<p>
-										Aynı zaman <b>contextMenu</b> olarak belirlenen elementin <a
-											href="#htmlelement-dollar-data" class="scrollto">HTMLElement.$.data</a>
-										kısmına eklenen değerler vardır.
-										Bunlar;
+										<a href="#htmlelement-dollar-data" class="scrollto">HTMLElement.$.data</a>
+										properties;
 									</p>
 									<div class="table-responsive">
 										<table class="table">
@@ -3437,9 +3216,7 @@
 									</div>
 									<!--//table-responsive-->
 									<p>
-										Bunların dışında <b>contextMenu</b> kullananılan <b>OCD</b> için eklenen <a
-											href="#methods" class="scrollto">methods</a> değerleri vardır.
-										Bunlar;
+										<a href="#methods" class="scrollto">methods</a>;
 									</p>
 									<div class="table-responsive">
 										<table class="table">
@@ -3540,10 +3317,10 @@
 									<p></p>
 									<h3 id="plugin-datetime">DateTime</h3>
 									<p>
-										<b>DateTime</b> tarih ve saat girilmesi kolaylaştıran bir eklentidir.
+										<b>DateTime</b> is a mixin.
 									</p>
 									<p>
-										İlk önce parametreleri inceleyelim;
+										Parameters;
 									</p>
 									<div class="table-responsive">
 										<table class="table">
@@ -3558,85 +3335,85 @@
 											<tbody>
 												<tr>
 													<td>readonly</td>
-													<td>Sadece okunabilir mi?</td>
+													<td>Is it readonly?</td>
 													<td>Boolean</td>
 													<td>true</td>
 												</tr>
 												<tr>
 													<td>day</td>
-													<td>Gün verisi aktif mi?</td>
+													<td>Is day enable?</td>
 													<td>Boolean</td>
 													<td>true</td>
 												</tr>
 												<tr>
 													<td>month</td>
-													<td>Ay verisi aktif mi?</td>
+													<td>Is month enable?</td>
 													<td>Boolean</td>
 													<td>true</td>
 												</tr>
 												<tr>
 													<td>year</td>
-													<td>Yıl verisi aktif mi?</td>
+													<td>Is year enable?</td>
 													<td>Boolean</td>
 													<td>true</td>
 												</tr>
 												<tr>
 													<td>hour</td>
-													<td>Saat verisi aktif mi?</td>
+													<td>Is hour enable?</td>
 													<td>Boolean</td>
 													<td>false</td>
 												</tr>
 												<tr>
 													<td>minute</td>
-													<td>Dakika verisi aktif mi?</td>
+													<td>Is minute enable?</td>
 													<td>Boolean</td>
 													<td>false</td>
 												</tr>
 												<tr>
 													<td>second</td>
-													<td>Saniye verisi aktif mi?</td>
+													<td>Is second enable?</td>
 													<td>Boolean</td>
 													<td>false</td>
 												</tr>
 												<tr>
 													<td>label.day</td>
-													<td>Gün verisinin metini.</td>
+													<td>Day's text.</td>
 													<td>String</td>
 													<td>'Day : '</td>
 												</tr>
 												<tr>
 													<td>label.month</td>
-													<td>Ay verisinin metini.</td>
+													<td>Month's text.</td>
 													<td>String</td>
 													<td>'Month : '</td>
 												</tr>
 												<tr>
 													<td>label.year</td>
-													<td>Yıl verisinin metini.</td>
+													<td>Year's text.</td>
 													<td>String</td>
 													<td>'Year : '</td>
 												</tr>
 												<tr>
 													<td>label.hour</td>
-													<td>Saat verisinin metini.</td>
+													<td>Hour's tet.</td>
 													<td>String</td>
 													<td>'Hour : 'e</td>
 												</tr>
 												<tr>
 													<td>label.minute</td>
-													<td>Dakika verisinin metini.</td>
+													<td>Minute's text.</td>
 													<td>String</td>
 													<td>'Minute : '</td>
 												</tr>
 												<tr>
 													<td>label.second</td>
-													<td>Saniye verisinin metini.</td>
+													<td>Second's text.</td>
 													<td>String</td>
 													<td>'Second : '</td>
 												</tr>
 												<tr>
 													<td>order</td>
-													<td>Verilerin sırası.</td>
+													<td>Order fields.</td>
 													<td>Array(String)</td>
 													<td>['day', 'month', 'year', 'hour', 'minute', 'second']</td>
 												</tr>
@@ -3645,11 +3422,10 @@
 									</div>
 									<!--//table-responsive-->
 									<p>
-										Aynı zamanda <b>readonly</b> adında bir <a href="#data" class="scrollto">data</a> değeri eklemektedir. Bu değer kullanılarak okunailir olma durumu değiştirilebilir.
+										<a href="#data" class="scrollto">data</a> properties;
 									</p>
 									<p>
-										<b>$d.$global.datetime</b> kullanarak <b>default</b> değerleri
-										değiştirebilirsiniz.
+										You can change default values using <b>$d.$global.datetime</b>.
 									</p>
 									<pre class='code-shower'><code class="language-markup">&lt;div id="app" style="padding-left:10px;"&gt;
 	&lt;br /&gt;
@@ -3746,10 +3522,10 @@
 									<p></p>
 									<h3 id="plugin-draggable">Draggable</h3>
 									<p>
-										<b>Draggable</b> sürükle bırak özelliği sağlayan bir eklentidir.
+										<b>Draggable</b> is a mixin.
 									</p>
 									<p>
-										İlk önce parametreleri inceleyelim;
+										Parameters;
 									</p>
 									<div class="table-responsive">
 										<table class="table">
@@ -3764,72 +3540,67 @@
 											<tbody>
 												<tr>
 													<td>timeout</td>
-													<td>İlk etkileşimden ne kadar süre sonra aktifleşecek?</td>
+													<td>Timout to be active?</td>
 													<td>Number</td>
 													<td>0</td>
 												</tr>
 												<tr>
 													<td>content</td>
-													<td>Sınırlar hangi elemente belirlenecek.</td>
+													<td>What is the content?</td>
 													<td>String | HTMLElement</td>
 													<td>parentElement</td>
 												</tr>
 												<tr>
 													<td>contentX</td>
-													<td>X ekseni için sınır geçerli mi?</td>
+													<td>Is context x axis enable?</td>
 													<td>Boolean</td>
 													<td>false</td>
 												</tr>
 												<tr>
 													<td>contentY</td>
-													<td>Y ekseni için sınır geçerli mi?</td>
+													<td>Is context yapıldığı axis enable?</td>
 													<td>Boolean</td>
 													<td>false</td>
 												</tr>
 												<tr>
 													<td>moveX</td>
-													<td>X ekseni için hareketlilik aktif mi?</td>
+													<td>Can it move on x axis?</td>
 													<td>Boolean</td>
 													<td>true</td>
 												</tr>
 												<tr>
 													<td>moveY</td>
-													<td>Y ekseni için hareketlilik aktif mi?</td>
+													<td>Can it move on y axis?</td>
 													<td>Boolean</td>
 													<td>true</td>
 												</tr>
 												<tr>
 													<td>onDown</td>
-													<td>Mouse Down / Touch Start <b>event</b>'inde tetiklenen
-														<b>event</b>.</td>
+													<td>Mouse Down / Touch Start</td>
 													<td>function([this]$ocd)</td>
 													<td>function ( ) { }</td>
 												</tr>
 												<tr>
 													<td>onUp</td>
-													<td>Mouse Up / Touch End <b>event</b>'inde tetiklenen <b>event</b>.
-													</td>
+													<td>Mouse Up / Touch End</td>
 													<td>function([this]$ocd)</td>
 													<td>function ( ) { }</td>
 												</tr>
 												<tr>
 													<td>onBegin</td>
-													<td>Draggable özelliği aktifleştirildiği zaman tetiklenen
-														<b>event</b>.</td>
+													<td>When stars to drag, triggered.</td>
 													<td>function([this]$ocd)</td>
 													<td>function ( ) { }</td>
 												</tr>
 												<tr>
 													<td>onMove</td>
-													<td>Draggable özelliği sırasında hareket olduğu zaman tetiklenen
-														<b>event</b>.</td>
+													<td>When moves, triggered.</td>
 													<td>function([this]$ocd, pos)</td>
 													<td>function ( ) { }</td>
 												</tr>
 												<tr>
 													<td>onEnd</td>
-													<td>Draggable özelliği sonlandığı zaman tetiklenen <b>event</b>.
-													</td>
+													<td>When stops to drag, triggered</td>
 													<td>function([this]$ocd)</td>
 													<td>function ( ) { }</td>
 												</tr>
@@ -3888,10 +3659,10 @@
 									<p></p>
 									<h3 id="plugin-mask">Mask</h3>
 									<p>
-										<b>Mask</b> maske özelliğini sağlar.
+										<b>Mask</b> is a mixin.
 									</p>
 									<p>
-										İlk önce parametreleri inceleyelim;
+										Parameters;
 									</p>
 									<div class="table-responsive">
 										<table class="table">
@@ -3922,7 +3693,7 @@
 												<tr>
 													<td>fill</td>
 													<td>
-														Tamamiyle doldurulmadığı takdirde boşaltılsın mı?
+														Does it have to be filled completely?
 													</td>
 													<td>Boolean</td>
 													<td>false</td>
@@ -4003,10 +3774,10 @@
 									<p></p>
 									<h3 id="plugin-number">Number</h3>
 									<p>
-										<b>Number</b> sadece sayı girilmesini sağlayan bir eklentidir.
+										<b>Number</b> is a mixin.
 									</p>
 									<p>
-										İlk önce parametreleri inceleyelim;
+										Parameters;
 									</p>
 									<div class="table-responsive">
 										<table class="table">
@@ -4021,20 +3792,19 @@
 											<tbody>
 												<tr>
 													<td>precision</td>
-													<td>Virgülden sonraki hane sayısını belirtir.</td>
+													<td>Precision.</td>
 													<td>Number</td>
 													<td>2</td>
 												</tr>
 												<tr>
 													<td>format</td>
-													<td>Metin şekillendirilsin mi?</td>
+													<td>Text format.</td>
 													<td>Boolean</td>
 													<td>true</td>
 												</tr>
 												<tr>
 													<td>formatChars</td>
-													<td>Virgülden öncesi için binlik hane ayracı ve virgün yerine
-														kullanılacak karakter.</td>
+													<td>Spilter characters.</td>
 													<td>Array(String)</td>
 													<td>[',', '.']</td>
 												</tr>
@@ -4105,10 +3875,10 @@
 									<p></p>
 									<h3 id="plugin-resizable">Resizable</h3>
 									<p>
-										<b>Resizable</b> elementin boyutlandırılmasını sağlayan bir eklentidir.
+										<b>Resizable</b> is a mixin.
 									</p>
 									<p>
-										İlk önce parametreleri inceleyelim;
+										Parameters;
 									</p>
 									<div class="table-responsive">
 										<table class="table">
@@ -4123,43 +3893,43 @@
 											<tbody>
 												<tr>
 													<td>resizeX</td>
-													<td>X ekseninde uzatılabilsin mi?</td>
+													<td>Can it resize on x axis?</td>
 													<td>Boolean</td>
 													<td>true</td>
 												</tr>
 												<tr>
 													<td>resizeY</td>
-													<td>Y ekseninde uzatılabilsin mi?</td>
+													<td>Can it resize on y axis?</td>
 													<td>Boolean</td>
 													<td>true</td>
 												</tr>
 												<tr>
 													<td>resizeBarWidth</td>
-													<td>Geniişlik için olan uzatma bar'ının genişliği.</td>
+													<td>Size of resize bar for width.</td>
 													<td>Number(px)</td>
 													<td>10</td>
 												</tr>
 												<tr>
 													<td>resizeBarHeight</td>
-													<td>Yükseklik için olan uzatma bar'ının yüksekliği.</td>
+													<td>Size of resize bar for height.</td>
 													<td>Number(px)</td>
 													<td>10</td>
 												</tr>
 												<tr>
 													<td>onBegin</td>
-													<td>Boyutlandırma başladığı zaman tetiklenen <b>event</b>.</td>
+													<td>When starts to resize, triggered.</td>
 													<td>function([this]$ocd)</td>
 													<td>function ( ) { }</td>
 												</tr>
 												<tr>
 													<td>onResize</td>
-													<td>Boyutlandırma yapıldığı zaman tetiklenen <b>event</b>.</td>
+													<td>When resizes, triggered.</td>
 													<td>function([this]$ocd, size)</td>
 													<td>function ( ) { }</td>
 												</tr>
 												<tr>
 													<td>onEnd</td>
-													<td>Boyutlandırma bittiği zaman tetiklenen <b>event</b>.</td>
+													<td>When stops to resize, triggered.</td>
 													<td>function([this]$ocd)</td>
 													<td>function ( ) { }</td>
 												</tr>
@@ -4195,11 +3965,10 @@
 									<p></p>
 									<h3 id="plugin-validation">Validation</h3>
 									<p>
-										<b>Validation</b> belli kuralların girilmesinin kontrol edilmesini sağlayan bir
-										eklentidir.
+										<b>Validation</b> is a mixin.
 									</p>
 									<p>
-										İlk önce parametreleri inceleyelim;
+										Parameters;
 									</p>
 									<div class="table-responsive">
 										<table class="table">
@@ -4214,62 +3983,61 @@
 											<tbody>
 												<tr>
 													<td>$callback</td>
-													<td>Tüm değerlerin sonuçlarının döndürüldüğü <b>event</b>.</td>
+													<td>Callback event after check.</td>
 													<td>function([this]$ocd, result)</td>
 													<td>function ( ) { }</td>
 												</tr>
 												<tr>
 													<td>&lt;alias&gt;.maxlen</td>
-													<td>Maksimum karakter uzunluğu.</td>
+													<td>Maximum length.</td>
 													<td>Number</td>
 													<td>null</td>
 												</tr>
 												<tr>
 													<td>&lt;alias&gt;.minlen</td>
-													<td>Minimum karakter uzunluğu.</td>
+													<td>Minimum length.</td>
 													<td>Number</td>
 													<td>null</td>
 												</tr>
 												<tr>
 													<td>&lt;alias&gt;.max</td>
-													<td>Maksimum sayı değeri.</td>
+													<td>Maximum range of number.</td>
 													<td>Number</td>
 													<td>null</td>
 												</tr>
 												<tr>
 													<td>&lt;alias&gt;.min</td>
-													<td>Minimum sayı değeri.</td>
+													<td>Minimum range of number.</td>
 													<td>Number</td>
 													<td>null</td>
 												</tr>
 												<tr>
 													<td>&lt;alias&gt;.regex</td>
-													<td>Regex ile kontrol.</td>
+													<td>Regex.</td>
 													<td>Regex</td>
 													<td>null</td>
 												</tr>
 												<tr>
 													<td>&lt;alias&gt;.email</td>
-													<td>Değerin mail olma zorunluluğu.</td>
+													<td>Does it have to be email?</td>
 													<td>Boolean</td>
 													<td>null</td>
 												</tr>
 												<tr>
 													<td>&lt;alias&gt;.required</td>
-													<td>Değerin dolu olma zorunluluğu.</td>
+													<td>Does it have to be filled?</td>
 													<td>Boolean</td>
 													<td>null</td>
 												</tr>
 												<tr>
 													<td>&lt;alias&gt;.check</td>
-													<td>Manuel olarak kontrol edilmesi için kullanılır.</td>
+													<td>To check manually.</td>
 													<td>function([this]$ocd)</td>
 													<td>null</td>
 												</tr>
 												<tr>
 													<td>&lt;alias&gt;.callback</td>
-													<td>Bir <b>alias</b> için geçerli kontrollerin sonucunu gösteren
-														<b>event</b>.</td>
+													<td>Which ocd will be used?</td>
 													<td>function([this]$ocd, result)</td>
 													<td>null</td>
 												</tr>
@@ -4471,9 +4239,10 @@
 					<div class="doc-sidebar col-md-3 col-12 order-0 d-none d-md-flex">
 						<div id="doc-nav" class="doc-nav">
 							<nav id="doc-menu" class="nav doc-menu flex-column sticky">
-								<a class="nav-link scrollto" href="#what-is-this-section">Nedir?</a>
-								<a class="nav-link scrollto" href="#download-section">İndir</a>
-								<a class="nav-link scrollto" href="#code-schema-section">Kod Şeması</a>
+								<a class="nav-link scrollto" href="#what-is-this-section">What is
+									dmuka3.JS.Simple.OCD?</a>
+								<a class="nav-link scrollto" href="#download-section">Downlad</a>
+								<a class="nav-link scrollto" href="#code-schema-section">Code Schema</a>
 								<nav class="doc-sub-menu nav flex-column">
 									<a class="nav-link scrollto" href="#ocd-schema">OCD Schema</a>
 									<nav class="doc-sub-menu nav flex-column">
@@ -4576,9 +4345,9 @@
 											href="#htmldoc-window-dollar-querystring">queryString</a>
 									</nav>
 								</nav>
-								<a class="nav-link scrollto" href="#plugins-section">Eklentiler</a>
+								<a class="nav-link scrollto" href="#plugins-section">Plugins</a>
 								<nav class="doc-sub-menu nav flex-column">
-									<a class="nav-link scrollto" href="#plugin-create">Eklenti Yazmak</a>
+									<a class="nav-link scrollto" href="#plugin-create">How To Make a Plugin</a>
 									<a class="nav-link scrollto" href="#plugin-contextmenu">ContextMenu</a>
 									<a class="nav-link scrollto" href="#plugin-datetime">DateTime</a>
 									<a class="nav-link scrollto" href="#plugin-draggable">Draggable</a>
@@ -4645,7 +4414,7 @@
 				fallbackCopyTextToClipboard(text);
 				return;
 			}
-			navigator.clipboard.writeText(text).then(function () {}, function (err) {
+			navigator.clipboard.writeText(text).then(function () { }, function (err) {
 				console.error('Async: Could not copy text: ', err);
 			});
 		}
@@ -4701,7 +4470,7 @@
 					node.attr('id', hash);
 				}
 				if ($actives[$actives.length - 1].offsetTop < $('#doc-menu')[0].scrollTop || $actives[$actives
-						.length - 1].offsetTop > $('#doc-menu')[0].scrollTop + window.innerHeight) {
+					.length - 1].offsetTop > $('#doc-menu')[0].scrollTop + window.innerHeight) {
 					if ($actives[$actives.length - 1].offsetTop < $('#doc-menu')[0].scrollTop) {
 						$('#doc-menu')[0].scrollTop = $actives[$actives.length - 1].offsetTop;
 					} else {
