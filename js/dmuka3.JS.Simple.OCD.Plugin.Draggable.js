@@ -87,7 +87,6 @@ $d.ocd.plugins.$add('draggable', function ($options) {
 
 				self.__hide.draggable = {
 					content: self.$el.parentElement,
-					userSelectCss: '',
 					down: false,
 					active: false,
 					coordinate: {
@@ -165,7 +164,10 @@ $d.ocd.plugins.$add('draggable', function ($options) {
 					}
 
 					if (e.target === self.$el || self.$el.$.has(e.target) === true) {
-						self.__hide.draggable.userSelectCss = self.$el.$.css('user-select');
+						try {
+							e.preventDefault();
+						} catch (error) { }
+
 						if (e.type.indexOf('touch') >= 0) {
 							e.pageX = e.touches[0].pageX;
 							e.pageY = e.touches[0].pageY;
@@ -207,12 +209,16 @@ $d.ocd.plugins.$add('draggable', function ($options) {
 					}
 				};
 				$d.q.on('mousedown', downEvent);
-				$d.q.on('touchstart', downEvent);
+				$d.q.on('touchstart', downEvent, { passive: false });
 
 				var moveEvent = function (e) {
 					if (self.__hide.draggable.active === false) {
 						return;
 					}
+
+					try {
+						e.preventDefault();
+					} catch (error) { }
 
 					if (e.type.indexOf('touch') >= 0) {
 						e.pageX = e.touches[0].pageX;
@@ -221,7 +227,7 @@ $d.ocd.plugins.$add('draggable', function ($options) {
 					checkPosition(e.pageX, e.pageY);
 				};
 				$d.q.on('mousemove', moveEvent);
-				$d.q.on('touchmove', moveEvent);
+				$d.q.on('touchmove', moveEvent, { passive: false });
 
 				var upEvent = function (e) {
 					if (self.__hide.draggable.down === false) {
@@ -237,7 +243,6 @@ $d.ocd.plugins.$add('draggable', function ($options) {
 					self.__hide.draggable.active = false;
 					clearTimeout(self.__hide.draggable.timer);
 					self.__hide.draggable.timer = null;
-					self.$el.$.css('user-select', self.__hide.draggable.userSelectCss);
 
 					if (e.type.indexOf('touch') >= 0) {
 						if (active === true) {

@@ -83,6 +83,38 @@ $d.ocd.plugins.$add('contextMenu', function ($options) {
 					throw self.$alias + ' "contextEl"\'s result must not be null!';
 				}
 
+
+				function triggerContextMenu(e) {
+					contextEl.$.data('contextMenuOcd', self);
+					self.__hide.contextMenu.lastOcd = self;
+					self.__hide.contextMenu.show(e.clientX, e.clientY);
+
+					if (self.__isNullOrUndefined($options.onShow) === false) {
+						$options.onShow.call(self);
+					}
+				}
+				self.$el.$.on('contextmenu', function (e) {
+					e.preventDefault();
+					triggerContextMenu(e);
+				});
+				var contextTimer = null;
+				self.$el.$.on('touchstart', function (e) {
+					contextTimer = setTimeout(function () {
+						e.pageX = e.touches[0].pageX;
+						e.pageY = e.touches[0].pageY;
+						e.clientX = e.touches[0].clientX;
+						e.clientY = e.touches[0].clientY;
+						triggerContextMenu(e);
+					}, 1000);
+				});
+				self.$el.$.on('touchend', function (e) {
+					if (contextTimer !== null) {
+						clearTimeout(contextTimer);
+						contextTimer = null;
+						e.stopPropagation();
+					}
+				});
+
 				var firstLoadForContextEl = contextEl.$.data('dmuka3.JS.Simple.OCD.Plugin.ContextMenu-loaded') === true;
 				contextEl.$.data('dmuka3.JS.Simple.OCD.Plugin.ContextMenu-loaded', true);
 
@@ -179,15 +211,14 @@ $d.ocd.plugins.$add('contextMenu', function ($options) {
 				self.__hide.contextMenu = contextEl.__hide.contextMenu;
 				self.__hide.contextMenuOnHide = $options.onHide;
 
-				self.$el.$.on('contextmenu', function (e) {
-					e.preventDefault();
-					contextEl.$.data('contextMenuOcd', self);
-					self.__hide.contextMenu.lastOcd = self;
-					self.__hide.contextMenu.show(e.clientX, e.clientY);
-
-					if (self.__isNullOrUndefined($options.onShow) === false) {
-						$options.onShow.call(self);
-					}
+				self.$el.$.css({
+					'touch-action': 'none',
+					'user-select': 'none',
+					'-webkit-touch-callout': 'none',
+					'-webkit-user-select': 'none',
+					'-khtml-user-select': 'none',
+					'-moz-user-select': 'none',
+					'-ms-user-select': 'none'
 				});
 			}
 		}

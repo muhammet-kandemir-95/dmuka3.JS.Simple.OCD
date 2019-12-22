@@ -199,6 +199,10 @@ $d.ocd.plugins.$add('resizable', function ($options) {
 					self.__hide.resizable.type.h = e.target === self.__hide.resizable.barVertical || e.target === self.__hide.resizable.barBoth;
 
 					if (self.__hide.resizable.type.w === true || self.__hide.resizable.type.h === true || (e.type.indexOf('touch') >= 0 && (e.target === self.$el || self.$el.$.has(e.target) === true))) {
+						try {
+							e.preventDefault();
+						} catch (error) { }
+
 						if (e.type.indexOf('touch') >= 0) {
 							e.clientX = e.touches[0].clientX;
 							e.clientY = e.touches[0].clientY;
@@ -223,7 +227,7 @@ $d.ocd.plugins.$add('resizable', function ($options) {
 					}
 				};
 				$d.q.on('mousedown', downEvent);
-				$d.q.on('touchstart', downEvent);
+				$d.q.on('touchstart', downEvent, { passive: false });
 
 				var moveEvent = function (e) {
 					if (self.__hide.resizable.down === false) {
@@ -233,6 +237,10 @@ $d.ocd.plugins.$add('resizable', function ($options) {
 					if (self.__hide.resizable.doubleTouchActive === true && self.__hide.resizable.doubleTouch === false) {
 						return;
 					}
+
+					try {
+						e.preventDefault();
+					} catch (error) { }
 
 					if (e.type.indexOf('touch') >= 0) {
 						e.clientX = e.touches[0].clientX;
@@ -260,7 +268,7 @@ $d.ocd.plugins.$add('resizable', function ($options) {
 					}
 				};
 				$d.q.on('mousemove', moveEvent);
-				$d.q.on('touchmove', moveEvent);
+				$d.q.on('touchmove', moveEvent, { passive: false });
 
 				var upEvent = function (e) {
 					if (self.__hide.resizable.doubleTouch === true) {

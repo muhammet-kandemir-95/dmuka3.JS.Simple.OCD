@@ -3242,11 +3242,11 @@
 									</div>
 									<!--//table-responsive-->
 									<pre class='code-shower'><code class="language-markup">&lt;div id="app" style="padding: 20px;"&gt;
-	&lt;span id="span1"&gt;Right Click 1&lt;/span&gt;
+	&lt;span style="padding:10px;" id="span1"&gt;Right Click 1&lt;/span&gt;
 	&lt;br&gt;
 	&lt;br&gt;
 	&lt;br&gt;
-	&lt;span id="span2"&gt;Right Click 2&lt;/span&gt;
+	&lt;span style="padding:10px;" id="span2"&gt;Right Click 2&lt;/span&gt;
 	&lt;div id="context-menu-el" style="background-color:#fff;border: 1px solid #000;padding: 10px;"&gt;
 		&lt;div style="cursor:pointer;margin-bottom: 10px;"&gt;Red&lt;/div&gt;
 		&lt;div style="cursor:pointer;margin-bottom: 10px;"&gt;Green&lt;/div&gt;
@@ -4484,13 +4484,22 @@
 			$('.mobil-bar').css('display', 'none');
 			$('.doc-sidebar').addClass('active');
 		});
+		$('.mobil-bar,.doc-sidebar').on('touchend',function (e) {
+			e.stopPropagation();
+		});
 		$('.doc-sidebar').click(function (e) {
 			e.stopPropagation();
 			$('.mobil-bar').css('display', 'none');
 			$('.doc-sidebar').addClass('active');
 		});
 		$(document).click(function (e) {
-			if (window.innerWidth < 768) {
+			if (window.innerWidth <= 768) {
+				$('.mobil-bar').css('display', 'block');
+				$('.doc-sidebar').removeClass('active');
+			}
+		});
+		$(document).on('touchend', function (e) {
+			if (window.innerWidth <= 768) {
 				$('.mobil-bar').css('display', 'block');
 				$('.doc-sidebar').removeClass('active');
 			}
