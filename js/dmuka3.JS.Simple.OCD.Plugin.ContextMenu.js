@@ -161,6 +161,12 @@ $d.ocd.plugins.$add('contextMenu', function ($options) {
 							contextEl.__hide.contextMenu.hide();
 						}
 					});
+
+					$d.q.on('touchend', function (e) {
+						if (contextEl !== e.target && contextEl.$.has(e.target) === false) {
+							contextEl.__hide.contextMenu.hide();
+						}
+					});
 	
 					window.$q.on('scroll', function () {
 						contextEl.__hide.contextMenu.hide();

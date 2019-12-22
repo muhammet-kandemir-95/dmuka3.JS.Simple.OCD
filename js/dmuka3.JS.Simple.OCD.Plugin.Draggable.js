@@ -76,7 +76,13 @@ $d.ocd.plugins.$add('draggable', function ($options) {
 
 				self.$el.$.css({
 					position: 'absolute',
-					'touch-action': 'none'
+					'touch-action': 'none',
+					'user-select': 'none',
+					'-webkit-touch-callout': 'none',
+					'-webkit-user-select': 'none',
+					'-khtml-user-select': 'none',
+					'-moz-user-select': 'none',
+					'-ms-user-select': 'none'
 				});
 
 				self.__hide.draggable = {
@@ -165,10 +171,6 @@ $d.ocd.plugins.$add('draggable', function ($options) {
 							e.pageY = e.touches[0].pageY;
 							e.clientX = e.touches[0].clientX;
 							e.clientY = e.touches[0].clientY;
-
-							self.$el.$.css({
-								'user-select': 'none'
-							});
 						} else {
 							e.preventDefault();
 						}
