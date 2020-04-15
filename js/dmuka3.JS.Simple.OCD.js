@@ -1267,7 +1267,7 @@
 								if (c.indexOf(nameEQ) === 0) return decodeURIComponent(c.substring(nameEQ.length, c.length));
 							}
 							return null;
-						} else if (arguments.length === 2 || arguments.length === 3) {
+						} else if (arguments.length >= 2) {
 							var name = arguments[0];
 							var value = arguments[1];
 							var days = arguments[2];
