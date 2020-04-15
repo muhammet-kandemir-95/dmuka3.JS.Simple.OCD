@@ -1252,7 +1252,7 @@
 
 								var cn = c.substring(0, c.indexOf('='));
 								if (cn !== '') {
-									cookies[cn] = c.substring(cn.length + 1, c.length);
+									cookies[cn] = decodeURIComponent(c.substring(cn.length + 1, c.length));
 								}
 							}
 							return cookies;
@@ -1264,7 +1264,7 @@
 							for (var i = 0; i < ca.length; i++) {
 								var c = ca[i];
 								while (c.charAt(0) === ' ') c = c.substring(1, c.length);
-								if (c.indexOf(nameEQ) === 0) return c.substring(nameEQ.length, c.length);
+								if (c.indexOf(nameEQ) === 0) return decodeURIComponent(c.substring(nameEQ.length, c.length));
 							}
 							return null;
 						} else if (arguments.length === 2 || arguments.length === 3) {
@@ -1294,7 +1294,7 @@
 								var date = new Date();
 								date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
 								expires = "; expires=" + date.toUTCString();
-								document.cookie = name + "=" + (value || "") + expires + ";" + domain + " path=" + path;
+								document.cookie = name + "=" + encodeURIComponent(value || "") + expires + ";" + domain + " path=" + path;
 							}
 
 							return result;
