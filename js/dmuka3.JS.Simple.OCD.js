@@ -16,7 +16,7 @@
 	var $oldBrowser = false;
 
 	var ocdElId = 1;
-	function ocdElIdProcess (el, fnc) {
+	function ocdElIdProcess(el, fnc) {
 		ocdElId++;
 		if (el.parentNode == null) {
 			var elp = document.createElement('div');
@@ -33,7 +33,7 @@
 	 * @param {any} value 
 	 * @param {string} errorVariableName 
 	 */
-	function checkVariableIsBoolean (value, errorVariableName) {
+	function checkVariableIsBoolean(value, errorVariableName) {
 		if (checkVariableIsNullOrUndefined(value) === true) {
 			return false;
 		}
@@ -52,7 +52,7 @@
 	 * @param {any} value 
 	 * @param {string} errorVariableName 
 	 */
-	function checkVariableIsRegex (value, errorVariableName) {
+	function checkVariableIsRegex(value, errorVariableName) {
 		if (checkVariableIsNullOrUndefined(value) === true) {
 			return false;
 		}
@@ -71,7 +71,7 @@
 	 * @param {any} value 
 	 * @param {string} errorVariableName 
 	 */
-	function checkVariableIsObject (value, errorVariableName) {
+	function checkVariableIsObject(value, errorVariableName) {
 		if (checkVariableIsNullOrUndefined(value) === true) {
 			return false;
 		}
@@ -90,7 +90,7 @@
 	 * @param {any} value 
 	 * @param {string} errorVariableName 
 	 */
-	function checkVariableIsFunction (value, errorVariableName) {
+	function checkVariableIsFunction(value, errorVariableName) {
 		if (checkVariableIsNullOrUndefined(value) === true) {
 			return false;
 		}
@@ -109,7 +109,7 @@
 	 * @param {any} value 
 	 * @param {string} errorVariableName 
 	 */
-	function checkVariableIsArray (value, errorVariableName) {
+	function checkVariableIsArray(value, errorVariableName) {
 		if (checkVariableIsNullOrUndefined(value) === true) {
 			return false;
 		}
@@ -128,7 +128,7 @@
 	 * @param {any} value 
 	 * @param {string} errorVariableName 
 	 */
-	function checkVariableIsDate (value, errorVariableName) {
+	function checkVariableIsDate(value, errorVariableName) {
 		if (checkVariableIsNullOrUndefined(value) === true) {
 			return false;
 		}
@@ -147,7 +147,7 @@
 	 * @param {any} value 
 	 * @param {string} errorVariableName 
 	 */
-	function checkVariableIsString (value, errorVariableName) {
+	function checkVariableIsString(value, errorVariableName) {
 		if (checkVariableIsNullOrUndefined(value) === true) {
 			return false;
 		}
@@ -166,7 +166,7 @@
 	 * @param {any} value 
 	 * @param {number} errorVariableName 
 	 */
-	function checkVariableIsNumber (value, errorVariableName) {
+	function checkVariableIsNumber(value, errorVariableName) {
 		if (checkVariableIsNullOrUndefined(value) === true) {
 			return false;
 		}
@@ -185,7 +185,7 @@
 	 * @param {any} value 
 	 * @param {string} errorVariableName 
 	 */
-	function checkVariableIsNullOrUndefined (value, errorVariableName) {
+	function checkVariableIsNullOrUndefined(value, errorVariableName) {
 		if (value === null || value === undefined) {
 			if (errorVariableName !== null && errorVariableName !== undefined) {
 				throw errorVariableName + ' must be filled!';
@@ -200,7 +200,7 @@
 	 * @param {any} value 
 	 * @param {string} errorVariableName 
 	 */
-	function checkVariableIsHTML (value, errorVariableName) {
+	function checkVariableIsHTML(value, errorVariableName) {
 		if (checkVariableIsNullOrUndefined(value) === true) {
 			return false;
 		}
@@ -227,13 +227,13 @@
 
 			var result = null;
 			result = {
-				get $el () {
+				get $el() {
 					return self;
 				},
-				get $ocd () {
+				get $ocd() {
 					return self.$ocd;
 				},
-				get $parentOcd () {
+				get $parentOcd() {
 					if (checkVariableIsNullOrUndefined(self.$ocd) === false) {
 						if (checkVariableIsNullOrUndefined(self.$ocd.$list) === false) {
 							return self.$ocd.$list;
@@ -249,13 +249,13 @@
 						return el.$ocd;
 					}
 				},
-				get parent () {
+				get parent() {
 					return self.parentNode;
 				},
-				get screen () {
+				get screen() {
 					return self.getClientRects()[0];
 				},
-				get client () {
+				get client() {
 					var result = {
 						x: self.clientLeft,
 						y: self.clientTop,
@@ -267,7 +267,7 @@
 
 					return result;
 				},
-				get addClass () {
+				get addClass() {
 					return function (value) {
 						try {
 							self.classList.add(value);
@@ -287,7 +287,7 @@
 						return result;
 					};
 				},
-				get removeClass () {
+				get removeClass() {
 					return function (value) {
 						try {
 							self.classList.remove(value);
@@ -306,7 +306,7 @@
 						return result;
 					};
 				},
-				get containsClass () {
+				get containsClass() {
 					return function (value) {
 						try {
 							return self.classList.contains(value);
@@ -324,7 +324,7 @@
 						}
 					};
 				},
-				get attr () {
+				get attr() {
 					return function () {
 						if (arguments.length === 1) {
 							return self.getAttribute(arguments[0]);
@@ -334,13 +334,13 @@
 						}
 					};
 				},
-				get removeAttr () {
+				get removeAttr() {
 					return function (name) {
 						self.removeAttribute(name);
 						return result;
 					};
 				},
-				get css () {
+				get css() {
 					return function () {
 						if (arguments.length === 1) {
 							if (checkVariableIsString(arguments[0]) === true) {
@@ -364,7 +364,7 @@
 						}
 					};
 				},
-				get computedCss () {
+				get computedCss() {
 					return function () {
 						var computed = window.getComputedStyle(self, null);
 
@@ -375,7 +375,7 @@
 						}
 					}
 				},
-				get data () {
+				get data() {
 					return function () {
 						if (arguments.length === 1) {
 							return self.__ocdElementData[arguments[0]];
@@ -385,7 +385,7 @@
 						}
 					};
 				},
-				get val () {
+				get val() {
 					return function () {
 						if (arguments.length === 0) {
 							switch (self.tagName) {
@@ -430,12 +430,12 @@
 						}
 					};
 				},
-				get create () {
+				get create() {
 					return function (tagNameOrHtml) {
 						return window.$q.create(tagNameOrHtml);
 					};
 				},
-				get html () {
+				get html() {
 					return function () {
 						if (arguments.length === 0) {
 							return self.innerHTML;
@@ -445,7 +445,7 @@
 						}
 					};
 				},
-				get text () {
+				get text() {
 					return function () {
 						if (arguments.length === 0) {
 							return self.innerText;
@@ -455,24 +455,24 @@
 						}
 					};
 				},
-				get is () {
+				get is() {
 					return function (query) {
 						return self.matches(query);
 					};
 				},
-				get on () {
+				get on() {
 					return function (name, fnc, options) {
 						self.addEventListener(name, fnc, options);
 						return result;
 					};
 				},
-				get removeEvent () {
+				get removeEvent() {
 					return function (name, fnc, options) {
 						self.removeEventListener(name, fnc, options);
 						return result;
 					};
 				},
-				get find () {
+				get find() {
 					return function (query) {
 						if ($oldBrowser === false) {
 							return self.querySelectorAll(':scope ' + query);
@@ -489,7 +489,7 @@
 						return self.querySelectorAll(query);
 					};
 				},
-				get first () {
+				get first() {
 					return function (query) {
 						if ($oldBrowser === false) {
 							return self.querySelector(':scope ' + query);
@@ -506,7 +506,7 @@
 						return self.querySelector(query);
 					};
 				},
-				get append () {
+				get append() {
 					return function (el) {
 						if (checkVariableIsArray(el) === true) {
 							for (var i = 0; i < el.length; i++) {
@@ -527,7 +527,7 @@
 						return result;
 					};
 				},
-				get prepend () {
+				get prepend() {
 					return function (el) {
 						if (checkVariableIsArray(el) === true) {
 							for (var i = 0; i < el.length; i++) {
@@ -548,7 +548,7 @@
 						return result;
 					};
 				},
-				get insertBefore () {
+				get insertBefore() {
 					return function (el) {
 						if (checkVariableIsArray(el) === true) {
 							for (var i = 0; i < el.length; i++) {
@@ -564,7 +564,7 @@
 						return result;
 					};
 				},
-				get insertAfter () {
+				get insertAfter() {
 					return function (el) {
 						if (checkVariableIsArray(el) === true) {
 							for (var i = 0; i < el.length; i++) {
@@ -580,7 +580,7 @@
 						return result;
 					};
 				},
-				get has () {
+				get has() {
 					return function (el) {
 						if (checkVariableIsArray(el) === true) {
 							var hasResultAll = false;
@@ -622,13 +622,13 @@
 						return hasResult;
 					}
 				},
-				get remove () {
+				get remove() {
 					return function () {
 						self.remove();
 						return result;
 					}
 				},
-				get prop () {
+				get prop() {
 					return function () {
 						if (arguments.length === 1) {
 							if (checkVariableIsString(arguments[0]) === true) {
@@ -657,10 +657,10 @@
 
 			var result = null;
 			result = {
-				get $arr () {
+				get $arr() {
 					return self;
 				},
-				get $ocd () {
+				get $ocd() {
 					var str = [];
 					for (var i = 0; i < self.length; i++) {
 						var element = self[i];
@@ -670,7 +670,7 @@
 
 					return str;
 				},
-				get $parentOcd () {
+				get $parentOcd() {
 					var str = [];
 					for (var i = 0; i < self.length; i++) {
 						var element = self[i];
@@ -680,7 +680,7 @@
 
 					return str;
 				},
-				get parent () {
+				get parent() {
 					var str = [];
 					for (var i = 0; i < self.length; i++) {
 						var element = self[i];
@@ -690,7 +690,7 @@
 
 					return str;
 				},
-				get screen () {
+				get screen() {
 					var str = [];
 					for (var i = 0; i < self.length; i++) {
 						var element = self[i];
@@ -700,7 +700,7 @@
 
 					return str;
 				},
-				get client () {
+				get client() {
 					var str = [];
 					for (var i = 0; i < self.length; i++) {
 						var element = self[i];
@@ -710,7 +710,7 @@
 
 					return str;
 				},
-				get addClass () {
+				get addClass() {
 					return function (value) {
 						for (var i = 0; i < self.length; i++) {
 							var element = self[i];
@@ -721,7 +721,7 @@
 						return result;
 					};
 				},
-				get removeClass () {
+				get removeClass() {
 					return function (value) {
 						for (var i = 0; i < self.length; i++) {
 							var element = self[i];
@@ -732,7 +732,7 @@
 						return result;
 					};
 				},
-				get containsClass () {
+				get containsClass() {
 					return function (value) {
 						var containsClassResult = false;
 
@@ -750,7 +750,7 @@
 						return containsClassResult;
 					};
 				},
-				get attr () {
+				get attr() {
 					return function () {
 						if (arguments.length === 1) {
 							var str = [];
@@ -772,7 +772,7 @@
 						}
 					};
 				},
-				get removeAttr () {
+				get removeAttr() {
 					return function (name) {
 						for (var i = 0; i < self.length; i++) {
 							var element = self[i];
@@ -783,7 +783,7 @@
 						return result;
 					};
 				},
-				get css () {
+				get css() {
 					return function () {
 						if (arguments.length === 1) {
 							if (checkVariableIsString(arguments[0]) === true) {
@@ -813,7 +813,7 @@
 						}
 					};
 				},
-				get computedCss () {
+				get computedCss() {
 					return function () {
 						if (arguments.length === 1) {
 							var str = [];
@@ -836,7 +836,7 @@
 						}
 					}
 				},
-				get data () {
+				get data() {
 					return function () {
 						if (arguments.length === 1) {
 							var str = [];
@@ -858,7 +858,7 @@
 						}
 					};
 				},
-				get val () {
+				get val() {
 					return function () {
 						if (arguments.length === 0) {
 							var str = [];
@@ -880,12 +880,12 @@
 						}
 					};
 				},
-				get create () {
+				get create() {
 					return function (tagNameOrHtml) {
 						return window.$q.create(tagNameOrHtml);
 					};
 				},
-				get html () {
+				get html() {
 					return function () {
 						if (arguments.length === 0) {
 							var str = [];
@@ -907,7 +907,7 @@
 						}
 					};
 				},
-				get text () {
+				get text() {
 					return function () {
 						if (arguments.length === 0) {
 							var str = [];
@@ -929,7 +929,7 @@
 						}
 					};
 				},
-				get is () {
+				get is() {
 					return function (query) {
 						var isResult = false;
 
@@ -947,7 +947,7 @@
 						return isResult;
 					};
 				},
-				get on () {
+				get on() {
 					return function (name, fnc, options) {
 						for (var i = 0; i < self.length; i++) {
 							var element = self[i];
@@ -958,7 +958,7 @@
 						return result;
 					};
 				},
-				get removeEvent () {
+				get removeEvent() {
 					return function (name, fnc, options) {
 						for (var i = 0; i < self.length; i++) {
 							var element = self[i];
@@ -969,7 +969,7 @@
 						return result;
 					};
 				},
-				get find () {
+				get find() {
 					return function (query) {
 						var resultElAll = [];
 						for (var i = 0; i < self.length; i++) {
@@ -985,7 +985,7 @@
 						return null;
 					};
 				},
-				get first () {
+				get first() {
 					return function (query) {
 						for (var i = 0; i < self.length; i++) {
 							var element = self[i];
@@ -999,7 +999,7 @@
 						return null;
 					};
 				},
-				get append () {
+				get append() {
 					return function (el) {
 						for (var i = 0; i < self.length; i++) {
 							var element = self[i];
@@ -1010,7 +1010,7 @@
 						return result;
 					};
 				},
-				get prepend () {
+				get prepend() {
 					return function (el) {
 						for (var i = 0; i < self.length; i++) {
 							var element = self[i];
@@ -1021,7 +1021,7 @@
 						return result;
 					};
 				},
-				get insertBefore () {
+				get insertBefore() {
 					return function (el) {
 						for (var i = 0; i < self.length; i++) {
 							var element = self[i];
@@ -1033,7 +1033,7 @@
 						return result;
 					};
 				},
-				get insertAfter () {
+				get insertAfter() {
 					return function (el) {
 						for (var i = 0; i < self.length; i++) {
 							var element = self[i];
@@ -1045,7 +1045,7 @@
 						return result;
 					};
 				},
-				get has () {
+				get has() {
 					return function (el) {
 						var hasResult = false;
 
@@ -1061,7 +1061,7 @@
 						return hasResult;
 					}
 				},
-				get remove () {
+				get remove() {
 					return function () {
 						for (var i = 0; i < self.length; i++) {
 							var element = self[i];
@@ -1072,7 +1072,7 @@
 						return result;
 					}
 				},
-				get prop () {
+				get prop() {
 					return function () {
 						if (arguments.length === 1) {
 							if (checkVariableIsString(arguments[0]) === false) {
@@ -1117,7 +1117,7 @@
 
 			var result = null;
 			result = {
-				get create () {
+				get create() {
 					return function (tagNameOrHtml) {
 						if (tagNameOrHtml.indexOf('<') >= 0 || tagNameOrHtml.indexOf(' ') >= 0) {
 							var elp = $q.create('div');
@@ -1135,29 +1135,29 @@
 						return document.createElement(tagNameOrHtml);
 					};
 				},
-				get on () {
+				get on() {
 					return function (name, fnc, options) {
 						self.addEventListener(name, fnc, options);
 						return result;
 					};
 				},
-				get removeEvent () {
+				get removeEvent() {
 					return function (name, fnc, options) {
 						self.removeEventListener(name, fnc, options);
 						return result;
 					};
 				},
-				get find () {
+				get find() {
 					return function (query) {
 						return document.querySelectorAll(query);
 					};
 				},
-				get first () {
+				get first() {
 					return function (query) {
 						return document.querySelector(query);
 					};
 				},
-				get seturl () {
+				get seturl() {
 					return function (url) {
 						if (checkVariableIsNullOrUndefined(history.replaceState) === false) {
 							history.replaceState(null, null, url);
@@ -1167,7 +1167,7 @@
 						return result;
 					};
 				},
-				get ajax () {
+				get ajax() {
 					return function (options) {
 						var async = checkVariableIsNullOrUndefined(options.async) === false ? options.async : true;
 						var url = options.url;
@@ -1191,6 +1191,7 @@
 
 						var xhr = new XMLHttpRequest();
 						xhr.open(type, url, async);
+						xhr.withCredentials = true;
 
 						if (responseType !== null && responseType !== undefined) {
 							xhr.responseType = responseType;
@@ -1226,10 +1227,10 @@
 						xhr.send(data);
 
 						var result = {
-							get xhr () {
+							get xhr() {
 								return xhr;
 							},
-							get abort () {
+							get abort() {
 								return function () {
 									xhr.abort();
 								}
@@ -1239,7 +1240,7 @@
 						return result;
 					};
 				},
-				get cookie () {
+				get cookie() {
 					return function () {
 						if (arguments.length === 0) {
 							// GET
@@ -1264,7 +1265,7 @@
 							for (var i = 0; i < ca.length; i++) {
 								var c = ca[i];
 								while (c.charAt(0) === ' ') c = c.substring(1, c.length);
-								if (c.indexOf(nameEQ) === 0) return decodeURIComponent(c.substring(nameEQ.length, c.length));
+								if (c.indexOf(nameEQ) === 0 && c.substring(nameEQ.length, c.length) !== '') return decodeURIComponent(c.substring(nameEQ.length, c.length));
 							}
 							return null;
 						} else if (arguments.length >= 2) {
@@ -1301,7 +1302,7 @@
 						}
 					};
 				},
-				get queryString () {
+				get queryString() {
 					return function () {
 						if (arguments.length === 0) {
 							// GET all
@@ -1383,7 +1384,7 @@
 	};
 
 	if (!String.prototype.padStart) {
-		String.prototype.padStart = function padStart (targetLength, padString) {
+		String.prototype.padStart = function padStart(targetLength, padString) {
 			targetLength = targetLength >> 0; //truncate if number, or convert non-number to 0;
 			padString = String(typeof padString !== 'undefined' ? padString : ' ');
 			if (this.length >= targetLength) {
@@ -1399,7 +1400,7 @@
 	}
 
 	if (!String.prototype.padEnd) {
-		String.prototype.padEnd = function padEnd (targetLength, padString) {
+		String.prototype.padEnd = function padEnd(targetLength, padString) {
 			targetLength = targetLength >> 0; //floor if number or convert non-number to 0;
 			padString = String((typeof padString !== 'undefined' ? padString : ' '));
 			if (this.length > targetLength) {
@@ -1439,7 +1440,7 @@
 	 * Get property list of obj.
 	 * @param {*} obj 
 	 */
-	function getPropAsObject (obj) {
+	function getPropAsObject(obj) {
 		if (checkVariableIsNullOrUndefined(obj) === true) {
 			return {};
 		}
@@ -1481,7 +1482,7 @@
 	 * Object/Array to Json Object.
 	 * @param {any} v 
 	 */
-	function toJObject (v) {
+	function toJObject(v) {
 		if (checkVariableIsNullOrUndefined(v) === true) {
 			return v;
 		} else if (v.__jobject === false) {
@@ -1537,7 +1538,7 @@
 	 * Clear all methods of array which is not used by OCD.
 	 * @param {*} arr 
 	 */
-	function clearArrayMethods (arr) {
+	function clearArrayMethods(arr) {
 		arr.concat = undefined;
 		arr.copyWithin = undefined;
 		arr.entries = undefined;
@@ -1575,7 +1576,7 @@
 	 * @param {any} v 
 	 * @param {any} ocdP 
 	 */
-	function recursiveFill (v, ocdP) {
+	function recursiveFill(v, ocdP) {
 		if (checkVariableIsNullOrUndefined(v) === false && v.__isOcdValueItem === true) {
 			v = v.value;
 		}
@@ -1645,7 +1646,7 @@
 	 * @param {any} on 
 	 * @param {any} methods 
 	 */
-	function createOcdItem (params) {
+	function createOcdItem(params) {
 		//#region Params
 		var ocdEl = params.ocdEl;
 		var sub = params.sub;
@@ -1962,10 +1963,10 @@
 			ocdItem = {
 				__ocd: jobject !== false,
 				__isOcdValueItem: true,
-				get value () {
+				get value() {
 					return ocdGet.call(ocdItem);
 				},
-				set value (value) {
+				set value(value) {
 					ocdSet.call(ocdItem, value);
 
 					for (var i = 0; i < watches.length; i++) {
@@ -2059,7 +2060,7 @@
 	 * Added some methods to item.
 	 * @param {*} item 
 	 */
-	function createEasyMethods (item) {
+	function createEasyMethods(item) {
 		var hide = {};
 		item.__hide = hide;
 
@@ -2085,7 +2086,7 @@
 	 * @param {Array} queues 
 	 * @param {any} rootOcd 
 	 */
-	function createOcdBySchema (params) {
+	function createOcdBySchema(params) {
 		//#region Params
 		var parentEl = params.parentEl;
 		var schema = params.schema;
@@ -2241,10 +2242,10 @@
 			if ($oldBrowser === false) {
 				var cloneEl = queryParentEl.querySelector(':scope>*[ocd-clone]');
 				if (checkVariableIsNullOrUndefined(cloneEl) === true) {
-					if((function () {
+					if ((function () {
 						window['console']['error']('Clone element("' + query + '") was not found in "' + parentQuery + '"', queryParentEl);
 						return true;
-					})() === true){
+					})() === true) {
 						throw 'Clone element("' + query + '") was not found in "' + parentQuery + '"';
 					}
 				}
@@ -2556,7 +2557,7 @@
 	 * Consume queues from array.
 	 * @param {*} queues 
 	 */
-	function consumeQueues (queues, fnc) {
+	function consumeQueues(queues, fnc) {
 		var queuesClone = cloneObject(queues);
 		queues.length = 0;
 		for (var i = 0; i < queuesClone.length; i++) {
@@ -2583,7 +2584,7 @@
 	 * @param {boolean} sub 
 	 * @param {boolean} mixin 
 	 */
-	function checkSchema (schema, alias, sub, mixin, root) {
+	function checkSchema(schema, alias, sub, mixin, root) {
 		/*
 		{
 			query: <string|array|HTMLElement>,
@@ -2960,7 +2961,7 @@
 	 * Create a clone object from source without references.
 	 * @param {any} source 
 	 */
-	function cloneObject (source) {
+	function cloneObject(source) {
 		var destination = source;
 		if (checkVariableIsNullOrUndefined(source) === true) {
 			return destination;
